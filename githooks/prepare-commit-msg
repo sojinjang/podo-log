@@ -1,0 +1,29 @@
+COMMIT_MSG_FILE=$1
+COMMIT_SOURCE=$2
+SHA1=$3
+
+/usr/bin/perl -i.bak -ne 'print unless(m/^. Please enter the commit message/..m/^#$/)' "$COMMIT_MSG_FILE"
+
+case "$COMMIT_SOURCE,$SHA1" in
+ ,|template,)
+   /usr/bin/perl -i.bak -pe '
+      print "\n" . `git diff --cached --name-status -r`
+         if /^#/ && $first++ == 0' "$COMMIT_MSG_FILE" ;;
+ *) ;;
+esac
+
+# .git/hooks/prepare-commit-msg
+
+COMMIT_EDITMSG=$1
+
+addIssuehNumber() {
+  NAME=$(git branch | grep '*' | sed 's/* //' | sed 's/^.*\///')
+  ISSUE_NUMBER=`echo $NAME | cut -d '-' -f1`
+  echo "[$ISSUE_NUMBER] $(cat $COMMIT_EDITMSG)" > $COMMIT_EDITMSG
+}
+
+MERGE=$(cat $COMMIT_EDITMSG|grep -i 'merge'|wc -l)
+
+if [ $MERGE -eq 0 ] ; then
+  addIssuehNumber
+fi
