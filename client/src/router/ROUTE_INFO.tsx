@@ -17,7 +17,7 @@ const PUBLIC_ROUTE = {
 
 const PRIVATE_ROUTE = {
   diaryList: {
-    path: "/profile",
+    path: "/diary-list",
     element: DiaryList,
   },
 };
