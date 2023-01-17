@@ -20,7 +20,7 @@ COMMIT_EDITMSG=$1
 
 addIssuehNumber() {
   NAME=$(git branch | grep '*' | sed 's/* //' | sed 's/^.*\///')
-  if [ $NAME == 'master' ] ; then
+  if [ $NAME == 'main' ] ; then
     exit 0
   fi
   if [ $NAME == 'dev' ] ; then
