@@ -1,5 +1,7 @@
 import express, { Express, NextFunction, Request, Response } from "express";
-console.log(express);
-const app: Express = express();
 
+const app: Express = express();
+app.get("/welcome", (req: Request, res: Response, next: NextFunction) => {
+  res.send("welcome!");
+});
 export { app };
