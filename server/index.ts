@@ -1,6 +1,6 @@
 import http from "http";
 import dotenv from "dotenv";
-import { app } from "./src/app";
+import app from "./src/app";
 import { logger } from "./src/utils";
 const PORT = process.env.PORT || 5000;
 dotenv.config();
