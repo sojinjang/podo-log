@@ -1,6 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&display=swap");
+
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+* {
+  font-family: "Do Hyeon", sans-serif, "Jua", sans-serif;
+}
 
 body {
   margin: 0;
