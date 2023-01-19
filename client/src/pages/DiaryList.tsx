@@ -1,10 +1,7 @@
 import React from "react";
 import tw from "tailwind-styled-components";
 import { PinkPurpleBackground } from "src/components/common/Backgrounds";
-
-const Guidance = tw.p`
-  font-[jua] text-purple-1000 font-normal text-center text-3xl mt-[60px]
-`;
+import { Guidance } from "src/components/diary-list/Guidance";
 
 const DiaryList = () => {
   return (
