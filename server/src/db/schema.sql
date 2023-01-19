@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS podolog;
 USE podolog;
 
 CREATE TABLE IF NOT EXISTS `user` (
-	`userId`	int	NOT NULL,
+	`userId`	int	NOT NULL auto_increment,
 	`email`	varchar(30)	UNIQUE NOT NULL,
 	`password`	varchar(60)	NULL,
 	`nickname`	varchar(40)	NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 );
 
 CREATE TABLE IF NOT EXISTS `grainId` (
-	`grainId`	int	NOT NULL,
+	`grainId`	int	NOT NULL auto_increment,
     `userId`	int	NOT NULL,
 	`grain`	int	NOT NULL DEFAULT 0,
     PRIMARY KEY (`grainId`, `userId`),
@@ -24,13 +24,13 @@ CREATE TABLE IF NOT EXISTS `grainId` (
 );
 
 CREATE TABLE IF NOT EXISTS `package` (
-	`packageId`	int	NOT NULL,
+	`packageId`	int	NOT NULL auto_increment,
 	`packageName`	varchar(40)	NOT NULL,
      PRIMARY KEY (`packageId`)
 );
 
 CREATE TABLE IF NOT EXISTS `user_package` (
-	`userPackageId`	int	NOT NULL,
+	`userPackageId`	int	NOT NULL auto_increment,
 	`userId`	int	NOT NULL,
 	`packageId`	int	NOT NULL,
     `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, 
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `user_package` (
 );
 
 CREATE TABLE IF NOT EXISTS `sticker` (
-	`stickerId`	int	NOT NULL,
+	`stickerId`	int	NOT NULL auto_increment,
 	`packageId`	int	NOT NULL,
 	`stickerName`	varchar(40)	NULL,
 	`stickerImg`	varchar(110) NULL,
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `sticker` (
 );
 
 CREATE TABLE IF NOT EXISTS `book` (
-	`bookId`	int	NOT NULL,
+	`bookId`	int	NOT NULL auto_increment,
 	`bookName`	varchar(50)	NULL,
 	`color`	varchar(10)	NULL,
     `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, 
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `book` (
 );
 
 CREATE TABLE IF NOT EXISTS `user_book` (
-	`userBookId`	int	NOT NULL,
+	`userBookId`	int	NOT NULL auto_increment,
 	`bookId`	int	NOT NULL,
 	`userId`	int	NOT NULL,
     PRIMARY KEY (`userBookId`,`bookId`,`userId`),
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `user_book` (
 );
 
 CREATE TABLE IF NOT EXISTS `diary` (
-	`diaryId`	int	NOT NULL,
+	`diaryId`	int	NOT NULL auto_increment,
 	`bookId`	int	NOT NULL,
 	`userId`	int	NOT NULL,
 	`picture`	varchar(110) NULL,
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `diary` (
 );
 
 CREATE TABLE IF NOT EXISTS `comment` (
-	`commentId`	int	NOT NULL,
+	`commentId`	int	NOT NULL auto_increment,
 	`userId`	int	NOT NULL,
 	`diaryId`	int	NOT NULL,
 	`parentCommentId`	int	NOT NULL DEFAULT 0,
@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
 );
 
 CREATE TABLE IF NOT EXISTS `sticked_sticker` (
-	`stickedStickerId`	int	NOT NULL,
+	`stickedStickerId`	int	NOT NULL auto_increment,
 	`stickerId`	int	NOT NULL,
 	`diaryId`	int	NOT NULL,
 	`userId`	int	NOT NULL,
