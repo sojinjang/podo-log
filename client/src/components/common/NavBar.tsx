@@ -13,7 +13,20 @@ import GrayDiaryImg from "../../assets/icons/gray_note.png";
 import GrayGrapeImg from "../../assets/icons/gray_grape.png";
 import GrayMyPageImg from "../../assets/icons/gray_mypage.png";
 
-const ICON_DESC_PAIR_OBJ = {
+interface PairObj {
+  readonly [key: string]: IconDescPair;
+}
+
+interface IconDescPair {
+  readonly icon: [string, string];
+  readonly description: string;
+}
+
+interface Menu {
+  readonly menu: string;
+}
+
+const ICON_DESC_PAIR_OBJ: PairObj = {
   diary: {
     icon: [ColoredDiaryImg, GrayDiaryImg],
     description: "공유일기",
@@ -40,11 +53,7 @@ const Description = tw.div`
   font-[jua] text-sm
 `;
 
-type ButtonProps = {
-  menu: string;
-};
-
-const ButtonContainer = ({ menu }: ButtonProps): JSX.Element => {
+const ButtonContainer = ({ menu }: Menu): JSX.Element => {
   const activeMenu = useRecoilValue(activeMenuAtom);
   const isActive = menu === activeMenu;
   const menuInfoObj = ICON_DESC_PAIR_OBJ[menu];
