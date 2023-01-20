@@ -1,7 +1,9 @@
 import React from "react";
-import tw from "tailwind-styled-components";
+
 import { PinkPurpleBackground } from "src/components/common/Backgrounds";
 import { Guidance } from "src/components/diary-list/Guidance";
+import { PointingFinger } from "src/components/diary-list/PointingFinger";
+import { HeartDiary } from "src/components/diary-list/HeartDiary";
 
 const DiaryList = () => {
   return (
@@ -13,6 +15,8 @@ const DiaryList = () => {
         <br />
         일기를 공유해보세요
       </Guidance>
+      <PointingFinger />
+      <HeartDiary />
     </PinkPurpleBackground>
   );
 };
