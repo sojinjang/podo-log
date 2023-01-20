@@ -1,4 +1,4 @@
-import { Home, DiaryList, Login, SignUp } from "../pages";
+import { Home, DiaryList, Login, SignUp, NewDiary } from "../pages";
 
 const PUBLIC_ROUTE = {
   home: {
@@ -19,6 +19,10 @@ const PRIVATE_ROUTE = {
   diaryList: {
     path: "/diary-list",
     element: DiaryList,
+  },
+  newDiary: {
+    path: "/new-diary",
+    element: NewDiary,
   },
 };
 
