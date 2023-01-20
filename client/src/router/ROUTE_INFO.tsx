@@ -1,6 +1,6 @@
 import { Home, DiaryList, Login, SignUp, NewDiary } from "../pages";
 
-const PUBLIC_ROUTE = {
+export const PUBLIC_ROUTE = {
   home: {
     path: "/",
     element: Home,
@@ -15,7 +15,7 @@ const PUBLIC_ROUTE = {
   },
 };
 
-const PRIVATE_ROUTE = {
+export const PRIVATE_ROUTE = {
   diaryList: {
     path: "/diary-list",
     element: DiaryList,
