@@ -9,17 +9,13 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         {PUBLIC_ROUTE_ARR.map((route, index) => {
-          return <Route path={route.path} element={<route.element />} key={index} />;
+          return <Route path={route.path} element={route.element} key={index} />;
         })}
         {PRIVATE_ROUTE_ARR.map((route, index) => {
           return (
             <Route
               path={route.path}
-              element={
-                <PrivateRouter>
-                  <route.element />
-                </PrivateRouter>
-              }
+              element={<PrivateRouter>{route.element}</PrivateRouter>}
               key={index}
             />
           );
