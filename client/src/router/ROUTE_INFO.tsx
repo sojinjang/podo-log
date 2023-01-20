@@ -1,28 +1,47 @@
-import { Home, DiaryList, Login, SignUp, NewDiary } from "../pages";
+import React from "react";
 
-export const PUBLIC_ROUTE = {
+import { Home, DiaryList, Login, SignUp, NewDiary, Grape, MyPage } from "../pages";
+
+interface RouteInfoObj {
+  readonly [key: string]: PathElemPair;
+}
+
+interface PathElemPair {
+  readonly path: string;
+  readonly element: JSX.Element;
+}
+
+export const PUBLIC_ROUTE: RouteInfoObj = {
   home: {
     path: "/",
-    element: Home,
+    element: <Home />,
   },
   logIn: {
     path: "/login",
-    element: Login,
+    element: <Login />,
   },
   signUp: {
     path: "/sign-up",
-    element: SignUp,
+    element: <SignUp />,
   },
 };
 
-export const PRIVATE_ROUTE = {
-  diaryList: {
+export const PRIVATE_ROUTE: RouteInfoObj = {
+  diary: {
     path: "/diary-list",
-    element: DiaryList,
+    element: <DiaryList />,
   },
   newDiary: {
     path: "/new-diary",
-    element: NewDiary,
+    element: <NewDiary />,
+  },
+  grape: {
+    path: "/grape",
+    element: <Grape />,
+  },
+  myPage: {
+    path: "/my-page",
+    element: <MyPage />,
   },
 };
 
