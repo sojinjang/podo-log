@@ -61,7 +61,7 @@ const ButtonContainer = ({ menu }: Menu): JSX.Element => {
   const menuColor = isActive ? "text-purple-1000" : "text-gray-1000";
 
   return (
-    <NavLink className="my-auto cursor-pointer" to={PRIVATE_ROUTE.diaryList.path}>
+    <NavLink className="my-auto cursor-pointer" to={PRIVATE_ROUTE[menu].path}>
       <IconImg src={menuIcon}></IconImg>
       <Description className={menuColor}>{menuInfoObj.description}</Description>
     </NavLink>
