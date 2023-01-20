@@ -4,7 +4,7 @@ import { PinkPurpleBackground } from "src/components/common/Backgrounds";
 import { Guidance } from "src/components/diary-list/Guidance";
 import { PointingFinger } from "src/components/diary-list/PointingFinger";
 import { HeartDiary } from "src/components/diary-list/HeartDiary";
-
+import { Navbar } from "src/components/common/NavBar";
 const DiaryList = () => {
   return (
     <PinkPurpleBackground>
@@ -17,6 +17,7 @@ const DiaryList = () => {
       </Guidance>
       <PointingFinger />
       <HeartDiary />
+      <Navbar />
     </PinkPurpleBackground>
   );
 };
