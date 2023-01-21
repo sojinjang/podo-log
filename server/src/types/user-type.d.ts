@@ -8,10 +8,11 @@ export interface UserEntity {
   grape: number;
 }
 
-export interface CreateUserDTO extends UserEntity {
-  userId: undefined;
-  role: undefined;
-  grape: undefined;
+export interface CreateUserDTO {
+  email: string;
+  password: string;
+  nickname: string;
+  profile?: string;
 }
 
 export interface userIdDTO {

@@ -3,14 +3,14 @@ import { CreateUserDTO, DataObj } from "../types";
 export class BuildQuery {
   constructor(public table: String) {}
 
-  static objToKeyValueArr<T>(DTO: T) {
+  static objToKeyValueArr(DTO: DataObj) {
     const [keyArr, valueArr] = Object.entries(DTO).reduce(
       (agg, [key, value]) => {
         agg[0].push(key);
         agg[1].push(value);
         return agg;
       },
-      [[], []] as [string[], Array<string | number | boolean>]
+      [[], []] as [string[], Array<any>]
     );
     return { keyArr, valueArr };
   }
@@ -22,7 +22,7 @@ export class BuildQuery {
     return keyArr.map((key) => `${key} = ?`).join(", ");
   }
 
-  makeCountQuery<T>(whereDTO?: T) {
+  makeCountQuery(whereDTO?: DataObj) {
     let wheres, values;
     if (whereDTO === undefined) wheres = "";
     else {
@@ -34,7 +34,7 @@ export class BuildQuery {
     return { query, values };
   }
 
-  makeSelectQuery<T>(whereDTO?: T, columnArr: string[] = ["*"]) {
+  makeSelectQuery(whereDTO?: DataObj, columnArr: string[] = ["*"]) {
     let wheres, values;
     if (whereDTO === undefined) wheres = "";
     else {
@@ -48,7 +48,7 @@ export class BuildQuery {
     return { query, values };
   }
 
-  makeInsertQuery<T>(insertDTO: T) {
+  makeInsertQuery(insertDTO: DataObj) {
     const { keyArr, valueArr: values } = BuildQuery.objToKeyValueArr(insertDTO);
 
     const columns = keyArr.join(", ");
@@ -58,7 +58,7 @@ export class BuildQuery {
     return { query, values };
   }
 
-  makeUpdateQuery<T, V>(updateDTO: T, whereDTO: V) {
+  makeUpdateQuery(updateDTO: DataObj, whereDTO: DataObj) {
     const { keyArr: updateKeyArr, valueArr: updateValueArr } =
       BuildQuery.objToKeyValueArr(updateDTO);
     const sets = BuildQuery.keyArrToSets(updateKeyArr);
@@ -72,7 +72,7 @@ export class BuildQuery {
     return { query, values };
   }
 
-  makeDeleteQuery<T>(whereDTO: T) {
+  makeDeleteQuery(whereDTO: DataObj) {
     const { keyArr, valueArr: values } = BuildQuery.objToKeyValueArr(whereDTO);
     const wheres = BuildQuery.keyArrToWheres(keyArr);
 

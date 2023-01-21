@@ -1,5 +1,5 @@
 import { userModel } from "../../db/models";
-import bcrypt = require("bcrypt");
+import bcrypt from "bcrypt";
 import { CreateUserDTO, userIdDTO } from "../../types";
 // const { imageDeleter } = require("../middlewares");
 
