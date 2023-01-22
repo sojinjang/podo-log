@@ -1,34 +1,64 @@
 import { pool } from "../index";
 import { logger, BuildQuery } from "../../utils";
-import { CreateUserDTO, userIdDTO } from "../../types";
+import { CreateUserDTO, GetUserDTO, UpdateUserDTO, UserIdDTO } from "../../types";
+import { OkPacket, ResultSetHeader, RowDataPacket } from "mysql2";
 
 const userBuildQuery = new BuildQuery("user");
+const t: CreateUserDTO = {
+  email: "string",
+  password: "string",
+  nickname: "string",
+  profile: "string",
+};
 
 class UserModel {
   async create(userDTO: CreateUserDTO) {
-    try {
-      const { query, values } = userBuildQuery.makeInsertQuery(userDTO);
-      logger.info(query);
-      logger.debug(values);
-      const [result] = await pool.query(query, values);
-      logger.debug(result);
-      return result;
-    } catch (e) {
-      logger.error(e);
-    }
+    const { query, values } = userBuildQuery.makeInsertQuery({ ...userDTO });
+    logger.info(query);
+    logger.debug(values);
+    const [result] = await pool.query<OkPacket>(query, values);
+    logger.debug(result);
+    return result;
   }
 
-  async get(userDTO: userIdDTO, columnArr: string[] = ["*"]) {
-    try {
-      const { query, values } = userBuildQuery.makeSelectQuery(userDTO, columnArr);
-      logger.info(query);
-      logger.debug(values);
-      const [result] = await pool.query(query, values);
-      logger.debug(result);
-      return result;
-    } catch (e) {
-      logger.error(e);
-    }
+  async get(userDTO: GetUserDTO, columnArr: string[] = ["*"]) {
+    const { query, values } = userBuildQuery.makeSelectQuery({ ...userDTO }, columnArr);
+    logger.info(query);
+    logger.debug(values);
+    const [result] = await pool.query<RowDataPacket[]>(query, values);
+    logger.debug(result);
+    return result;
+  }
+
+  async pacthById(whereDTO: UserIdDTO, userDTO: UpdateUserDTO) {
+    const { query, values } = userBuildQuery.makeUpdateQuery({ ...whereDTO }, { ...userDTO });
+    logger.info(query);
+    logger.debug(values);
+    const [result] = await pool.query<ResultSetHeader>(query, values);
+    logger.debug(result);
+    return result;
+  }
+
+  async withdrawalById(userDTO: UserIdDTO) {
+    const withdrawalTime = { deletedAt: "now()" };
+    const { query, values } = userBuildQuery.makeUpdateQuery(
+      { ...userDTO },
+      { ...withdrawalTime }
+    );
+    logger.info(query);
+    logger.debug(values);
+    const [result] = await pool.query<ResultSetHeader>(query, values);
+    logger.debug(result);
+    return result;
+  }
+
+  async deleteById(userDTO: UserIdDTO) {
+    const { query, values } = userBuildQuery.makeDeleteQuery({ ...userDTO });
+    logger.info(query);
+    logger.debug(values);
+    const [result] = await pool.query<OkPacket>(query, values);
+    logger.debug(result);
+    return result;
   }
 }
 

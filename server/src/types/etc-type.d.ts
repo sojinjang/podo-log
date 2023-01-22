@@ -1,1 +1,1 @@
-export type DataObj = Record<string, string | number | boolean>;
+export type DataObj = Record<string, string | number | boolean | undefined>;
