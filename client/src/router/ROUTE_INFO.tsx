@@ -28,7 +28,7 @@ export const PUBLIC_ROUTE: RouteInfoObj = {
 
 export const PRIVATE_ROUTE: RouteInfoObj = {
   diary: {
-    path: "/diary-list",
+    path: "/diary",
     element: <DiaryList />,
   },
   newDiary: {
