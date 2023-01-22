@@ -27,8 +27,8 @@ const DiaryList = () => {
         { bookId: 3, bookName: "집단적독백방 💬", numPpl: 5, color: "82af20" },
       ];
       return userDiaryList;
-    } catch (err: any) {
-      alert(err.message);
+    } catch (err) {
+      alert(err);
     }
   }
   const handleUserDiaryArr = async () => {
