@@ -16,11 +16,11 @@ const BarContainer = tw.div`
 `;
 
 const IconImg = tw.img`
-  w-[45px] h-[45px]
+  m-auto w-[45px] h-[45px]
 `;
 
 const Description = tw.div`
-  font-[jua] text-sm
+  text-center font-[jua] text-xs
 `;
 
 const ButtonContainer = ({ menu }: Menu): JSX.Element => {
@@ -31,7 +31,7 @@ const ButtonContainer = ({ menu }: Menu): JSX.Element => {
   const menuColor = isActive ? "text-purple-1000" : "text-gray-1000";
 
   return (
-    <NavLink className="my-auto cursor-pointer" to={PRIVATE_ROUTE[menu].path}>
+    <NavLink className="w-[23%] my-auto cursor-pointer" to={PRIVATE_ROUTE[menu].path}>
       <IconImg src={menuIcon}></IconImg>
       <Description className={menuColor}>{menuInfoObj.description}</Description>
     </NavLink>
