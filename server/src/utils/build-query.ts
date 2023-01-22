@@ -6,6 +6,7 @@ export class BuildQuery {
   static objToKeyValueArr(DTO: DataObj) {
     const [keyArr, valueArr] = Object.entries(DTO).reduce(
       (agg, [key, value]) => {
+        if (typeof value === "undefined") return agg;
         agg[0].push(key);
         agg[1].push(value);
         return agg;
@@ -58,7 +59,7 @@ export class BuildQuery {
     return { query, values };
   }
 
-  makeUpdateQuery(updateDTO: DataObj, whereDTO: DataObj) {
+  makeUpdateQuery(whereDTO: DataObj, updateDTO: DataObj) {
     const { keyArr: updateKeyArr, valueArr: updateValueArr } =
       BuildQuery.objToKeyValueArr(updateDTO);
     const sets = BuildQuery.keyArrToSets(updateKeyArr);
