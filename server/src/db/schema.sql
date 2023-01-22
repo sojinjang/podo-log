@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 	`role`	ENUM('user','admin') NOT NULL DEFAULT 'user', 
 	`grape`	int	NOT NULL DEFAULT 0,
     `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, 
-    `updatedAt` DATETIME, 
+    `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
     `deletedAt` DATETIME,
     PRIMARY KEY (`userId`)
 );
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `user_package` (
 	`userId`	bigint	NOT NULL,
 	`packageId`	bigint	NOT NULL,
     `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, 
-    `updatedAt` DATETIME, 
+    `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
     `deletedAt` DATETIME, 
     PRIMARY KEY (`userPackageId`,`userId`,`packageId`),
     FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `book` (
 	`bookName`	varchar(50)	NULL,
 	`color`	varchar(10)	NULL,
     `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, 
-    `updatedAt` DATETIME, 
+    `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
     `deletedAt` DATETIME, 
     PRIMARY KEY (`bookId`)
 );
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `diary` (
 	`title`	varchar(50)	NULL,
 	`content`	varchar(600) NULL,
     `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, 
-    `updatedAt` DATETIME, 
+    `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
     `deletedAt` DATETIME,
     PRIMARY KEY (`diaryId`,`bookId`,`userId`),
     FOREIGN KEY (`bookId`) REFERENCES `book` (`bookId`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
 	`parentCommentId`	int	NOT NULL DEFAULT 0,
 	`reply`	varchar(200) NULL,
     `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, 
-    `updatedAt` DATETIME, 
+    `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
     `deletedAt` DATETIME,
     PRIMARY KEY (`commentId`,`userId`,`diaryId`),
     FOREIGN KEY (`diaryId`) REFERENCES `diary` (`diaryId`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `sticked_sticker` (
 	`positionX`	int	NULL,
 	`positionY`	int	NULL,
     `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, 
-    `updatedAt` DATETIME, 
+    `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
     `deletedAt` DATETIME, 
     PRIMARY KEY (`stickedStickerId`,`stickerId`,`diaryId`,`userId`),
     FOREIGN KEY (`stickerId`) REFERENCES `sticker` (`stickerId`) ON DELETE CASCADE ON UPDATE CASCADE,
