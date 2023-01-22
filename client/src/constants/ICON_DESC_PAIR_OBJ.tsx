@@ -15,7 +15,7 @@ interface IconDescPair {
 }
 
 export const ICON_DESC_PAIR_OBJ: PairObj = {
-  diary: {
+  diaries: {
     icon: [ColoredDiaryImg, GrayDiaryImg],
     description: "공유일기",
   },
