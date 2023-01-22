@@ -12,7 +12,7 @@ interface Menu {
 }
 
 const BarContainer = tw.div`
-  flex justify-around px-12 mx-auto w-10/12 h-[80px] bg-white/60 rounded-2xl fixed left-1/2 -translate-x-1/2 bottom-10
+  flex justify-around px-12 mx-auto w-10/12 h-[80px] bg-white/60 rounded-2xl absolute left-1/2 -translate-x-1/2
 `;
 
 const IconImg = tw.img`
@@ -40,12 +40,14 @@ const ButtonContainer = ({ menu }: Menu): JSX.Element => {
 
 export const Navbar = () => {
   return (
-    <div className="absolute">
-      <BarContainer>
-        <ButtonContainer menu="diary"></ButtonContainer>
-        <ButtonContainer menu="grape"></ButtonContainer>
-        <ButtonContainer menu="myPage"></ButtonContainer>
-      </BarContainer>
+    <div className="relative">
+      <div>
+        <BarContainer>
+          <ButtonContainer menu="diary"></ButtonContainer>
+          <ButtonContainer menu="grape"></ButtonContainer>
+          <ButtonContainer menu="myPage"></ButtonContainer>
+        </BarContainer>
+      </div>
     </div>
   );
 };
