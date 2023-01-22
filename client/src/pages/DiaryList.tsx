@@ -4,11 +4,10 @@ import { useEffect, useState } from "react";
 import { PinkPurpleBackground } from "src/components/common/Backgrounds";
 import { Guidance } from "src/components/diary-list/Guidance";
 import { PointingFinger } from "src/components/diary-list/PointingFinger";
-import { HeartDiaryButton } from "src/components/diary-list/HeartDiaryButton";
-import { DiaryButton } from "src/components/diary-list/DiaryButton";
+import { DiaryContainer } from "src/components/diary-list/DiaryContainer";
 import { Navbar } from "src/components/common/NavBar";
 
-interface DiaryInfo {
+export interface DiaryInfo {
   readonly bookId: number;
   readonly bookName: string;
   readonly numPpl: number;
@@ -42,27 +41,12 @@ const DiaryList = () => {
   }, []);
   useEffect(() => setIsEmpty(userDiaryArr?.length === 0 ? true : false), [userDiaryArr]);
 
-  const renderDiaryButtons = (): JSX.Element[] | undefined => {
-    const diaryButtons = userDiaryArr?.map((diary: DiaryInfo) => {
-      return (
-        <DiaryButton
-          key={diary.bookId}
-          name={diary.bookName}
-          numPpl={diary.numPpl}
-          color={diary.color}
-        />
-      );
-    });
-    return diaryButtons;
-  };
-
   return (
     <PinkPurpleBackground>
       <div className="h-[calc(100vh-130px)] overflow-y-scroll">
         <Guidance isEmpty={isEmpty}></Guidance>
         <PointingFinger />
-        {isEmpty && <HeartDiaryButton />}
-        {!isEmpty && renderDiaryButtons()}
+        <DiaryContainer isEmpty={isEmpty} userDiaryArr={userDiaryArr} />
       </div>
       <Navbar />
     </PinkPurpleBackground>
