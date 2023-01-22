@@ -34,23 +34,17 @@ const DiaryList = () => {
   const handleUserDiaryArr = async () => {
     const userDiaries = await getUserDiaryArr();
     setUserDiaryArr(userDiaries);
-    setIsEmpty(userDiaryArr?.length === 0 ? true : false);
   };
 
   useEffect(() => {
-    handleUserDiaryArr;
+    handleUserDiaryArr();
   }, []);
+  useEffect(() => setIsEmpty(userDiaryArr?.length === 0 ? true : false), [userDiaryArr]);
 
   return (
     <PinkPurpleBackground>
       <div className="h-[calc(100vh-130px)] overflow-y-scroll">
-        <Guidance>
-          일기장을 클릭해
-          <br />
-          가까운 사람들과
-          <br />
-          일기를 공유해보세요
-        </Guidance>
+        <Guidance isEmpty={isEmpty}></Guidance>
         <PointingFinger />
         <HeartDiary />
       </div>
