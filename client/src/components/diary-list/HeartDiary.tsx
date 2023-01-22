@@ -14,7 +14,7 @@ export const HeartDiary = () => {
       src={heartDiaryImg}
       alt="diary"
       onClick={onClickImg}
-      className="mx-auto mt-[6vh] w-[20vh] h-[20vh] cursor-pointer max-w-xs hover:scale-105 transition duration-500 ease-in-out"
+      className="m-auto mt-[6vh] w-[20vh] h-[20vh] cursor-pointer max-w-xs hover:scale-105 transition duration-500 ease-in-out"
     />
   );
 };
