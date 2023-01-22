@@ -3,6 +3,7 @@ import React from "react";
 import { DiaryInfo } from "src/pages/DiaryList";
 import { HeartDiaryButton } from "src/components/diary-list/HeartDiaryButton";
 import { DiaryButton } from "src/components/diary-list/DiaryButton";
+import { NewDiaryButton } from "./NewDiaryButton";
 
 interface DiaryContainerProps {
   isEmpty: boolean;
@@ -33,6 +34,7 @@ export const DiaryContainer = ({
   return (
     <div className="flex flex-wrap justify-center mt-[3vh]">
       {renderDiaryButtons(userDiaryArr)}
+      <NewDiaryButton />
     </div>
   );
 };
