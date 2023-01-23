@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 
 interface DiaryButtonProps {
+  readonly bookId: number;
   readonly name: string;
   readonly numPpl: number;
   readonly color: string;
@@ -13,10 +14,10 @@ const DiaryDescription = tw.div`
   flex justify-center mb-5 text-lg
 `;
 
-export const DiaryButton = ({ name, numPpl, color }: DiaryButtonProps) => {
+export const DiaryButton = ({ bookId, name, numPpl, color }: DiaryButtonProps) => {
   const navigate = useNavigate();
   const onClickImg = () => {
-    navigate(PRIVATE_ROUTE.newDiary.path);
+    navigate(PRIVATE_ROUTE.diaries.path + "/" + bookId);
   };
 
   return (
