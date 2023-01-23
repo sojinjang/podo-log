@@ -26,5 +26,5 @@
       "@recoil/*": ["recoil/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "./types"]
 }
