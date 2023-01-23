@@ -1,9 +1,9 @@
-import ColoredDiaryImg from "../assets/icons/colored_note.png";
-import ColoredGrapeImg from "../assets/icons/colored_grape.png";
-import ColoredMyPageImg from "../assets/icons/colored_mypage.png";
-import GrayDiaryImg from "../assets/icons/gray_note.png";
-import GrayGrapeImg from "../assets/icons/gray_grape.png";
-import GrayMyPageImg from "../assets/icons/gray_mypage.png";
+import ColoredDiaryImg from "../assets/icons/nav-bar/colored_note.png";
+import ColoredGrapeImg from "../assets/icons/nav-bar/colored_grape.png";
+import ColoredMyPageImg from "../assets/icons/nav-bar/colored_mypage.png";
+import GrayDiaryImg from "../assets/icons/nav-bar/gray_note.png";
+import GrayGrapeImg from "../assets/icons/nav-bar/gray_grape.png";
+import GrayMyPageImg from "../assets/icons/nav-bar/gray_mypage.png";
 
 interface PairObj {
   readonly [key: string]: IconDescPair;
@@ -15,7 +15,7 @@ interface IconDescPair {
 }
 
 export const ICON_DESC_PAIR_OBJ: PairObj = {
-  diary: {
+  diaries: {
     icon: [ColoredDiaryImg, GrayDiaryImg],
     description: "공유일기",
   },

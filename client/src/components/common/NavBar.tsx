@@ -43,7 +43,7 @@ export const Navbar = () => {
     <div className="relative">
       <div>
         <BarContainer>
-          <ButtonContainer menu="diary"></ButtonContainer>
+          <ButtonContainer menu="diaries"></ButtonContainer>
           <ButtonContainer menu="grape"></ButtonContainer>
           <ButtonContainer menu="myPage"></ButtonContainer>
         </BarContainer>
