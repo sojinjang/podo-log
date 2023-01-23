@@ -4,6 +4,7 @@ import { DiaryInfo } from "src/pages/DiaryList";
 import { HeartDiaryButton } from "src/components/diary-list/HeartDiaryButton";
 import { DiaryButton } from "src/components/diary-list/DiaryButton";
 import { NewDiaryButton } from "./NewDiaryButton";
+import Fade from "react-reveal/Fade";
 
 interface DiaryContainerProps {
   isEmpty: boolean;
@@ -33,9 +34,11 @@ export const DiaryContainer = ({
 }: DiaryContainerProps): JSX.Element => {
   if (isEmpty) return <HeartDiaryButton />;
   return (
-    <div className="flex flex-wrap justify-center mt-[3vh]">
-      {renderDiaryButtons(userDiaryArr)}
-      <NewDiaryButton />
-    </div>
+    <Fade duration={3000}>
+      <div className="flex flex-wrap justify-center mt-[3vh]">
+        {renderDiaryButtons(userDiaryArr)}
+        <NewDiaryButton />
+      </div>
+    </Fade>
   );
 };
