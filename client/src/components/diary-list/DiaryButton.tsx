@@ -11,7 +11,7 @@ interface DiaryButtonProps {
 }
 
 const DiaryDescription = tw.div`
-  flex justify-center mb-5 text-lg
+  flex justify-center mb-5 text-xl
 `;
 
 export const DiaryButton = ({ bookId, name, numPpl, color }: DiaryButtonProps) => {
