@@ -1,0 +1,1 @@
+export { selectedColor } from "./atom";
