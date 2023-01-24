@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-export const selectedColor = atom({
+export const selectedColorAtom = atom({
   key: "selectedColor",
   default: "000000",
 });
