@@ -1,1 +1,1 @@
-export { selectedColorAtom } from "./atom";
+export { selectedColorAtom, diaryTitleAtom } from "./atom";
