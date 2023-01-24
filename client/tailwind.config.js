@@ -11,6 +11,7 @@ module.exports = {
         "bg-purple": "#F6F1FF",
         "purple-1000": "#BB86FC",
         "gray-1000": "#959595",
+        "000000": "#000000",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -18,6 +19,7 @@ module.exports = {
       fontFamily: {
         jua: ["Jua", "sans-serif"],
         dohyeon: ["Do Hyeon", "sans-serif"],
+        notosans: ["Noto Sans", "sans-serif"],
       },
     },
   },
