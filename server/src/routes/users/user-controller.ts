@@ -1,51 +1,53 @@
 import { userService } from "./user-service";
-import { CreateUserDTO, UpdateUserDTO } from "../../types";
-import { AsyncFunction } from "../../utils";
+import { CreateUserDTO, LoggedRequest, UpdateUserDTO } from "../../types";
+import asyncHandler from "../../utils/async-handler";
 
 class UserController {
   private userService = userService;
 
-  localJoin: AsyncFunction = async (req, res) => {
+  localJoin = asyncHandler(async (req, res) => {
     const { email, nickname, password } = req.body;
     // const profile = req.file ? req.file.location : null;
 
     const createUserDTO = { email, nickname, password } as CreateUserDTO;
 
     const addedUser = await this.userService.localJoin(createUserDTO);
-    return res.status(200).json(addedUser);
-  };
 
-  getById: AsyncFunction = async (req, res) => {
-    const userId = parseInt(req.params.userId);
-    const result = await this.userService.getById(userId);
+    res.status(200).json(addedUser);
+  });
 
-    return res.status(200).json(result);
-  };
+  getById = asyncHandler(async (req: LoggedRequest, res) => {
+    const result = req.user;
+    delete result.password;
+    res.status(200).json(result);
+  });
 
-  pacthById: AsyncFunction = async (req, res) => {
-    const userId = parseInt(req.params.userId);
+  pacthById = asyncHandler(async (req: LoggedRequest, res) => {
     const { nickname, password, newPassword } = req.body;
 
-    if (password && newPassword) {
-      if (password === newPassword)
-        throw new Error("400, 새로운 비밀번호와 현재 비밀번호가 같습니다.");
+    let updateUserDTO: UpdateUserDTO = {};
+    if (req.user.provider !== "local") {
+      updateUserDTO = { nickname };
+    } else {
+      updateUserDTO = { nickname, password, newPassword };
     }
-    const updateUserDTO = { nickname, password, newPassword } as UpdateUserDTO;
-    const result = await this.userService.pacthById(userId, updateUserDTO);
-    return res.status(200).json(result);
-  };
 
-  withdrawalById: AsyncFunction = async (req, res) => {
-    const userId = parseInt(req.params.userId);
+    const result = await this.userService.pacthById(req.user, updateUserDTO);
+    res.status(200).json(result);
+  });
+
+  withdrawalById = asyncHandler(async (req: LoggedRequest, res) => {
+    const userId = req.user.userId;
     const result = await this.userService.withdrawalById(userId);
     return res.status(200).json(result);
-  };
+  });
 
-  deleteById: AsyncFunction = async (req, res) => {
-    const userId = parseInt(req.params.userId);
+  deleteById = asyncHandler(async (req: LoggedRequest, res) => {
+    const userId = req.user.userId;
     const result = await this.userService.deleteById(userId);
-    return res.status(200).json(result);
-  };
+
+    res.status(200).json(result);
+  });
 }
 
 export const userController = new UserController();
