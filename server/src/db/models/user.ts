@@ -1,6 +1,12 @@
 import { pool } from "../index";
 import { logger, BuildQuery } from "../../utils";
-import { CreateUserDTO, GetUserDTO, UpdateUserDTO, UserIdDTO } from "../../types";
+import {
+  CreateUserDTO,
+  GetUserDTO,
+  SNSCreateUserDTO,
+  UpdateUserDTO,
+  UserIdDTO,
+} from "../../types";
 import { OkPacket, ResultSetHeader, RowDataPacket } from "mysql2";
 
 const userBuildQuery = new BuildQuery("user");
@@ -12,7 +18,7 @@ const t: CreateUserDTO = {
 };
 
 class UserModel {
-  async create(userDTO: CreateUserDTO) {
+  async create(userDTO: CreateUserDTO | SNSCreateUserDTO) {
     const { query, values } = userBuildQuery.makeInsertQuery({ ...userDTO });
     logger.info(query);
     logger.debug(values);
@@ -30,7 +36,7 @@ class UserModel {
     return result;
   }
 
-  async pacthById(whereDTO: UserIdDTO, userDTO: UpdateUserDTO) {
+  async pacth(whereDTO: GetUserDTO, userDTO: UpdateUserDTO) {
     const { query, values } = userBuildQuery.makeUpdateQuery({ ...whereDTO }, { ...userDTO });
     logger.info(query);
     logger.debug(values);

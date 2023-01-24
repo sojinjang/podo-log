@@ -27,7 +27,7 @@ export default (schema: Joi.AnySchema, source: ValidationSource = ValidationSour
       const message = details.map((i) => i.message.replace(/['"]+/g, "")).join(",");
       logger.error(message);
 
-      // next(new BadRequestError(message));
+      next(new Error(message));
     } catch (error) {
       next(error);
     }
