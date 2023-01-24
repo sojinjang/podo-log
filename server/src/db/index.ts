@@ -1,8 +1,9 @@
 import mysql from "mysql2/promise";
 import mysqlConfig from "../config/mysql.config";
 import { logger } from "./../utils/pino";
+import { environment } from "../config";
 
-const env = process.env.NODE_ENV || "local";
+const env = environment;
 const config = mysqlConfig(env);
 
 export const pool = mysql.createPool(config);
