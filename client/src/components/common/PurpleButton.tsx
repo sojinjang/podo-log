@@ -4,17 +4,19 @@ import "./PurpleButton.css";
 interface ButtonProps {
   readonly name: string;
   readonly cssClass: string;
-  onClickFunc: () => void;
+  readonly onClickFunc: Function;
+  readonly onClickFuncArgs: unknown;
 }
 
-const PurpleButton = ({ name, cssClass, onClickFunc }: ButtonProps) => {
+const PurpleButton = ({ name, cssClass, onClickFunc, onClickFuncArgs }: ButtonProps) => {
+  console.log(typeof onClickFunc);
   return (
     <div className={`text-center ${cssClass}`}>
       <button
         className="purple-button sm:w-40 text-base sm:text-xl"
         role="button"
         onClick={() => {
-          onClickFunc();
+          onClickFunc(onClickFuncArgs);
         }}
       >
         {name}

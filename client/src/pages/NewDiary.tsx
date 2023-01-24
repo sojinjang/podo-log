@@ -11,9 +11,12 @@ import DiaryTitleInputContainer from "src/components/new-diary/DiaryTitleInputCo
 import PurpleButton from "src/components/common/PurpleButton";
 import { selectedColorAtom, diaryTitleAtom } from "../recoil/new-diary";
 
-const createDiary = () => {
-  const selectedColor = useRecoilValue(selectedColorAtom);
-  const diaryTitle = useRecoilValue(diaryTitleAtom);
+interface CreateNewDiaryArgs {
+  selectedColor: string;
+  diaryTitle: string;
+}
+
+const createNewDiary = ({ selectedColor, diaryTitle }: CreateNewDiaryArgs) => {
   try {
     //  api 완성되는대로 db로 데이터 post하도록 변경하기 23.01.25
     return { selectedColor, diaryTitle };
@@ -23,6 +26,8 @@ const createDiary = () => {
 };
 
 const NewDiary = () => {
+  const selectedColor = useRecoilValue(selectedColorAtom);
+  const diaryTitle = useRecoilValue(diaryTitleAtom);
   return (
     <PinkPurpleBackground>
       <BackButton />
@@ -32,7 +37,12 @@ const NewDiary = () => {
       <ColorSelectContainer />
       <ContainerTitle>일기장 제목</ContainerTitle>
       <DiaryTitleInputContainer />
-      <PurpleButton name="생성하기" cssClass="mt-[5vh]" onClickFunc={createDiary} />
+      <PurpleButton
+        name="생성하기"
+        cssClass="mt-[5vh]"
+        onClickFunc={createNewDiary}
+        onClickFuncArgs={{ selectedColor, diaryTitle }}
+      />
     </PinkPurpleBackground>
   );
 };
