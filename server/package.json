@@ -21,6 +21,7 @@
     "mysql2": "^3.0.1",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
+    "passport-kakao": "^1.0.1",
     "passport-local": "^1.0.0",
     "pino": "^8.8.0",
     "pino-pretty": "^9.1.1"
@@ -33,6 +34,7 @@
     "@types/node": "^18.11.18",
     "@types/passport": "^1.0.11",
     "@types/passport-jwt": "^3.0.8",
+    "@types/passport-kakao": "^1.0.0",
     "@types/passport-local": "^1.0.35",
     "nodemon": "^2.0.20",
     "prettier": "^2.8.2",
