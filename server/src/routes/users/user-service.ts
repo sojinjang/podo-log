@@ -1,6 +1,6 @@
 import { userModel } from "../../db/models";
 import bcrypt from "bcrypt";
-import { CreateUserDTO, UpdateUserDTO, UserIdDTO } from "../../types";
+import { CreateUserDTO, UpdateUserDTO, UserEntity, UserIdDTO } from "../../types";
 // const { imageDeleter } = require("../middlewares");
 
 class UserService {
@@ -19,13 +19,36 @@ class UserService {
 
   async getById(userId: number) {
     const userIdDTO: UserIdDTO = { userId };
-    const result = await this.userModel.get(userIdDTO);
-    return result;
+    const [user] = await this.userModel.get(userIdDTO);
+    delete user.password;
+    return user;
   }
 
-  async pacthById(userId: number, updateUserDTO: UpdateUserDTO) {
-    const userIdDTO: UserIdDTO = { userId };
-    const result = await this.userModel.pacthById(userIdDTO, updateUserDTO);
+  async pacthById(exUser: UserEntity, updateUserDTO: UpdateUserDTO) {
+    const { userId, password: exHashedPassword } = exUser;
+    const { password, newPassword } = updateUserDTO;
+
+    if (password && exHashedPassword) {
+      const isPasswordCorrect = await bcrypt.compare(password, exHashedPassword);
+      if (!isPasswordCorrect) {
+        throw new Error(
+          `UNAUTHORIZED,
+            401,
+            "비밀번호가 일치하지 않습니다."`
+        );
+      }
+      if (newPassword) {
+        if (password === newPassword)
+          throw new Error("400, 새로운 비밀번호와 현재 비밀번호가 같습니다.");
+
+        const newHashedPassword = await bcrypt.hash(newPassword, 10);
+        updateUserDTO.password = newHashedPassword;
+        delete updateUserDTO.newPassword;
+      }
+    }
+
+    const userIdDTO = { userId };
+    const result = await this.userModel.pacth(userIdDTO, updateUserDTO);
     return result;
   }
 
