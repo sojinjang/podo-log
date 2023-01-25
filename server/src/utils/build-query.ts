@@ -35,7 +35,7 @@ export class BuildQuery {
     return { query, values };
   }
 
-  makeSelectQuery(whereDTO?: DataObj, columnArr: string[] = ["*"]) {
+  makeSelectQuery(whereDTO?: DataObj, columnArr: string[] = ["*"], joinQuery: string = "") {
     let wheres, values;
     if (whereDTO === undefined) wheres = "";
     else {
@@ -45,7 +45,7 @@ export class BuildQuery {
     }
 
     const columns = columnArr.join(", ");
-    const query = `select ${columns} from ${this.table} where ${wheres}`;
+    const query = `select ${columns} from ${this.table} ${joinQuery} where ${wheres}`;
     return { query, values };
   }
 
