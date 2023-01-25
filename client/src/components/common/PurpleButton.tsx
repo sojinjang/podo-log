@@ -9,7 +9,6 @@ interface ButtonProps {
 }
 
 const PurpleButton = ({ name, cssClass, onClickFunc, onClickFuncArgs }: ButtonProps) => {
-  console.log(typeof onClickFunc);
   return (
     <div className={`text-center ${cssClass}`}>
       <button
