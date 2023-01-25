@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `sticker` (
 
 CREATE TABLE IF NOT EXISTS `book` (
 	`bookId`	bigint	NOT NULL auto_increment,
-	`bookName`	varchar(50)	NULL,
+	`bookName`	varchar(50)	NOT NULL DEFAULT '이름없음',
 	`color`	varchar(10)	NULL,
     `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, 
     `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
