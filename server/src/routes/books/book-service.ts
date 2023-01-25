@@ -1,6 +1,7 @@
 import { bookModel } from "../../db/models";
 import bcrypt from "bcrypt";
 import { CreateBookDTO, UserBookDTO, UserIdDTO } from "../../types";
+import { BookIdDTO, UpdateBookDTO } from "./../../types/book-type.d";
 
 class BookService {
   private bookModel = bookModel;
@@ -14,33 +15,21 @@ class BookService {
     return books;
   }
 
-  // async pacthById(exUser: UserEntity, updatebookDTO: UpdatebookDTO) {
-  //   const { userId, password: exHashedPassword } = exUser;
-  //   const { password, newPassword } = updatebookDTO;
+  async pacthById(bookIdDTO: BookIdDTO, updateBookDTO: UpdateBookDTO, userIdDTO: UserIdDTO) {
+    const userBookDTO: UserBookDTO = { userId: userIdDTO.userId, bookId: bookIdDTO.bookId };
+    const isMember = await this.bookModel.checkUserBook(userBookDTO);
 
-  //   if (password && exHashedPassword) {
-  //     const isPasswordCorrect = await bcrypt.compare(password, exHashedPassword);
-  //     if (!isPasswordCorrect) {
-  //       throw new Error(
-  //         `UNAUTHORIZED,
-  //           401,
-  //           "비밀번호가 일치하지 않습니다."`
-  //       );
-  //     }
-  //     if (newPassword) {
-  //       if (password === newPassword)
-  //         throw new Error("400, 새로운 비밀번호와 현재 비밀번호가 같습니다.");
+    if (!isMember) {
+      throw new Error(
+        `Forbidden,
+            403,
+            "구성원이 아니라 권한이 없습니다."`
+      );
+    }
 
-  //       const newHashedPassword = await bcrypt.hash(newPassword, 10);
-  //       updatebookDTO.password = newHashedPassword;
-  //       delete updatebookDTO.newPassword;
-  //     }
-  //   }
-
-  //   const userIdDTO = { userId };
-  //   const result = await this.bookModel.pacth(userIdDTO, updatebookDTO);
-  //   return result;
-  // }
+    const result = await this.bookModel.pacth(bookIdDTO, updateBookDTO);
+    return result;
+  }
 
   // async withdrawalById(userId: number) {
   //   const userIdDTO: UserIdDTO = { userId };

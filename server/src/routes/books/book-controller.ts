@@ -1,5 +1,5 @@
 import { bookService } from "./book-service";
-import { CreateBookDTO, LoggedRequest, UserIdDTO } from "../../types";
+import { CreateBookDTO, LoggedRequest, UpdateBookDTO, UserIdDTO } from "../../types";
 import asyncHandler from "../../utils/async-handler";
 
 class BookController {
@@ -21,25 +21,16 @@ class BookController {
     res.status(200).json(result);
   });
 
-  // pacthById = asyncHandler(async (req: LoggedRequest, res) => {
-  //   const { nickname, password, newPassword } = req.body;
+  pacthById = asyncHandler(async (req: LoggedRequest, res) => {
+    const bookId = parseInt(req.params.bookId);
+    const { bookName, color } = req.body;
 
-  //   let updateUserDTO: UpdateUserDTO = {};
-  //   if (req.user.provider !== "local") {
-  //     updateUserDTO = { nickname };
-  //   } else {
-  //     updateUserDTO = { nickname, password, newPassword };
-  //   }
+    let updateBookDTO: UpdateBookDTO = { bookName, color };
+    const userIdDTO: UserIdDTO = { userId: req.user.userId };
 
-  //   const result = await this.bookService.pacthById(req.user, updateUserDTO);
-  //   res.status(200).json(result);
-  // });
-
-  // withdrawalById = asyncHandler(async (req: LoggedRequest, res) => {
-  //   const userId = req.user.userId;
-  //   const result = await this.bookService.withdrawalById(userId);
-  //   return res.status(200).json(result);
-  // });
+    const result = await this.bookService.pacthById({ bookId }, updateBookDTO, userIdDTO);
+    res.status(200).json(result);
+  });
 
   // deleteById = asyncHandler(async (req: LoggedRequest, res) => {
   //   const userId = req.user.userId;

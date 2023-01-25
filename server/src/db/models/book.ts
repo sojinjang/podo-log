@@ -62,6 +62,17 @@ class BookModel {
     return result;
   }
 
+  async checkUserBook(userBookDTO: UserBookDTO) {
+    const { query, values } = userBookBuildQuery.makeSelectQuery({ ...userBookDTO });
+    const existsQuery = `SELECT EXISTS (${query})`;
+    logger.info(query);
+    logger.debug(values);
+    const [result] = await pool.query<RowDataPacket[]>(existsQuery, values);
+    logger.debug(result);
+    const [isMember] = Object.values(result[0]);
+    return isMember;
+  }
+
   async pacth(whereDTO: GetBookDTO, bookDTO: UpdateBookDTO) {
     const { query, values } = bookBuildQuery.makeUpdateQuery({ ...whereDTO }, { ...bookDTO });
     logger.info(query);

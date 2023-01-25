@@ -7,7 +7,12 @@ const router = Router();
 
 router.post("/", validator(schema.createBook), bookController.create);
 router.get("/", bookController.getByUserId);
-// router.patch("/:bookId", validator(schema.patchBook), bookController);
-// router.delete("/:bookId", bookController);
+router.patch(
+  "/:bookId",
+  validator(schema.bookId, ValidationSource.PARAM),
+  validator(schema.patchBook),
+  bookController.pacthById
+);
+// router.delete("/:bookId",validator(schema.bookId,ValidationSource.PARAM), bookController.deleteById);
 
 export default router;
