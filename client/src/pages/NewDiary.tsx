@@ -1,7 +1,7 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
 
-import { PinkPurpleBackground } from "src/components/common/Backgrounds";
+import { PurpleBackground } from "src/components/common/Backgrounds";
 import BackButton from "src/components/common/BackButton";
 import PageTitle from "src/components/common/PageTitle";
 import DiaryIcon from "src/components/new-diary/DiaryIcon";
@@ -29,7 +29,7 @@ const NewDiary = () => {
   const selectedColor = useRecoilValue(selectedColorAtom);
   const diaryTitle = useRecoilValue(diaryTitleAtom);
   return (
-    <PinkPurpleBackground>
+    <PurpleBackground>
       <BackButton />
       <PageTitle title="일기장 만들기" />
       <DiaryIcon />
@@ -43,7 +43,7 @@ const NewDiary = () => {
         onClickFunc={createNewDiary}
         onClickFuncArgs={{ selectedColor, diaryTitle }}
       />
-    </PinkPurpleBackground>
+    </PurpleBackground>
   );
 };
 
