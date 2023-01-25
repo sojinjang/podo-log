@@ -115,3 +115,16 @@ CREATE TABLE IF NOT EXISTS `sticked_sticker` (
     FOREIGN KEY (`diaryId`) REFERENCES `diary` (`diaryId`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (`userId`)  REFERENCES `user` (`userId`)  ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+DELIMITER $$
+ 
+CREATE TRIGGER delete_nobody_book
+AFTER DELETE ON user_book
+FOR EACH ROW 
+BEGIN
+IF not exists(select * from user_book where bookId = old.bookId ) THEN
+ delete from book WHERE book.bookId = old.bookId;
+ END IF;
+END $$;
+
+DELIMITER ;
