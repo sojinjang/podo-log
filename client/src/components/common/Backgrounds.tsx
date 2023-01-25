@@ -7,3 +7,7 @@ export const PinkPurpleBackground = tw.div`
 export const PurpleBackground = tw.div`
   w-[calc(100vh/16*9)] h-screen m-auto bg-bg-purple
 `;
+
+export const DefaultBackground = tw.div`
+  w-[calc(100vh/16*9)] h-screen m-auto
+`;
