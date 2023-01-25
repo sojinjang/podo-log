@@ -4,7 +4,7 @@ import "./PurpleButton.css";
 interface ButtonProps {
   readonly name: string;
   readonly cssClass: string;
-  readonly onClickFunc: Function;
+  readonly onClickFunc: unknown;
   readonly onClickFuncArgs: unknown;
 }
 
@@ -16,7 +16,7 @@ const PurpleButton = ({ name, cssClass, onClickFunc, onClickFuncArgs }: ButtonPr
         className="purple-button sm:w-40 text-base sm:text-xl"
         role="button"
         onClick={() => {
-          onClickFunc(onClickFuncArgs);
+          if (typeof onClickFunc === "function") return onClickFunc(onClickFuncArgs);
         }}
       >
         {name}
