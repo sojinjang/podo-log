@@ -10,6 +10,7 @@ import ContainerTitle from "src/components/new-diary/ContainerTitle";
 import DiaryTitleInputContainer from "src/components/new-diary/DiaryTitleInputContainer";
 import PurpleButton from "src/components/common/PurpleButton";
 import { selectedColorAtom, diaryTitleAtom } from "../recoil/new-diary";
+import { WARNING_MESSAGE } from "src/constants/WARNING_MESSAGE";
 
 interface CreateNewDiaryArgs {
   selectedColor: string;
@@ -18,6 +19,7 @@ interface CreateNewDiaryArgs {
 
 const createNewDiary = ({ selectedColor, diaryTitle }: CreateNewDiaryArgs) => {
   try {
+    if (diaryTitle.length < 1) return alert(WARNING_MESSAGE.titleLength);
     //  api 완성되는대로 db로 데이터 post하도록 변경하기 23.01.25
     return { selectedColor, diaryTitle };
   } catch (err) {
