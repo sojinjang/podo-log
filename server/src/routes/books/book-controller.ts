@@ -1,5 +1,11 @@
 import { bookService } from "./book-service";
-import { CreateBookDTO, LoggedRequest, UpdateBookDTO, UserIdDTO } from "../../types";
+import {
+  CreateBookDTO,
+  LoggedRequest,
+  UpdateBookDTO,
+  UserBookDTO,
+  UserIdDTO,
+} from "../../types";
 import asyncHandler from "../../utils/async-handler";
 
 class BookController {
@@ -32,12 +38,14 @@ class BookController {
     res.status(200).json(result);
   });
 
-  // deleteById = asyncHandler(async (req: LoggedRequest, res) => {
-  //   const userId = req.user.userId;
-  //   const result = await this.bookService.deleteById(userId);
+  outBookById = asyncHandler(async (req: LoggedRequest, res) => {
+    const bookId = parseInt(req.params.bookId);
+    const userBookDTO: UserBookDTO = { userId: req.user.userId, bookId };
 
-  //   res.status(200).json(result);
-  // });
+    const result = await this.bookService.outBookById(userBookDTO);
+
+    res.status(200).json(result);
+  });
 }
 
 export const bookController = new BookController();

@@ -13,6 +13,10 @@ router.patch(
   validator(schema.patchBook),
   bookController.pacthById
 );
-// router.delete("/:bookId",validator(schema.bookId,ValidationSource.PARAM), bookController.deleteById);
+router.delete(
+  "/:bookId",
+  validator(schema.bookId, ValidationSource.PARAM),
+  bookController.outBookById
+);
 
 export default router;

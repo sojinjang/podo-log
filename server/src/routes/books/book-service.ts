@@ -18,7 +18,6 @@ class BookService {
   async pacthById(bookIdDTO: BookIdDTO, updateBookDTO: UpdateBookDTO, userIdDTO: UserIdDTO) {
     const userBookDTO: UserBookDTO = { userId: userIdDTO.userId, bookId: bookIdDTO.bookId };
     const isMember = await this.bookModel.checkUserBook(userBookDTO);
-
     if (!isMember) {
       throw new Error(
         `Forbidden,
@@ -31,17 +30,10 @@ class BookService {
     return result;
   }
 
-  // async withdrawalById(userId: number) {
-  //   const userIdDTO: UserIdDTO = { userId };
-  //   const result = await this.bookModel.withdrawalById(userIdDTO);
-  //   return result;
-  // }
-
-  // async deleteById(userId: number) {
-  //   const userIdDTO: UserIdDTO = { userId };
-  //   const result = await this.bookModel.deleteById(userIdDTO);
-  //   return result;
-  // }
+  async outBookById(userBookDTO: UserBookDTO) {
+    const result = await this.bookModel.outBookById(userBookDTO);
+    return result;
+  }
 }
 
 export const bookService = new BookService();

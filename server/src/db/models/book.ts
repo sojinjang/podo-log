@@ -82,8 +82,8 @@ class BookModel {
     return result;
   }
 
-  async deleteById(bookDTO: BookIdDTO) {
-    const { query, values } = bookBuildQuery.makeDeleteQuery({ ...bookDTO });
+  async outBookById(userBookDTO: UserBookDTO) {
+    const { query, values } = userBookBuildQuery.makeDeleteQuery({ ...userBookDTO });
     logger.info(query);
     logger.debug(values);
     const [result] = await pool.query<OkPacket>(query, values);
