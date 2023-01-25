@@ -2,7 +2,7 @@ import { Router } from "express";
 import { userController } from "./user-controller";
 import validator, { ValidationSource } from "../../utils/validator";
 import schema from "./schema";
-import { isLoggedIn } from "../../middlewares/required";
+import { isLoggedIn } from "../../middlewares";
 
 const router = Router();
 
