@@ -10,12 +10,6 @@ import {
 import { OkPacket, ResultSetHeader, RowDataPacket } from "mysql2";
 
 const userBuildQuery = new BuildQuery("user");
-const t: CreateUserDTO = {
-  email: "string",
-  password: "string",
-  nickname: "string",
-  profile: "string",
-};
 
 class UserModel {
   async create(userDTO: CreateUserDTO | SNSCreateUserDTO) {
@@ -46,7 +40,8 @@ class UserModel {
   }
 
   async withdrawalById(userDTO: UserIdDTO) {
-    const withdrawalTime = { deletedAt: "now()" };
+    const deletedAt = new Date();
+    const withdrawalTime = { deletedAt };
     const { query, values } = userBuildQuery.makeUpdateQuery(
       { ...userDTO },
       { ...withdrawalTime }
