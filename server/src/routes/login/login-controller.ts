@@ -53,9 +53,37 @@ class LoginController {
   kakao = asyncHandler(async (req, res, next) => {
     passport.authenticate("kakao")(req, res, next);
   });
-
+  // { failureRedirect: '/' ,successRedirect: '/'}
   kakaoCallback = asyncHandler(async (req, res, next) => {
-    passport.authenticate("kakao", { failureRedirect: "/" })(req, res, next);
+    passport.authenticate("kakao", (authError, user, info) => {
+      if (authError) {
+        logger.error(authError);
+        return next(authError);
+      }
+      if (!user) {
+        logger.info(info.message);
+        const result = {
+          result: "loginError",
+          message: info.message,
+        };
+        return res.status(400).json(result);
+      }
+      return req.login(user, { session: false }, (loginError) => {
+        if (loginError) {
+          logger.error(loginError);
+          return next(loginError);
+        }
+
+        const secretKey = jwtSecretKey;
+        const accessToken = jwt.sign({ userId: user.userId }, secretKey, {
+          expiresIn: accessTokenTime,
+        });
+        return res.status(200).json({
+          accessToken,
+          message: "로그인성공",
+        });
+      });
+    })(req, res, next);
   });
 }
 

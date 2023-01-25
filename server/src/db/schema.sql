@@ -3,13 +3,13 @@ USE podolog;
 
 CREATE TABLE IF NOT EXISTS `user` (
 	`userId`	bigint	NOT NULL auto_increment,
-	`email`	varchar(30) Null ,
+	`email`	varchar(30) NULL ,
 	`password`	varchar(60)	NULL,
 	`nickname`	varchar(40)	NOT NULL,
 	`profile`	varchar(110) NULL,
 	`role`	ENUM('user','admin') NOT NULL DEFAULT 'user', 
 	`grape`	int	NOT NULL DEFAULT 0,
-    `snsId` int NOT NULL DEFAULT 0,
+    `snsId` varchar(20) NOT NULL DEFAULT 0,
     `provider` varchar(20) NOT NULL DEFAULT 'local',
     `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, 
     `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 

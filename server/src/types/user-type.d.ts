@@ -6,7 +6,7 @@ export interface UserEntity {
   profile?: string;
   role: "admin" | "user";
   grape: number;
-  snsId: number;
+  snsId: string;
   provider: string;
 }
 
@@ -20,7 +20,7 @@ export interface GetUserDTO {
   nickname?: string;
   role?: "admin" | "user";
   grape?: number;
-  snsId?: number;
+  snsId?: string;
   provider?: string;
 }
 
@@ -32,11 +32,12 @@ export interface CreateUserDTO {
 }
 
 export interface SNSCreateUserDTO {
+  userId?: number;
   email?: string;
   password?: string;
-  nickname: string;
+  nickname?: string;
   profile?: string;
-  snsId: number;
+  snsId: string;
   provider: string;
 }
 
