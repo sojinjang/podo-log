@@ -3,21 +3,7 @@ import tw from "tailwind-styled-components";
 import { useRecoilState } from "recoil";
 
 import { selectedColorAtom } from "../../recoil/new-diary";
-
-const DIARY_COLOR = [
-  "000000",
-  "008fff",
-  "50e3c2",
-  "82af20",
-  "6200ee",
-  "018786",
-  "309054",
-  "b00020",
-  "2c3f50",
-  "e054b8",
-  "e39801",
-  "ff5436",
-];
+import { DIARY_COLOR } from "src/constants/DIARY_COLOR";
 
 const ColorSelectButton = tw.div`
 md:w-[65px] w-[35px] md:h-[65px] h-[35px] rounded-full m-auto mb-[2vh] cursor-pointer
