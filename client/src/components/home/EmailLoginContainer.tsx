@@ -2,6 +2,10 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import tw from "tailwind-styled-components";
 
+import { post } from "src/utils/api";
+import { API_URL } from "src/constants/API_URL";
+import { setCookie } from "src/utils/cookie";
+import { Keys } from "src/constants/Keys";
 import PurpleButton from "../common/PurpleButton";
 
 const Input = tw.input`
@@ -20,9 +24,10 @@ interface loginInput {
 const EmailLoginContainer = () => {
   const { register, handleSubmit } = useForm<loginInput>({ mode: "onChange" });
 
-  const logIn = ({ email, password }: loginInput) => {
+  const logIn = async ({ email, password }: loginInput) => {
     try {
-      return { email, password };
+      const response = await post(API_URL.emailLogin, { email, password });
+      setCookie(Keys.ACCESS_TOKEN, response.accessToken);
     } catch (err) {
       alert(err);
     }
