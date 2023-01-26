@@ -25,7 +25,12 @@ class DiaryService {
     userIdDTO: UserIdDTO
   ) {
     const [diary] = await this.diaryModel.get(diaryIdDTO);
-
+    if (!diary)
+      throw new Error(
+        `Forbidden,
+          404,
+          "요청한 다이어리가 존재하지 않습니다."`
+      );
     if (diary.userId !== userIdDTO.userId) {
       throw new Error(
         `Forbidden,
@@ -38,10 +43,24 @@ class DiaryService {
     return result;
   }
 
-  // async outBookById(userBookDTO: UserBookDTO) {
-  //   const result = await this.diaryModel.outBookById(userBookDTO);
-  //   return result;
-  // }
+  async deleteById(diaryIdDTO: DiaryIdDTO, userIdDTO: UserIdDTO) {
+    const [diary] = await this.diaryModel.get(diaryIdDTO);
+    if (!diary)
+      throw new Error(
+        `Forbidden,
+          404,
+          "요청한 다이어리가 존재하지 않습니다."`
+      );
+    if (diary.userId !== userIdDTO.userId) {
+      throw new Error(
+        `Forbidden,
+            403,
+            "작성자가 아니라 권한이 없습니다."`
+      );
+    }
+    const result = await this.diaryModel.deleteById(diaryIdDTO);
+    return result;
+  }
 }
 
 export const diaryService = new DiaryService();

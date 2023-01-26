@@ -35,14 +35,14 @@ class DiaryController {
     res.status(200).json(result);
   });
 
-  // outBookById = asyncHandler(async (req: LoggedRequest, res) => {
-  //   const bookId = parseInt(req.params.bookId);
-  //   const userBookDTO: UserBookDTO = { userId: req.user.userId, bookId };
+  deleteById = asyncHandler(async (req: LoggedRequest, res) => {
+    const diaryId = parseInt(req.params.diaryId);
+    const { userId } = req.user;
 
-  //   const result = await this.diaryService.outBookById(userBookDTO);
+    const result = await this.diaryService.deleteById({ diaryId }, { userId });
 
-  //   res.status(200).json(result);
-  // });
+    res.status(200).json(result);
+  });
 }
 
 export const diaryController = new DiaryController();

@@ -11,6 +11,10 @@ router.patch(
   validator(schema.patchDiary),
   diaryController.pacthById
 );
-// router.delete("/:diaryId", validator(schema.diaryId, ValidationSource.PARAM), diaryController);
+router.delete(
+  "/:diaryId",
+  validator(schema.diaryId, ValidationSource.PARAM),
+  diaryController.deleteById
+);
 
 export default router;

@@ -1,6 +1,6 @@
 import { pool } from "../index";
 import { logger, BuildQuery } from "../../utils";
-import { CreateDiaryDTO, GetDiaryDTO, UpdateDiaryDTO } from "../../types";
+import { CreateDiaryDTO, DiaryIdDTO, GetDiaryDTO, UpdateDiaryDTO } from "../../types";
 import { OkPacket, ResultSetHeader, RowDataPacket } from "mysql2";
 
 const diaryBuildQuery = new BuildQuery("diary");
@@ -62,14 +62,14 @@ class DiaryModel {
     return result;
   }
 
-  // async outBookById(userdiaryDTO: UserdiaryDTO) {
-  //   const { query, values } = userBookBuildQuery.makeDeleteQuery({ ...userdiaryDTO });
-  //   logger.info(query);
-  //   logger.debug(values);
-  //   const [result] = await pool.query<OkPacket>(query, values);
-  //   logger.debug(result);
-  //   return result;
-  // }
+  async deleteById(diaryIdDTO: DiaryIdDTO) {
+    const { query, values } = diaryBuildQuery.makeDeleteQuery({ ...diaryIdDTO });
+    logger.info(query);
+    logger.debug(values);
+    const [result] = await pool.query<OkPacket>(query, values);
+    logger.debug(result);
+    return result;
+  }
 }
 
 export const diaryModel = new DiaryModel();
