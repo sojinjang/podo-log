@@ -1,6 +1,6 @@
 import React from "react";
 
-import { DiaryInfo } from "src/pages/DiaryList";
+import { DiaryInfo } from "src/pages/BookList";
 import { HeartDiaryButton } from "src/components/diary-list/HeartDiaryButton";
 import { DiaryButton } from "src/components/diary-list/DiaryButton";
 import { NewDiaryButton } from "./NewDiaryButton";

@@ -14,7 +14,7 @@ export interface DiaryInfo {
   readonly color: string;
 }
 
-const DiaryList = () => {
+const BookList = () => {
   const [userDiaryArr, setUserDiaryArr] = useState<DiaryInfo[] | undefined>([]);
   const [isEmpty, setIsEmpty] = useState<boolean>(true);
 
@@ -53,4 +53,4 @@ const DiaryList = () => {
   );
 };
 
-export default DiaryList;
+export default BookList;

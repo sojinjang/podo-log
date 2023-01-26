@@ -30,7 +30,7 @@ const createNewDiary = (
   }
 };
 
-const NewDiary = () => {
+const NewBook = () => {
   const selectedColor = useRecoilValue(selectedColorAtom);
   const diaryTitle = useRecoilValue(diaryTitleAtom);
   return (
@@ -53,4 +53,4 @@ const NewDiary = () => {
   );
 };
 
-export default NewDiary;
+export default NewBook;
