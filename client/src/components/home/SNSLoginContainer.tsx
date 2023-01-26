@@ -1,10 +1,12 @@
 import React from "react";
 import tw from "tailwind-styled-components";
 
-import { get } from "src/utils/api";
 import { API_URL } from "src/constants/API_URL";
-import { setCookie } from "src/utils/cookie";
-import { Keys } from "src/constants/Keys";
+// import { get } from "src/utils/api";
+// import { setCookie } from "src/utils/cookie";
+// import { Keys } from "src/constants/Keys";
+import naverLogo from "../../assets/icons/sns/naver.png";
+import kakaoLogo from "../../assets/icons/sns/kakao.png";
 
 const SNSLoginButtonBg = tw.div`
 relative md:w-[65px] w-[40px] md:h-[65px] h-[40px] rounded-full m-auto mb-[2vh] cursor-pointer
@@ -24,8 +26,11 @@ flex mx-auto w-[50%]
 
 const loginWithSNS = async (apiUrl: string) => {
   try {
-    const response = await get(apiUrl);
-    setCookie(Keys.ACCESS_TOKEN, response.accessToken);
+    window.location.assign(process.env.REACT_APP_SERVER_URL + apiUrl);
+    // MEMO: get요청 보내면 카카오 로그인 페이지로 redirect 시키면서 CORS에러 발생
+    // api 주소로 아예 이동시키는 것으로 임시 처리함 22.01.27
+    // const response = await get(apiUrl);
+    // setCookie(Keys.ACCESS_TOKEN, response.accessToken);
   } catch (err) {
     if (err instanceof Error) alert(err.message);
   }
@@ -41,9 +46,9 @@ const SNSLoginContainer = () => {
           onClick={() => {
             loginWithSNS(API_URL.naverLogin);
           }}
-          className="bg-[#03C75A] "
+          className="bg-[#03C75A]"
         >
-          <img src={require(`../../assets/icons/sns/naver.png`)} />
+          <img src={naverLogo} />
         </SNSLoginButtonBg>
         <SNSLoginButtonBg
           onClick={() => {
@@ -51,7 +56,7 @@ const SNSLoginContainer = () => {
           }}
           className="bg-[#FEE500]"
         >
-          <img src={require(`../../assets/icons/sns/kakao.png`)} />
+          <img src={kakaoLogo} />
         </SNSLoginButtonBg>
       </IconContainer>
     </div>
