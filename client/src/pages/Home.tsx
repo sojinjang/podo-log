@@ -1,5 +1,6 @@
 import React from "react";
 import tw from "tailwind-styled-components";
+import Fade from "react-reveal/Fade";
 
 import { DefaultBackground } from "src/components/common/Backgrounds";
 import "src/components/common/Backgrounds.css";
@@ -16,13 +17,17 @@ w-[80%] py-[2vh] mt-[2vh] min-[390px]:mt-[6vh] mx-auto
 const Home = () => {
   return (
     <DefaultBackground className="animated-gradient">
-      <Greeting />
-      <GrapeIcon />
-      <LoginSection>
-        <EmailLoginContainer />
-        <SNSLoginContainer />
-        <SignUpButton />
-      </LoginSection>
+      <Fade duration={3000}>
+        <Greeting />
+        <GrapeIcon />
+      </Fade>
+      <Fade bottom duration={3000}>
+        <LoginSection>
+          <EmailLoginContainer />
+          <SNSLoginContainer />
+          <SignUpButton />
+        </LoginSection>
+      </Fade>
     </DefaultBackground>
   );
 };
