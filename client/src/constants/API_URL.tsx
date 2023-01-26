@@ -1,5 +1,5 @@
 export const API_URL = Object.freeze({
-  kakaoLogin: "/login/kakao",
-  naverLogin: "/login/naver",
-  emailLogin: "/login/local",
+  kakaoLogin: "/api/login/kakao",
+  naverLogin: "/api/login/naver",
+  emailLogin: "/api/login/local",
 });
