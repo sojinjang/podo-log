@@ -21,8 +21,8 @@ const PurpleButton = ({
       <button
         className={`purple-button text-base sm:text-xl ${buttonStyle}`}
         role="button"
-        onClick={() => {
-          if (typeof onClickFunc === "function") return onClickFunc(onClickFuncArgs);
+        onClick={(e) => {
+          if (typeof onClickFunc === "function") return onClickFunc(e, onClickFuncArgs);
         }}
       >
         {description}
