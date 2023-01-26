@@ -40,8 +40,9 @@ const NewDiary = () => {
       <ContainerTitle>일기장 제목</ContainerTitle>
       <DiaryTitleInputContainer />
       <PurpleButton
-        name="생성하기"
-        cssClass="mt-[5vh]"
+        description="생성하기"
+        wrapperStyle="mt-[5vh]"
+        buttonStyle="sm:w-40"
         onClickFunc={createNewDiary}
         onClickFuncArgs={{ selectedColor, diaryTitle }}
       />
