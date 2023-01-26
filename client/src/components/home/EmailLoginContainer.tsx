@@ -5,7 +5,7 @@ import tw from "tailwind-styled-components";
 import PurpleButton from "../common/PurpleButton";
 
 const Input = tw.input`
-  font-[notosans] bg-transparent ml-[5px] sm:text-lg
+  font-[notosans] bg-transparent ml-[5px] text-sm sm:text-lg
 `;
 
 const InputContainer = tw.div`
