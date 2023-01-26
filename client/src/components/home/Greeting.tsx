@@ -2,17 +2,15 @@ import React from "react";
 import tw from "tailwind-styled-components";
 
 const Phrase = tw.p`
-  drop-shadow-xl font-[notosans] font-black text-[4vh] pt-[60px]
-  bg-gradient-to-r from-blue-400 via-green-200/70 to-indigo-400 inline-block text-transparent bg-clip-text`;
+  font-[notosans] text-slate-50 font-black text-[4vh] 
+  text-center drop-shadow-xl pt-[60px]`;
 
 export const Greeting = () => {
   return (
-    <div className="text-center">
-      <Phrase>
-        Welcome to
-        <br />
-        podo-log
-      </Phrase>
-    </div>
+    <Phrase>
+      Welcome to
+      <br />
+      PODO LOG
+    </Phrase>
   );
 };
