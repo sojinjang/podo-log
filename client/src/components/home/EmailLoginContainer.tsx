@@ -42,7 +42,7 @@ const EmailLoginContainer = () => {
         <Input
           placeholder="password"
           type="password"
-          minLength={5}
+          minLength={4}
           required
           {...register("password")}
         ></Input>
