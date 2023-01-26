@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Home, DiaryList, Diary, Login, SignUp, NewDiary, Grape, MyPage } from "../pages";
+import { Home, DiaryList, Diary, SignUp, NewDiary, Grape, MyPage } from "../pages";
 
 interface RouteInfoObj {
   readonly [key: string]: PathElemPair;
@@ -15,10 +15,6 @@ export const PUBLIC_ROUTE: RouteInfoObj = {
   home: {
     path: "/",
     element: <Home />,
-  },
-  logIn: {
-    path: "/login",
-    element: <Login />,
   },
   signUp: {
     path: "/sign-up",
