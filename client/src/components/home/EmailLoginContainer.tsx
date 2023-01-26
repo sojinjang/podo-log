@@ -1,11 +1,13 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import tw from "tailwind-styled-components";
+import { useNavigate } from "react-router-dom";
 
 import { post } from "src/utils/api";
 import { API_URL } from "src/constants/API_URL";
 import { setCookie } from "src/utils/cookie";
 import { Keys } from "src/constants/Keys";
+import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 import PurpleButton from "../common/PurpleButton";
 
 const Input = tw.input`
@@ -22,12 +24,14 @@ interface loginInput {
 }
 
 const EmailLoginContainer = () => {
+  const navigate = useNavigate();
   const { register, handleSubmit } = useForm<loginInput>({ mode: "onChange" });
 
   const logIn = async ({ email, password }: loginInput) => {
     try {
       const response = await post(API_URL.emailLogin, { email, password });
       setCookie(Keys.ACCESS_TOKEN, response.accessToken);
+      navigate(PRIVATE_ROUTE.diaries.path);
     } catch (err) {
       if (err instanceof Error) alert(err.message);
     }
