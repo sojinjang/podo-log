@@ -29,7 +29,7 @@ const EmailLoginContainer = () => {
       const response = await post(API_URL.emailLogin, { email, password });
       setCookie(Keys.ACCESS_TOKEN, response.accessToken);
     } catch (err) {
-      alert(err);
+      if (err instanceof Error) alert(err.message);
     }
   };
 
