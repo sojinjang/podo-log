@@ -2,23 +2,30 @@ import React from "react";
 import "./PurpleButton.css";
 
 interface ButtonProps {
-  readonly name: string;
-  readonly cssClass: string;
-  readonly onClickFunc: unknown;
-  readonly onClickFuncArgs: unknown;
+  readonly description: string;
+  readonly wrapperStyle: string;
+  readonly buttonStyle: string;
+  readonly onClickFunc?: unknown;
+  readonly onClickFuncArgs?: unknown;
 }
 
-const PurpleButton = ({ name, cssClass, onClickFunc, onClickFuncArgs }: ButtonProps) => {
+const PurpleButton = ({
+  description,
+  wrapperStyle,
+  buttonStyle,
+  onClickFunc,
+  onClickFuncArgs,
+}: ButtonProps) => {
   return (
-    <div className={`text-center ${cssClass}`}>
+    <div className={`text-center ${wrapperStyle}`}>
       <button
-        className="purple-button sm:w-40 text-base sm:text-xl"
+        className={`purple-button text-base sm:text-xl ${buttonStyle}`}
         role="button"
-        onClick={() => {
-          if (typeof onClickFunc === "function") return onClickFunc(onClickFuncArgs);
+        onClick={(e) => {
+          if (typeof onClickFunc === "function") return onClickFunc(e, onClickFuncArgs);
         }}
       >
-        {name}
+        {description}
       </button>
     </div>
   );

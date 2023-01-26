@@ -17,7 +17,10 @@ interface CreateNewDiaryArgs {
   diaryTitle: string;
 }
 
-const createNewDiary = ({ selectedColor, diaryTitle }: CreateNewDiaryArgs) => {
+const createNewDiary = (
+  e: React.ChangeEvent<HTMLInputElement>,
+  { selectedColor, diaryTitle }: CreateNewDiaryArgs
+) => {
   try {
     if (diaryTitle.length < 1) return alert(WARNING_MESSAGE.titleLength);
     //  api 완성되는대로 db로 데이터 post하도록 변경하기 23.01.25
@@ -40,8 +43,9 @@ const NewDiary = () => {
       <ContainerTitle>일기장 제목</ContainerTitle>
       <DiaryTitleInputContainer />
       <PurpleButton
-        name="생성하기"
-        cssClass="mt-[5vh]"
+        description="생성하기"
+        wrapperStyle="mt-[5vh]"
+        buttonStyle="sm:w-40"
         onClickFunc={createNewDiary}
         onClickFuncArgs={{ selectedColor, diaryTitle }}
       />
