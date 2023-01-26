@@ -1,4 +1,4 @@
-import { getCookieValue } from "./cookie.js";
+import { getCookieValue } from "./cookie";
 import { Keys } from "../constants/Keys";
 
 async function get(endpointInput: string, params = "") {
