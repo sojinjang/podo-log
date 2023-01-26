@@ -26,7 +26,6 @@ export interface GetDiaryDTO {
 }
 
 export interface UpdateDiaryDTO {
-  diaryId?: number;
   picture?: string;
   title?: string;
   content?: string;

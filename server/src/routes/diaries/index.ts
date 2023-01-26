@@ -5,13 +5,12 @@ import schema from "./schema";
 
 const router = Router();
 router.post("/", validator(schema.createDiary), diaryController.create);
-// router.get("/", diaryController);
-// router.patch(
-//   "/:diaryId",
-//   validator(schema.diaryId, ValidationSource.PARAM),
-//   validator(schema.patchDiary),
-//   diaryController
-// );
+router.patch(
+  "/:diaryId",
+  validator(schema.diaryId, ValidationSource.PARAM),
+  validator(schema.patchDiary),
+  diaryController.pacthById
+);
 // router.delete("/:diaryId", validator(schema.diaryId, ValidationSource.PARAM), diaryController);
 
 export default router;

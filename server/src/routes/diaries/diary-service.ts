@@ -1,5 +1,11 @@
 import { diaryModel } from "../../db/models";
-import { CreateDiaryDTO, GetDiaryDTO } from "../../types";
+import {
+  CreateDiaryDTO,
+  DiaryIdDTO,
+  GetDiaryDTO,
+  UpdateDiaryDTO,
+  UserIdDTO,
+} from "../../types";
 
 class DiaryService {
   private diaryModel = diaryModel;
@@ -9,24 +15,28 @@ class DiaryService {
   }
 
   async getByBookId(bookIdDTO: GetDiaryDTO) {
-    const diaries = await this.diaryModel.get(bookIdDTO);
+    const diaries = await this.diaryModel.getWithUser(bookIdDTO);
     return diaries;
   }
 
-  // async pacthById(bookIdDTO: BookIdDTO, updateBookDTO: UpdateBookDTO, userIdDTO: UserIdDTO) {
-  //   const userBookDTO: UserBookDTO = { userId: userIdDTO.userId, bookId: bookIdDTO.bookId };
-  //   const isMember = await this.diaryModel.checkUserBook(userBookDTO);
-  //   if (!isMember) {
-  //     throw new Error(
-  //       `Forbidden,
-  //           403,
-  //           "구성원이 아니라 권한이 없습니다."`
-  //     );
-  //   }
+  async pacthById(
+    diaryIdDTO: DiaryIdDTO,
+    updateDiaryDTO: UpdateDiaryDTO,
+    userIdDTO: UserIdDTO
+  ) {
+    const [diary] = await this.diaryModel.get(diaryIdDTO);
 
-  //   const result = await this.diaryModel.pacth(bookIdDTO, updateBookDTO);
-  //   return result;
-  // }
+    if (diary.userId !== userIdDTO.userId) {
+      throw new Error(
+        `Forbidden,
+            403,
+            "작성자가 아니라 권한이 없습니다."`
+      );
+    }
+
+    const result = await this.diaryModel.pacth(diaryIdDTO, updateDiaryDTO);
+    return result;
+  }
 
   // async outBookById(userBookDTO: UserBookDTO) {
   //   const result = await this.diaryModel.outBookById(userBookDTO);
