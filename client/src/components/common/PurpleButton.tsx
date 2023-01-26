@@ -5,7 +5,7 @@ interface ButtonProps {
   readonly description: string;
   readonly wrapperStyle: string;
   readonly buttonStyle: string;
-  readonly onClickFunc: unknown;
+  readonly onClickFunc?: unknown;
   readonly onClickFuncArgs?: unknown;
 }
 
