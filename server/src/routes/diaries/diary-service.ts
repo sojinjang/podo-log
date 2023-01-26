@@ -1,5 +1,5 @@
 import { diaryModel } from "../../db/models";
-import { CreateDiaryDTO } from "../../types";
+import { CreateDiaryDTO, GetDiaryDTO } from "../../types";
 
 class DiaryService {
   private diaryModel = diaryModel;
@@ -8,10 +8,10 @@ class DiaryService {
     return result;
   }
 
-  // async getByUserId(userIdDTO: UserIdDTO) {
-  //   const books = await this.diaryModel.getByUserId(userIdDTO);
-  //   return books;
-  // }
+  async getByBookId(bookIdDTO: GetDiaryDTO) {
+    const diaries = await this.diaryModel.get(bookIdDTO);
+    return diaries;
+  }
 
   // async pacthById(bookIdDTO: BookIdDTO, updateBookDTO: UpdateBookDTO, userIdDTO: UserIdDTO) {
   //   const userBookDTO: UserBookDTO = { userId: userIdDTO.userId, bookId: bookIdDTO.bookId };

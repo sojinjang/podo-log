@@ -1,5 +1,5 @@
 import { diaryService } from "./diary-service";
-import { CreateDiaryDTO, LoggedRequest } from "../../types";
+import { CreateDiaryDTO, GetDiaryDTO, LoggedRequest } from "../../types";
 import asyncHandler from "../../utils/async-handler";
 
 class DiaryController {
@@ -7,7 +7,7 @@ class DiaryController {
 
   create = asyncHandler(async (req: LoggedRequest, res) => {
     const { userId } = req.user;
-    const bookId = parseInt(req.params.bookId);
+    const bookId = parseInt(req.body.bookId);
     const { title, content } = req.body;
 
     const createDiaryDTO = { userId, bookId, title, content } as CreateDiaryDTO;
@@ -16,12 +16,13 @@ class DiaryController {
     res.status(200).json(result);
   });
 
-  // getByUserId = asyncHandler(async (req: LoggedRequest, res) => {
-  //   const userIdDTO: UserIdDTO = { userId: req.user.userId };
+  getByBookId = asyncHandler(async (req: LoggedRequest, res) => {
+    const bookId = parseInt(req.params.bookId);
+    const bookIdDTO: GetDiaryDTO = { bookId };
 
-  //   const result = await this.diaryService.getByUserId(userIdDTO);
-  //   res.status(200).json(result);
-  // });
+    const result = await this.diaryService.getByBookId(bookIdDTO);
+    res.status(200).json(result);
+  });
 
   // pacthById = asyncHandler(async (req: LoggedRequest, res) => {
   //   const bookId = parseInt(req.params.bookId);

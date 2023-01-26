@@ -3,9 +3,6 @@ import { diaryController } from "./diary-controller";
 import validator, { ValidationSource } from "../../utils/validator";
 import schema from "./schema";
 
-export const getDiariesRouter = Router();
-getDiariesRouter.get("/", diaryController.getByBookId);
-
 const router = Router();
 router.post("/", validator(schema.createDiary), diaryController.create);
 // router.get("/", diaryController);

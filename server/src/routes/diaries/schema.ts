@@ -2,6 +2,7 @@ import Joi from "joi";
 
 export default {
   createDiary: Joi.object().keys({
+    bookId: Joi.number().required(),
     title: Joi.string().required().max(40, "utf8"),
     content: Joi.string().required().max(580, "utf8"),
   }),

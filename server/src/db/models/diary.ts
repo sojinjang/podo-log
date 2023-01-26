@@ -1,6 +1,6 @@
 import { pool } from "../index";
 import { logger, BuildQuery } from "../../utils";
-import { CreateDiaryDTO } from "../../types";
+import { CreateDiaryDTO, GetDiaryDTO } from "../../types";
 import { OkPacket, ResultSetHeader, RowDataPacket } from "mysql2";
 
 const diaryBuildQuery = new BuildQuery("diary");
@@ -12,6 +12,32 @@ class DiaryModel {
     logger.info(query);
     logger.debug(values);
     const [result] = await pool.query<OkPacket>(query, values);
+    logger.debug(result);
+    return result;
+  }
+
+  async get(getDiaryDTO: GetDiaryDTO, columnArr: string[] = ["*"]) {
+    const joinQuery = `join user on user.userId = diary.userId`;
+    columnArr = [
+      "diary.userId",
+      "nickname",
+      "profile",
+      "diaryId",
+      "bookId",
+      "picture",
+      "title",
+      "content",
+      "diary.createdAt",
+      "diary.updatedAt",
+    ];
+    const { query, values } = diaryBuildQuery.makeSelectQuery(
+      { ...getDiaryDTO },
+      columnArr,
+      joinQuery
+    );
+    logger.info(query);
+    logger.debug(values);
+    const [result] = await pool.query<RowDataPacket[]>(query, values);
     logger.debug(result);
     return result;
   }
