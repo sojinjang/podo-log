@@ -4,7 +4,6 @@ import { CreateDiaryDTO, DiaryIdDTO, GetDiaryDTO, PageDTO, UpdateDiaryDTO } from
 import { OkPacket, ResultSetHeader, RowDataPacket } from "mysql2";
 
 const diaryBuildQuery = new BuildQuery("diary");
-// const userBookBuildQuery = new BuildQuery("user_book");
 
 class DiaryModel {
   async create(diaryDTO: CreateDiaryDTO) {
