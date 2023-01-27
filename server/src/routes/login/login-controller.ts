@@ -26,7 +26,7 @@ class LoginController {
         });
         res
           .status(200)
-          .cookie("Authorization", `Bearer ${accessToken}`, cookieOption(1, "h"))
+          .cookie("accessToken", accessToken, cookieOption(1, "h"))
           .redirect(`${podologURL}`);
       });
     })(req, res, next);
@@ -71,7 +71,7 @@ class LoginController {
 
         return res
           .status(200)
-          .cookie("Authorization", `Bearer ${accessToken}`, cookieOption(1, "h"))
+          .cookie("accessToken", accessToken, cookieOption(1, "h"))
           .redirect(`${podologURL}`);
       });
     })(req, res, next);
