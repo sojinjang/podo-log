@@ -3,7 +3,7 @@ import React from "react";
 import { DiaryInfo } from "src/pages/BookList";
 import { HeartDiaryButton } from "src/components/book-list/HeartDiaryButton";
 import { DiaryButton } from "src/components/book-list/DiaryButton";
-import { NewDiaryButton } from "./NewDiaryButton";
+import { NewBookButton } from "./NewBookButton";
 import Fade from "react-reveal/Fade";
 
 interface DiaryContainerProps {
@@ -28,7 +28,7 @@ const renderDiaryButtons = (
   return diaryButtons;
 };
 
-export const DiaryContainer = ({
+export const BooksContainer = ({
   isEmpty,
   userDiaryArr,
 }: DiaryContainerProps): JSX.Element => {
@@ -37,7 +37,7 @@ export const DiaryContainer = ({
     <Fade duration={3000}>
       <div className="flex flex-wrap justify-center mt-[3vh]">
         {renderDiaryButtons(userDiaryArr)}
-        <NewDiaryButton />
+        <NewBookButton />
       </div>
     </Fade>
   );

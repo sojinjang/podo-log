@@ -17,7 +17,7 @@ const DiaryDescription = tw.div`
 export const DiaryButton = ({ bookId, name, numPpl, color }: DiaryButtonProps) => {
   const navigate = useNavigate();
   const onClickImg = () => {
-    navigate(PRIVATE_ROUTE.diaries.path + "/" + bookId);
+    navigate(PRIVATE_ROUTE.books.path + "/" + bookId);
   };
 
   return (

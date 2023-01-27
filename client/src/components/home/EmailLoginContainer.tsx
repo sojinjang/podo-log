@@ -31,7 +31,7 @@ const EmailLoginContainer = () => {
     try {
       const response = await post(API_URL.emailLogin, { email, password });
       setCookie(Keys.ACCESS_TOKEN, response.accessToken);
-      navigate(PRIVATE_ROUTE.diaries.path);
+      navigate(PRIVATE_ROUTE.books.path);
     } catch (err) {
       if (err instanceof Error) alert(err.message);
     }

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { PinkPurpleBackground } from "src/components/common/Backgrounds";
 import { Guidance } from "src/components/book-list/Guidance";
 import { PointingFinger } from "src/components/book-list/PointingFinger";
-import { DiaryContainer } from "src/components/book-list/DiaryContainer";
+import { BooksContainer } from "src/components/book-list/BooksContainer";
 import { Navbar } from "src/components/common/NavBar";
 
 export interface DiaryInfo {
@@ -46,7 +46,7 @@ const BookList = () => {
       <div className="h-[calc(100vh-130px)] overflow-y-scroll">
         <Guidance isEmpty={isEmpty}></Guidance>
         <PointingFinger />
-        <DiaryContainer isEmpty={isEmpty} userDiaryArr={userDiaryArr} />
+        <BooksContainer isEmpty={isEmpty} userDiaryArr={userDiaryArr} />
       </div>
       <Navbar />
     </PinkPurpleBackground>

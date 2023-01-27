@@ -23,15 +23,15 @@ export const PUBLIC_ROUTE: RouteInfoObj = {
 };
 
 export const PRIVATE_ROUTE: RouteInfoObj = {
-  diaries: {
+  books: {
     path: "/books",
     element: <BookList />,
   },
-  diary: {
+  book: {
     path: "/books/:bookId",
     element: <Book />,
   },
-  newDiary: {
+  newBook: {
     path: "/new-book",
     element: <NewBook />,
   },
