@@ -2,7 +2,7 @@ import Joi from "joi";
 
 export default {
   localJoin: Joi.object().keys({
-    email: Joi.string().required().email(),
+    email: Joi.string().required().email().max(25),
     password: Joi.string().required().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")),
     nickname: Joi.string().required().min(1).max(15),
     profile: Joi.string().optional(),

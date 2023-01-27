@@ -1,7 +1,5 @@
 import { bookModel } from "../../db/models";
-import bcrypt from "bcrypt";
-import { CreateBookDTO, UserBookDTO, UserIdDTO } from "../../types";
-import { BookIdDTO, UpdateBookDTO } from "./../../types/book-type.d";
+import { BookIdDTO, UpdateBookDTO, CreateBookDTO, UserBookDTO, UserIdDTO } from "../../types";
 
 class BookService {
   private bookModel = bookModel;

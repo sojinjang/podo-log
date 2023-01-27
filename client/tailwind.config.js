@@ -1,6 +1,27 @@
+const DIARY_COLOR = [
+  "000000",
+  "008fff",
+  "50e3c2",
+  "82af20",
+  "6200ee",
+  "018786",
+  "309054",
+  "b00020",
+  "2c3f50",
+  "e054b8",
+  "e39801",
+  "ff5436",
+];
+
+const BG_DIARY_COLOR = DIARY_COLOR.reduce((acc, cur) => {
+  acc.push(`bg-[#${cur}]`);
+  return acc;
+}, []);
+
 module.exports = {
   purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
   content: [],
+  safelist: BG_DIARY_COLOR,
   mode: "jit",
   darkMode: false, // or 'media' or 'class'
   theme: {
@@ -18,6 +39,7 @@ module.exports = {
       fontFamily: {
         jua: ["Jua", "sans-serif"],
         dohyeon: ["Do Hyeon", "sans-serif"],
+        notosans: ["Noto Sans", "sans-serif"],
       },
     },
   },
