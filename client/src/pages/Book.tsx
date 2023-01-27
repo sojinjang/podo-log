@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import { PinkPurpleBackground } from "src/components/common/Backgrounds";
@@ -8,7 +8,20 @@ import { API_URL } from "src/constants/API_URL";
 
 const Book = () => {
   const params = useParams();
-  const bookId = params.bookId;
+  const bookId = Number(params.bookId);
+
+  const getDiaryList = async () => {
+    try {
+      const response = await get(API_URL.diaryList(bookId));
+      return response;
+    } catch (err) {
+      if (err instanceof Error) alert(err.message);
+    }
+  };
+
+  useEffect(() => {
+    getDiaryList();
+  }, []);
 
   return (
     <PinkPurpleBackground>
