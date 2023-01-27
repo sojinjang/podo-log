@@ -1,5 +1,11 @@
 import { diaryService } from "./diary-service";
-import { CreateDiaryDTO, GetDiaryDTO, UpdateDiaryDTO, LoggedRequest } from "../../types";
+import {
+  CreateDiaryDTO,
+  GetDiaryDTO,
+  UpdateDiaryDTO,
+  LoggedRequest,
+  PageDTO,
+} from "../../types";
 import asyncHandler from "../../utils/async-handler";
 
 class DiaryController {
@@ -18,9 +24,12 @@ class DiaryController {
 
   getByBookId = asyncHandler(async (req: LoggedRequest, res) => {
     const bookId = parseInt(req.params.bookId);
-    const bookIdDTO: GetDiaryDTO = { bookId };
+    const limit = parseInt(req.query.limit as string) || 10;
+    const offset = parseInt(req.query.offset as string) || 0;
 
-    const result = await this.diaryService.getByBookId(bookIdDTO);
+    const bookIdDTO: GetDiaryDTO = { bookId };
+    const pageDTO: PageDTO = { limit, offset };
+    const result = await this.diaryService.getByBookId(bookIdDTO, pageDTO);
     res.status(200).json(result);
   });
 
