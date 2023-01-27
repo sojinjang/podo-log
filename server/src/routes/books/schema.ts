@@ -12,4 +12,8 @@ export default {
     bookName: Joi.string().optional().min(1).max(20),
     color: Joi.string().optional(),
   }),
+  getPage: Joi.object().keys({
+    limit: Joi.number().optional(),
+    offset: Joi.number().optional(),
+  }),
 };

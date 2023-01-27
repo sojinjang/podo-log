@@ -11,6 +11,7 @@ router.get("/", bookController.getByUserId);
 router.use(
   "/:bookId/diaries",
   validator(schema.bookId, ValidationSource.PARAM),
+  validator(schema.getPage, ValidationSource.QUERY),
   diaryController.getByBookId
 );
 router.patch(

@@ -7,7 +7,7 @@
     "i-fe": "cd client && yarn install",
     "i-be": "cd server && npm i",
     "client": "cd client && yarn start",
-    "server": "cd server && npm run dev",
+    "server": "cd server && npm run server",
     "dev": "concurrently --kill-others-on-fail \"npm run client\" \"npm run server\""
   },
   "repository": {

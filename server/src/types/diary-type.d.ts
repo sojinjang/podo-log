@@ -25,6 +25,11 @@ export interface GetDiaryDTO {
   userId?: number;
 }
 
+export interface PageDTO {
+  limit: number;
+  offset: number;
+}
+
 export interface UpdateDiaryDTO {
   picture?: string;
   title?: string;
