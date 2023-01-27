@@ -1,7 +1,7 @@
 import passport from "passport";
 import { logger } from "../../utils";
 import jwt from "jsonwebtoken";
-import { jwtSecretKey, accessTokenTime } from "../../config";
+import { jwtSecretKey, accessTokenTime, podologURL, cookieOption } from "../../config";
 import asyncHandler from "../../utils/async-handler";
 
 class LoginController {
@@ -9,15 +9,11 @@ class LoginController {
     passport.authenticate("local", (authError, user, info) => {
       if (authError) {
         logger.error(authError);
-        return next(authError);
+        res.redirect(`${podologURL}?loginError=${authError.message}`);
       }
       if (!user) {
         logger.info(info.message);
-        const result = {
-          result: "loginError",
-          message: info.message,
-        };
-        return res.status(200).json(result);
+        res.redirect(`${podologURL}?loginError=${info.message}`);
       }
       return req.login(user, { session: false }, (loginError) => {
         if (loginError) {
@@ -25,14 +21,13 @@ class LoginController {
           return next(loginError);
         }
 
-        const secretKey = jwtSecretKey;
-        const accessToken = jwt.sign({ userId: user.userId }, secretKey, {
+        const accessToken = jwt.sign({ userId: user.userId }, jwtSecretKey, {
           expiresIn: accessTokenTime,
         });
-        return res.status(200).json({
-          accessToken,
-          message: "로그인성공",
-        });
+        res
+          .status(200)
+          .cookie("accessToken", accessToken, cookieOption(1, "h"))
+          .redirect(`${podologURL}`);
       });
     })(req, res, next);
   });
@@ -43,7 +38,7 @@ class LoginController {
         return next(err);
       }
     });
-    res.clearCookie("connect.sid");
+    res.clearCookie("loginToken");
     res.status(200).json({
       result: "success",
       message: "로그아웃 성공",
@@ -53,35 +48,31 @@ class LoginController {
   kakao = asyncHandler(async (req, res, next) => {
     passport.authenticate("kakao")(req, res, next);
   });
-  // { failureRedirect: '/' ,successRedirect: '/'}
+
   kakaoCallback = asyncHandler(async (req, res, next) => {
     passport.authenticate("kakao", (authError, user, info) => {
       if (authError) {
         logger.error(authError);
-        return next(authError);
+        res.redirect(`${podologURL}?loginError=${authError.message}`);
       }
       if (!user) {
         logger.info(info.message);
-        const result = {
-          result: "loginError",
-          message: info.message,
-        };
-        return res.status(400).json(result);
+        res.redirect(`${podologURL}?loginError=${info.message}`);
       }
       return req.login(user, { session: false }, (loginError) => {
         if (loginError) {
           logger.error(loginError);
-          return next(loginError);
+          res.redirect(`${podologURL}?loginError=${loginError.message}`);
         }
 
-        const secretKey = jwtSecretKey;
-        const accessToken = jwt.sign({ userId: user.userId }, secretKey, {
+        const accessToken = jwt.sign({ userId: user.userId }, jwtSecretKey, {
           expiresIn: accessTokenTime,
         });
-        return res.status(200).json({
-          accessToken,
-          message: "로그인성공",
-        });
+
+        return res
+          .status(200)
+          .cookie("accessToken", accessToken, cookieOption(1, "h"))
+          .redirect(`${podologURL}`);
       });
     })(req, res, next);
   });
