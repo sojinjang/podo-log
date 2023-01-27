@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 
 import { PinkPurpleBackground } from "src/components/common/Backgrounds";
 import BackButton from "../components/common/BackButton";
+import BookName from "../components/book/BookName";
 import { get } from "src/utils/api";
 import { API_URL } from "src/constants/API_URL";
 
@@ -26,6 +27,7 @@ const Book = () => {
   return (
     <PinkPurpleBackground>
       <BackButton />
+      <BookName />
     </PinkPurpleBackground>
   );
 };
