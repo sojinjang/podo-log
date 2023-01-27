@@ -2,9 +2,9 @@ import React from "react";
 import { useEffect, useState } from "react";
 
 import { PinkPurpleBackground } from "src/components/common/Backgrounds";
-import { Guidance } from "src/components/diary-list/Guidance";
-import { PointingFinger } from "src/components/diary-list/PointingFinger";
-import { DiaryContainer } from "src/components/diary-list/DiaryContainer";
+import { Guidance } from "src/components/book-list/Guidance";
+import { PointingFinger } from "src/components/book-list/PointingFinger";
+import { DiaryContainer } from "src/components/book-list/DiaryContainer";
 import { Navbar } from "src/components/common/NavBar";
 
 export interface DiaryInfo {

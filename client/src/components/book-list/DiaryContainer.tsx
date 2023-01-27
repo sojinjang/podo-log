@@ -1,8 +1,8 @@
 import React from "react";
 
 import { DiaryInfo } from "src/pages/BookList";
-import { HeartDiaryButton } from "src/components/diary-list/HeartDiaryButton";
-import { DiaryButton } from "src/components/diary-list/DiaryButton";
+import { HeartDiaryButton } from "src/components/book-list/HeartDiaryButton";
+import { DiaryButton } from "src/components/book-list/DiaryButton";
 import { NewDiaryButton } from "./NewDiaryButton";
 import Fade from "react-reveal/Fade";
 
