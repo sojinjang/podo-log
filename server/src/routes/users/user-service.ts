@@ -1,7 +1,13 @@
 import { userModel } from "../../db/models";
 import bcrypt from "bcrypt";
-import { CreateUserDTO, UpdateUserDTO, UserEntity, UserIdDTO } from "../../types";
-// const { imageDeleter } = require("../middlewares");
+import {
+  CreateUserDTO,
+  UpdateUserDTO,
+  UserEntity,
+  UserIdDTO,
+  UserProfileDTO,
+} from "../../types";
+import { imageDeleter } from "../../middlewares";
 
 class UserService {
   private userModel = userModel;
@@ -58,9 +64,19 @@ class UserService {
     return result;
   }
 
-  async deleteById(userId: number) {
-    const userIdDTO: UserIdDTO = { userId };
+  async deleteById(userDTO: UserEntity) {
+    if (userDTO.profile) imageDeleter(userDTO.profile);
+    const userIdDTO = { userId: userDTO.userId };
+
     const result = await this.userModel.deleteById(userIdDTO);
+    return result;
+  }
+
+  async updateImage(userDTO: UserEntity, userProfileDTO: UserProfileDTO) {
+    if (userDTO.profile) imageDeleter(userDTO.profile);
+    const userIdDTO = { userId: userDTO.userId };
+
+    const result = await this.userModel.pacth(userIdDTO, userProfileDTO);
     return result;
   }
 }
