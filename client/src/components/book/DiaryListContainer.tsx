@@ -17,6 +17,8 @@ interface Diary {
   picture: null | string;
   createdAt: Date;
   updatedAt: Date;
+  //TODO: comment 칼럼 추가해주면 아래 라인 추가
+  numComments: number;
 }
 
 const DiaryListContainer = () => {
@@ -53,6 +55,7 @@ const DiaryListContainer = () => {
   useDidMountEffect(getDiaryList, [getDiaryList]);
   useDidMountEffect(handleStartIdx, [inView, isLoading]);
 
+  console.log(diaries);
   return (
     <div>
       {diaries.map((diary, idx) => {
