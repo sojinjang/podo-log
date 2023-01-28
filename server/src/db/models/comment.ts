@@ -15,34 +15,6 @@ class CommentModel {
     return result;
   }
 
-  // async getWithUser(getcommentDTO: GetcommentDTO, pageDTO: PageDTO, columnArr: string[] = ["*"]) {
-  //   const joinQuery = `JOIN user on user.userId = diary.userId`;
-  //   const pageQuery = `LIMIT ${pageDTO.offset}, ${pageDTO.limit}`;
-  //   columnArr = [
-  //     "diary.userId",
-  //     "nickname",
-  //     "profile",
-  //     "diaryId",
-  //     "bookId",
-  //     "picture",
-  //     "title",
-  //     "content",
-  //     "diary.createdAt",
-  //     "diary.updatedAt",
-  //   ];
-  //   const { query, values } = commentBuildQuery.makeSelectQuery(
-  //     { ...getcommentDTO },
-  //     columnArr,
-  //     joinQuery,
-  //     pageQuery
-  //   );
-  //   logger.info(query);
-  //   logger.debug(values);
-  //   const [result] = await pool.query<RowDataPacket[]>(query, values);
-  //   logger.debug(result);
-  //   return result;
-  // }
-
   async get(getCommentDTO: GetCommentDTO, columnArr: string[] = ["*"]) {
     const { query, values } = commentBuildQuery.makeSelectQuery(
       { ...getCommentDTO },
@@ -67,14 +39,14 @@ class CommentModel {
     return result;
   }
 
-  // async deleteById(diaryIdDTO: DiaryIdDTO) {
-  //   const { query, values } = commentBuildQuery.makeDeleteQuery({ ...diaryIdDTO });
-  //   logger.info(query);
-  //   logger.debug(values);
-  //   const [result] = await pool.query<OkPacket>(query, values);
-  //   logger.debug(result);
-  //   return result;
-  // }
+  async deleteById(commentIdDTO: CommentIdDTO) {
+    const { query, values } = commentBuildQuery.makeDeleteQuery({ ...commentIdDTO });
+    logger.info(query);
+    logger.debug(values);
+    const [result] = await pool.query<OkPacket>(query, values);
+    logger.debug(result);
+    return result;
+  }
 }
 
 export const commentModel = new CommentModel();

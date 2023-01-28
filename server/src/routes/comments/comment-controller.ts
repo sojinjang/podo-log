@@ -1,5 +1,5 @@
 import { commentService } from "./comment-service";
-import { CreateCommentDTO, LoggedRequest, UpdateCommentDTO } from "../../types";
+import { CreateCommentDTO, DiaryIdDTO, LoggedRequest, UpdateCommentDTO } from "../../types";
 import asyncHandler from "../../utils/async-handler";
 
 class CommentController {
@@ -8,7 +8,7 @@ class CommentController {
   create = asyncHandler(async (req: LoggedRequest, res) => {
     const { userId } = req.user;
     const diaryId = parseInt(req.body.diaryId);
-    const parentCommentId = parseInt(req.body.parentCommentId);
+    const parentCommentId = parseInt(req.body.parentCommentId) || 0;
     const { reply } = req.body;
 
     const createDiaryDTO = { userId, diaryId, parentCommentId, reply } as CreateCommentDTO;
@@ -17,16 +17,13 @@ class CommentController {
     res.status(200).json(result);
   });
 
-  // getByBookId = asyncHandler(async (req: LoggedRequest, res) => {
-  //   const bookId = parseInt(req.params.bookId);
-  //   const limit = parseInt(req.query.limit as string) || 10;
-  //   const offset = parseInt(req.query.offset as string) || 0;
+  getByDiaryId = asyncHandler(async (req: LoggedRequest, res) => {
+    const diaryId = parseInt(req.query.diaryId as string);
 
-  //   const bookIdDTO: GetDiaryDTO = { bookId };
-  //   const pageDTO: PageDTO = { limit, offset };
-  //   const result = await this.diaryService.getByBookId(bookIdDTO, pageDTO);
-  //   res.status(200).json(result);
-  // });
+    const diaryIdDTO: DiaryIdDTO = { diaryId };
+    const result = await this.commentService.getByDiaryId(diaryIdDTO);
+    res.status(200).json(result);
+  });
 
   pacthById = asyncHandler(async (req: LoggedRequest, res) => {
     const { userId } = req.user;
@@ -41,14 +38,14 @@ class CommentController {
     res.status(200).json(result);
   });
 
-  // deleteById = asyncHandler(async (req: LoggedRequest, res) => {
-  //   const diaryId = parseInt(req.params.diaryId);
-  //   const { userId } = req.user;
+  deleteById = asyncHandler(async (req: LoggedRequest, res) => {
+    const { userId } = req.user;
+    const commentId = parseInt(req.params.commentId);
 
-  //   const result = await this.diaryService.deleteById({ diaryId }, { userId });
+    const result = await this.commentService.deleteById({ commentId }, { userId });
 
-  //   res.status(200).json(result);
-  // });
+    res.status(200).json(result);
+  });
 }
 
 export const commentController = new CommentController();
