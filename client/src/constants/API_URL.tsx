@@ -6,7 +6,7 @@ export const API_URL = Object.freeze({
   book: function (bookId: number) {
     return this.books + `/${bookId}`;
   },
-  diaryList: function (bookId: number) {
-    return this.book(bookId) + "/diaries";
+  diaryList: function (bookId: number, limit: number, offset: number) {
+    return `${this.book(bookId)}/diaries?limit=${limit}&offset=${offset}`;
   },
 });
