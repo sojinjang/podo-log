@@ -5,18 +5,20 @@ import {
   UpdateDiaryDTO,
   LoggedRequest,
   PageDTO,
+  FileRequest,
 } from "../../types";
 import asyncHandler from "../../utils/async-handler";
 
 class DiaryController {
   private diaryService = diaryService;
 
-  create = asyncHandler(async (req: LoggedRequest, res) => {
+  create = asyncHandler(async (req: FileRequest, res) => {
     const { userId } = req.user;
     const bookId = parseInt(req.body.bookId);
     const { title, content } = req.body;
+    const picture = req.file?.location;
 
-    const createDiaryDTO = { userId, bookId, title, content } as CreateDiaryDTO;
+    const createDiaryDTO = { userId, bookId, title, content, picture } as CreateDiaryDTO;
 
     const result = await this.diaryService.create(createDiaryDTO);
     res.status(200).json(result);
@@ -25,7 +27,8 @@ class DiaryController {
   getByBookId = asyncHandler(async (req: LoggedRequest, res) => {
     const bookId = parseInt(req.params.bookId);
     const limit = parseInt(req.query.limit as string) || 10;
-    const offset = parseInt(req.query.offset as string) || 0;
+    const start = parseInt(req.query.start as string) || 1;
+    const offset = start - 1;
 
     const bookIdDTO: GetDiaryDTO = { bookId };
     const pageDTO: PageDTO = { limit, offset };
