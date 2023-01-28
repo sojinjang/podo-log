@@ -13,6 +13,9 @@ export interface UserEntity {
 export interface UserIdDTO {
   userId: number;
 }
+export interface UserProfileDTO {
+  profile: string;
+}
 
 export interface GetUserDTO {
   userId?: number;
@@ -45,6 +48,7 @@ export interface UpdateUserDTO {
   nickname?: string;
   password?: string;
   newPassword?: string;
+  profile?: string;
 }
 export interface WithdrawalUserDTO {
   password?: string;
