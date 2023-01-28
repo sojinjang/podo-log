@@ -18,7 +18,7 @@ interface Diary {
   createdAt: Date;
   updatedAt: Date;
   //TODO: comment 칼럼 추가해주면 아래 라인 추가
-  numComments: number;
+  //   numComments: number;
 }
 
 const DiaryListContainer = () => {
