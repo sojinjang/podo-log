@@ -1,4 +1,4 @@
-import { CreateUserDTO, DataObj } from "../types";
+import { DataObj } from "../types";
 
 export class BuildQuery {
   constructor(public table: String) {}
