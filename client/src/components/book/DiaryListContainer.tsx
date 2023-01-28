@@ -8,15 +8,15 @@ import { API_URL } from "src/constants/API_URL";
 
 interface Diary {
   bookId: number;
+  diaryId: number;
   userId: number;
+  nickname: string;
   title: string;
   content: string;
-  diaryId: number;
-  nickname: string;
-  picture: null | string;
   profile: null | string;
-  createdAt: EpochTimeStamp;
-  updatedAt: EpochTimeStamp;
+  picture: null | string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const DiaryListContainer = () => {
