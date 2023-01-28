@@ -52,7 +52,7 @@ const DiaryListContainer = () => {
 
   useDidMountEffect(getDiaryList, [getDiaryList]);
   useDidMountEffect(handleStartIdx, [inView, isLoading]);
-  console.log(diaries);
+
   return (
     <div>
       {diaries.map((diary, idx) => {
