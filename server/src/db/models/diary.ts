@@ -1,10 +1,9 @@
 import { pool } from "../index";
 import { logger, BuildQuery } from "../../utils";
-import { CreateDiaryDTO, DiaryIdDTO, GetDiaryDTO, UpdateDiaryDTO } from "../../types";
+import { CreateDiaryDTO, DiaryIdDTO, GetDiaryDTO, PageDTO, UpdateDiaryDTO } from "../../types";
 import { OkPacket, ResultSetHeader, RowDataPacket } from "mysql2";
 
 const diaryBuildQuery = new BuildQuery("diary");
-// const userBookBuildQuery = new BuildQuery("user_book");
 
 class DiaryModel {
   async create(diaryDTO: CreateDiaryDTO) {
@@ -16,8 +15,9 @@ class DiaryModel {
     return result;
   }
 
-  async getWithUser(getDiaryDTO: GetDiaryDTO, columnArr: string[] = ["*"]) {
-    const joinQuery = `join user on user.userId = diary.userId`;
+  async getWithUser(getDiaryDTO: GetDiaryDTO, pageDTO: PageDTO, columnArr: string[] = ["*"]) {
+    const joinQuery = `JOIN user on user.userId = diary.userId`;
+    const pageQuery = `LIMIT ${pageDTO.offset}, ${pageDTO.limit}`;
     columnArr = [
       "diary.userId",
       "nickname",
@@ -33,7 +33,8 @@ class DiaryModel {
     const { query, values } = diaryBuildQuery.makeSelectQuery(
       { ...getDiaryDTO },
       columnArr,
-      joinQuery
+      joinQuery,
+      pageQuery
     );
     logger.info(query);
     logger.debug(values);

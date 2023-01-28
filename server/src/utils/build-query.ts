@@ -1,4 +1,4 @@
-import { CreateUserDTO, DataObj } from "../types";
+import { DataObj } from "../types";
 
 export class BuildQuery {
   constructor(public table: String) {}
@@ -35,7 +35,12 @@ export class BuildQuery {
     return { query, values };
   }
 
-  makeSelectQuery(whereDTO?: DataObj, columnArr: string[] = ["*"], joinQuery: string = "") {
+  makeSelectQuery(
+    whereDTO?: DataObj,
+    columnArr: string[] = ["*"],
+    joinQuery: string = "",
+    pageQuery: string = ""
+  ) {
     let wheres, values;
     if (whereDTO === undefined) wheres = "";
     else {
@@ -45,7 +50,7 @@ export class BuildQuery {
     }
 
     const columns = columnArr.join(", ");
-    const query = `select ${columns} from ${this.table} ${joinQuery} where ${wheres}`;
+    const query = `select ${columns} from ${this.table} ${joinQuery} where ${wheres} ${pageQuery}`;
     return { query, values };
   }
 

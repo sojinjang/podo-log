@@ -1,0 +1,27 @@
+{
+  "name": "podo-log",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "i-fe": "cd client && yarn install",
+    "i-be": "cd server && npm i",
+    "client": "cd client && yarn start",
+    "server": "cd server && npm run server",
+    "dev": "concurrently --kill-others-on-fail \"npm run client\" \"npm run server\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sojinjang/podo-log.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sojinjang/podo-log/issues"
+  },
+  "homepage": "https://github.com/sojinjang/podo-log#readme",
+  "dependencies": {
+    "concurrently": "^7.6.0"
+  }
+}

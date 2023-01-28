@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.ts",
     "build": "tsc -p .",
-    "dev": "nodemon --watch \"src/**/*.ts\" --exec \"ts-node\" index.ts"
+    "server": "nodemon --watch \"src/**/*.ts\" --exec \"ts-node\" index.ts"
   },
   "keywords": [],
   "author": "",

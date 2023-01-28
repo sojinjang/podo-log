@@ -3,6 +3,7 @@ import {
   CreateDiaryDTO,
   DiaryIdDTO,
   GetDiaryDTO,
+  PageDTO,
   UpdateDiaryDTO,
   UserIdDTO,
 } from "../../types";
@@ -14,8 +15,8 @@ class DiaryService {
     return result;
   }
 
-  async getByBookId(bookIdDTO: GetDiaryDTO) {
-    const diaries = await this.diaryModel.getWithUser(bookIdDTO);
+  async getByBookId(bookIdDTO: GetDiaryDTO, pageDTO: PageDTO) {
+    const diaries = await this.diaryModel.getWithUser(bookIdDTO, pageDTO);
     return diaries;
   }
 
