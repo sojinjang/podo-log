@@ -56,17 +56,15 @@ const DiaryListContainer = () => {
   return (
     <div>
       {diaries.map((diary, idx) => {
-        if (diaries.length > 0) {
-          return (
-            <React.Fragment key={idx}>
-              {diaries.length - 1 === idx ? (
-                <div ref={ref}>{diary.title}</div>
-              ) : (
-                <div>{diary.title}</div>
-              )}
-            </React.Fragment>
-          );
-        }
+        return (
+          <React.Fragment key={idx}>
+            {diaries.length - 1 === idx ? (
+              <div ref={ref}>{diary.title}</div>
+            ) : (
+              <div>{diary.title}</div>
+            )}
+          </React.Fragment>
+        );
       })}
     </div>
   );
