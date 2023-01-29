@@ -10,7 +10,7 @@ interface DiaryContainerProps {
   data: Diary;
 }
 
-// TODO: 사진 기능, comment 기능 완성되는 대로 data에서 꺼내서 보여주는걸로 코드 변경
+// TODO: 사진 기능, comment 기능 완성되는 대로 data에서 꺼내서 보여주는걸로 코드 변경하기
 const DiaryContainer = ({ viewRef, data }: DiaryContainerProps) => {
   return (
     <Container ref={viewRef}>
