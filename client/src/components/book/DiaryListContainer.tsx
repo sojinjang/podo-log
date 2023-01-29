@@ -58,7 +58,7 @@ export const DiaryListContainer = () => {
 
   console.log(diaries);
   return (
-    <div className="overflow-y-hidden">
+    <div>
       {diaries.map((diary, idx) => {
         return (
           <React.Fragment key={idx}>
