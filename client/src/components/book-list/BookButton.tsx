@@ -10,7 +10,7 @@ interface DiaryButtonProps {
   readonly color: string;
 }
 
-export const DiaryButton = ({ bookId, name, numMembers, color }: DiaryButtonProps) => {
+export const BookButton = ({ bookId, name, numMembers, color }: DiaryButtonProps) => {
   const navigate = useNavigate();
   const onClickImg = () => {
     navigate(PRIVATE_ROUTE.books.path + "/" + bookId, {

@@ -2,7 +2,7 @@ import React from "react";
 
 import { DiaryInfo } from "src/pages/BookList";
 import { HeartDiaryButton } from "src/components/book-list/HeartDiaryButton";
-import { DiaryButton } from "src/components/book-list/DiaryButton";
+import { BookButton } from "src/components/book-list/BookButton";
 import { NewBookButton } from "./NewBookButton";
 import Fade from "react-reveal/Fade";
 
@@ -16,7 +16,7 @@ const renderDiaryButtons = (
 ): JSX.Element[] | undefined => {
   const diaryButtons = userDiaryArr?.map((diary: DiaryInfo) => {
     return (
-      <DiaryButton
+      <BookButton
         key={diary.bookId}
         bookId={diary.bookId}
         name={diary.bookName}
