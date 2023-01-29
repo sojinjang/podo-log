@@ -6,7 +6,7 @@ import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 import pencilImg from "../../assets/icons/pencil.png";
 
 const ButtonContainer = tw.div`
-flex justify-center w-[90%] h-[8%] mx-auto mt-[2vh] 
+flex justify-center w-[90%] h-[8%] mx-auto my-[2vh]
 bg-white/60 rounded-lg 
 hover:border-dashed hover:border-black/80 hover:border-[2.5px]
 shadow-lg hover:shadow-none ease-in duration-200
