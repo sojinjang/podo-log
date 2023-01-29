@@ -5,8 +5,9 @@ import { useInView } from "react-intersection-observer";
 import { get } from "src/utils/api";
 import { useDidMountEffect } from "src/utils/hooks";
 import { API_URL } from "src/constants/API_URL";
+import DiaryContainer from "./DiaryContainer";
 
-interface Diary {
+export interface Diary {
   bookId: number;
   diaryId: number;
   userId: number;
@@ -21,7 +22,7 @@ interface Diary {
   //   numComments: number;
 }
 
-const DiaryListContainer = () => {
+export const DiaryListContainer = () => {
   const LIMIT = 5;
   const params = useParams();
   const bookId = Number(params.bookId);
@@ -57,14 +58,14 @@ const DiaryListContainer = () => {
 
   console.log(diaries);
   return (
-    <div>
+    <div className="overflow-y-hidden">
       {diaries.map((diary, idx) => {
         return (
           <React.Fragment key={idx}>
             {diaries.length - 1 === idx ? (
-              <div ref={ref}>{diary.title}</div>
+              <DiaryContainer viewRef={ref} data={diary}></DiaryContainer>
             ) : (
-              <div>{diary.title}</div>
+              <DiaryContainer data={diary}></DiaryContainer>
             )}
           </React.Fragment>
         );
@@ -72,5 +73,3 @@ const DiaryListContainer = () => {
     </div>
   );
 };
-
-export default DiaryListContainer;
