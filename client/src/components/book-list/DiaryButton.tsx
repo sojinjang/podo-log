@@ -6,18 +6,19 @@ import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 interface DiaryButtonProps {
   readonly bookId: number;
   readonly name: string;
-  readonly numPpl: number;
+  readonly numMembers: number;
   readonly color: string;
 }
 
-const DiaryDescription = tw.div`
-  flex justify-center mb-5 text-xl
-`;
-
-export const DiaryButton = ({ bookId, name, numPpl, color }: DiaryButtonProps) => {
+export const DiaryButton = ({ bookId, name, numMembers, color }: DiaryButtonProps) => {
   const navigate = useNavigate();
   const onClickImg = () => {
-    navigate(PRIVATE_ROUTE.books.path + "/" + bookId);
+    navigate(PRIVATE_ROUTE.books.path + "/" + bookId, {
+      state: {
+        name: name,
+        numMembers: numMembers,
+      },
+    });
   };
 
   return (
@@ -30,8 +31,12 @@ export const DiaryButton = ({ bookId, name, numPpl, color }: DiaryButtonProps) =
       />
       <DiaryDescription>
         <div className="font-[jua]">{name}</div>
-        <div className="font-[jua] text-gray-1000 ml-2">{numPpl}</div>
+        <div className="font-[jua] text-gray-1000 ml-2">{numMembers}</div>
       </DiaryDescription>
     </div>
   );
 };
+
+const DiaryDescription = tw.div`
+  flex justify-center mb-5 text-xl
+`;
