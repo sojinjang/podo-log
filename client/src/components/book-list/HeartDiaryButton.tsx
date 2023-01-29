@@ -6,7 +6,7 @@ import heartDiaryImg from "../../assets/icons/diary/notebook_love.png";
 export const HeartDiaryButton = () => {
   const navigate = useNavigate();
   const onClickImg = () => {
-    navigate(PRIVATE_ROUTE.newDiary.path);
+    navigate(PRIVATE_ROUTE.newBook.path);
   };
 
   return (

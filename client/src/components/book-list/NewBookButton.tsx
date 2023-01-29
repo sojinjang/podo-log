@@ -2,10 +2,10 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 
-export const NewDiaryButton = () => {
+export const NewBookButton = () => {
   const navigate = useNavigate();
   const onClickImg = () => {
-    navigate(PRIVATE_ROUTE.newDiary.path);
+    navigate(PRIVATE_ROUTE.newBook.path);
   };
 
   return (
