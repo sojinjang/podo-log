@@ -59,10 +59,12 @@ w-[70%] mx-6 md:mx-8
 
 const DiaryTitle = tw.p`
 mx-6 md:mx-8 mt-2 text-[2.2vh] md:text-[2vh]
+whitespace-pre-line break-all
 `;
 
 const DiaryContent = tw.p`
-mx-6 md:mx-8 pb-4 md:pb-6 text-[1.8vh] md:text-[1.6vh]
+mx-6 md:mx-8 pb-4 md:pb-6 text-[1.8vh] md:text-[1.6vh] 
+whitespace-pre-line break-all
 `;
 
 const CommentContainer = tw.div`
