@@ -8,6 +8,7 @@ import {
   SignUp,
   NewBook,
   NewDiary,
+  DiaryDetail,
   Grape,
   MyPage,
 } from "../pages";
@@ -52,6 +53,10 @@ export const PRIVATE_ROUTE: RouteInfoObj = {
   newDiary: {
     path: "/new-diary",
     element: <NewDiary />,
+  },
+  diaryDetail: {
+    path: "/books/:bookId/:diaryId",
+    element: <DiaryDetail />,
   },
   grape: {
     path: "/grape",
