@@ -1,5 +1,6 @@
 import React from "react";
 import tw from "tailwind-styled-components";
+import Fade from "react-reveal/Fade";
 
 import changeToKoreanTime from "src/utils/time";
 import { Diary } from "./DiaryListContainer";
@@ -13,22 +14,24 @@ interface DiaryContainerProps {
 // TODO: 사진 기능, comment 기능 완성되는 대로 data에서 꺼내서 보여주는걸로 코드 변경하기
 const DiaryContainer = ({ viewRef, data }: DiaryContainerProps) => {
   return (
-    <Container ref={viewRef}>
-      <div className="flex">
-        <ProfileImg src={require("../../assets/profile.jpg")}></ProfileImg>
-        <div className="my-auto">
-          <Nickname>{data.nickname}</Nickname>
-          <Date>{changeToKoreanTime(data.updatedAt)}</Date>
+    <Fade bottom duration={1000}>
+      <Container ref={viewRef}>
+        <div className="flex">
+          <ProfileImg src={require("../../assets/profile.jpg")}></ProfileImg>
+          <div className="my-auto">
+            <Nickname>{data.nickname}</Nickname>
+            <Date>{changeToKoreanTime(data.updatedAt)}</Date>
+          </div>
         </div>
-      </div>
-      <Photo src={require("../../assets/IMG_7291.JPG")} />
-      <DiaryTitle>{data.title}</DiaryTitle>
-      <DiaryContent>{data.content}</DiaryContent>
-      <CommentContainer>
-        <CommentIcon src={commentImg} />
-        <NumComments>3</NumComments>
-      </CommentContainer>
-    </Container>
+        <Photo src={require("../../assets/IMG_7291.JPG")} />
+        <DiaryTitle>{data.title}</DiaryTitle>
+        <DiaryContent>{data.content}</DiaryContent>
+        <CommentContainer>
+          <CommentIcon src={commentImg} />
+          <NumComments>3</NumComments>
+        </CommentContainer>
+      </Container>
+    </Fade>
   );
 };
 
