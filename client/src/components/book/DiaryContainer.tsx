@@ -13,6 +13,7 @@ interface DiaryContainerProps {
 
 // TODO: 사진 기능, comment 기능 완성되는 대로 data에서 꺼내서 보여주는걸로 코드 변경하기
 const DiaryContainer = ({ viewRef, data }: DiaryContainerProps) => {
+  const isRevised = data.createdAt !== data.updatedAt;
   return (
     <Fade bottom duration={1000}>
       <Container ref={viewRef}>
@@ -20,7 +21,10 @@ const DiaryContainer = ({ viewRef, data }: DiaryContainerProps) => {
           <ProfileImg src={require("../../assets/profile.jpg")}></ProfileImg>
           <div className="my-auto">
             <Nickname>{data.nickname}</Nickname>
-            <Date>{changeToKoreanTime(data.updatedAt)}</Date>
+            <div className="flex">
+              <Date>{changeToKoreanTime(data.updatedAt)}</Date>
+              {isRevised && <Date className="ml-1">(수정됨)</Date>}
+            </div>
           </div>
         </div>
         <Photo src={require("../../assets/IMG_7291.JPG")} />
