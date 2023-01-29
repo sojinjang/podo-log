@@ -1,7 +1,9 @@
 import React from "react";
 import tw from "tailwind-styled-components";
+import { useNavigate } from "react-router-dom";
 import Fade from "react-reveal/Fade";
 
+import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 import changeToKoreanTime from "src/utils/time";
 import { Diary } from "./DiaryListContainer";
 import commentImg from "../../assets/icons/comment.png";
@@ -14,9 +16,16 @@ interface DiaryContainerProps {
 // TODO: 사진 기능, comment 기능 완성되는 대로 data에서 꺼내서 보여주는걸로 코드 변경하기
 const DiaryContainer = ({ viewRef, data }: DiaryContainerProps) => {
   const isRevised = data.createdAt !== data.updatedAt;
+  const navigate = useNavigate();
+  const onClickDiary = () => {
+    navigate(`${PRIVATE_ROUTE.books.path}/${data.bookId}/${data.diaryId}`, {
+      state: {},
+    });
+  };
+
   return (
     <Fade bottom duration={1000}>
-      <Container ref={viewRef}>
+      <Container onClick={onClickDiary} ref={viewRef}>
         <div className="flex">
           <ProfileImg src={require("../../assets/profile.jpg")}></ProfileImg>
           <div className="my-auto">
