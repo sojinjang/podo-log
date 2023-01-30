@@ -1,10 +1,11 @@
 import passport from "passport";
-import { localStrategy } from "./localStrategy";
-import { jwtStrategy } from "./jwtStrategy";
-import { kakaoStrategy } from "./kakaoStrategy";
+import { localStrategy } from "./local-strategy";
+import { accessJwtStrategy } from "./access-jwt-strategy";
+import { kakaoStrategy } from "./kakao-strategy";
 
 export default function () {
   passport.use("local", localStrategy);
-  passport.use("jwt", jwtStrategy);
   passport.use("kakao", kakaoStrategy);
+  passport.use("accessJwt", accessJwtStrategy);
+  passport.use("refreshJwt", accessJwtStrategy);
 }
