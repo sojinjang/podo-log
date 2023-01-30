@@ -22,7 +22,8 @@ export const corsOption = {
   credentials: true,
 };
 
-export const jwtSecretKey = process.env.JWT_SECRET_KEY as string;
+export const accessSecretKey = process.env.ACCESS_JWT_SECRET_KEY as string;
+export const refreshSecretKey = process.env.REFRESH_JWT_SECRET_KEY as string;
 
 export const logLevel = process.env.LOG_LEVEL;
 
