@@ -56,6 +56,12 @@ class UserController {
 
     res.status(200).json(result);
   });
+
+  deleteProfile = asyncHandler(async (req: FileRequest, res) => {
+    const result = await this.userService.deleteImage(req.user);
+
+    res.status(200).json(result);
+  });
 }
 
 export const userController = new UserController();

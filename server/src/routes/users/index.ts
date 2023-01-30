@@ -17,5 +17,6 @@ router.patch("/", isLoggedIn, validator(schema.patchUser), userController.pacthB
 router.patch("/withdrawal", isLoggedIn, userController.withdrawalById);
 router.delete("/", isLoggedIn, userController.deleteById);
 router.post("/image", imageUploader.single("profile"), userController.updateProfile);
+router.delete("/image", userController.deleteProfile);
 
 export default router;

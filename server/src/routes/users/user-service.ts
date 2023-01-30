@@ -73,10 +73,19 @@ class UserService {
   }
 
   async updateImage(userDTO: UserEntity, userProfileDTO: UserProfileDTO) {
-    if (userDTO.profile) imageDeleter(userDTO.profile);
+    if (userDTO.provider === "local" && userDTO.profile) imageDeleter(userDTO.profile);
     const userIdDTO = { userId: userDTO.userId };
 
     const result = await this.userModel.pacth(userIdDTO, userProfileDTO);
+    return result;
+  }
+
+  async deleteImage(userDTO: UserEntity) {
+    if (userDTO.provider === "local" && userDTO.profile) imageDeleter(userDTO.profile);
+    const userIdDTO = { userId: userDTO.userId };
+    userDTO.profile = "없음";
+
+    const result = await this.userModel.pacth(userIdDTO, userDTO);
     return result;
   }
 }
