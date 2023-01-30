@@ -93,7 +93,7 @@ class LoginController {
         const result = { message: "refresh 성공", accessToken };
         res.status(200).json(result);
       });
-    });
+    })(req, res, next);
   });
 }
 
