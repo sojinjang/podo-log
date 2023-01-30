@@ -8,11 +8,11 @@ class LoginController {
     passport.authenticate("local", (authError, user, info) => {
       if (authError) {
         logger.error(authError);
-        res.json({ loginError: authError.message });
+        res.status(401).json({ loginError: authError.message });
       }
       if (!user) {
         logger.info(info.message);
-        res.json({ loginError: info.message });
+        res.status(401).json({ loginError: info.message });
       }
       return req.login(user, { session: false }, (loginError) => {
         if (loginError) {
@@ -52,16 +52,16 @@ class LoginController {
     passport.authenticate("kakao", (authError, user, info) => {
       if (authError) {
         logger.error(authError);
-        res.redirect(`${podologURL}?loginError=${authError.message}`);
+        res.status(401).redirect(`${podologURL}?loginError=${authError.message}`);
       }
       if (!user) {
         logger.info(info.message);
-        res.redirect(`${podologURL}?loginError=${info.message}`);
+        res.status(401).redirect(`${podologURL}?loginError=${info.message}`);
       }
       return req.login(user, { session: false }, (loginError) => {
         if (loginError) {
           logger.error(loginError);
-          res.redirect(`${podologURL}?loginError=${loginError.message}`);
+          res.status(401).redirect(`${podologURL}?loginError=${loginError.message}`);
         }
 
         const refreshToken = makeRefreshToken(user.userId);
@@ -77,16 +77,16 @@ class LoginController {
     passport.authenticate("refreshJwt", (authError, user, info) => {
       if (authError) {
         logger.error(authError);
-        res.json({ loginError: authError.message });
+        res.status(401).json({ error: authError.message });
       }
       if (!user) {
         logger.info(info.message);
-        res.json({ loginError: info.message });
+        res.status(401).json({ error: info.message });
       }
       return req.login(user, { session: false }, (loginError) => {
         if (loginError) {
           logger.error(loginError);
-          res.redirect(`${podologURL}?loginError=${loginError.message}`);
+          res.status(401).redirect(`${podologURL}?loginError=${loginError.message}`);
         }
 
         const accessToken = makeAccessToken(user.userId);
