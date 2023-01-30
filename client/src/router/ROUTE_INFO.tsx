@@ -1,6 +1,17 @@
 import React from "react";
 
-import { Home, DiaryList, Diary, SignUp, NewDiary, Grape, MyPage } from "../pages";
+import {
+  Home,
+  BookList,
+  Book,
+  BookSetting,
+  SignUp,
+  NewBook,
+  NewDiary,
+  DiaryDetail,
+  Grape,
+  MyPage,
+} from "../pages";
 
 interface RouteInfoObj {
   readonly [key: string]: PathElemPair;
@@ -23,17 +34,29 @@ export const PUBLIC_ROUTE: RouteInfoObj = {
 };
 
 export const PRIVATE_ROUTE: RouteInfoObj = {
-  diaries: {
-    path: "/diaries",
-    element: <DiaryList />,
+  books: {
+    path: "/books",
+    element: <BookList />,
   },
-  diary: {
-    path: "/diaries/:bookId",
-    element: <Diary />,
+  book: {
+    path: "/books/:bookId",
+    element: <Book />,
+  },
+  bookSetting: {
+    path: "/books/:bookId/setting",
+    element: <BookSetting />,
+  },
+  newBook: {
+    path: "/new-book",
+    element: <NewBook />,
   },
   newDiary: {
     path: "/new-diary",
     element: <NewDiary />,
+  },
+  diaryDetail: {
+    path: "/books/:bookId/:diaryId",
+    element: <DiaryDetail />,
   },
   grape: {
     path: "/grape",

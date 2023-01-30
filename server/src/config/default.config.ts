@@ -13,7 +13,7 @@ function setCookieTime(time: number, unit: "d" | "h" | "m") {
 
 export const cookieOption = (time: number, unit: "d" | "h" | "m"): CookieOptions => {
   const expires = setCookieTime(time, unit);
-  return { httpOnly: true, path: podologURL, sameSite: "lax", expires };
+  return { httpOnly: true, path: "/", sameSite: "lax", expires };
 };
 
 export const corsOption = {
@@ -22,7 +22,8 @@ export const corsOption = {
   credentials: true,
 };
 
-export const jwtSecretKey = process.env.JWT_SECRET_KEY as string;
+export const accessSecretKey = process.env.ACCESS_JWT_SECRET_KEY as string;
+export const refreshSecretKey = process.env.REFRESH_JWT_SECRET_KEY as string;
 
 export const logLevel = process.env.LOG_LEVEL;
 

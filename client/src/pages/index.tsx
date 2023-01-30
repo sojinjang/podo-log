@@ -1,10 +1,25 @@
 import Home from "./Home";
-import DiaryList from "./DiaryList";
-import Diary from "./Diary";
+import BookList from "./BookList";
+import Book from "./Book";
+import BookSetting from "./BookSetting";
+import NewDiary from "./NewDiary";
+import DiaryDetail from "./DiaryDetail";
 import NotFound from "./NotFound";
 import SignUp from "./SignUp";
-import NewDiary from "./NewDiary";
+import NewBook from "./NewBook";
 import Grape from "./Grape";
 import MyPage from "./MyPage";
 
-export { Home, DiaryList, Diary, NotFound, SignUp, NewDiary, Grape, MyPage };
+export {
+  Home,
+  BookList,
+  Book,
+  BookSetting,
+  NewDiary,
+  DiaryDetail,
+  NotFound,
+  SignUp,
+  NewBook,
+  Grape,
+  MyPage,
+};

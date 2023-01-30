@@ -22,7 +22,7 @@ const Home = () => {
   const navigate = useNavigate();
   const isLoggedIn = Boolean(getCookieValue(Keys.ACCESS_TOKEN));
   const moveToDiaries = () => {
-    setTimeout(() => navigate(PRIVATE_ROUTE.diaries.path), 4000);
+    setTimeout(() => navigate(PRIVATE_ROUTE.books.path), 4000);
   };
 
   useEffect(() => {

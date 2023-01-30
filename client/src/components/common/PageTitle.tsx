@@ -6,7 +6,7 @@ interface TitleProps {
 }
 
 const Title = tw.div`
-  font-[jua] text-[3vh] md:text-[2.5vh] m-auto pt-[15px] 
+  font-[jua] text-[3vh] md:text-[2.7vh] m-auto pt-[1.2vh]
 `;
 
 const PageTitle = ({ title }: TitleProps) => {

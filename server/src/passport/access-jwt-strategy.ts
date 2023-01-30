@@ -1,12 +1,13 @@
-import { ExtractJwt, Strategy as JwtStrategy, VerifyCallback } from "passport-jwt";
+import { ExtractJwt, Strategy as AccessJwtStrategy, VerifyCallback } from "passport-jwt";
 import { userModel } from "../db/models";
-import { GetUserDTO } from "./../types/user-type.d";
-import { jwtSecretKey } from "../config";
+import { GetUserDTO } from "../types/user-type";
+import { accessSecretKey } from "../config";
 
 const opts = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: jwtSecretKey,
+  secretOrKey: accessSecretKey,
 };
+
 const jwtVerify: VerifyCallback = async (jwtPayload, done) => {
   try {
     const [user] = await userModel.get({ userId: jwtPayload.userId } as GetUserDTO);
@@ -20,4 +21,4 @@ const jwtVerify: VerifyCallback = async (jwtPayload, done) => {
   }
 };
 
-export const jwtStrategy = new JwtStrategy(opts, jwtVerify);
+export const accessJwtStrategy = new AccessJwtStrategy(opts, jwtVerify);

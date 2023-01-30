@@ -1,7 +1,6 @@
 import passport from "passport";
-import { logger } from "../../utils";
-import jwt from "jsonwebtoken";
-import { jwtSecretKey, accessTokenTime, podologURL, cookieOption } from "../../config";
+import { logger, makeRefreshToken, makeAccessToken } from "../../utils";
+import { podologURL, cookieOption } from "../../config";
 import asyncHandler from "../../utils/async-handler";
 
 class LoginController {
@@ -9,11 +8,11 @@ class LoginController {
     passport.authenticate("local", (authError, user, info) => {
       if (authError) {
         logger.error(authError);
-        res.redirect(`${podologURL}?loginError=${authError.message}`);
+        res.json({ loginError: authError.message });
       }
       if (!user) {
         logger.info(info.message);
-        res.redirect(`${podologURL}?loginError=${info.message}`);
+        res.json({ loginError: info.message });
       }
       return req.login(user, { session: false }, (loginError) => {
         if (loginError) {
@@ -21,13 +20,13 @@ class LoginController {
           return next(loginError);
         }
 
-        const accessToken = jwt.sign({ userId: user.userId }, jwtSecretKey, {
-          expiresIn: accessTokenTime,
-        });
+        const refreshToken = makeRefreshToken(user.userId);
+        const accessToken = makeAccessToken(user.userId);
+        const result = { message: "로그인 성공", accessToken };
         res
           .status(200)
-          .cookie("accessToken", accessToken, cookieOption(1, "h"))
-          .redirect(`${podologURL}`);
+          .cookie("refreshToken", refreshToken, cookieOption(14, "d"))
+          .json(result);
       });
     })(req, res, next);
   });
@@ -38,7 +37,7 @@ class LoginController {
         return next(err);
       }
     });
-    res.clearCookie("loginToken");
+    res.clearCookie("refreshToken");
     res.status(200).json({
       result: "success",
       message: "로그아웃 성공",
@@ -65,16 +64,36 @@ class LoginController {
           res.redirect(`${podologURL}?loginError=${loginError.message}`);
         }
 
-        const accessToken = jwt.sign({ userId: user.userId }, jwtSecretKey, {
-          expiresIn: accessTokenTime,
-        });
-
-        return res
+        const refreshToken = makeRefreshToken(user.userId);
+        res
           .status(200)
-          .cookie("accessToken", accessToken, cookieOption(1, "h"))
+          .cookie("refreshToken", refreshToken, cookieOption(14, "d"))
           .redirect(`${podologURL}`);
       });
     })(req, res, next);
+  });
+
+  silentRefresh = asyncHandler(async (req, res, next) => {
+    passport.authenticate("refreshJwt", (authError, user, info) => {
+      if (authError) {
+        logger.error(authError);
+        res.json({ loginError: authError.message });
+      }
+      if (!user) {
+        logger.info(info.message);
+        res.json({ loginError: info.message });
+      }
+      return req.login(user, { session: false }, (loginError) => {
+        if (loginError) {
+          logger.error(loginError);
+          res.redirect(`${podologURL}?loginError=${loginError.message}`);
+        }
+
+        const accessToken = makeAccessToken(user.userId);
+        const result = { message: "refresh 성공", accessToken };
+        res.status(200).json(result);
+      });
+    });
   });
 }
 

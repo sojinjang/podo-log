@@ -1,8 +1,8 @@
 import { Strategy as KakaoStrategy, VerifyFunction } from "passport-kakao";
 import { kakao } from "../config";
 import { logger } from "../utils";
-import { userModel } from "./../db/models/user";
-import { SNSCreateUserDTO } from "./../types/user-type.d";
+import { userModel } from "../db/models/user";
+import { SNSCreateUserDTO } from "../types/user-type";
 
 const opts = kakao;
 
@@ -15,18 +15,14 @@ const kakaoVerify: VerifyFunction = async (accessToken, refreshToken, profile, d
       done(null, exUser); // 인증 완료
     } else {
       //미가입자
-      const {
-        displayName: nickname,
-        _json: {
-          properties: { profile_image },
-          kakao_account: { email },
-        },
-      } = profile;
+      const { displayName: nickname, _json } = profile;
+      const profilePicture = _json.properties?.profile_image;
+      const email = _json.kakao_account?.email;
 
       const newUser: SNSCreateUserDTO = {
         email,
         nickname,
-        profile: profile_image,
+        profile: profilePicture,
         snsId,
         provider: "kakao",
       };

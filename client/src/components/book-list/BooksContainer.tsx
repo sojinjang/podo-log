@@ -1,9 +1,9 @@
 import React from "react";
 
-import { DiaryInfo } from "src/pages/DiaryList";
-import { HeartDiaryButton } from "src/components/diary-list/HeartDiaryButton";
-import { DiaryButton } from "src/components/diary-list/DiaryButton";
-import { NewDiaryButton } from "./NewDiaryButton";
+import { DiaryInfo } from "src/pages/BookList";
+import { HeartDiaryButton } from "src/components/book-list/HeartDiaryButton";
+import { BookButton } from "src/components/book-list/BookButton";
+import { NewBookButton } from "./NewBookButton";
 import Fade from "react-reveal/Fade";
 
 interface DiaryContainerProps {
@@ -16,11 +16,11 @@ const renderDiaryButtons = (
 ): JSX.Element[] | undefined => {
   const diaryButtons = userDiaryArr?.map((diary: DiaryInfo) => {
     return (
-      <DiaryButton
+      <BookButton
         key={diary.bookId}
         bookId={diary.bookId}
         name={diary.bookName}
-        numPpl={diary.numPpl}
+        numMembers={diary.numMembers}
         color={diary.color}
       />
     );
@@ -28,7 +28,7 @@ const renderDiaryButtons = (
   return diaryButtons;
 };
 
-export const DiaryContainer = ({
+export const BooksContainer = ({
   isEmpty,
   userDiaryArr,
 }: DiaryContainerProps): JSX.Element => {
@@ -37,7 +37,7 @@ export const DiaryContainer = ({
     <Fade duration={3000}>
       <div className="flex flex-wrap justify-center mt-[3vh]">
         {renderDiaryButtons(userDiaryArr)}
-        <NewDiaryButton />
+        <NewBookButton />
       </div>
     </Fade>
   );
