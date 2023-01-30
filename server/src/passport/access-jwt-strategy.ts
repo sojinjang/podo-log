@@ -8,7 +8,7 @@ const opts = {
   secretOrKey: accessSecretKey,
 };
 
-const jwtVerify: VerifyCallback = async (jwtPayload, done) => {
+const accessJwtVerify: VerifyCallback = async (jwtPayload, done) => {
   try {
     const [user] = await userModel.get({ userId: jwtPayload.userId } as GetUserDTO);
     if (user) {
@@ -21,4 +21,4 @@ const jwtVerify: VerifyCallback = async (jwtPayload, done) => {
   }
 };
 
-export const accessJwtStrategy = new AccessJwtStrategy(opts, jwtVerify);
+export const accessJwtStrategy = new AccessJwtStrategy(opts, accessJwtVerify);

@@ -1,7 +1,11 @@
-import { JwtFromRequestFunction, Strategy as JwtStrategy, VerifyCallback } from "passport-jwt";
+import {
+  JwtFromRequestFunction,
+  Strategy as RefreshJwtStrategy,
+  VerifyCallback,
+} from "passport-jwt";
 import { userModel } from "../db/models";
 import { GetUserDTO } from "../types/user-type";
-import { accessSecretKey } from "../config";
+import { refreshSecretKey } from "../config";
 import { parseCookies } from "../utils";
 
 const cookieExtractor: JwtFromRequestFunction = function (req) {
@@ -15,10 +19,10 @@ const cookieExtractor: JwtFromRequestFunction = function (req) {
 
 const opts = {
   jwtFromRequest: cookieExtractor,
-  secretOrKey: accessSecretKey,
+  secretOrKey: refreshSecretKey,
 };
 
-const jwtVerify: VerifyCallback = async (jwtPayload, done) => {
+const refreshJwtVerify: VerifyCallback = async (jwtPayload, done) => {
   try {
     const [user] = await userModel.get({ userId: jwtPayload.userId } as GetUserDTO);
     if (user) {
@@ -31,4 +35,4 @@ const jwtVerify: VerifyCallback = async (jwtPayload, done) => {
   }
 };
 
-export const jwtStrategy = new JwtStrategy(opts, jwtVerify);
+export const refreshJwtStrategy = new RefreshJwtStrategy(opts, refreshJwtVerify);
