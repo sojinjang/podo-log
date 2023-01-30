@@ -3,7 +3,7 @@ import asyncHandler from "../utils/async-handler";
 import { logger } from "./../utils/pino";
 
 export const isLoggedIn = asyncHandler(async (req, res, next) => {
-  passport.authenticate("jwt", { session: false }, (err, user, info) => {
+  passport.authenticate("accessJwt", { session: false }, (err, user, info) => {
     if (err) {
       return next(err);
     }

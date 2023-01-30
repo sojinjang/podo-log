@@ -1,20 +1,18 @@
 import passport from "passport";
-import { logger, makeRefreshToken, parseCookies } from "../../utils";
+import { logger, makeRefreshToken, makeAccessToken } from "../../utils";
 import { podologURL, cookieOption } from "../../config";
 import asyncHandler from "../../utils/async-handler";
-import { makeAccessToken } from "./../../utils/create-token";
-import { resolve } from "path";
 
 class LoginController {
   local = asyncHandler(async (req, res, next) => {
     passport.authenticate("local", (authError, user, info) => {
       if (authError) {
         logger.error(authError);
-        res.redirect(`${podologURL}?loginError=${authError.message}`);
+        res.json({ loginError: authError.message });
       }
       if (!user) {
         logger.info(info.message);
-        res.redirect(`${podologURL}?loginError=${info.message}`);
+        res.json({ loginError: info.message });
       }
       return req.login(user, { session: false }, (loginError) => {
         if (loginError) {
@@ -23,10 +21,12 @@ class LoginController {
         }
 
         const refreshToken = makeRefreshToken(user.userId);
+        const accessToken = makeAccessToken(user.userId);
+        const result = { message: "로그인 성공", accessToken };
         res
           .status(200)
           .cookie("refreshToken", refreshToken, cookieOption(14, "d"))
-          .redirect(`${podologURL}`);
+          .json(result);
       });
     })(req, res, next);
   });
@@ -74,20 +74,26 @@ class LoginController {
   });
 
   silentRefresh = asyncHandler(async (req, res, next) => {
-    let cookies = null;
-    if (req && req.headers.cookie) {
-      cookies = parseCookies(req.headers.cookie);
-    }
-    const refreshToken = cookies?.refreshToken;
-    console.log(refreshToken);
-    //리프레시 검증 후
+    passport.authenticate("refreshJwt", (authError, user, info) => {
+      if (authError) {
+        logger.error(authError);
+        res.json({ loginError: authError.message });
+      }
+      if (!user) {
+        logger.info(info.message);
+        res.json({ loginError: info.message });
+      }
+      return req.login(user, { session: false }, (loginError) => {
+        if (loginError) {
+          logger.error(loginError);
+          res.redirect(`${podologURL}?loginError=${loginError.message}`);
+        }
 
-    // if(검증 토큰.id){
-    //   const accessToken = makeAccessToken(검증 토큰.id)
-    //   const result={message:"refresh 성공", accessToken}
-    //   res.status(200).json(result)
-    // }
-    res.status(200).json({ accessToken: "test" });
+        const accessToken = makeAccessToken(user.userId);
+        const result = { message: "refresh 성공", accessToken };
+        res.status(200).json(result);
+      });
+    });
   });
 }
 

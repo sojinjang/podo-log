@@ -13,7 +13,7 @@ function setCookieTime(time: number, unit: "d" | "h" | "m") {
 
 export const cookieOption = (time: number, unit: "d" | "h" | "m"): CookieOptions => {
   const expires = setCookieTime(time, unit);
-  return { httpOnly: true, path: podologURL, sameSite: "lax", expires };
+  return { httpOnly: true, path: "/", sameSite: "lax", expires };
 };
 
 export const corsOption = {
