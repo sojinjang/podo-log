@@ -1,8 +1,9 @@
 import passport from "passport";
-import { logger } from "../../utils";
-import jwt from "jsonwebtoken";
-import { jwtSecretKey, accessTokenTime, podologURL, cookieOption } from "../../config";
+import { logger, makeRefreshToken, parseCookies } from "../../utils";
+import { podologURL, cookieOption } from "../../config";
 import asyncHandler from "../../utils/async-handler";
+import { makeAccessToken } from "./../../utils/create-token";
+import { resolve } from "path";
 
 class LoginController {
   local = asyncHandler(async (req, res, next) => {
@@ -21,12 +22,10 @@ class LoginController {
           return next(loginError);
         }
 
-        const accessToken = jwt.sign({ userId: user.userId }, jwtSecretKey, {
-          expiresIn: accessTokenTime,
-        });
+        const refreshToken = makeRefreshToken(user.userId);
         res
           .status(200)
-          .cookie("accessToken", accessToken, cookieOption(1, "h"))
+          .cookie("refreshToken", refreshToken, cookieOption(14, "d"))
           .redirect(`${podologURL}`);
       });
     })(req, res, next);
@@ -38,7 +37,7 @@ class LoginController {
         return next(err);
       }
     });
-    res.clearCookie("loginToken");
+    res.clearCookie("refreshToken");
     res.status(200).json({
       result: "success",
       message: "로그아웃 성공",
@@ -65,16 +64,30 @@ class LoginController {
           res.redirect(`${podologURL}?loginError=${loginError.message}`);
         }
 
-        const accessToken = jwt.sign({ userId: user.userId }, jwtSecretKey, {
-          expiresIn: accessTokenTime,
-        });
-
-        return res
+        const refreshToken = makeRefreshToken(user.userId);
+        res
           .status(200)
-          .cookie("accessToken", accessToken, cookieOption(1, "h"))
+          .cookie("refreshToken", refreshToken, cookieOption(14, "d"))
           .redirect(`${podologURL}`);
       });
     })(req, res, next);
+  });
+
+  silentRefresh = asyncHandler(async (req, res, next) => {
+    let cookies = null;
+    if (req && req.headers.cookie) {
+      cookies = parseCookies(req.headers.cookie);
+    }
+    const refreshToken = cookies?.refreshToken;
+    console.log(refreshToken);
+    //리프레시 검증 후
+
+    // if(검증 토큰.id){
+    //   const accessToken = makeAccessToken(검증 토큰.id)
+    //   const result={message:"refresh 성공", accessToken}
+    //   res.status(200).json(result)
+    // }
+    res.status(200).json({ accessToken: "test" });
   });
 }
 
