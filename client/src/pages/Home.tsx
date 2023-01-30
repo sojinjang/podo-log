@@ -39,7 +39,7 @@ const Home = () => {
         <Fade bottom duration={3000}>
           <LoginSection>
             <EmailLoginContainer />
-            <SNSLoginContainer />
+            <SNSLoginContainer sectionTitle="SNS 계정으로 로그인하기" />
             <SignUpButton />
           </LoginSection>
         </Fade>
