@@ -55,6 +55,25 @@ class DiaryController {
 
     res.status(200).json(result);
   });
+
+  updatePicture = asyncHandler(async (req: FileRequest, res) => {
+    const diaryId = parseInt(req.params.diaryId);
+    const { userId } = req.user;
+    const picture = req.file?.location;
+    if (!picture) throw new Error("요청 오류, 이미지 없음");
+
+    const result = await this.diaryService.updateImage({ diaryId, picture }, { userId });
+
+    res.status(200).json(result);
+  });
+
+  deletePicture = asyncHandler(async (req: FileRequest, res) => {
+    const diaryId = parseInt(req.params.diaryId);
+    const { userId } = req.user;
+    const result = await this.diaryService.deleteImage({ diaryId }, { userId });
+
+    res.status(200).json(result);
+  });
 }
 
 export const diaryController = new DiaryController();

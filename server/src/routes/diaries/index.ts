@@ -8,7 +8,7 @@ const router = Router();
 router.post(
   "/",
   validator(schema.createDiary),
-  imageUploader.single("profile"),
+  imageUploader.single("picture"),
   diaryController.create
 );
 router.patch(
@@ -22,5 +22,8 @@ router.delete(
   validator(schema.diaryId, ValidationSource.PARAM),
   diaryController.deleteById
 );
+
+router.post("/image/:diaryId", imageUploader.single("picture"), diaryController.updatePicture);
+router.delete("/image/:diaryId", diaryController.deletePicture);
 
 export default router;

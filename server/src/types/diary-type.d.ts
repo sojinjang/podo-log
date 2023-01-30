@@ -35,3 +35,7 @@ export interface UpdateDiaryDTO {
   title?: string;
   content?: string;
 }
+export interface UpdateDiaryPictureDTO {
+  diaryId?: number;
+  picture?: string;
+}
