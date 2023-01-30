@@ -1,8 +1,8 @@
 import { Strategy as KakaoStrategy, VerifyFunction } from "passport-kakao";
 import { kakao } from "../config";
 import { logger } from "../utils";
-import { userModel } from "./../db/models/user";
-import { SNSCreateUserDTO } from "./../types/user-type.d";
+import { userModel } from "../db/models/user";
+import { SNSCreateUserDTO } from "../types/user-type";
 
 const opts = kakao;
 
