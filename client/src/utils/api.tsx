@@ -27,6 +27,7 @@ async function post(endpointInput: string, data = {}) {
   const bodyData = JSON.stringify(data);
   const res = await fetch(apiUrl, {
     method: "POST",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${getCookieValue(Keys.ACCESS_TOKEN)}`,
