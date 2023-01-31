@@ -3,7 +3,7 @@ export interface UserEntity {
   email?: string;
   password?: string;
   nickname: string;
-  profile?: string;
+  profile: string;
   role: "admin" | "user";
   grape: number;
   snsId: string;
@@ -12,6 +12,9 @@ export interface UserEntity {
 
 export interface UserIdDTO {
   userId: number;
+}
+export interface UserProfileDTO {
+  profile: string;
 }
 
 export interface GetUserDTO {
@@ -45,6 +48,7 @@ export interface UpdateUserDTO {
   nickname?: string;
   password?: string;
   newPassword?: string;
+  profile?: string;
 }
 export interface WithdrawalUserDTO {
   password?: string;
