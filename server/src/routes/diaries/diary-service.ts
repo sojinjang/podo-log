@@ -62,7 +62,7 @@ class DiaryService {
       );
     }
     const result = await this.diaryModel.deleteById(diaryIdDTO);
-    if (diary.picture) imageDeleter(diary.picture);
+    if (diary.picture !== "없음") imageDeleter(diary.picture);
     return result;
   }
 
@@ -84,7 +84,7 @@ class DiaryService {
     }
 
     const result = await this.diaryModel.pacth({ diaryId }, { picture });
-    if (diary.picture) imageDeleter(diary.picture);
+    if (diary.picture !== "없음") imageDeleter(diary.picture);
     return result;
   }
 
@@ -104,7 +104,7 @@ class DiaryService {
       );
     }
 
-    if (diary.picture) imageDeleter(diary.picture);
+    if (diary.picture !== "없음") imageDeleter(diary.picture);
     const picture = "없음";
 
     const result = await this.diaryModel.pacth(diaryIdDTO, { picture });

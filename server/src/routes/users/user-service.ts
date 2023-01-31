@@ -65,7 +65,8 @@ class UserService {
   }
 
   async deleteById(userDTO: UserEntity) {
-    if (userDTO.profile) imageDeleter(userDTO.profile);
+    const deleteFlag = userDTO.provider === "local" && userDTO.profile !== "없음";
+    if (deleteFlag) imageDeleter(userDTO.profile);
     const userIdDTO = { userId: userDTO.userId };
 
     const result = await this.userModel.deleteById(userIdDTO);
@@ -73,7 +74,9 @@ class UserService {
   }
 
   async updateImage(userDTO: UserEntity, userProfileDTO: UserProfileDTO) {
-    if (userDTO.provider === "local" && userDTO.profile) imageDeleter(userDTO.profile);
+    const deleteFlag = userDTO.provider === "local" && userDTO.profile !== "없음";
+    if (deleteFlag) imageDeleter(userDTO.profile);
+
     const userIdDTO = { userId: userDTO.userId };
 
     const result = await this.userModel.pacth(userIdDTO, userProfileDTO);
@@ -81,7 +84,9 @@ class UserService {
   }
 
   async deleteImage(userDTO: UserEntity) {
-    if (userDTO.provider === "local" && userDTO.profile) imageDeleter(userDTO.profile);
+    const deleteFlag = userDTO.provider === "local" && userDTO.profile !== "없음";
+    if (deleteFlag) imageDeleter(userDTO.profile);
+
     const userIdDTO = { userId: userDTO.userId };
     userDTO.profile = "없음";
 

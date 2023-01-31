@@ -3,7 +3,7 @@ export interface UserEntity {
   email?: string;
   password?: string;
   nickname: string;
-  profile?: string;
+  profile: string;
   role: "admin" | "user";
   grape: number;
   snsId: string;

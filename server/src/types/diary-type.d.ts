@@ -2,7 +2,7 @@ export interface DiaryEntity {
   diaryId: number;
   bookId: number;
   userId: number;
-  picture?: string;
+  picture: string;
   title?: string;
   content?: string;
 }

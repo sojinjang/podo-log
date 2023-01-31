@@ -8,7 +8,7 @@ const router = Router();
 
 router.post(
   "/",
-  validator(schema.localJoin),
+  // validator(schema.localJoin),
   imageUploader.single("profile"),
   userController.localJoin
 );
@@ -16,7 +16,12 @@ router.get("/", isLoggedIn, userController.getById);
 router.patch("/", isLoggedIn, validator(schema.patchUser), userController.pacthById);
 router.patch("/withdrawal", isLoggedIn, userController.withdrawalById);
 router.delete("/", isLoggedIn, userController.deleteById);
-router.post("/image", imageUploader.single("profile"), userController.updateProfile);
-router.delete("/image", userController.deleteProfile);
+router.post(
+  "/image",
+  isLoggedIn,
+  imageUploader.single("profile"),
+  userController.updateProfile
+);
+router.delete("/image", isLoggedIn, userController.deleteProfile);
 
 export default router;
