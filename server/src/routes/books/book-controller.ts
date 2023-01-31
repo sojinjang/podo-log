@@ -17,14 +17,14 @@ class BookController {
     const userBookDTO = { userId: req.user.userId };
 
     const result = await this.bookService.create(createBookDTO, userBookDTO);
-    res.status(200).json(result);
+    return res.status(200).json(result);
   });
 
   getByUserId = asyncHandler(async (req: LoggedRequest, res) => {
     const userIdDTO: UserIdDTO = { userId: req.user.userId };
 
     const result = await this.bookService.getByUserId(userIdDTO);
-    res.status(200).json(result);
+    return res.status(200).json(result);
   });
 
   pacthById = asyncHandler(async (req: LoggedRequest, res) => {
@@ -35,7 +35,7 @@ class BookController {
     const userIdDTO: UserIdDTO = { userId: req.user.userId };
 
     const result = await this.bookService.pacthById({ bookId }, updateBookDTO, userIdDTO);
-    res.status(200).json(result);
+    return res.status(200).json(result);
   });
 
   outBookById = asyncHandler(async (req: LoggedRequest, res) => {
@@ -44,7 +44,7 @@ class BookController {
 
     const result = await this.bookService.outBookById(userBookDTO);
 
-    res.status(200).json(result);
+    return res.status(200).json(result);
   });
 }
 

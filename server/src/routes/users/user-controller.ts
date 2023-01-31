@@ -13,13 +13,13 @@ class UserController {
 
     const addedUser = await this.userService.localJoin(createUserDTO);
 
-    res.status(200).json(addedUser);
+    return res.status(200).json(addedUser);
   });
 
   getById = asyncHandler(async (req: LoggedRequest, res) => {
     const result = req.user;
     delete result.password;
-    res.status(200).json(result);
+    return res.status(200).json(result);
   });
 
   pacthById = asyncHandler(async (req: LoggedRequest, res) => {
@@ -33,7 +33,7 @@ class UserController {
     }
 
     const result = await this.userService.pacthById(req.user, updateUserDTO);
-    res.status(200).json(result);
+    return res.status(200).json(result);
   });
 
   withdrawalById = asyncHandler(async (req: LoggedRequest, res) => {
@@ -45,7 +45,7 @@ class UserController {
   deleteById = asyncHandler(async (req: LoggedRequest, res) => {
     const result = await this.userService.deleteById(req.user);
 
-    res.status(200).json(result);
+    return res.status(200).json(result);
   });
 
   updateProfile = asyncHandler(async (req: FileRequest, res) => {
@@ -54,13 +54,13 @@ class UserController {
 
     const result = await this.userService.updateImage(req.user, { profile });
 
-    res.status(200).json(result);
+    return res.status(200).json(result);
   });
 
   deleteProfile = asyncHandler(async (req: FileRequest, res) => {
     const result = await this.userService.deleteImage(req.user);
 
-    res.status(200).json(result);
+    return res.status(200).json(result);
   });
 }
 
