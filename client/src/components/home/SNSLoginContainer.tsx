@@ -1,32 +1,12 @@
 import React from "react";
-import { useSearchParams } from "react-router-dom";
 import tw from "tailwind-styled-components";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import { useDidMountEffect } from "src/utils/hooks";
-import { refreshToken, moveToDiaries } from "src/utils/token";
-import { Token } from "src/recoil/token/atom";
 import { API_URL } from "src/constants/API_URL";
 import naverLogo from "../../assets/icons/sns/naver.png";
 import kakaoLogo from "../../assets/icons/sns/kakao.png";
 
-interface SNSLoginProps {
-  accessToken: Token;
-  setAccessToken: (arg: Token) => void;
-}
-
-const SNSLoginContainer = ({ accessToken, setAccessToken }: SNSLoginProps) => {
-  const navigate = useNavigate();
-  const [URLSearchParams] = useSearchParams();
-
-  useDidMountEffect(() => {
-    const isSNSLogin = URLSearchParams.get("snslogin") === "success";
-    if (isSNSLogin) {
-      refreshToken(setAccessToken);
-    }
-    moveToDiaries(accessToken, navigate);
-  }, [accessToken]);
-
+const SNSLoginContainer = () => {
   return (
     <div className="mx-auto mt-5 w-[65%]">
       <Divider />

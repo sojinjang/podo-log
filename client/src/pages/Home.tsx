@@ -1,12 +1,12 @@
 import React from "react";
 import { useRecoilState } from "recoil";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import tw from "tailwind-styled-components";
 import Fade from "react-reveal/Fade";
 
 import { accessTokenAtom } from "src/recoil/token";
 import { Token } from "src/recoil/token/atom";
-import { moveToDiaries } from "../utils/token";
+import { refreshToken, moveToDiaries } from "../utils/token";
 import { useDidMountEffect } from "src/utils/hooks";
 
 import { DefaultBackground } from "src/components/common/Backgrounds";
@@ -19,7 +19,16 @@ import SignUpButton from "src/components/home/SignUpButton";
 
 const Home = () => {
   const navigate = useNavigate();
+  const [URLSearchParams] = useSearchParams();
   const [accessToken, setAccessToken] = useRecoilState<Token>(accessTokenAtom);
+
+  // MEMO: 아래 hook을 자식 컴포넌트 (SNSLoginContainer)에서 실행하면 access token을 undefined로 인식.
+  // 리팩토링 필요 23.02.01
+  useDidMountEffect(() => {
+    const isSNSLogin = URLSearchParams.get("snslogin") === "success";
+    if (isSNSLogin) refreshToken(setAccessToken);
+    moveToDiaries(accessToken, navigate);
+  }, [accessToken]);
 
   useDidMountEffect(() => {
     moveToDiaries(accessToken, navigate);
@@ -35,7 +44,7 @@ const Home = () => {
         <Fade bottom duration={3000}>
           <LoginSection>
             <EmailLoginContainer />
-            <SNSLoginContainer accessToken={accessToken} setAccessToken={setAccessToken} />
+            <SNSLoginContainer />
             <SignUpButton />
           </LoginSection>
         </Fade>
