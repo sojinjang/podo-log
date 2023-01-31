@@ -62,7 +62,7 @@ class LoginController {
         return res
           .status(200)
           .cookie("refreshToken", refreshToken, cookieOption(14, "d"))
-          .redirect(`${podologURL}`);
+          .redirect(`${podologURL}?snslogin=success`);
       });
     })(req, res, next);
   });
@@ -90,7 +90,7 @@ class LoginController {
         return res
           .status(200)
           .cookie("refreshToken", refreshToken, cookieOption(14, "d"))
-          .redirect(`${podologURL}`);
+          .redirect(`${podologURL}?snslogin=success`);
       });
     })(req, res, next);
   });
