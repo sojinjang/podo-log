@@ -18,6 +18,8 @@ import SNSLoginContainer from "../components/home/SNSLoginContainer";
 import SignUpButton from "src/components/home/SignUpButton";
 
 const Home = () => {
+  const ACCESS_TOKEN_EXPIRY_TIME = 3600 * 1000;
+  const REFRESH_TIME = 60000;
   const navigate = useNavigate();
   const [URLSearchParams] = useSearchParams();
   const [accessToken, setAccessToken] = useRecoilState<Token>(accessTokenAtom);
@@ -26,7 +28,11 @@ const Home = () => {
   // 리팩토링 필요 23.02.01
   useDidMountEffect(() => {
     const isSNSLogin = URLSearchParams.get("snslogin") === "success";
-    if (isSNSLogin) refreshToken(setAccessToken);
+    if (isSNSLogin) {
+      refreshToken(setAccessToken);
+      setInterval(() => refreshToken(setAccessToken), ACCESS_TOKEN_EXPIRY_TIME - REFRESH_TIME);
+    }
+
     moveToDiaries(accessToken, navigate);
   }, [accessToken]);
 
@@ -43,7 +49,10 @@ const Home = () => {
       {!accessToken && (
         <Fade bottom duration={3000}>
           <LoginSection>
-            <EmailLoginContainer />
+            <EmailLoginContainer
+              tokenExpireTime={ACCESS_TOKEN_EXPIRY_TIME}
+              refreshTime={REFRESH_TIME}
+            />
             <SNSLoginContainer />
             <SignUpButton />
           </LoginSection>
