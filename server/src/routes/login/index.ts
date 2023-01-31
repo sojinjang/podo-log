@@ -13,6 +13,8 @@ router.post(
 );
 router.get("/kakao", loginController.kakao);
 router.get("/kakao/oauth", loginController.kakaoCallback);
+router.get("/naver", loginController.naver);
+router.get("/naver/oauth", loginController.naverCallback);
 router.post("/silent-refresh", loginController.silentRefresh);
 
 export default router;
