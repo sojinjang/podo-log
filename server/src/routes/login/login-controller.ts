@@ -67,6 +67,34 @@ class LoginController {
       });
     })(req, res, next);
   });
+  naver = asyncHandler(async (req, res, next) => {
+    passport.authenticate("naver", { authType: "reprompt" })(req, res, next);
+  });
+
+  naverCallback = asyncHandler(async (req, res, next) => {
+    passport.authenticate("naver", (authError, user, info) => {
+      if (authError) {
+        logger.error(authError);
+        res.status(401).redirect(`${podologURL}?loginError=${authError.message}`);
+      }
+      if (!user) {
+        logger.info(info.message);
+        res.status(401).redirect(`${podologURL}?loginError=${info.message}`);
+      }
+      return req.login(user, { session: false }, (loginError) => {
+        if (loginError) {
+          logger.error(loginError);
+          res.status(401).redirect(`${podologURL}?loginError=${loginError.message}`);
+        }
+
+        const refreshToken = makeRefreshToken(user.userId);
+        res
+          .status(200)
+          .cookie("refreshToken", refreshToken, cookieOption(14, "d"))
+          .redirect(`${podologURL}`);
+      });
+    })(req, res, next);
+  });
 
   silentRefresh = asyncHandler(async (req, res, next) => {
     passport.authenticate("refreshJwt", (authError, user, info) => {
