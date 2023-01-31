@@ -15,8 +15,10 @@ const Router = () => {
     const currentLocation = window.location.pathname;
     for (const pages of PRIVATE_ROUTE_ARR) {
       const isPrivateLocation = pages.path === currentLocation;
-      if (isPrivateLocation) refreshToken(setAccessToken);
-      break;
+      if (isPrivateLocation) {
+        refreshToken(setAccessToken);
+        break;
+      }
     }
   }, []);
 
