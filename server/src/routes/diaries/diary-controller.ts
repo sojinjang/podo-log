@@ -21,7 +21,7 @@ class DiaryController {
     const createDiaryDTO = { userId, bookId, title, content, picture } as CreateDiaryDTO;
 
     const result = await this.diaryService.create(createDiaryDTO);
-    res.status(200).json(result);
+    return res.status(200).json(result);
   });
 
   getByBookId = asyncHandler(async (req: LoggedRequest, res) => {
@@ -33,7 +33,7 @@ class DiaryController {
     const bookIdDTO: GetDiaryDTO = { bookId };
     const pageDTO: PageDTO = { limit, offset };
     const result = await this.diaryService.getByBookId(bookIdDTO, pageDTO);
-    res.status(200).json(result);
+    return res.status(200).json(result);
   });
 
   pacthById = asyncHandler(async (req: LoggedRequest, res) => {
@@ -44,7 +44,7 @@ class DiaryController {
     let updateDiaryDTO: UpdateDiaryDTO = { title, content };
 
     const result = await this.diaryService.pacthById({ diaryId }, updateDiaryDTO, { userId });
-    res.status(200).json(result);
+    return res.status(200).json(result);
   });
 
   deleteById = asyncHandler(async (req: LoggedRequest, res) => {
@@ -53,7 +53,7 @@ class DiaryController {
 
     const result = await this.diaryService.deleteById({ diaryId }, { userId });
 
-    res.status(200).json(result);
+    return res.status(200).json(result);
   });
 
   updatePicture = asyncHandler(async (req: FileRequest, res) => {
@@ -64,7 +64,7 @@ class DiaryController {
 
     const result = await this.diaryService.updateImage({ diaryId, picture }, { userId });
 
-    res.status(200).json(result);
+    return res.status(200).json(result);
   });
 
   deletePicture = asyncHandler(async (req: FileRequest, res) => {
@@ -72,7 +72,7 @@ class DiaryController {
     const { userId } = req.user;
     const result = await this.diaryService.deleteImage({ diaryId }, { userId });
 
-    res.status(200).json(result);
+    return res.status(200).json(result);
   });
 }
 

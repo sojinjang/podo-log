@@ -14,7 +14,7 @@ class CommentController {
     const createDiaryDTO = { userId, diaryId, parentCommentId, reply } as CreateCommentDTO;
 
     const result = await this.commentService.create(createDiaryDTO);
-    res.status(200).json(result);
+    return res.status(200).json(result);
   });
 
   getByDiaryId = asyncHandler(async (req: LoggedRequest, res) => {
@@ -22,7 +22,7 @@ class CommentController {
 
     const diaryIdDTO: DiaryIdDTO = { diaryId };
     const result = await this.commentService.getByDiaryId(diaryIdDTO);
-    res.status(200).json(result);
+    return res.status(200).json(result);
   });
 
   pacthById = asyncHandler(async (req: LoggedRequest, res) => {
@@ -35,7 +35,7 @@ class CommentController {
     const result = await this.commentService.pacthById({ commentId }, updateCommentDTO, {
       userId,
     });
-    res.status(200).json(result);
+    return res.status(200).json(result);
   });
 
   deleteById = asyncHandler(async (req: LoggedRequest, res) => {
@@ -44,7 +44,7 @@ class CommentController {
 
     const result = await this.commentService.deleteById({ commentId }, { userId });
 
-    res.status(200).json(result);
+    return res.status(200).json(result);
   });
 }
 
