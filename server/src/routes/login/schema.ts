@@ -9,7 +9,9 @@ export default {
   userId: Joi.object().keys({
     userId: Joi.number().required(),
   }),
-  auth: Joi.object().keys({
-    authorization: JoiAuthBearer().required(),
-  }),
+  auth: Joi.object()
+    .keys({
+      authorization: JoiAuthBearer().required(),
+    })
+    .unknown(true),
 };

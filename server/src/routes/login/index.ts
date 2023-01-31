@@ -6,7 +6,11 @@ import schema from "./schema";
 const router = Router();
 
 router.post("/local", validator(schema.local), loginController.local);
-router.post("/logout", validator(schema.auth), loginController.logout);
+router.post(
+  "/logout",
+  validator(schema.auth, ValidationSource.HEADER),
+  loginController.logout
+);
 router.get("/kakao", loginController.kakao);
 router.get("/kakao/oauth", loginController.kakaoCallback);
 router.post("/silent-refresh", loginController.silentRefresh);
