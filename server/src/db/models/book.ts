@@ -50,6 +50,8 @@ class BookModel {
 
   async getByUserId(userIdDTO: UserIdDTO, columnArr: string[] = ["*"]) {
     const joinQuery = `join book on book.bookId = user_book.bookId`;
+    const countQuery = `(select count(*) from user_book as ub where ub.bookId = user_book.bookId) as numMembers`;
+    columnArr = ["book.bookId", "bookName", "color", countQuery];
     const { query, values } = userBookBuildQuery.makeSelectQuery(
       { ...userIdDTO },
       columnArr,
