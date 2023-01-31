@@ -27,4 +27,4 @@ export const refreshSecretKey = process.env.REFRESH_JWT_SECRET_KEY as string;
 
 export const logLevel = process.env.LOG_LEVEL;
 
-export const accessTokenTime = environment === "production" ? "1h" : "1w";
+export const accessTokenTime = environment === "local" ? "1w" : "1h";
