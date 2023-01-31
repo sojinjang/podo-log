@@ -1,11 +1,15 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import { useRecoilState } from "recoil";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import tw from "tailwind-styled-components";
 import Fade from "react-reveal/Fade";
 
-import { getCookieValue } from "src/utils/cookie";
-import { Keys } from "src/constants/Keys";
+import { accessTokenAtom } from "src/recoil/token";
+import { Token } from "src/recoil/token/atom";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
+import { refreshToken } from "../utils/token";
+import { useDidMountEffect } from "src/utils/hooks";
+
 import { DefaultBackground } from "src/components/common/Backgrounds";
 import "src/components/common/Backgrounds.css";
 import { Greeting } from "src/components/home/Greeting";
@@ -20,13 +24,23 @@ w-[80%] py-[2vh] mt-[2vh] min-[390px]:mt-[6vh] mx-auto
 `;
 const Home = () => {
   const navigate = useNavigate();
-  const isLoggedIn = Boolean(getCookieValue(Keys.ACCESS_TOKEN));
+  const [URLSearchParams] = useSearchParams();
+  const [accessToken, setAccessToken] = useRecoilState<Token>(accessTokenAtom);
   const moveToDiaries = () => {
-    setTimeout(() => navigate(PRIVATE_ROUTE.books.path), 4000);
+    setTimeout(() => navigate(PRIVATE_ROUTE.books.path), 3000);
+  };
+  const checkAccessToken = () => {
+    if (accessToken) return moveToDiaries();
   };
 
-  useEffect(() => {
-    if (isLoggedIn) return moveToDiaries;
+  useDidMountEffect(() => {
+    const isSNSLogin = URLSearchParams.get("snslogin") === "success";
+    if (isSNSLogin) refreshToken(setAccessToken);
+    checkAccessToken();
+  }, [accessToken]);
+
+  useDidMountEffect(() => {
+    checkAccessToken();
   }, []);
 
   return (
@@ -35,7 +49,7 @@ const Home = () => {
         <Greeting />
         <GrapeIcon />
       </Fade>
-      {!isLoggedIn && (
+      {!accessToken && (
         <Fade bottom duration={3000}>
           <LoginSection>
             <EmailLoginContainer />

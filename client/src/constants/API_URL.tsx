@@ -2,6 +2,7 @@ export const API_URL = Object.freeze({
   kakaoLogin: "/api/login/kakao",
   naverLogin: "/api/login/naver",
   emailLogin: "/api/login/local",
+  refreshToken: "/api/login/silent-refresh",
   books: "/api/books",
   book: function (bookId: number) {
     return this.books + `/${bookId}`;

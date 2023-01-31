@@ -17,6 +17,7 @@ class DiaryModel {
 
   async getWithUser(getDiaryDTO: GetDiaryDTO, pageDTO: PageDTO, columnArr: string[] = ["*"]) {
     const joinQuery = `JOIN user on user.userId = diary.userId`;
+    const countQuery = `(select count(*) from comment as c where c.diaryId = diary.diaryId) as numComments`;
     const pageQuery = `LIMIT ${pageDTO.offset}, ${pageDTO.limit}`;
     columnArr = [
       "diary.userId",
@@ -27,6 +28,7 @@ class DiaryModel {
       "picture",
       "title",
       "content",
+      countQuery,
       "diary.createdAt",
       "diary.updatedAt",
     ];
