@@ -5,10 +5,10 @@ import schema from "./schema";
 
 const router = Router();
 
-router.post(
+router.patch(
   "/:bookId/invtt-code",
   validator(schema.createCode, ValidationSource.PARAM),
-  invttCodeController.createInvttCode
+  invttCodeController.patchInvttCode
 );
 router.get(
   "/:bookId/invtt-code",

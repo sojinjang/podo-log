@@ -6,7 +6,7 @@ class InvttCodeService {
   private invttCodeModel = invttCodeModel;
   private bookModel = bookModel;
 
-  async createInvttCode(userBookDTO: UserBookDTO) {
+  async patchInvttCode(userBookDTO: UserBookDTO) {
     const isMember = await this.bookModel.checkUserBook(userBookDTO);
     if (!isMember) {
       throw new Error(
@@ -16,11 +16,10 @@ class InvttCodeService {
       );
     }
     const invttCode = createInvttCode();
-    const invttCodeDTO = {
-      bookId: userBookDTO.bookId,
-      invttCode,
-    };
-    const result = await this.invttCodeModel.create(invttCodeDTO);
+    const invttCodeDTO = { invttCode };
+    const bookIdDTO = { bookId: userBookDTO.bookId };
+
+    const result = await this.invttCodeModel.patchByBookId(bookIdDTO, invttCodeDTO);
     const invttCodeResult = { ...result, invttCode };
     return invttCodeResult;
   }
