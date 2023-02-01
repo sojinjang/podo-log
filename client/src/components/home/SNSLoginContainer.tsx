@@ -6,11 +6,15 @@ import { API_URL } from "src/constants/API_URL";
 import naverLogo from "../../assets/icons/sns/naver.png";
 import kakaoLogo from "../../assets/icons/sns/kakao.png";
 
-const SNSLoginContainer = () => {
+interface SNSContainerProps {
+  sectionTitle: string;
+}
+
+const SNSLoginContainer = ({ sectionTitle }: SNSContainerProps) => {
   return (
     <div className="mx-auto mt-5 w-[65%]">
       <Divider />
-      <SectionDescription>sns 계정으로 로그인하기</SectionDescription>
+      <SectionDescription>{sectionTitle}</SectionDescription>
       <IconContainer>
         <SNSLoginButtonBg>
           <SNSLoginButtonBg className="bg-[#03C75A]">
