@@ -1,6 +1,5 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import tw from "tailwind-styled-components";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 
@@ -9,6 +8,7 @@ import { refreshToken } from "src/utils/token";
 import { accessTokenAtom } from "src/recoil/token";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 import { API_URL } from "src/constants/API_URL";
+import { Input, InputContainer } from "../common/Input";
 import PurpleButton from "../common/PurpleButton";
 
 interface LoginProps {
@@ -57,11 +57,3 @@ const EmailLoginContainer = ({ tokenExpireTime, refreshTime }: LoginProps) => {
 };
 
 export default EmailLoginContainer;
-
-const Input = tw.input`
-  font-[notosans] bg-transparent ml-[5px] text-sm sm:text-lg
-`;
-
-const InputContainer = tw.div`
-  w-[65%] flex flex-col rounded-md bg-white/40 p-3 mx-auto mt-[1.5vh]
-`;
