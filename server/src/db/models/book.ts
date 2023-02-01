@@ -1,20 +1,13 @@
 import { pool } from "../index";
 import { logger, BuildQuery } from "../../utils";
-import {
-  BookIdDTO,
-  CreateBookDTO,
-  GetBookDTO,
-  UpdateBookDTO,
-  UserBookDTO,
-  UserIdDTO,
-} from "../../types";
+import { CreateBookDTO, GetBookDTO, UpdateBookDTO, UserBookDTO, UserIdDTO } from "../../types";
 import { OkPacket, ResultSetHeader, RowDataPacket } from "mysql2";
 
 const bookBuildQuery = new BuildQuery("book");
 const userBookBuildQuery = new BuildQuery("user_book");
 
 class BookModel {
-  async create(bookDTO: CreateBookDTO, userBookDTO: UserBookDTO) {
+  async create(bookDTO: CreateBookDTO, userIdDTO: UserIdDTO) {
     const conn = await pool.getConnection();
     try {
       const { query: query1, values: values1 } = bookBuildQuery.makeInsertQuery({
@@ -28,7 +21,10 @@ class BookModel {
       const [result1] = await conn.query<OkPacket>(query1, values1);
       logger.debug(result1);
 
-      userBookDTO.bookId = result1.insertId;
+      const userBookDTO = {
+        bookId: result1.insertId,
+        userId: userIdDTO.userId,
+      };
       const { query: query2, values: values2 } = userBookBuildQuery.makeInsertQuery({
         ...userBookDTO,
       });
