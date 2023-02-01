@@ -13,7 +13,7 @@ export default {
     color: Joi.string().optional(),
   }),
   getPage: Joi.object().keys({
-    limit: Joi.number().optional(),
-    offset: Joi.number().optional(),
+    limit: Joi.number().optional().min(1),
+    start: Joi.number().optional().min(1),
   }),
 };

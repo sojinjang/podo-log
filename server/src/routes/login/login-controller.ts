@@ -8,11 +8,11 @@ class LoginController {
     passport.authenticate("local", (authError, user, info) => {
       if (authError) {
         logger.error(authError);
-        res.json({ loginError: authError.message });
+        return res.status(401).json({ loginError: authError.message });
       }
       if (!user) {
         logger.info(info.message);
-        res.json({ loginError: info.message });
+        return res.status(401).json({ loginError: info.message });
       }
       return req.login(user, { session: false }, (loginError) => {
         if (loginError) {
@@ -23,7 +23,7 @@ class LoginController {
         const refreshToken = makeRefreshToken(user.userId);
         const accessToken = makeAccessToken(user.userId);
         const result = { message: "로그인 성공", accessToken };
-        res
+        return res
           .status(200)
           .cookie("refreshToken", refreshToken, cookieOption(14, "d"))
           .json(result);
@@ -32,13 +32,7 @@ class LoginController {
   });
 
   logout = asyncHandler(async (req, res, next) => {
-    req.logout((err) => {
-      if (err) {
-        return next(err);
-      }
-    });
-    res.clearCookie("refreshToken");
-    res.status(200).json({
+    return res.clearCookie("refreshToken").status(200).json({
       result: "success",
       message: "로그아웃 성공",
     });
@@ -52,23 +46,51 @@ class LoginController {
     passport.authenticate("kakao", (authError, user, info) => {
       if (authError) {
         logger.error(authError);
-        res.redirect(`${podologURL}?loginError=${authError.message}`);
+        return res.status(401).redirect(`${podologURL}?loginError=${authError.message}`);
       }
       if (!user) {
         logger.info(info.message);
-        res.redirect(`${podologURL}?loginError=${info.message}`);
+        return res.status(401).redirect(`${podologURL}?loginError=${info.message}`);
       }
       return req.login(user, { session: false }, (loginError) => {
         if (loginError) {
           logger.error(loginError);
-          res.redirect(`${podologURL}?loginError=${loginError.message}`);
+          return res.status(401).redirect(`${podologURL}?loginError=${loginError.message}`);
         }
 
         const refreshToken = makeRefreshToken(user.userId);
-        res
+        return res
           .status(200)
           .cookie("refreshToken", refreshToken, cookieOption(14, "d"))
-          .redirect(`${podologURL}`);
+          .redirect(`${podologURL}?snslogin=success`);
+      });
+    })(req, res, next);
+  });
+  naver = asyncHandler(async (req, res, next) => {
+    passport.authenticate("naver", { authType: "reprompt" })(req, res, next);
+  });
+
+  naverCallback = asyncHandler(async (req, res, next) => {
+    passport.authenticate("naver", (authError, user, info) => {
+      if (authError) {
+        logger.error(authError);
+        return res.status(401).redirect(`${podologURL}?loginError=${authError.message}`);
+      }
+      if (!user) {
+        logger.info(info.message);
+        return res.status(401).redirect(`${podologURL}?loginError=${info.message}`);
+      }
+      return req.login(user, { session: false }, (loginError) => {
+        if (loginError) {
+          logger.error(loginError);
+          return res.status(401).redirect(`${podologURL}?loginError=${loginError.message}`);
+        }
+
+        const refreshToken = makeRefreshToken(user.userId);
+        return res
+          .status(200)
+          .cookie("refreshToken", refreshToken, cookieOption(14, "d"))
+          .redirect(`${podologURL}?snslogin=success`);
       });
     })(req, res, next);
   });
@@ -77,23 +99,23 @@ class LoginController {
     passport.authenticate("refreshJwt", (authError, user, info) => {
       if (authError) {
         logger.error(authError);
-        res.json({ loginError: authError.message });
+        return res.status(401).json({ error: authError.message });
       }
       if (!user) {
         logger.info(info.message);
-        res.json({ loginError: info.message });
+        return res.status(401).json({ error: info.message });
       }
       return req.login(user, { session: false }, (loginError) => {
         if (loginError) {
           logger.error(loginError);
-          res.redirect(`${podologURL}?loginError=${loginError.message}`);
+          return res.status(401).redirect(`${podologURL}?loginError=${loginError.message}`);
         }
 
         const accessToken = makeAccessToken(user.userId);
         const result = { message: "refresh 성공", accessToken };
-        res.status(200).json(result);
+        return res.status(200).json(result);
       });
-    });
+    })(req, res, next);
   });
 }
 

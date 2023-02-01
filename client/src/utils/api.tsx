@@ -1,14 +1,11 @@
-import { getCookieValue } from "./cookie";
-import { Keys } from "../constants/Keys";
-
-async function get(endpointInput: string, params = "") {
+async function get(endpointInput: string, params = "", token = undefined) {
   const endpoint = process.env.REACT_APP_SERVER_URL + endpointInput;
   const apiUrl = params === "" ? endpoint : `${endpoint}/${params}`;
   const res = await fetch(apiUrl, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${getCookieValue(Keys.ACCESS_TOKEN)}`,
+      Authorization: `Bearer ${token}`,
     },
   });
 
@@ -21,7 +18,7 @@ async function get(endpointInput: string, params = "") {
   return result;
 }
 
-async function post(endpointInput: string, data = {}) {
+async function post(endpointInput: string, data = {}, token = undefined) {
   const endpoint = process.env.REACT_APP_SERVER_URL + endpointInput;
   const apiUrl = endpoint;
   const bodyData = JSON.stringify(data);
@@ -30,7 +27,7 @@ async function post(endpointInput: string, data = {}) {
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${getCookieValue(Keys.ACCESS_TOKEN)}`,
+      Authorization: `Bearer ${token}`,
     },
     body: bodyData,
   });
@@ -44,7 +41,7 @@ async function post(endpointInput: string, data = {}) {
   return result;
 }
 
-async function patch(endpointInput: string, params = "", data = {}) {
+async function patch(endpointInput: string, params = "", data = {}, token = undefined) {
   const endpoint = process.env.REACT_APP_SERVER_URL + endpointInput;
   const apiUrl = params === "" ? endpoint : `${endpoint}/${params}`;
   const bodyData = JSON.stringify(data);
@@ -52,7 +49,7 @@ async function patch(endpointInput: string, params = "", data = {}) {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${getCookieValue(Keys.ACCESS_TOKEN)}`,
+      Authorization: `Bearer ${token}`,
     },
     body: bodyData,
   });
@@ -66,7 +63,7 @@ async function patch(endpointInput: string, params = "", data = {}) {
   return result;
 }
 
-async function del(endpointInput: string, params = "", data = {}) {
+async function del(endpointInput: string, params = "", data = {}, token = undefined) {
   const endpoint = process.env.REACT_APP_SERVER_URL + endpointInput;
   const apiUrl = params === "" ? endpoint : `${endpoint}/${params}`;
   const bodyData = JSON.stringify(data);
@@ -75,7 +72,7 @@ async function del(endpointInput: string, params = "", data = {}) {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${getCookieValue(Keys.ACCESS_TOKEN)}`,
+      Authorization: `Bearer ${token}`,
     },
     body: bodyData,
   });

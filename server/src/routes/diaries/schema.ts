@@ -5,6 +5,7 @@ export default {
     bookId: Joi.number().required(),
     title: Joi.string().required().max(40, "utf8"),
     content: Joi.string().required().max(580, "utf8"),
+    picture: Joi.string().optional(),
   }),
   diaryId: Joi.object().keys({
     diaryId: Joi.number().required(),

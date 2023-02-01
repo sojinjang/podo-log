@@ -2,7 +2,7 @@ export interface DiaryEntity {
   diaryId: number;
   bookId: number;
   userId: number;
-  picture?: string;
+  picture: string;
   title?: string;
   content?: string;
 }
@@ -34,4 +34,8 @@ export interface UpdateDiaryDTO {
   picture?: string;
   title?: string;
   content?: string;
+}
+export interface UpdateDiaryPictureDTO {
+  diaryId?: number;
+  picture?: string;
 }

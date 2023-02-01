@@ -1,25 +1,25 @@
 import { userService } from "./user-service";
-import { CreateUserDTO, LoggedRequest, UpdateUserDTO } from "../../types";
+import { CreateUserDTO, FileRequest, LoggedRequest, UpdateUserDTO } from "../../types";
 import asyncHandler from "../../utils/async-handler";
 
 class UserController {
   private userService = userService;
 
-  localJoin = asyncHandler(async (req, res) => {
+  localJoin = asyncHandler(async (req: FileRequest, res) => {
     const { email, nickname, password } = req.body;
-    // const profile = req.file ? req.file.location : null;
+    const profile = req.file?.location;
 
-    const createUserDTO = { email, nickname, password } as CreateUserDTO;
+    const createUserDTO = { email, nickname, password, profile } as CreateUserDTO;
 
     const addedUser = await this.userService.localJoin(createUserDTO);
 
-    res.status(200).json(addedUser);
+    return res.status(200).json(addedUser);
   });
 
   getById = asyncHandler(async (req: LoggedRequest, res) => {
     const result = req.user;
     delete result.password;
-    res.status(200).json(result);
+    return res.status(200).json(result);
   });
 
   pacthById = asyncHandler(async (req: LoggedRequest, res) => {
@@ -33,7 +33,7 @@ class UserController {
     }
 
     const result = await this.userService.pacthById(req.user, updateUserDTO);
-    res.status(200).json(result);
+    return res.status(200).json(result);
   });
 
   withdrawalById = asyncHandler(async (req: LoggedRequest, res) => {
@@ -43,10 +43,24 @@ class UserController {
   });
 
   deleteById = asyncHandler(async (req: LoggedRequest, res) => {
-    const userId = req.user.userId;
-    const result = await this.userService.deleteById(userId);
+    const result = await this.userService.deleteById(req.user);
 
-    res.status(200).json(result);
+    return res.status(200).json(result);
+  });
+
+  updateProfile = asyncHandler(async (req: FileRequest, res) => {
+    const profile = req.file?.location;
+    if (!profile) throw new Error("요청 오류, 이미지 없음");
+
+    const result = await this.userService.updateImage(req.user, { profile });
+
+    return res.status(200).json(result);
+  });
+
+  deleteProfile = asyncHandler(async (req: FileRequest, res) => {
+    const result = await this.userService.deleteImage(req.user);
+
+    return res.status(200).json(result);
   });
 }
 
