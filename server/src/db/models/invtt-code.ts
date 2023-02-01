@@ -1,12 +1,12 @@
 import { pool } from "../index";
 import { logger, BuildQuery } from "../../utils";
-import { BookIdDTO, InvttCodeDTO } from "../../types";
+import { GetInvttCodeDTO, InvttCodeDTO } from "../../types";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
 
 const invttCodeBuildQuery = new BuildQuery("invtt_code");
 
 class InvttCodeModel {
-  async patchByBookId(whereDTO: BookIdDTO, invttCodeDTO: InvttCodeDTO) {
+  async patch(whereDTO: GetInvttCodeDTO, invttCodeDTO: InvttCodeDTO) {
     const { query, values } = invttCodeBuildQuery.makeUpdateQuery(
       { ...whereDTO },
       { ...invttCodeDTO }
@@ -18,8 +18,11 @@ class InvttCodeModel {
     return result;
   }
 
-  async getByBookId(bookIdDTO: BookIdDTO, columnArr: string[] = ["*"]) {
-    const { query, values } = invttCodeBuildQuery.makeSelectQuery({ ...bookIdDTO }, columnArr);
+  async get(invttCodeDTO: GetInvttCodeDTO, columnArr: string[] = ["*"]) {
+    const { query, values } = invttCodeBuildQuery.makeSelectQuery(
+      { ...invttCodeDTO },
+      columnArr
+    );
     logger.info(query);
     logger.debug(values);
     const [result] = await pool.query<RowDataPacket[]>(query, values);

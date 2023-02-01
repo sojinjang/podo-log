@@ -5,14 +5,15 @@ import schema from "./schema";
 
 const router = Router();
 
+router.post("/invtt-code", validator(schema.joinBook), invttCodeController.joinBook);
 router.patch(
   "/:bookId/invtt-code",
-  validator(schema.createCode, ValidationSource.PARAM),
+  validator(schema.bookId, ValidationSource.PARAM),
   invttCodeController.patchInvttCode
 );
 router.get(
   "/:bookId/invtt-code",
-  validator(schema.createCode, ValidationSource.PARAM),
+  validator(schema.bookId, ValidationSource.PARAM),
   invttCodeController.getInvttCode
 );
 export default router;
