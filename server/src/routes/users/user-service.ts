@@ -16,7 +16,7 @@ class UserService {
     const exUser = await this.userModel.get({ email });
     if (exUser.length !== 0) throw new Error("403, 해당 이메일은 사용중입니다.");
 
-    const hashedPassword = await bcrypt.hash(userDTO.password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
     userDTO.password = hashedPassword;
 
     const result = await this.userModel.create(userDTO);

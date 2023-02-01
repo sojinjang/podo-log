@@ -62,6 +62,17 @@ CREATE TABLE IF NOT EXISTS `book` (
     PRIMARY KEY (`bookId`)
 );
 
+CREATE TABLE IF NOT EXISTS `invtt_code` (
+	`codeId`	bigint	NOT NULL auto_increment,
+	`bookId`	bigint	NOT NULL,
+	`invttCode`	varchar(15) NOT NULL unique,
+    `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, 
+    `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
+    `deletedAt` DATETIME, 
+    PRIMARY KEY (`codeId`, `bookId`),
+    FOREIGN KEY (`bookId`) REFERENCES `book` (`bookId`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 CREATE TABLE IF NOT EXISTS `user_book` (
 	`userBookId`	bigint	NOT NULL auto_increment,
 	`bookId`	bigint	NOT NULL,

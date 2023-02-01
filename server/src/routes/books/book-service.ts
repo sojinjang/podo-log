@@ -1,10 +1,13 @@
 import { bookModel } from "../../db/models";
 import { BookIdDTO, UpdateBookDTO, CreateBookDTO, UserBookDTO, UserIdDTO } from "../../types";
+import { createInvttCode } from "../../utils";
 
 class BookService {
   private bookModel = bookModel;
-  async create(bookDTO: CreateBookDTO, userBookDTO: UserBookDTO) {
-    const result = await this.bookModel.create(bookDTO, userBookDTO);
+  async create(bookDTO: CreateBookDTO, userIdDTO: UserIdDTO) {
+    const invttCodeDTO = { invttCode: createInvttCode() };
+
+    const result = await this.bookModel.create(bookDTO, userIdDTO, invttCodeDTO);
     return result;
   }
 

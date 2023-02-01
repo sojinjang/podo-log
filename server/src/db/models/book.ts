@@ -1,9 +1,9 @@
 import { pool } from "../index";
 import { logger, BuildQuery } from "../../utils";
 import {
-  BookIdDTO,
   CreateBookDTO,
   GetBookDTO,
+  InvttCodeDTO,
   UpdateBookDTO,
   UserBookDTO,
   UserIdDTO,
@@ -12,9 +12,10 @@ import { OkPacket, ResultSetHeader, RowDataPacket } from "mysql2";
 
 const bookBuildQuery = new BuildQuery("book");
 const userBookBuildQuery = new BuildQuery("user_book");
+const invttCodeBuildQuery = new BuildQuery("invtt_code");
 
 class BookModel {
-  async create(bookDTO: CreateBookDTO, userBookDTO: UserBookDTO) {
+  async create(bookDTO: CreateBookDTO, userIdDTO: UserIdDTO, invttCodeDTO: InvttCodeDTO) {
     const conn = await pool.getConnection();
     try {
       const { query: query1, values: values1 } = bookBuildQuery.makeInsertQuery({
@@ -28,7 +29,10 @@ class BookModel {
       const [result1] = await conn.query<OkPacket>(query1, values1);
       logger.debug(result1);
 
-      userBookDTO.bookId = result1.insertId;
+      const userBookDTO = {
+        bookId: result1.insertId,
+        userId: userIdDTO.userId,
+      };
       const { query: query2, values: values2 } = userBookBuildQuery.makeInsertQuery({
         ...userBookDTO,
       });
@@ -36,6 +40,18 @@ class BookModel {
       logger.debug(values2);
       const [result2] = await conn.query<OkPacket>(query2, values2);
       logger.debug(result2);
+
+      const createInvttCodeDTO = {
+        bookId: result1.insertId,
+        ...invttCodeDTO,
+      };
+      const { query: query3, values: values3 } = invttCodeBuildQuery.makeInsertQuery({
+        ...createInvttCodeDTO,
+      });
+      logger.info(query3);
+      logger.debug(values3);
+      const [result3] = await conn.query<OkPacket>(query3, values3);
+      logger.debug(result3);
 
       await conn.commit();
       return result1;
