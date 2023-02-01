@@ -6,8 +6,7 @@ import Fade from "react-reveal/Fade";
 
 import { accessTokenAtom } from "src/recoil/token";
 import { Token } from "src/recoil/token/atom";
-import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
-import { refreshToken } from "../utils/token";
+import { refreshToken, moveToDiaries } from "../utils/token";
 import { useDidMountEffect } from "src/utils/hooks";
 
 import { DefaultBackground } from "src/components/common/Backgrounds";
@@ -18,29 +17,27 @@ import EmailLoginContainer from "../components/home/EmailLoginContainer";
 import SNSLoginContainer from "../components/home/SNSLoginContainer";
 import SignUpButton from "src/components/home/SignUpButton";
 
-const LoginSection = tw.div`
-backdrop-blur-3xl border-4 bg-slate-50/5 border-slate-50/80 rounded-xl 
-w-[80%] py-[2vh] mt-[2vh] min-[390px]:mt-[6vh] mx-auto
-`;
 const Home = () => {
+  const ACCESS_TOKEN_EXPIRY_TIME = 3600 * 1000;
+  const REFRESH_TIME = 60000;
   const navigate = useNavigate();
   const [URLSearchParams] = useSearchParams();
   const [accessToken, setAccessToken] = useRecoilState<Token>(accessTokenAtom);
-  const moveToDiaries = () => {
-    setTimeout(() => navigate(PRIVATE_ROUTE.books.path), 3000);
-  };
-  const checkAccessToken = () => {
-    if (accessToken) return moveToDiaries();
-  };
 
+  // MEMO: 아래 hook을 자식 컴포넌트 (SNSLoginContainer)에서 실행하면 access token을 undefined로 인식.
+  // 리팩토링 필요 23.02.01
   useDidMountEffect(() => {
     const isSNSLogin = URLSearchParams.get("snslogin") === "success";
-    if (isSNSLogin) refreshToken(setAccessToken);
-    checkAccessToken();
+    if (isSNSLogin) {
+      refreshToken(setAccessToken);
+      setInterval(() => refreshToken(setAccessToken), ACCESS_TOKEN_EXPIRY_TIME - REFRESH_TIME);
+    }
+
+    moveToDiaries(accessToken, navigate);
   }, [accessToken]);
 
   useDidMountEffect(() => {
-    checkAccessToken();
+    moveToDiaries(accessToken, navigate);
   }, []);
 
   return (
@@ -52,7 +49,10 @@ const Home = () => {
       {!accessToken && (
         <Fade bottom duration={3000}>
           <LoginSection>
-            <EmailLoginContainer />
+            <EmailLoginContainer
+              tokenExpireTime={ACCESS_TOKEN_EXPIRY_TIME}
+              refreshTime={REFRESH_TIME}
+            />
             <SNSLoginContainer />
             <SignUpButton />
           </LoginSection>
@@ -63,3 +63,8 @@ const Home = () => {
 };
 
 export default Home;
+
+const LoginSection = tw.div`
+backdrop-blur-3xl border-4 bg-slate-50/5 border-slate-50/80 rounded-xl 
+w-[80%] py-[2vh] mt-[2vh] min-[390px]:mt-[6vh] mx-auto
+`;

@@ -2,35 +2,35 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import tw from "tailwind-styled-components";
 import { useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
 
 import { post } from "src/utils/api";
-import { API_URL } from "src/constants/API_URL";
-import { setCookie } from "src/utils/cookie";
-import { Keys } from "src/constants/Keys";
+import { refreshToken } from "src/utils/token";
+import { accessTokenAtom } from "src/recoil/token";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
+import { API_URL } from "src/constants/API_URL";
 import PurpleButton from "../common/PurpleButton";
 
-const Input = tw.input`
-  font-[notosans] bg-transparent ml-[5px] text-sm sm:text-lg
-`;
-
-const InputContainer = tw.div`
-  w-[65%] flex flex-col rounded-md bg-white/40 p-3 mx-auto mt-[1.5vh]
-`;
+interface LoginProps {
+  readonly tokenExpireTime: number;
+  readonly refreshTime: number;
+}
 
 interface loginInput {
   readonly email: string;
   readonly password: string;
 }
 
-const EmailLoginContainer = () => {
+const EmailLoginContainer = ({ tokenExpireTime, refreshTime }: LoginProps) => {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm<loginInput>({ mode: "onChange" });
+  const setAccessToken = useSetRecoilState(accessTokenAtom);
 
   const logIn = async ({ email, password }: loginInput) => {
     try {
       const response = await post(API_URL.emailLogin, { email, password });
-      setCookie(Keys.ACCESS_TOKEN, response.accessToken);
+      setAccessToken(response.accessToken);
+      setInterval(() => refreshToken(setAccessToken), tokenExpireTime - refreshTime);
       navigate(PRIVATE_ROUTE.books.path);
     } catch (err) {
       if (err instanceof Error) alert(err.message);
@@ -57,3 +57,11 @@ const EmailLoginContainer = () => {
 };
 
 export default EmailLoginContainer;
+
+const Input = tw.input`
+  font-[notosans] bg-transparent ml-[5px] text-sm sm:text-lg
+`;
+
+const InputContainer = tw.div`
+  w-[65%] flex flex-col rounded-md bg-white/40 p-3 mx-auto mt-[1.5vh]
+`;
