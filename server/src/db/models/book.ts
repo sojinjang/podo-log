@@ -5,10 +5,9 @@ import {
   GetBookDTO,
   InvttCodeDTO,
   UpdateBookDTO,
-  UserBookDTO,
   UserIdDTO,
 } from "../../types";
-import { OkPacket, ResultSetHeader, RowDataPacket } from "mysql2";
+import { ResultSetHeader } from "mysql2";
 
 const bookBuildQuery = new BuildQuery("book");
 const userBookBuildQuery = new BuildQuery("user_book");
@@ -26,7 +25,7 @@ class BookModel {
 
       await conn.beginTransaction();
 
-      const [result1] = await conn.query<OkPacket>(query1, values1);
+      const [result1] = await conn.query<ResultSetHeader>(query1, values1);
       logger.debug(result1);
 
       const userBookDTO = {
@@ -38,7 +37,7 @@ class BookModel {
       });
       logger.info(query2);
       logger.debug(values2);
-      const [result2] = await conn.query<OkPacket>(query2, values2);
+      const [result2] = await conn.query<ResultSetHeader>(query2, values2);
       logger.debug(result2);
 
       const createInvttCodeDTO = {
@@ -50,7 +49,7 @@ class BookModel {
       });
       logger.info(query3);
       logger.debug(values3);
-      const [result3] = await conn.query<OkPacket>(query3, values3);
+      const [result3] = await conn.query<ResultSetHeader>(query3, values3);
       logger.debug(result3);
 
       await conn.commit();

@@ -1,7 +1,7 @@
 import { pool } from "../index";
 import { logger, BuildQuery } from "../../utils";
 import { CreateDiaryDTO, DiaryIdDTO, GetDiaryDTO, PageDTO, UpdateDiaryDTO } from "../../types";
-import { OkPacket, ResultSetHeader, RowDataPacket } from "mysql2";
+import { ResultSetHeader, RowDataPacket } from "mysql2";
 
 const diaryBuildQuery = new BuildQuery("diary");
 
@@ -10,7 +10,7 @@ class DiaryModel {
     const { query, values } = diaryBuildQuery.makeInsertQuery({ ...diaryDTO });
     logger.info(query);
     logger.debug(values);
-    const [result] = await pool.query<OkPacket>(query, values);
+    const [result] = await pool.query<ResultSetHeader>(query, values);
     logger.debug(result);
     return result;
   }
@@ -69,7 +69,7 @@ class DiaryModel {
     const { query, values } = diaryBuildQuery.makeDeleteQuery({ ...diaryIdDTO });
     logger.info(query);
     logger.debug(values);
-    const [result] = await pool.query<OkPacket>(query, values);
+    const [result] = await pool.query<ResultSetHeader>(query, values);
     logger.debug(result);
     return result;
   }
