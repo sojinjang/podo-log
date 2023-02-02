@@ -9,7 +9,7 @@ import { Request } from "express";
 import { BadRequestError } from "../core/api-error";
 
 const s3Client = new S3Client(awsS3ClientConfig);
-const allowedExtensions = [".png", ".jpg", ".jpeg", ".bmp"];
+const allowedExtensions = [".png", ".jpg", ".jpeg", ".bmp", ".gif"];
 
 const makeKeyFromURL = (location: string) => {
   return location.split("/").slice(-2).join("/");
@@ -25,10 +25,10 @@ const imageUploader = multer({
     bucket: bucketName,
     key: (req: Request, file, callback) => {
       const uploadDirectory = req.query.directory ?? "default";
-      const extension = path.extname(file.originalname);
+      const extension = path.extname(file.originalname).toLowerCase();
       const filename = file.originalname.replace(/([^\w\.]*)/g, "");
       if (!allowedExtensions.includes(extension)) {
-        return callback(new BadRequestError("확장자가 잘못된 이미지 파일입니다."));
+        return callback(new BadRequestError("사용 가능한 이미지 파일이 아닙니다."));
       }
       callback(null, `${uploadDirectory}/${Date.now()}_${filename}`);
     },
