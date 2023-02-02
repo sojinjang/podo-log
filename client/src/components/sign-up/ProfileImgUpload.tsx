@@ -1,12 +1,13 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import tw from "tailwind-styled-components";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useResetRecoilState } from "recoil";
 
 import { profileImgAtom } from "src/recoil/sign-up";
 import DefaultProfileImg from "../../assets/icons/default_profile.png";
 
 export const ProfileImgUpload = () => {
-  const [imgFile, setImgFile] = useRecoilState(profileImgAtom);
+  const [profileImg, setProfileImg] = useRecoilState(profileImgAtom);
+  const resetProfileImg = useResetRecoilState(profileImgAtom);
   const [imgPreview, setImgPreview] = useState<string | ArrayBuffer | null>("");
   const imgRef = useRef<HTMLInputElement>(null);
   const reader = new FileReader();
@@ -14,7 +15,7 @@ export const ProfileImgUpload = () => {
   const saveImgFile = () => {
     if (imgRef?.current?.files) {
       const file = imgRef.current.files[0];
-      setImgFile(file);
+      setProfileImg(file);
       reader.readAsDataURL(file);
       reader.onloadend = () => {
         setImgPreview(reader.result);
@@ -23,17 +24,23 @@ export const ProfileImgUpload = () => {
   };
 
   const deleteImgFile = () => {
-    if (typeof imgFile === "string") URL.revokeObjectURL(imgFile);
-    setImgFile("");
+    if (typeof profileImg === "string") URL.revokeObjectURL(profileImg);
+    setProfileImg("");
   };
+
+  useEffect(() => {
+    return () => {
+      resetProfileImg();
+    };
+  }, []);
 
   return (
     <div className="m-auto text-center">
-      <ProfileImg src={imgFile ? imgPreview : DefaultProfileImg} />
-      {!imgFile && (
+      <ProfileImg src={profileImg ? imgPreview : DefaultProfileImg} />
+      {!profileImg && (
         <ProfileImgDescription htmlFor="profileImg">프로필 이미지 추가</ProfileImgDescription>
       )}
-      {imgFile && (
+      {profileImg && (
         <ProfileImgDescription onClick={() => deleteImgFile()}>
           프로필 이미지 삭제
         </ProfileImgDescription>
