@@ -7,7 +7,7 @@ import {
   UpdateUserDTO,
   UserIdDTO,
 } from "../../types";
-import { OkPacket, ResultSetHeader, RowDataPacket } from "mysql2";
+import { ResultSetHeader, RowDataPacket } from "mysql2";
 
 const userBuildQuery = new BuildQuery("user");
 
@@ -16,7 +16,7 @@ class UserModel {
     const { query, values } = userBuildQuery.makeInsertQuery({ ...userDTO });
     logger.info(query);
     logger.debug(values);
-    const [result] = await pool.query<OkPacket>(query, values);
+    const [result] = await pool.query<ResultSetHeader>(query, values);
     logger.debug(result);
     return result;
   }
@@ -57,7 +57,7 @@ class UserModel {
     const { query, values } = userBuildQuery.makeDeleteQuery({ ...userDTO });
     logger.info(query);
     logger.debug(values);
-    const [result] = await pool.query<OkPacket>(query, values);
+    const [result] = await pool.query<ResultSetHeader>(query, values);
     logger.debug(result);
     return result;
   }

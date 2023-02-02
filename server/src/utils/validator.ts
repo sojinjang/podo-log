@@ -7,6 +7,7 @@ export enum ValidationSource {
   HEADER = "headers",
   QUERY = "query",
   PARAM = "params",
+  FILE = "file",
 }
 
 export const JoiAuthBearer = () =>

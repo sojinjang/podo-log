@@ -5,23 +5,20 @@ import schema from "./schema";
 import { isLoggedIn, imageUploader } from "../../middlewares";
 
 const router = Router();
+const loginedRouter = Router();
+router.use("/", isLoggedIn, loginedRouter);
 
 router.post(
   "/",
-  // validator(schema.localJoin),
   imageUploader.single("profile"),
+  validator(schema.localJoin),
   userController.localJoin
 );
-router.get("/", isLoggedIn, userController.getById);
-router.patch("/", isLoggedIn, validator(schema.patchUser), userController.pacthById);
-router.patch("/withdrawal", isLoggedIn, userController.withdrawalById);
-router.delete("/", isLoggedIn, userController.deleteById);
-router.post(
-  "/image",
-  isLoggedIn,
-  imageUploader.single("profile"),
-  userController.updateProfile
-);
-router.delete("/image", isLoggedIn, userController.deleteProfile);
+loginedRouter.get("/", userController.getById);
+loginedRouter.patch("/", validator(schema.patchUser), userController.pacthById);
+loginedRouter.patch("/withdrawal", userController.withdrawalById);
+loginedRouter.delete("/", userController.deleteById);
+loginedRouter.post("/image", imageUploader.single("profile"), userController.updateProfile);
+loginedRouter.delete("/image", userController.deleteProfile);
 
 export default router;

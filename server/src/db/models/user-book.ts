@@ -1,7 +1,7 @@
 import { pool } from "../index";
 import { logger, BuildQuery } from "../../utils";
 import { UserBookDTO, UserIdDTO } from "../../types";
-import { OkPacket, RowDataPacket } from "mysql2";
+import { ResultSetHeader, RowDataPacket } from "mysql2";
 
 const userBookBuildQuery = new BuildQuery("user_book");
 
@@ -10,7 +10,7 @@ class UserBookModel {
     const { query, values } = userBookBuildQuery.makeInsertQuery({ ...userBookDTO });
     logger.info(query);
     logger.debug(values);
-    const [result] = await pool.query<OkPacket>(query, values);
+    const [result] = await pool.query<ResultSetHeader>(query, values);
     logger.debug(result);
     return result;
   }
@@ -46,7 +46,7 @@ class UserBookModel {
     const { query, values } = userBookBuildQuery.makeDeleteQuery({ ...userBookDTO });
     logger.info(query);
     logger.debug(values);
-    const [result] = await pool.query<OkPacket>(query, values);
+    const [result] = await pool.query<ResultSetHeader>(query, values);
     logger.debug(result);
     return result;
   }
