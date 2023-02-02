@@ -41,6 +41,38 @@ async function post(endpointInput: string, data = {}, token = undefined) {
   return result;
 }
 
+async function postBlob(
+  endpointInput: string,
+  // formData: any,
+  imgFile: string | ArrayBuffer | null,
+  data = {},
+  token = undefined
+) {
+  const endpoint = process.env.REACT_APP_SERVER_URL + endpointInput;
+  const apiUrl = endpoint;
+  const formData = new FormData();
+  if (typeof imgFile === "string") formData.append("file", imgFile);
+  const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
+  formData.append("data", blob);
+  const res = await fetch(apiUrl, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData,
+  });
+
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.message);
+  }
+
+  const result = await res.json();
+  return result;
+}
+
 async function patch(endpointInput: string, params = "", data = {}, token = undefined) {
   const endpoint = process.env.REACT_APP_SERVER_URL + endpointInput;
   const apiUrl = params === "" ? endpoint : `${endpoint}/${params}`;
@@ -86,4 +118,4 @@ async function del(endpointInput: string, params = "", data = {}, token = undefi
   return result;
 }
 
-export { get, post, patch, del as delete };
+export { get, post, postBlob, patch, del as delete };
