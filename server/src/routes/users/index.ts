@@ -16,11 +16,11 @@ router.post(
   validator(schema.localJoin),
   userController.localJoin
 );
-loginedRouter.get("/", userController.getById);
-loginedRouter.patch("/", validator(schema.patchUser), userController.pacthById);
-loginedRouter.patch("/withdrawal", userController.withdrawalById);
-loginedRouter.delete("/", userController.deleteById);
-loginedRouter.post("/image", imageUploader.single("profile"), userController.updateProfile);
-loginedRouter.delete("/image", userController.deleteProfile);
+router.get("/", userController.getById);
+router.patch("/", validator(schema.patchUser), userController.pacthById);
+router.patch("/withdrawal", userController.withdrawalById);
+router.delete("/", userController.deleteById);
+router.post("/image", imageUploader.single("profile"), userController.updateProfile);
+router.delete("/image", userController.deleteProfile);
 
 export default router;
