@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useState, useRef } from "react";
 import tw from "tailwind-styled-components";
 import { useRecoilState } from "recoil";
 
@@ -7,15 +7,17 @@ import DefaultProfileImg from "../../assets/icons/default_profile.png";
 
 export const ProfileImgUpload = () => {
   const [imgFile, setImgFile] = useRecoilState(profileImgAtom);
+  const [imgPreview, setImgPreview] = useState<string | ArrayBuffer | null>("");
   const imgRef = useRef<HTMLInputElement>(null);
+  const reader = new FileReader();
 
   const saveImgFile = () => {
     if (imgRef?.current?.files) {
       const file = imgRef.current.files[0];
-      const reader = new FileReader();
+      setImgFile(file);
       reader.readAsDataURL(file);
       reader.onloadend = () => {
-        setImgFile(reader.result);
+        setImgPreview(reader.result);
       };
     }
   };
@@ -27,7 +29,7 @@ export const ProfileImgUpload = () => {
 
   return (
     <div className="m-auto text-center">
-      <ProfileImg src={imgFile ? imgFile : DefaultProfileImg} />
+      <ProfileImg src={imgFile ? imgPreview : DefaultProfileImg} />
       {!imgFile && (
         <ProfileImgDescription htmlFor="profileImg">프로필 이미지 추가</ProfileImgDescription>
       )}
@@ -49,7 +51,7 @@ export const ProfileImgUpload = () => {
 };
 
 const ProfileImg = tw.img`
-w-[130px] h-[130px] object-cover shadow-lg mx-auto my-2 rounded-full
+w-[130px] h-[130px] object-cover shadow-lg mx-auto my-2 rounded-full bg-white
 `;
 
 const ProfileImgDescription = tw.label`
