@@ -1,6 +1,7 @@
 import Joi from "joi";
 import { Request, Response, NextFunction } from "express";
 import { logger } from "./pino";
+import { BadRequestError } from "./../core/api-error";
 
 export enum ValidationSource {
   BODY = "body",
@@ -28,7 +29,7 @@ export default (schema: Joi.AnySchema, source: ValidationSource = ValidationSour
       const message = details.map((i) => i.message.replace(/['"]+/g, "")).join(",");
       logger.error(message);
 
-      next(new Error(message));
+      next(new BadRequestError(message));
     } catch (error) {
       next(error);
     }
