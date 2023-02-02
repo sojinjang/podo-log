@@ -40,19 +40,19 @@ class UserController {
     }
 
     const messageDTO = await this.userService.pacthById(req.user, updateUserDTO);
-    return new SuccessMsgResponse(messageDTO.message);
+    return new SuccessMsgResponse(messageDTO.message).send(res);
   });
 
   withdrawalById = asyncHandler(async (req: LoggedRequest, res) => {
     const userId = req.user.userId;
     const messageDTO = await this.userService.withdrawalById(userId);
-    return new SuccessMsgResponse(messageDTO.message);
+    return new SuccessMsgResponse(messageDTO.message).send(res);
   });
 
   deleteById = asyncHandler(async (req: LoggedRequest, res) => {
     const messageDTO = await this.userService.deleteById(req.user);
 
-    return new SuccessMsgResponse(messageDTO.message);
+    return new SuccessMsgResponse(messageDTO.message).send(res);
   });
 
   updateProfile = asyncHandler(async (req: FileRequest, res) => {
@@ -61,13 +61,13 @@ class UserController {
 
     const messageDTO = await this.userService.updateImage(req.user, { profile });
 
-    return new SuccessMsgResponse(messageDTO.message);
+    return new SuccessMsgResponse(messageDTO.message).send(res);
   });
 
   deleteProfile = asyncHandler(async (req: FileRequest, res) => {
     const messageDTO = await this.userService.deleteImage(req.user);
 
-    return new SuccessMsgResponse(messageDTO.message);
+    return new SuccessMsgResponse(messageDTO.message).send(res);
   });
 }
 

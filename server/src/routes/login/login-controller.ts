@@ -2,17 +2,19 @@ import passport from "passport";
 import { logger, makeRefreshToken, makeAccessToken } from "../../utils";
 import { podologURL, cookieOption } from "../../config";
 import asyncHandler from "../../utils/async-handler";
+import { AuthFailureError } from "./../../core/api-error";
+import { SuccessResponse } from "../../core/api-response";
 
 class LoginController {
   local = asyncHandler(async (req, res, next) => {
     passport.authenticate("local", (authError, user, info) => {
       if (authError) {
         logger.error(authError);
-        return res.status(401).json({ loginError: authError.message });
+        next(new AuthFailureError(authError.message));
       }
       if (!user) {
         logger.info(info.message);
-        return res.status(401).json({ loginError: info.message });
+        next(new AuthFailureError(info.message));
       }
       return req.login(user, { session: false }, (loginError) => {
         if (loginError) {
@@ -99,11 +101,11 @@ class LoginController {
     passport.authenticate("refreshJwt", (authError, user, info) => {
       if (authError) {
         logger.error(authError);
-        return res.status(401).json({ error: authError.message });
+        next(new AuthFailureError(authError.message));
       }
       if (!user) {
         logger.info(info.message);
-        return res.status(401).json({ error: info.message });
+        next(new AuthFailureError(info.message));
       }
       return req.login(user, { session: false }, (loginError) => {
         if (loginError) {
@@ -112,8 +114,7 @@ class LoginController {
         }
 
         const accessToken = makeAccessToken(user.userId);
-        const result = { message: "refresh 성공", accessToken };
-        return res.status(200).json(result);
+        return new SuccessResponse("refresh 성공", { accessToken }).send(res);
       });
     })(req, res, next);
   });
