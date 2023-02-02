@@ -8,19 +8,22 @@ import {
   UserProfileDTO,
 } from "../../types";
 import { imageDeleter } from "../../middlewares";
+import { checkResult } from "../../utils";
+import { AuthFailureError, BadRequestError } from "../../core/api-error";
 
 class UserService {
   private userModel = userModel;
   async localJoin(userDTO: CreateUserDTO) {
     const { email, nickname, password } = userDTO;
     const exUser = await this.userModel.get({ email });
-    if (exUser.length !== 0) throw new Error("403, 해당 이메일은 사용중입니다.");
+    if (exUser.length !== 0) throw new AuthFailureError("해당 이메일은 사용중입니다.");
 
     const hashedPassword = await bcrypt.hash(password, 10);
     userDTO.password = hashedPassword;
 
     const result = await this.userModel.create(userDTO);
-    return result;
+    const messageDTO = checkResult(result, "가입에 성공하였습니다.");
+    return messageDTO;
   }
 
   async getById(userId: number) {
@@ -37,15 +40,11 @@ class UserService {
     if (password && exHashedPassword) {
       const isPasswordCorrect = await bcrypt.compare(password, exHashedPassword);
       if (!isPasswordCorrect) {
-        throw new Error(
-          `UNAUTHORIZED,
-            401,
-            "비밀번호가 일치하지 않습니다."`
-        );
+        throw new AuthFailureError("비밀번호가 일치하지 않습니다.");
       }
       if (newPassword) {
         if (password === newPassword)
-          throw new Error("400, 새로운 비밀번호와 현재 비밀번호가 같습니다.");
+          throw new BadRequestError("새로운 비밀번호와 현재 비밀번호가 같습니다.");
 
         const newHashedPassword = await bcrypt.hash(newPassword, 10);
         updateUserDTO.password = newHashedPassword;
@@ -55,13 +54,17 @@ class UserService {
 
     const userIdDTO = { userId };
     const result = await this.userModel.pacth(userIdDTO, updateUserDTO);
-    return result;
+
+    const messageDTO = checkResult(result, "회원정보 수정에 성공하였습니다.");
+    return messageDTO;
   }
 
   async withdrawalById(userId: number) {
     const userIdDTO: UserIdDTO = { userId };
     const result = await this.userModel.withdrawalById(userIdDTO);
-    return result;
+
+    const messageDTO = checkResult(result, "탈퇴에 성공하였습니다.");
+    return messageDTO;
   }
 
   async deleteById(userDTO: UserEntity) {
@@ -70,7 +73,8 @@ class UserService {
     const userIdDTO = { userId: userDTO.userId };
 
     const result = await this.userModel.deleteById(userIdDTO);
-    return result;
+    const messageDTO = checkResult(result, "강한 탈퇴에 성공하였습니다. 데이터가 지워집니다.");
+    return messageDTO;
   }
 
   async updateImage(userDTO: UserEntity, userProfileDTO: UserProfileDTO) {
@@ -80,7 +84,8 @@ class UserService {
     const userIdDTO = { userId: userDTO.userId };
 
     const result = await this.userModel.pacth(userIdDTO, userProfileDTO);
-    return result;
+    const messageDTO = checkResult(result, "프로필 사진을 수정하였습니다.");
+    return messageDTO;
   }
 
   async deleteImage(userDTO: UserEntity) {
@@ -91,7 +96,8 @@ class UserService {
     userDTO.profile = "없음";
 
     const result = await this.userModel.pacth(userIdDTO, userDTO);
-    return result;
+    const messageDTO = checkResult(result, "프로필 사진을 삭제하였습니다.");
+    return messageDTO;
   }
 }
 
