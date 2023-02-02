@@ -3,11 +3,11 @@ import path from "path";
 import multer from "multer";
 import multerS3 from "multer-s3";
 import { logger } from "../utils";
-import { awsS3ClientConfig, awsS3Config, bucketName } from "../config/aws-s3.config";
+import { awsS3ClientConfig, bucketName } from "../config/aws-s3.config";
 import { S3Client, DeleteObjectCommand } from "@aws-sdk/client-s3";
 import { Request } from "express";
+import { BadRequestError } from "../core/api-error";
 
-const s3 = new AWS.S3(awsS3Config);
 const s3Client = new S3Client(awsS3ClientConfig);
 const allowedExtensions = [".png", ".jpg", ".jpeg", ".bmp"];
 
@@ -28,7 +28,7 @@ const imageUploader = multer({
       const extension = path.extname(file.originalname);
       const filename = file.originalname.replace(/([^\w\.]*)/g, "");
       if (!allowedExtensions.includes(extension)) {
-        return callback(new Error("wrong extension"));
+        return callback(new BadRequestError("확장자가 잘못된 이미지 파일입니다."));
       }
       callback(null, `${uploadDirectory}/${Date.now()}_${filename}`);
     },
@@ -50,7 +50,7 @@ const imageDeleter = async (location: string) => {
     logger.info(data);
   } catch (err) {
     logger.error(err);
-    throw err;
+    throw new BadRequestError("이미지 삭제에 실패하였습니다.");
   }
 };
 

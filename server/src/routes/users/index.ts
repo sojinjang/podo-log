@@ -1,12 +1,14 @@
 import { Router } from "express";
 import { userController } from "./user-controller";
-import validator, { ValidationSource } from "../../utils/validator";
+import validator from "../../utils/validator";
 import schema from "./schema";
 import { isLoggedIn, imageUploader } from "../../middlewares";
 
 const router = Router();
 const loginedRouter = Router();
-router.use("/", isLoggedIn, loginedRouter);
+
+// router.use("/", isLoggedIn, loginedRouter);
+
 
 router.post(
   "/",
