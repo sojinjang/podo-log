@@ -3,7 +3,7 @@ USE podolog;
 
 CREATE TABLE IF NOT EXISTS `user` (
 	`userId`	bigint	NOT NULL auto_increment,
-	`email`	varchar(30) NULL ,
+	`email`	varchar(30) NULL unique,
 	`password`	varchar(60)	NULL,
 	`nickname`	varchar(40)	NOT NULL DEFAULT "없음",
 	`profile`	varchar(110) NOT NULL DEFAULT "없음",
