@@ -1,4 +1,5 @@
 import React from "react";
+import tw from "tailwind-styled-components";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
@@ -13,15 +14,29 @@ interface SignUpInput {
   readonly nickname: string;
   readonly email: string;
   readonly password: string;
+  readonly pwConfirm: string;
 }
 
 const EmailSignUpContainer = () => {
   const navigate = useNavigate();
-  const { register, handleSubmit } = useForm<SignUpInput>({ mode: "onChange" });
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    formState: { errors },
+  } = useForm<SignUpInput>({ mode: "onChange" });
+
+  const pwConfirmRegister = register("pwConfirm", {
+    validate: (pwconfirm: string) => {
+      const { password } = getValues();
+      return password === pwconfirm || "비밀번호가 일치하지 않습니다.";
+    },
+  });
 
   const SignUp = async ({ nickname, email, password }: SignUpInput) => {
     try {
       await post(API_URL.users, { nickname, email, password });
+      confirm("Welcome to PODOLOG! 🍇");
       navigate(PUBLIC_ROUTE.home.path);
     } catch (err) {
       if (err instanceof Error) alert(err.message);
@@ -31,10 +46,10 @@ const EmailSignUpContainer = () => {
   return (
     <form onSubmit={handleSubmit(SignUp)}>
       <InputContainer>
-        <Input placeholder="nickname" minLength={2} required {...register("nickname")}></Input>
+        <Input placeholder="nickname" minLength={2} required {...register("nickname")} />
       </InputContainer>
       <InputContainer>
-        <Input placeholder="email" type="email" required {...register("email")}></Input>
+        <Input placeholder="email" type="email" required {...register("email")} />
       </InputContainer>
       <InputContainer>
         <Input
@@ -43,8 +58,20 @@ const EmailSignUpContainer = () => {
           minLength={4}
           required
           {...register("password")}
-        ></Input>
+        />
       </InputContainer>
+      <div className="w-[65%] mx-auto">
+        <InputContainer className="w-full">
+          <Input
+            placeholder="confirm password"
+            type="password"
+            minLength={4}
+            required
+            {...pwConfirmRegister}
+          />
+        </InputContainer>
+        {errors.pwConfirm && <PwConfirmMsg>{errors.pwConfirm.message}</PwConfirmMsg>}
+      </div>
       <PurpleButton
         description="Sign Up"
         wrapperStyle="mt-[3vh] w-full"
@@ -55,3 +82,7 @@ const EmailSignUpContainer = () => {
 };
 
 export default EmailSignUpContainer;
+
+const PwConfirmMsg = tw.p`
+font-[notosans] text-red-600 text-xs sm:text-base mt-1 ml-[5px]
+`;
