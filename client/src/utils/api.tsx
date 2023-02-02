@@ -41,6 +41,27 @@ async function post(endpointInput: string, data = {}, token = undefined) {
   return result;
 }
 
+async function postFormData(endpointInput: string, formData: BodyInit, token = undefined) {
+  const endpoint = process.env.REACT_APP_SERVER_URL + endpointInput;
+  const apiUrl = endpoint;
+  const res = await fetch(apiUrl, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData,
+  });
+
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.message);
+  }
+
+  const result = await res.json();
+  return result;
+}
+
 async function patch(endpointInput: string, params = "", data = {}, token = undefined) {
   const endpoint = process.env.REACT_APP_SERVER_URL + endpointInput;
   const apiUrl = params === "" ? endpoint : `${endpoint}/${params}`;
@@ -86,4 +107,4 @@ async function del(endpointInput: string, params = "", data = {}, token = undefi
   return result;
 }
 
-export { get, post, patch, del as delete };
+export { get, post, postFormData, patch, del as delete };

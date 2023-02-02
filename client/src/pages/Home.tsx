@@ -1,7 +1,6 @@
 import React from "react";
 import { useRecoilState } from "recoil";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import tw from "tailwind-styled-components";
 import Fade from "react-reveal/Fade";
 
 import { accessTokenAtom } from "src/recoil/token";
@@ -13,6 +12,7 @@ import { DefaultBackground } from "src/components/common/Backgrounds";
 import "src/components/common/Backgrounds.css";
 import { Greeting } from "src/components/home/Greeting";
 import { GrapeIcon } from "src/components/home/GrapeIcon";
+import { InputSectionContainer } from "src/components/common/Input";
 import EmailLoginContainer from "../components/home/EmailLoginContainer";
 import SNSLoginContainer from "../components/home/SNSLoginContainer";
 import SignUpButton from "src/components/home/SignUpButton";
@@ -48,14 +48,14 @@ const Home = () => {
       </Fade>
       {!accessToken && (
         <Fade bottom duration={3000}>
-          <LoginSection>
+          <InputSectionContainer>
             <EmailLoginContainer
               tokenExpireTime={ACCESS_TOKEN_EXPIRY_TIME}
               refreshTime={REFRESH_TIME}
             />
-            <SNSLoginContainer />
+            <SNSLoginContainer sectionTitle="SNS 계정으로 로그인하기" />
             <SignUpButton />
-          </LoginSection>
+          </InputSectionContainer>
         </Fade>
       )}
     </DefaultBackground>
@@ -63,8 +63,3 @@ const Home = () => {
 };
 
 export default Home;
-
-const LoginSection = tw.div`
-backdrop-blur-3xl border-4 bg-slate-50/5 border-slate-50/80 rounded-xl 
-w-[80%] py-[2vh] mt-[2vh] min-[390px]:mt-[6vh] mx-auto
-`;

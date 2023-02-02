@@ -1,0 +1,1 @@
+export { profileImgAtom } from "./atom";
