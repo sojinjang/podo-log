@@ -14,9 +14,9 @@ class BookController {
   create = asyncHandler(async (req: LoggedRequest, res) => {
     const { bookName, color } = req.body;
     const createBookDTO = { bookName, color } as CreateBookDTO;
-    const userBookDTO = { userId: req.user.userId };
+    const userIdDTO = { userId: req.user.userId };
 
-    const result = await this.bookService.create(createBookDTO, userBookDTO);
+    const result = await this.bookService.create(createBookDTO, userIdDTO);
     return res.status(200).json(result);
   });
 

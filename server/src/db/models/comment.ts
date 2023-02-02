@@ -1,7 +1,7 @@
 import { pool } from "../index";
 import { logger, BuildQuery } from "../../utils";
 import { CommentIdDTO, CreateCommentDTO, GetCommentDTO, UpdateCommentDTO } from "../../types";
-import { OkPacket, ResultSetHeader, RowDataPacket } from "mysql2";
+import { ResultSetHeader, RowDataPacket } from "mysql2";
 
 const commentBuildQuery = new BuildQuery("comment");
 
@@ -10,7 +10,7 @@ class CommentModel {
     const { query, values } = commentBuildQuery.makeInsertQuery({ ...commentDTO });
     logger.info(query);
     logger.debug(values);
-    const [result] = await pool.query<OkPacket>(query, values);
+    const [result] = await pool.query<ResultSetHeader>(query, values);
     logger.debug(result);
     return result;
   }
@@ -43,7 +43,7 @@ class CommentModel {
     const { query, values } = commentBuildQuery.makeDeleteQuery({ ...commentIdDTO });
     logger.info(query);
     logger.debug(values);
-    const [result] = await pool.query<OkPacket>(query, values);
+    const [result] = await pool.query<ResultSetHeader>(query, values);
     logger.debug(result);
     return result;
   }

@@ -1,21 +1,26 @@
-import { bookModel } from "../../db/models";
+import { bookModel, userBookModel } from "../../db/models";
 import { BookIdDTO, UpdateBookDTO, CreateBookDTO, UserBookDTO, UserIdDTO } from "../../types";
+import { createInvttCode } from "../../utils";
 
 class BookService {
   private bookModel = bookModel;
-  async create(bookDTO: CreateBookDTO, userBookDTO: UserBookDTO) {
-    const result = await this.bookModel.create(bookDTO, userBookDTO);
+  private userBookModel = userBookModel;
+
+  async create(bookDTO: CreateBookDTO, userIdDTO: UserIdDTO) {
+    const invttCodeDTO = { invttCode: createInvttCode() };
+
+    const result = await this.bookModel.create(bookDTO, userIdDTO, invttCodeDTO);
     return result;
   }
 
   async getByUserId(userIdDTO: UserIdDTO) {
-    const books = await this.bookModel.getByUserId(userIdDTO);
+    const books = await this.userBookModel.getByUserId(userIdDTO);
     return books;
   }
 
   async pacthById(bookIdDTO: BookIdDTO, updateBookDTO: UpdateBookDTO, userIdDTO: UserIdDTO) {
     const userBookDTO: UserBookDTO = { userId: userIdDTO.userId, bookId: bookIdDTO.bookId };
-    const isMember = await this.bookModel.checkUserBook(userBookDTO);
+    const isMember = await this.userBookModel.checkUserBook(userBookDTO);
     if (!isMember) {
       throw new Error(
         `Forbidden,
@@ -29,7 +34,7 @@ class BookService {
   }
 
   async outBookById(userBookDTO: UserBookDTO) {
-    const result = await this.bookModel.outBookById(userBookDTO);
+    const result = await this.userBookModel.outBookById(userBookDTO);
     return result;
   }
 }

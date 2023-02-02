@@ -3,7 +3,7 @@ USE podolog;
 
 CREATE TABLE IF NOT EXISTS `user` (
 	`userId`	bigint	NOT NULL auto_increment,
-	`email`	varchar(30) NULL ,
+	`email`	varchar(30) NULL unique,
 	`password`	varchar(60)	NULL,
 	`nickname`	varchar(40)	NOT NULL DEFAULT "없음",
 	`profile`	varchar(110) NOT NULL DEFAULT "없음",
@@ -60,6 +60,17 @@ CREATE TABLE IF NOT EXISTS `book` (
     `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
     `deletedAt` DATETIME, 
     PRIMARY KEY (`bookId`)
+);
+
+CREATE TABLE IF NOT EXISTS `invtt_code` (
+	`codeId`	bigint	NOT NULL auto_increment,
+	`bookId`	bigint	NOT NULL,
+	`invttCode`	varchar(15) NOT NULL unique,
+    `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, 
+    `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
+    `deletedAt` DATETIME, 
+    PRIMARY KEY (`codeId`, `bookId`),
+    FOREIGN KEY (`bookId`) REFERENCES `book` (`bookId`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS `user_book` (

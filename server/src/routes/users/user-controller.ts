@@ -1,6 +1,8 @@
 import { userService } from "./user-service";
 import { CreateUserDTO, FileRequest, LoggedRequest, UpdateUserDTO } from "../../types";
 import asyncHandler from "../../utils/async-handler";
+import { SuccessMsgResponse, SuccessResponse } from "../../core/api-response";
+import { BadRequestError } from "../../core/api-error";
 
 class UserController {
   private userService = userService;
@@ -11,15 +13,20 @@ class UserController {
 
     const createUserDTO = { email, nickname, password, profile } as CreateUserDTO;
 
-    const addedUser = await this.userService.localJoin(createUserDTO);
+    const messageDTO = await this.userService.localJoin(createUserDTO);
 
-    return res.status(200).json(addedUser);
+    return new SuccessResponse(messageDTO.message, {
+      insertId: messageDTO.insertId,
+    }).send(res);
   });
 
   getById = asyncHandler(async (req: LoggedRequest, res) => {
-    const result = req.user;
-    delete result.password;
-    return res.status(200).json(result);
+    const userData = req.user;
+    delete userData.password;
+
+    return new SuccessResponse("조회에 성공하였습니다.", {
+      userData,
+    }).send(res);
   });
 
   pacthById = asyncHandler(async (req: LoggedRequest, res) => {
@@ -32,35 +39,35 @@ class UserController {
       updateUserDTO = { nickname, password, newPassword };
     }
 
-    const result = await this.userService.pacthById(req.user, updateUserDTO);
-    return res.status(200).json(result);
+    const messageDTO = await this.userService.pacthById(req.user, updateUserDTO);
+    return new SuccessMsgResponse(messageDTO.message);
   });
 
   withdrawalById = asyncHandler(async (req: LoggedRequest, res) => {
     const userId = req.user.userId;
-    const result = await this.userService.withdrawalById(userId);
-    return res.status(200).json(result);
+    const messageDTO = await this.userService.withdrawalById(userId);
+    return new SuccessMsgResponse(messageDTO.message);
   });
 
   deleteById = asyncHandler(async (req: LoggedRequest, res) => {
-    const result = await this.userService.deleteById(req.user);
+    const messageDTO = await this.userService.deleteById(req.user);
 
-    return res.status(200).json(result);
+    return new SuccessMsgResponse(messageDTO.message);
   });
 
   updateProfile = asyncHandler(async (req: FileRequest, res) => {
     const profile = req.file?.location;
-    if (!profile) throw new Error("요청 오류, 이미지 없음");
+    if (!profile) throw new BadRequestError("이미지를 보내주세요.");
 
-    const result = await this.userService.updateImage(req.user, { profile });
+    const messageDTO = await this.userService.updateImage(req.user, { profile });
 
-    return res.status(200).json(result);
+    return new SuccessMsgResponse(messageDTO.message);
   });
 
   deleteProfile = asyncHandler(async (req: FileRequest, res) => {
-    const result = await this.userService.deleteImage(req.user);
+    const messageDTO = await this.userService.deleteImage(req.user);
 
-    return res.status(200).json(result);
+    return new SuccessMsgResponse(messageDTO.message);
   });
 }
 

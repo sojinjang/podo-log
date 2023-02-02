@@ -5,7 +5,7 @@ export interface BookEntity {
 }
 
 export interface UserBookDTO {
-  bookId?: number;
+  bookId: number;
   userId: number;
 }
 
