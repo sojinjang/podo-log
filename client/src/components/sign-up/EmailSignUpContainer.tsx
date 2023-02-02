@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 
 import { profileImgAtom } from "src/recoil/sign-up";
-import { postBlob } from "src/utils/api";
+import { Img } from "src/recoil/sign-up/atom";
+import { postFormData } from "src/utils/api";
 import { PUBLIC_ROUTE } from "src/router/ROUTE_INFO";
 import { API_URL } from "src/constants/API_URL";
 import { ProfileImgUpload } from "./ProfileImgUpload";
@@ -16,12 +17,22 @@ interface SignUpInput {
   readonly nickname: string;
   readonly email: string;
   readonly password: string;
-  readonly pwConfirm: string;
+  readonly pwConfirm?: string | undefined;
 }
+
+const createSignUpForm = (profileImg: Img, { nickname, email, password }: SignUpInput) => {
+  const formData = new FormData();
+  formData.append("profile", profileImg);
+  formData.append("nickname", nickname);
+  formData.append("email", email);
+  formData.append("password", password);
+
+  return formData;
+};
 
 const EmailSignUpContainer = () => {
   const navigate = useNavigate();
-  const imgFile = useRecoilValue(profileImgAtom);
+  const profileImg = useRecoilValue(profileImgAtom);
   const {
     register,
     handleSubmit,
@@ -30,21 +41,16 @@ const EmailSignUpContainer = () => {
   } = useForm<SignUpInput>({ mode: "onChange" });
 
   const pwConfirmRegister = register("pwConfirm", {
-    validate: (pwconfirm: string) => {
+    validate: (pwconfirm: string | undefined) => {
       const { password } = getValues();
       return password === pwconfirm || "비밀번호가 일치하지 않습니다.";
     },
   });
 
-  const SignUp = async ({ nickname, email, password }: SignUpInput) => {
-    // const formData = new FormData();
-    // if (typeof imgFile === "string" && imgFile.length > 0) formData.append("profile", imgFile);
-    // formData.append("nickname", JSON.stringify(nickname));
-    // formData.append("email", JSON.stringify(email));
-    // formData.append("password", JSON.stringify(password));
+  const onSubmitSignUp = async ({ nickname, email, password }: SignUpInput) => {
+    const formData = createSignUpForm(profileImg, { nickname, email, password });
     try {
-      await postBlob(API_URL.users, imgFile, { nickname, email, password });
-      //   await postBlob(API_URL.users, formData);
+      await postFormData(API_URL.users, formData);
       confirm("Welcome to PODOLOG! 🍇");
       navigate(PUBLIC_ROUTE.home.path);
     } catch (err) {
@@ -53,7 +59,7 @@ const EmailSignUpContainer = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(SignUp)}>
+    <form onSubmit={handleSubmit(onSubmitSignUp)} encType="multipart/form-data">
       <ProfileImgUpload />
       <InputContainer>
         <Input placeholder="nickname" minLength={2} required {...register("nickname")} />
