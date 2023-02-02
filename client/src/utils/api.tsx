@@ -41,24 +41,13 @@ async function post(endpointInput: string, data = {}, token = undefined) {
   return result;
 }
 
-async function postBlob(
-  endpointInput: string,
-  // formData: any,
-  imgFile: string | ArrayBuffer | null,
-  data = {},
-  token = undefined
-) {
+async function postFormData(endpointInput: string, formData: BodyInit, token = undefined) {
   const endpoint = process.env.REACT_APP_SERVER_URL + endpointInput;
   const apiUrl = endpoint;
-  const formData = new FormData();
-  if (typeof imgFile === "string") formData.append("file", imgFile);
-  const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
-  formData.append("data", blob);
   const res = await fetch(apiUrl, {
     method: "POST",
     credentials: "include",
     headers: {
-      "Content-Type": "multipart/form-data",
       Authorization: `Bearer ${token}`,
     },
     body: formData,
@@ -118,4 +107,4 @@ async function del(endpointInput: string, params = "", data = {}, token = undefi
   return result;
 }
 
-export { get, post, postBlob, patch, del as delete };
+export { get, post, postFormData, patch, del as delete };
