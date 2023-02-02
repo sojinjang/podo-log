@@ -2,15 +2,17 @@ import React from "react";
 import tw from "tailwind-styled-components";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 
-import { post } from "src/utils/api";
+import { profileImgAtom } from "src/recoil/sign-up";
+import { postBlob } from "src/utils/api";
 import { PUBLIC_ROUTE } from "src/router/ROUTE_INFO";
 import { API_URL } from "src/constants/API_URL";
+import { ProfileImgUpload } from "./ProfileImgUpload";
 import { Input, InputContainer } from "../common/Input";
 import PurpleButton from "../common/PurpleButton";
 
 interface SignUpInput {
-  //   readonly profile?: any;
   readonly nickname: string;
   readonly email: string;
   readonly password: string;
@@ -19,6 +21,7 @@ interface SignUpInput {
 
 const EmailSignUpContainer = () => {
   const navigate = useNavigate();
+  const imgFile = useRecoilValue(profileImgAtom);
   const {
     register,
     handleSubmit,
@@ -34,8 +37,14 @@ const EmailSignUpContainer = () => {
   });
 
   const SignUp = async ({ nickname, email, password }: SignUpInput) => {
+    // const formData = new FormData();
+    // if (typeof imgFile === "string" && imgFile.length > 0) formData.append("profile", imgFile);
+    // formData.append("nickname", JSON.stringify(nickname));
+    // formData.append("email", JSON.stringify(email));
+    // formData.append("password", JSON.stringify(password));
     try {
-      await post(API_URL.users, { nickname, email, password });
+      await postBlob(API_URL.users, imgFile, { nickname, email, password });
+      //   await postBlob(API_URL.users, formData);
       confirm("Welcome to PODOLOG! 🍇");
       navigate(PUBLIC_ROUTE.home.path);
     } catch (err) {
@@ -45,6 +54,7 @@ const EmailSignUpContainer = () => {
 
   return (
     <form onSubmit={handleSubmit(SignUp)}>
+      <ProfileImgUpload />
       <InputContainer>
         <Input placeholder="nickname" minLength={2} required {...register("nickname")} />
       </InputContainer>
