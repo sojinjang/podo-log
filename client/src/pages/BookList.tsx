@@ -23,15 +23,16 @@ const BookList = () => {
   const accessToken = useRecoilValue(accessTokenAtom);
   const [userDiaryArr, setUserDiaryArr] = useState<DiaryInfo[] | undefined>([]);
   const [isEmpty, setIsEmpty] = useState<boolean>(true);
-  async function getUserDiaryArr() {
+  async function getUserBookArr() {
     try {
-      return get(API_URL.books, "", accessToken);
+      const response = await get(API_URL.books, "", accessToken);
+      return response.data;
     } catch (err) {
       alert(err);
     }
   }
   const handleUserDiaryArr = async () => {
-    const userDiaries = await getUserDiaryArr();
+    const userDiaries = await getUserBookArr();
     setUserDiaryArr(userDiaries);
   };
 
