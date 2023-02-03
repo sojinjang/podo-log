@@ -11,4 +11,5 @@ export const API_URL = Object.freeze({
   diaryList: function (bookId: number, limit: number, startIdx: number) {
     return `${this.book(bookId)}/diaries?limit=${limit}&start=${startIdx}`;
   },
+  diary: "api/diaries",
 });
