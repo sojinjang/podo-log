@@ -6,6 +6,8 @@ import { get } from "src/utils/api";
 import { useDidMountEffect } from "src/utils/hooks";
 import { API_URL } from "src/constants/API_URL";
 import DiaryContainer from "./DiaryContainer";
+import { useRecoilValue } from "recoil";
+import { accessTokenAtom } from "src/recoil/token";
 
 export interface Diary {
   bookId: number;
@@ -27,16 +29,17 @@ export const DiaryListContainer = () => {
   const params = useParams();
   const bookId = Number(params.bookId);
 
+  const accessToken = useRecoilValue(accessTokenAtom);
   const [ref, inView] = useInView();
   const [diaries, setDiaries] = useState<Diary[]>([]);
-  const [startIdx, setStartIdx] = useState<number>(0);
+  const [startIdx, setStartIdx] = useState<number>(1);
   const [hasNextPage, setHasNextPage] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState(false);
 
   const getDiaryList = useCallback(async () => {
     try {
       setIsLoading(true);
-      const diaryList = await get(API_URL.diaryList(bookId, LIMIT, startIdx));
+      const diaryList = await get(API_URL.diaryList(bookId, LIMIT, startIdx), "", accessToken);
       setDiaries((prevDiaries) => [...prevDiaries, ...diaryList]);
       setIsLoading(false);
       if (diaryList.length < LIMIT) {
