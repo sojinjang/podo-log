@@ -1,8 +1,8 @@
 import passport from "passport";
 import { logger, makeRefreshToken, makeAccessToken } from "../../utils";
-import { podologURL, cookieOption } from "../../config";
+import { cookieOption } from "../../config";
 import asyncHandler from "../../utils/async-handler";
-import { AuthFailureError } from "./../../core/api-error";
+import { AuthFailureError, InternalError } from "./../../core/api-error";
 import {
   FailureLoginRedirect,
   SuccessLoginRedirectWithCookie,
@@ -14,31 +14,35 @@ import {
 class LoginController {
   local = asyncHandler(async (req, res, next) => {
     passport.authenticate("local", (authError, user, info) => {
-      if (authError) {
-        logger.error(authError);
-        next(new AuthFailureError(authError.message));
-      }
-      if (!user) {
-        logger.info(info.message);
-        next(new AuthFailureError(info.message));
-      }
-      return req.login(user, { session: false }, (loginError) => {
-        if (loginError) {
-          logger.error(loginError);
-          return next(loginError);
+      try {
+        if (authError) {
+          logger.error(authError);
+          throw new AuthFailureError(authError.message);
         }
+        if (!user) {
+          logger.info(info.message);
+          throw new AuthFailureError(info.message);
+        }
+        return req.login(user, { session: false }, (loginError) => {
+          if (loginError) {
+            logger.error(loginError);
+            throw new InternalError(loginError);
+          }
 
-        const refreshToken = makeRefreshToken(user.userId);
-        const accessToken = makeAccessToken(user.userId);
-        const messageDTO = { message: "로그인 성공", data: { accessToken } };
-        const setCookie = { refreshToken, option: cookieOption(14, "d") };
+          const refreshToken = makeRefreshToken(user.userId);
+          const accessToken = makeAccessToken(user.userId);
+          const messageDTO = { message: "로그인 성공", data: { accessToken } };
+          const setCookie = { refreshToken, option: cookieOption(14, "d") };
 
-        return new SuccessLoginResponseWithCookie(
-          messageDTO.message,
-          messageDTO.data,
-          setCookie
-        ).send(res);
-      });
+          return new SuccessLoginResponseWithCookie(
+            messageDTO.message,
+            messageDTO.data,
+            setCookie
+          ).send(res);
+        });
+      } catch (err) {
+        next(err);
+      }
     })(req, res, next);
   });
 
@@ -107,23 +111,27 @@ class LoginController {
 
   silentRefresh = asyncHandler(async (req, res, next) => {
     passport.authenticate("refreshJwt", (authError, user, info) => {
-      if (authError) {
-        logger.error(authError);
-        next(new AuthFailureError(authError.message));
-      }
-      if (!user) {
-        logger.info(info.message);
-        next(new AuthFailureError(info.message));
-      }
-      return req.login(user, { session: false }, (loginError) => {
-        if (loginError) {
-          logger.error(loginError);
-          next(new AuthFailureError(loginError.message));
+      try {
+        if (authError) {
+          logger.error(authError);
+          throw new AuthFailureError(authError.message);
         }
+        if (!user) {
+          logger.info(info.message);
+          throw new AuthFailureError(info.message);
+        }
+        return req.login(user, { session: false }, (loginError) => {
+          if (loginError) {
+            logger.error(loginError);
+            throw new AuthFailureError(loginError.message);
+          }
 
-        const accessToken = makeAccessToken(user.userId);
-        return new SuccessResponse("refresh 성공", { accessToken }).send(res);
-      });
+          const accessToken = makeAccessToken(user.userId);
+          return new SuccessResponse("refresh 성공", { accessToken }).send(res);
+        });
+      } catch (err) {
+        next(err);
+      }
     })(req, res, next);
   });
 }
