@@ -6,7 +6,7 @@ import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 export const refreshToken = async (setAccessToken: (arg: Token) => void) => {
   try {
     const response = await post(API_URL.refreshToken);
-    setAccessToken(response.accessToken);
+    setAccessToken(response.data.accessToken);
   } catch {
     alert("로그인이 필요합니다 🪪");
     setAccessToken(undefined);
