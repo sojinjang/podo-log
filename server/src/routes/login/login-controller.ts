@@ -3,7 +3,13 @@ import { logger, makeRefreshToken, makeAccessToken } from "../../utils";
 import { podologURL, cookieOption } from "../../config";
 import asyncHandler from "../../utils/async-handler";
 import { AuthFailureError } from "./../../core/api-error";
-import { SuccessResponse } from "../../core/api-response";
+import {
+  FailureLoginRedirect,
+  SuccessLoginRedirectWithCookie,
+  SuccessLoginResponseWithCookie,
+  SuccessLogoutResponse,
+  SuccessResponse,
+} from "../../core/api-response";
 
 class LoginController {
   local = asyncHandler(async (req, res, next) => {
@@ -24,20 +30,21 @@ class LoginController {
 
         const refreshToken = makeRefreshToken(user.userId);
         const accessToken = makeAccessToken(user.userId);
-        const result = { message: "로그인 성공", accessToken };
-        return res
-          .status(200)
-          .cookie("refreshToken", refreshToken, cookieOption(14, "d"))
-          .json(result);
+        const messageDTO = { message: "로그인 성공", data: { accessToken } };
+        const setCookie = { refreshToken, option: cookieOption(14, "d") };
+
+        return new SuccessLoginResponseWithCookie(
+          messageDTO.message,
+          messageDTO.data,
+          setCookie
+        ).send(res);
       });
     })(req, res, next);
   });
 
   logout = asyncHandler(async (req, res, next) => {
-    return res.clearCookie("refreshToken").status(200).json({
-      result: "success",
-      message: "로그아웃 성공",
-    });
+    const messageDTO = { message: "로그아웃 성공" };
+    return new SuccessLogoutResponse(messageDTO.message).send(res);
   });
 
   kakao = asyncHandler(async (req, res, next) => {
@@ -48,23 +55,23 @@ class LoginController {
     passport.authenticate("kakao", (authError, user, info) => {
       if (authError) {
         logger.error(authError);
-        return res.status(401).redirect(`${podologURL}?loginError=${authError.message}`);
+        return new FailureLoginRedirect(authError.message).redirect(res);
       }
       if (!user) {
         logger.info(info.message);
-        return res.status(401).redirect(`${podologURL}?loginError=${info.message}`);
+        return new FailureLoginRedirect(info.message).redirect(res);
       }
       return req.login(user, { session: false }, (loginError) => {
         if (loginError) {
           logger.error(loginError);
-          return res.status(401).redirect(`${podologURL}?loginError=${loginError.message}`);
+          return new FailureLoginRedirect(loginError.message).redirect(res);
         }
 
         const refreshToken = makeRefreshToken(user.userId);
-        return res
-          .status(200)
-          .cookie("refreshToken", refreshToken, cookieOption(14, "d"))
-          .redirect(`${podologURL}?snslogin=success`);
+        const setCookie = { refreshToken, option: cookieOption(14, "d") };
+        return new SuccessLoginRedirectWithCookie("success", setCookie).redirectWithCookie(
+          res
+        );
       });
     })(req, res, next);
   });
@@ -76,23 +83,24 @@ class LoginController {
     passport.authenticate("naver", (authError, user, info) => {
       if (authError) {
         logger.error(authError);
-        return res.status(401).redirect(`${podologURL}?loginError=${authError.message}`);
+        return new FailureLoginRedirect(authError.message).redirect(res);
       }
       if (!user) {
         logger.info(info.message);
-        return res.status(401).redirect(`${podologURL}?loginError=${info.message}`);
+        return new FailureLoginRedirect(info.message).redirect(res);
       }
       return req.login(user, { session: false }, (loginError) => {
         if (loginError) {
           logger.error(loginError);
-          return res.status(401).redirect(`${podologURL}?loginError=${loginError.message}`);
+          return new FailureLoginRedirect(loginError.message).redirect(res);
         }
 
         const refreshToken = makeRefreshToken(user.userId);
-        return res
-          .status(200)
-          .cookie("refreshToken", refreshToken, cookieOption(14, "d"))
-          .redirect(`${podologURL}?snslogin=success`);
+        const setCookie = { refreshToken, option: cookieOption(14, "d") };
+
+        return new SuccessLoginRedirectWithCookie("success", setCookie).redirectWithCookie(
+          res
+        );
       });
     })(req, res, next);
   });
@@ -110,7 +118,7 @@ class LoginController {
       return req.login(user, { session: false }, (loginError) => {
         if (loginError) {
           logger.error(loginError);
-          return res.status(401).redirect(`${podologURL}?loginError=${loginError.message}`);
+          next(new AuthFailureError(loginError.message));
         }
 
         const accessToken = makeAccessToken(user.userId);

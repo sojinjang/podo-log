@@ -12,9 +12,8 @@ const kakaoVerify: VerifyFunction = async (accessToken, refreshToken, profile, d
     const snsId = profile.id;
     const [exUser] = await userModel.get({ snsId, provider: "kakao" });
     if (exUser) {
-      done(null, exUser); // 인증 완료
+      done(null, exUser);
     } else {
-      //미가입자
       const { displayName: nickname, _json } = profile;
       const profilePicture = _json.properties?.profile_image;
       const email = _json.kakao_account?.email;
