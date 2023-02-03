@@ -6,6 +6,7 @@ import Fade from "react-reveal/Fade";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 import changeToKoreanTime from "src/utils/time";
 import { Diary } from "./DiaryListContainer";
+import DefaultProfileImg from "../../assets/icons/default_profile.png";
 import commentImg from "../../assets/icons/comment.png";
 
 interface DiaryContainerProps {
@@ -13,8 +14,8 @@ interface DiaryContainerProps {
   data: Diary;
 }
 
-// TODO: 사진 기능, comment 기능 완성되는 대로 data에서 꺼내서 보여주는걸로 코드 변경하기
 const DiaryContainer = ({ viewRef, data }: DiaryContainerProps) => {
+  const profileImgSrc = data.profile === "없음" ? DefaultProfileImg : data.profile;
   const isRevised = data.createdAt !== data.updatedAt;
   const navigate = useNavigate();
   const onClickDiary = () => {
@@ -27,7 +28,7 @@ const DiaryContainer = ({ viewRef, data }: DiaryContainerProps) => {
     <Fade bottom duration={1000}>
       <Container onClick={onClickDiary} ref={viewRef}>
         <div className="flex">
-          <ProfileImg src={require("../../assets/profile.jpg")}></ProfileImg>
+          <ProfileImg src={profileImgSrc}></ProfileImg>
           <div className="my-auto">
             <Nickname>{data.nickname}</Nickname>
             <div className="flex">
@@ -36,7 +37,7 @@ const DiaryContainer = ({ viewRef, data }: DiaryContainerProps) => {
             </div>
           </div>
         </div>
-        <Photo src={require("../../assets/IMG_7291.JPG")} />
+        {data.picture && <Photo src={data.picture} />}
         <DiaryTitle>{data.title}</DiaryTitle>
         <DiaryContent>{data.content}</DiaryContent>
         <CommentContainer>
