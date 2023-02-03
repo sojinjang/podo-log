@@ -41,7 +41,7 @@ const DiaryContainer = ({ viewRef, data }: DiaryContainerProps) => {
         <DiaryContent>{data.content}</DiaryContent>
         <CommentContainer>
           <CommentIcon src={commentImg} />
-          <NumComments>3</NumComments>
+          <NumComments>{data.numComments}</NumComments>
         </CommentContainer>
       </Container>
     </Fade>

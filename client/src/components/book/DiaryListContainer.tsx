@@ -20,8 +20,7 @@ export interface Diary {
   picture: null | string;
   createdAt: Date;
   updatedAt: Date;
-  //TODO: comment 칼럼 추가해주면 아래 라인 추가
-  //   numComments: number;
+  numComments: number;
 }
 
 export const DiaryListContainer = () => {
@@ -39,7 +38,8 @@ export const DiaryListContainer = () => {
   const getDiaryList = useCallback(async () => {
     try {
       setIsLoading(true);
-      const diaryList = await get(API_URL.diaryList(bookId, LIMIT, startIdx), "", accessToken);
+      const response = await get(API_URL.diaryList(bookId, LIMIT, startIdx), "", accessToken);
+      const diaryList = response.data;
       setDiaries((prevDiaries) => [...prevDiaries, ...diaryList]);
       setIsLoading(false);
       if (diaryList.length < LIMIT) {
