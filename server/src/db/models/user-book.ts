@@ -2,6 +2,7 @@ import { pool } from "../index";
 import { logger, BuildQuery } from "../../utils";
 import { UserBookDTO, UserIdDTO } from "../../types";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
+import { BookIdDTO } from "./../../types/book-type.d";
 
 const userBookBuildQuery = new BuildQuery("user_book");
 
@@ -21,6 +22,21 @@ class UserBookModel {
     columnArr = ["book.bookId", "bookName", "color", countQuery];
     const { query, values } = userBookBuildQuery.makeSelectQuery(
       { ...userIdDTO },
+      columnArr,
+      joinQuery
+    );
+    logger.info(query);
+    logger.debug(values);
+    const [result] = await pool.query<RowDataPacket[]>(query, values);
+    logger.debug(result);
+    return result;
+  }
+
+  async getMembers(bookIdDTO: BookIdDTO, columnArr: string[] = ["*"]) {
+    const joinQuery = `join user on user.userId = user_book.userId`;
+    columnArr = ["bookId", "user.userId", "profile", "nickname"];
+    const { query, values } = userBookBuildQuery.makeSelectQuery(
+      { ...bookIdDTO },
       columnArr,
       joinQuery
     );
