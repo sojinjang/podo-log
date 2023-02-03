@@ -1,4 +1,6 @@
-async function get(endpointInput: string, params = "", token = undefined) {
+import { Token } from "src/recoil/token/atom";
+
+async function get(endpointInput: string, params = "", token: Token = undefined) {
   const endpoint = process.env.REACT_APP_SERVER_URL + endpointInput;
   const apiUrl = params === "" ? endpoint : `${endpoint}/${params}`;
   const res = await fetch(apiUrl, {
@@ -18,7 +20,7 @@ async function get(endpointInput: string, params = "", token = undefined) {
   return result;
 }
 
-async function post(endpointInput: string, data = {}, token = undefined) {
+async function post(endpointInput: string, data = {}, token: Token = undefined) {
   const endpoint = process.env.REACT_APP_SERVER_URL + endpointInput;
   const apiUrl = endpoint;
   const bodyData = JSON.stringify(data);
@@ -41,7 +43,11 @@ async function post(endpointInput: string, data = {}, token = undefined) {
   return result;
 }
 
-async function postFormData(endpointInput: string, formData: BodyInit, token = undefined) {
+async function postFormData(
+  endpointInput: string,
+  formData: BodyInit,
+  token: Token = undefined
+) {
   const endpoint = process.env.REACT_APP_SERVER_URL + endpointInput;
   const apiUrl = endpoint;
   const res = await fetch(apiUrl, {
@@ -62,7 +68,7 @@ async function postFormData(endpointInput: string, formData: BodyInit, token = u
   return result;
 }
 
-async function patch(endpointInput: string, params = "", data = {}, token = undefined) {
+async function patch(endpointInput: string, params = "", data = {}, token: Token = undefined) {
   const endpoint = process.env.REACT_APP_SERVER_URL + endpointInput;
   const apiUrl = params === "" ? endpoint : `${endpoint}/${params}`;
   const bodyData = JSON.stringify(data);
@@ -84,7 +90,7 @@ async function patch(endpointInput: string, params = "", data = {}, token = unde
   return result;
 }
 
-async function del(endpointInput: string, params = "", data = {}, token = undefined) {
+async function del(endpointInput: string, params = "", data = {}, token: Token = undefined) {
   const endpoint = process.env.REACT_APP_SERVER_URL + endpointInput;
   const apiUrl = params === "" ? endpoint : `${endpoint}/${params}`;
   const bodyData = JSON.stringify(data);
