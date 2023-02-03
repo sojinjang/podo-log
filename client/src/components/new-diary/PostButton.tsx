@@ -4,7 +4,7 @@ import tw from "tailwind-styled-components";
 const PostButton = () => {
   return (
     <div className="relative leading-[70px] align-middle">
-      <Button>등록</Button>
+      <Button form="diary">등록</Button>
     </div>
   );
 };
