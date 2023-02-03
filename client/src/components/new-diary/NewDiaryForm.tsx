@@ -70,7 +70,7 @@ const NewDiaryForm = () => {
 export default NewDiaryForm;
 
 const DiaryForm = tw.form`
-h-[80%] w-[80%] bg-white/60 m-auto rounded-xl mt-[3vh] overflow-y-scroll
+h-[80vh] w-[80%] bg-white/60 m-auto rounded-xl mt-[3vh] overflow-y-scroll
 `;
 const inputStyle = `font-[notosans] 
 bg-transparent p-4 sm:p-6 w-full`;
