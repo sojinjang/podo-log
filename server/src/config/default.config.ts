@@ -2,7 +2,7 @@ import { CookieOptions } from "express";
 
 export const environment = process.env.NODE_ENV as string;
 export const port = process.env.PORT;
-export const podologURL = process.env.PODOLOG_URL;
+export const podologURL = process.env.PODOLOG_URL || (`http://localhost:3000` as string);
 
 function setCookieTime(time: number, unit: "d" | "h" | "m") {
   const expiredM = unit === "m" ? time : unit === "h" ? time * 60 : time * 24 * 60;

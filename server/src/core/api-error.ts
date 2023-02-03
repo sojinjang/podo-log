@@ -104,7 +104,7 @@ export class TokenExpiredError extends ApiError {
 }
 
 export class NoDataError extends ApiError {
-  constructor(message = "데이터가 없습니다.") {
+  constructor(message = "요청한 데이터가 없습니다.") {
     super(ErrorType.NO_DATA, message);
   }
 }

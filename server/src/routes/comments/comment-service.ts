@@ -31,7 +31,7 @@ class CommentService {
     userIdDTO: UserIdDTO
   ) {
     const [comment] = await this.commentModel.get(commentIdDTO);
-    if (!comment) throw new NoDataError("요청한 다이어리가 존재하지 않습니다.");
+    if (!comment) throw new NoDataError("요청한 댓글이 존재하지 않습니다.");
     if (comment.userId !== userIdDTO.userId)
       throw new ForbiddenError("작성자가 아니라 권한이 없습니다.");
 
@@ -43,7 +43,7 @@ class CommentService {
 
   async deleteById(commentIdDTO: CommentIdDTO, userIdDTO: UserIdDTO) {
     const [comment] = await this.commentModel.get(commentIdDTO);
-    if (!comment) throw new NoDataError("요청한 다이어리가 존재하지 않습니다.");
+    if (!comment) throw new NoDataError("요청한 댓글이 존재하지 않습니다.");
     if (comment.userId !== userIdDTO.userId)
       throw new ForbiddenError("작성자가 아니라 권한이 없습니다.");
 
