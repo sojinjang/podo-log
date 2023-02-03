@@ -2,7 +2,7 @@ import React from "react";
 import tw from "tailwind-styled-components";
 import { useRecoilState } from "recoil";
 
-import { selectedColorAtom } from "../../recoil/new-diary";
+import { selectedColorAtom } from "../../recoil/new-book";
 import { DIARY_COLOR } from "src/constants/DIARY_COLOR";
 
 const ColorSelectButton = tw.div`

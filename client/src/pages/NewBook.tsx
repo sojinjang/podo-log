@@ -7,9 +7,9 @@ import PageTitle from "src/components/common/PageTitle";
 import DiaryIcon from "src/components/new-book/DiaryIcon";
 import ColorSelectContainer from "src/components/new-book/ColorSelectContainer";
 import ContainerTitle from "src/components/new-book/ContainerTitle";
-import DiaryTitleInputContainer from "src/components/new-book/DiaryTitleInputContainer";
+import BookTitleInputContainer from "src/components/new-book/BookTitleInputContainer";
 import PurpleButton from "src/components/common/PurpleButton";
-import { selectedColorAtom, diaryTitleAtom } from "../recoil/new-diary";
+import { selectedColorAtom, bookTitleAtom } from "../recoil/new-book";
 import { WARNING_MESSAGE } from "src/constants/WARNING_MESSAGE";
 
 interface CreateNewDiaryArgs {
@@ -23,7 +23,7 @@ const createNewDiary = (
 ) => {
   try {
     if (diaryTitle.length < 1) return alert(WARNING_MESSAGE.titleLength);
-    //  api 완성되는대로 db로 데이터 post하도록 변경하기 23.01.25
+    //  TODO: api 완성되는대로 db로 데이터 post하도록 변경하기 23.01.25
     return { selectedColor, diaryTitle };
   } catch (err) {
     alert(err);
@@ -32,7 +32,7 @@ const createNewDiary = (
 
 const NewBook = () => {
   const selectedColor = useRecoilValue(selectedColorAtom);
-  const diaryTitle = useRecoilValue(diaryTitleAtom);
+  const diaryTitle = useRecoilValue(bookTitleAtom);
   return (
     <PurpleBackground>
       <BackButton />
@@ -41,7 +41,7 @@ const NewBook = () => {
       <ContainerTitle>표지 색상 선택</ContainerTitle>
       <ColorSelectContainer />
       <ContainerTitle>일기장 제목</ContainerTitle>
-      <DiaryTitleInputContainer />
+      <BookTitleInputContainer />
       <PurpleButton
         description="생성하기"
         wrapperStyle="mt-[5vh]"
