@@ -9,6 +9,11 @@ const router = Router();
 router.post("/", validator(schema.createBook), bookController.create);
 router.get("/", bookController.getByUserId);
 router.get(
+  "/:bookId/members",
+  validator(schema.bookId, ValidationSource.PARAM),
+  bookController.getMembers
+);
+router.get(
   "/:bookId/diaries",
   validator(schema.bookId, ValidationSource.PARAM),
   validator(schema.getPage, ValidationSource.QUERY),
