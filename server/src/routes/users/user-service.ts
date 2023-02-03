@@ -33,6 +33,13 @@ class UserService {
     return user;
   }
 
+  async getMyData(userDTO: UserEntity) {
+    delete userDTO.password;
+    const messageDTO = { message: "내 정보 조회에 성공하였습니다.", data: userDTO };
+
+    return messageDTO;
+  }
+
   async pacthById(exUser: UserEntity, updateUserDTO: UpdateUserDTO) {
     const { userId, password: exHashedPassword } = exUser;
     const { password, newPassword } = updateUserDTO;

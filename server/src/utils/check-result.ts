@@ -20,7 +20,7 @@ export const checkResult = (
   let messageDTO: MessageDTO = { message: "" };
   if (isSuccess(result)) {
     messageDTO.message = successM;
-    if (result.insertId) messageDTO.insertId = result.insertId;
+    if (result.insertId) messageDTO.data = { insertId: result.insertId };
   } else {
     throw new InternalError(failM);
   }

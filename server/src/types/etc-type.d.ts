@@ -2,5 +2,5 @@ export type DataObj = Record<string, string | number | boolean | Date | undefine
 
 export interface MessageDTO {
   message: string;
-  insertId?: number;
+  data?: any;
 }
