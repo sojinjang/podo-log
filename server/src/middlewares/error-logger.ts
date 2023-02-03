@@ -30,5 +30,6 @@ export function errorLogger(error: any, req: Request, res: Response, next: NextF
       logger.error(err);
     }
   });
+  logger.error(error);
   next(error);
 }
