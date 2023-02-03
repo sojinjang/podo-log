@@ -1,5 +1,10 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
+
+import { accessTokenAtom } from "src/recoil/token";
+import { get } from "src/utils/api";
+import { API_URL } from "src/constants/API_URL";
 
 import { PinkPurpleBackground } from "src/components/common/Backgrounds";
 import { Guidance } from "src/components/book-list/Guidance";
@@ -7,7 +12,6 @@ import { PointingFinger } from "src/components/book-list/PointingFinger";
 import { BooksContainer } from "src/components/book-list/BooksContainer";
 import { Navbar } from "src/components/common/NavBar";
 
-// TODO: DiaryButton.tsx의 type과 통합
 export interface DiaryInfo {
   readonly bookId: number;
   readonly bookName: string;
@@ -16,30 +20,26 @@ export interface DiaryInfo {
 }
 
 const BookList = () => {
+  const accessToken = useRecoilValue(accessTokenAtom);
   const [userDiaryArr, setUserDiaryArr] = useState<DiaryInfo[] | undefined>([]);
   const [isEmpty, setIsEmpty] = useState<boolean>(true);
-
-  async function getUserDiaryArr() {
+  async function getUserBookArr() {
     try {
-      // TODO: api 완성되는대로 db에서 받아온 데이터 return하도록 변경하기 23.01.22
-      const userDiaryList: DiaryInfo[] = [
-        { bookId: 1, bookName: "울 빼밀리 👨‍👩‍👧‍👧", numMembers: 4, color: "008fff" },
-        { bookId: 2, bookName: "with 희찬 💖", numMembers: 2, color: "e054b8" },
-        { bookId: 3, bookName: "집단적독백방 💬", numMembers: 5, color: "82af20" },
-      ];
-      return userDiaryList;
+      const response = await get(API_URL.books, "", accessToken);
+      return response.data;
     } catch (err) {
       alert(err);
     }
   }
   const handleUserDiaryArr = async () => {
-    const userDiaries = await getUserDiaryArr();
+    const userDiaries = await getUserBookArr();
     setUserDiaryArr(userDiaries);
   };
 
   useEffect(() => {
     handleUserDiaryArr();
   }, []);
+
   useEffect(() => setIsEmpty(userDiaryArr?.length === 0 ? true : false), [userDiaryArr]);
 
   return (

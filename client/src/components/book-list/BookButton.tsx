@@ -2,20 +2,14 @@ import React from "react";
 import tw from "tailwind-styled-components";
 import { useNavigate } from "react-router-dom";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
+import { DiaryInfo } from "src/pages/BookList";
 
-interface DiaryButtonProps {
-  readonly bookId: number;
-  readonly name: string;
-  readonly numMembers: number;
-  readonly color: string;
-}
-
-export const BookButton = ({ bookId, name, numMembers, color }: DiaryButtonProps) => {
+export const BookButton = ({ bookId, bookName, numMembers, color }: DiaryInfo) => {
   const navigate = useNavigate();
   const onClickImg = () => {
     navigate(PRIVATE_ROUTE.books.path + "/" + bookId, {
       state: {
-        name: name,
+        name: bookName,
         numMembers: numMembers,
       },
     });
@@ -30,7 +24,7 @@ export const BookButton = ({ bookId, name, numMembers, color }: DiaryButtonProps
         className="w-[15vh] h-[15vh] m-auto max-w-xs "
       />
       <DiaryDescription>
-        <div className="font-[jua]">{name}</div>
+        <div className="font-[jua]">{bookName}</div>
         <div className="font-[jua] text-gray-1000 ml-2">{numMembers}</div>
       </DiaryDescription>
     </div>

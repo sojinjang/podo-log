@@ -29,7 +29,7 @@ const EmailLoginContainer = ({ tokenExpireTime, refreshTime }: LoginProps) => {
   const logIn = async ({ email, password }: loginInput) => {
     try {
       const response = await post(API_URL.emailLogin, { email, password });
-      setAccessToken(response.accessToken);
+      setAccessToken(response.data.accessToken);
       setInterval(() => refreshToken(setAccessToken), tokenExpireTime - refreshTime);
       navigate(PRIVATE_ROUTE.books.path);
     } catch (err) {
