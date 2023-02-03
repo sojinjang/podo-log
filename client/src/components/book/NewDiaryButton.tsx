@@ -22,7 +22,7 @@ text-[2.2vh] md:text-[2vh] my-auto
 
 const NewDiaryButton = () => {
   return (
-    <Link to={PRIVATE_ROUTE.newDiary.path}>
+    <Link to={PRIVATE_ROUTE.newDiary.path.split("/").reverse()[0]}>
       <ButtonContainer>
         <PencilIcon src={pencilImg} />
         <ButtonDescription>일기 쓰기</ButtonDescription>
