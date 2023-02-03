@@ -1,4 +1,5 @@
 import { Response } from "express";
+import { podologURL } from "../config";
 
 enum StatusCode {
   SUCCESS = "10000",
@@ -36,7 +37,7 @@ abstract class ApiResponse {
     return this.prepare<ApiResponse>(res, this, headers);
   }
 
-  private static sanitize<T extends ApiResponse>(response: T): T {
+  protected static sanitize<T extends ApiResponse>(response: T): T {
     const clone: T = {} as T;
     Object.assign(clone, response);
     // @ts-ignore
@@ -55,10 +56,6 @@ export class AuthFailureResponse extends ApiResponse {
 export class NotFoundResponse extends ApiResponse {
   constructor(message = "Not Found") {
     super(StatusCode.FAILURE, ResponseStatus.NOT_FOUND, message);
-  }
-
-  send(res: Response, headers: { [key: string]: string } = {}): Response {
-    return super.prepare<NotFoundResponse>(res, this, headers);
   }
 }
 
@@ -115,12 +112,88 @@ export class AccessTokenErrorResponse extends ApiResponse {
   }
 }
 
-export class TokenRefreshResponse extends ApiResponse {
-  constructor(message: string, private accessToken: string, private refreshToken: string) {
+// passport 의 res.cookie 의존
+interface SetCookie {
+  refreshToken?: string;
+  option?: any;
+}
+export class SuccessLoginResponseWithCookie<T> extends ApiResponse {
+  constructor(message: string, private data: T, private setCookie: SetCookie = {}) {
     super(StatusCode.SUCCESS, ResponseStatus.SUCCESS, message);
   }
 
   send(res: Response, headers: { [key: string]: string } = {}): Response {
-    return super.prepare<TokenRefreshResponse>(res, this, headers);
+    return this.prepareWithCookie<SuccessLoginResponseWithCookie<T>>(res, this, headers);
+  }
+
+  protected prepareWithCookie<T extends ApiResponse>(
+    res: Response,
+    response: T,
+    headers: { [key: string]: string }
+  ): Response {
+    for (const [key, value] of Object.entries(headers)) res.append(key, value);
+
+    const noCookieRes = { ...response };
+    // @ts-ignore
+    delete noCookieRes.setCookie;
+    return res
+      .status(this.status)
+      .cookie("refreshToken", this.setCookie.refreshToken, this.setCookie.option)
+      .json(ApiResponse.sanitize(noCookieRes));
+  }
+}
+
+export class SuccessLogoutResponse extends ApiResponse {
+  constructor(message: string) {
+    super(StatusCode.SUCCESS, ResponseStatus.SUCCESS, message);
+  }
+
+  send(res: Response, headers: { [key: string]: string } = {}): Response {
+    return this.prepareWithClearCookie<SuccessLogoutResponse>(res, this, headers);
+  }
+
+  prepareWithClearCookie<T extends ApiResponse>(
+    res: Response,
+    response: T,
+    headers: { [key: string]: string }
+  ): Response {
+    for (const [key, value] of Object.entries(headers)) res.append(key, value);
+    return res
+      .status(this.status)
+      .clearCookie("refreshToken")
+      .json(ApiResponse.sanitize(response));
+  }
+}
+
+export class FailureLoginRedirect extends ApiResponse {
+  constructor(message: string, private redirectUrl: string = podologURL) {
+    super(StatusCode.FAILURE, ResponseStatus.UNAUTHORIZED, message);
+  }
+
+  redirect(res: Response, headers: { [key: string]: string } = {}): void {
+    for (const [key, value] of Object.entries(headers)) res.append(key, value);
+    const redirectUrlQuery = `${this.redirectUrl}?loginError=${this.message}`;
+    return res.status(this.status).redirect(redirectUrlQuery);
+  }
+}
+
+export class SuccessLoginRedirectWithCookie extends ApiResponse {
+  constructor(
+    message: string,
+    private setCookie: SetCookie = {},
+    private redirectUrl: string = podologURL
+  ) {
+    super(StatusCode.SUCCESS, ResponseStatus.SUCCESS, message);
+  }
+
+  redirectWithCookie(res: Response, headers: { [key: string]: string } = {}): void {
+    for (const [key, value] of Object.entries(headers)) res.append(key, value);
+
+    const redirectUrlQuery = `${this.redirectUrl}?snslogin=${this.message}`;
+
+    return res
+      .status(this.status)
+      .cookie("refreshToken", this.setCookie.refreshToken, this.setCookie.option)
+      .redirect(redirectUrlQuery);
   }
 }
