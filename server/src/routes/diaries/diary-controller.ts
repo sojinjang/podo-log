@@ -8,6 +8,8 @@ import {
   FileRequest,
 } from "../../types";
 import asyncHandler from "../../utils/async-handler";
+import { SuccessMsgResponse, SuccessResponse } from "../../core/api-response";
+import { BadRequestError } from "../../core/api-error";
 
 class DiaryController {
   private diaryService = diaryService;
@@ -20,8 +22,8 @@ class DiaryController {
 
     const createDiaryDTO = { userId, bookId, title, content, picture } as CreateDiaryDTO;
 
-    const result = await this.diaryService.create(createDiaryDTO);
-    return res.status(200).json(result);
+    const messageDTO = await this.diaryService.create(createDiaryDTO);
+    return new SuccessResponse(messageDTO.message, messageDTO.data).send(res);
   });
 
   getByBookId = asyncHandler(async (req: LoggedRequest, res) => {
@@ -32,8 +34,8 @@ class DiaryController {
 
     const bookIdDTO: GetDiaryDTO = { bookId };
     const pageDTO: PageDTO = { limit, offset };
-    const result = await this.diaryService.getByBookId(bookIdDTO, pageDTO);
-    return res.status(200).json(result);
+    const messageDTO = await this.diaryService.getByBookId(bookIdDTO, pageDTO);
+    return new SuccessResponse(messageDTO.message, messageDTO.data).send(res);
   });
 
   pacthById = asyncHandler(async (req: LoggedRequest, res) => {
@@ -43,36 +45,38 @@ class DiaryController {
 
     let updateDiaryDTO: UpdateDiaryDTO = { title, content };
 
-    const result = await this.diaryService.pacthById({ diaryId }, updateDiaryDTO, { userId });
-    return res.status(200).json(result);
+    const messageDTO = await this.diaryService.pacthById({ diaryId }, updateDiaryDTO, {
+      userId,
+    });
+    return new SuccessMsgResponse(messageDTO.message).send(res);
   });
 
   deleteById = asyncHandler(async (req: LoggedRequest, res) => {
     const diaryId = parseInt(req.params.diaryId);
     const { userId } = req.user;
 
-    const result = await this.diaryService.deleteById({ diaryId }, { userId });
+    const messageDTO = await this.diaryService.deleteById({ diaryId }, { userId });
 
-    return res.status(200).json(result);
+    return new SuccessMsgResponse(messageDTO.message).send(res);
   });
 
   updatePicture = asyncHandler(async (req: FileRequest, res) => {
     const diaryId = parseInt(req.params.diaryId);
     const { userId } = req.user;
     const picture = req.file?.location;
-    if (!picture) throw new Error("요청 오류, 이미지 없음");
+    if (!picture) throw new BadRequestError("이미지를 보내주세요.");
 
-    const result = await this.diaryService.updateImage({ diaryId, picture }, { userId });
+    const messageDTO = await this.diaryService.updateImage({ diaryId, picture }, { userId });
 
-    return res.status(200).json(result);
+    return new SuccessMsgResponse(messageDTO.message).send(res);
   });
 
   deletePicture = asyncHandler(async (req: FileRequest, res) => {
     const diaryId = parseInt(req.params.diaryId);
     const { userId } = req.user;
-    const result = await this.diaryService.deleteImage({ diaryId }, { userId });
+    const messageDTO = await this.diaryService.deleteImage({ diaryId }, { userId });
 
-    return res.status(200).json(result);
+    return new SuccessMsgResponse(messageDTO.message).send(res);
   });
 }
 

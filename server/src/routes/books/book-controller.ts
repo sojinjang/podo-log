@@ -7,6 +7,7 @@ import {
   UserIdDTO,
 } from "../../types";
 import asyncHandler from "../../utils/async-handler";
+import { SuccessMsgResponse, SuccessResponse } from "../../core/api-response";
 
 class BookController {
   private bookService = bookService;
@@ -16,15 +17,15 @@ class BookController {
     const createBookDTO = { bookName, color } as CreateBookDTO;
     const userIdDTO = { userId: req.user.userId };
 
-    const result = await this.bookService.create(createBookDTO, userIdDTO);
-    return res.status(200).json(result);
+    const messageDTO = await this.bookService.create(createBookDTO, userIdDTO);
+    return new SuccessResponse(messageDTO.message, messageDTO.data).send(res);
   });
 
   getByUserId = asyncHandler(async (req: LoggedRequest, res) => {
     const userIdDTO: UserIdDTO = { userId: req.user.userId };
 
-    const result = await this.bookService.getByUserId(userIdDTO);
-    return res.status(200).json(result);
+    const messageDTO = await this.bookService.getByUserId(userIdDTO);
+    return new SuccessResponse(messageDTO.message, messageDTO.data).send(res);
   });
 
   pacthById = asyncHandler(async (req: LoggedRequest, res) => {
@@ -34,17 +35,17 @@ class BookController {
     let updateBookDTO: UpdateBookDTO = { bookName, color };
     const userIdDTO: UserIdDTO = { userId: req.user.userId };
 
-    const result = await this.bookService.pacthById({ bookId }, updateBookDTO, userIdDTO);
-    return res.status(200).json(result);
+    const messageDTO = await this.bookService.pacthById({ bookId }, updateBookDTO, userIdDTO);
+    return new SuccessMsgResponse(messageDTO.message).send(res);
   });
 
   outBookById = asyncHandler(async (req: LoggedRequest, res) => {
     const bookId = parseInt(req.params.bookId);
     const userBookDTO: UserBookDTO = { userId: req.user.userId, bookId };
 
-    const result = await this.bookService.outBookById(userBookDTO);
+    const messageDTO = await this.bookService.outBookById(userBookDTO);
 
-    return res.status(200).json(result);
+    return new SuccessMsgResponse(messageDTO.message).send(res);
   });
 }
 

@@ -15,18 +15,14 @@ class UserController {
 
     const messageDTO = await this.userService.localJoin(createUserDTO);
 
-    return new SuccessResponse(messageDTO.message, {
-      insertId: messageDTO.insertId,
-    }).send(res);
+    return new SuccessResponse(messageDTO.message, messageDTO.data).send(res);
   });
 
-  getById = asyncHandler(async (req: LoggedRequest, res) => {
-    const userData = req.user;
-    delete userData.password;
+  getMyData = asyncHandler(async (req: LoggedRequest, res) => {
+    const userDTO = req.user;
+    const messageDTO = await this.userService.getMyData(userDTO);
 
-    return new SuccessResponse("조회에 성공하였습니다.", {
-      userData,
-    }).send(res);
+    return new SuccessResponse(messageDTO.message, messageDTO.data).send(res);
   });
 
   pacthById = asyncHandler(async (req: LoggedRequest, res) => {

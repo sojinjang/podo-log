@@ -1,6 +1,7 @@
 import { commentService } from "./comment-service";
 import { CreateCommentDTO, DiaryIdDTO, LoggedRequest, UpdateCommentDTO } from "../../types";
 import asyncHandler from "../../utils/async-handler";
+import { SuccessMsgResponse, SuccessResponse } from "../../core/api-response";
 
 class CommentController {
   private commentService = commentService;
@@ -13,16 +14,17 @@ class CommentController {
 
     const createDiaryDTO = { userId, diaryId, parentCommentId, reply } as CreateCommentDTO;
 
-    const result = await this.commentService.create(createDiaryDTO);
-    return res.status(200).json(result);
+    const messageDTO = await this.commentService.create(createDiaryDTO);
+    return new SuccessResponse(messageDTO.message, messageDTO.data).send(res);
   });
 
   getByDiaryId = asyncHandler(async (req: LoggedRequest, res) => {
     const diaryId = parseInt(req.query.diaryId as string);
 
     const diaryIdDTO: DiaryIdDTO = { diaryId };
-    const result = await this.commentService.getByDiaryId(diaryIdDTO);
-    return res.status(200).json(result);
+    const messageDTO = await this.commentService.getByDiaryId(diaryIdDTO);
+
+    return new SuccessResponse(messageDTO.message, messageDTO.data).send(res);
   });
 
   pacthById = asyncHandler(async (req: LoggedRequest, res) => {
@@ -32,19 +34,20 @@ class CommentController {
 
     let updateCommentDTO: UpdateCommentDTO = { reply };
 
-    const result = await this.commentService.pacthById({ commentId }, updateCommentDTO, {
+    const messageDTO = await this.commentService.pacthById({ commentId }, updateCommentDTO, {
       userId,
     });
-    return res.status(200).json(result);
+
+    return new SuccessMsgResponse(messageDTO.message).send(res);
   });
 
   deleteById = asyncHandler(async (req: LoggedRequest, res) => {
     const { userId } = req.user;
     const commentId = parseInt(req.params.commentId);
 
-    const result = await this.commentService.deleteById({ commentId }, { userId });
+    const messageDTO = await this.commentService.deleteById({ commentId }, { userId });
 
-    return res.status(200).json(result);
+    return new SuccessMsgResponse(messageDTO.message).send(res);
   });
 }
 
