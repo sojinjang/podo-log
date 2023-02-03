@@ -89,7 +89,7 @@ flex justify-end mr-6 md:mr-8 pb-4 md:pb-6
 `;
 
 const CommentIcon = tw.img`
-w-[25px] h-[25px] min-[390px]:w-[34px] min-[390px]:h-[34px] md:w-[37px] md:w-[37px]
+w-[25px] h-[25px] min-[390px]:w-[34px] min-[390px]:h-[34px] md:w-[37px] md:w-[37px] my-auto
 `;
 
 const NumComments = tw.p`
