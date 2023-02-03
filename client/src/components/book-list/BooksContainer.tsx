@@ -19,7 +19,7 @@ const renderDiaryButtons = (
       <BookButton
         key={diary.bookId}
         bookId={diary.bookId}
-        name={diary.bookName}
+        bookName={diary.bookName}
         numMembers={diary.numMembers}
         color={diary.color}
       />
