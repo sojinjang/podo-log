@@ -5,10 +5,6 @@ import { useRecoilState } from "recoil";
 import { selectedColorAtom } from "../../recoil/new-book";
 import { DIARY_COLOR } from "src/constants/DIARY_COLOR";
 
-const ColorSelectButton = tw.div`
-md:w-[65px] w-[35px] md:h-[65px] h-[35px] rounded-full m-auto mb-[2vh] cursor-pointer
-`;
-
 const renderColorSelectButtons = () => {
   const [selectedColor, setSelectedColor] = useRecoilState(selectedColorAtom);
 
@@ -35,3 +31,7 @@ const ColorSelectContainer = () => {
 };
 
 export default ColorSelectContainer;
+
+const ColorSelectButton = tw.div`
+md:w-[65px] w-[35px] md:h-[65px] h-[35px] rounded-full m-auto mb-[2vh] cursor-pointer
+`;
