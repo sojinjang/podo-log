@@ -5,26 +5,12 @@ interface ButtonProps {
   readonly description: string;
   readonly wrapperStyle: string;
   readonly buttonStyle: string;
-  readonly onClickFunc?: unknown;
-  readonly onClickFuncArgs?: unknown;
 }
 
-const PurpleButton = ({
-  description,
-  wrapperStyle,
-  buttonStyle,
-  onClickFunc,
-  onClickFuncArgs,
-}: ButtonProps) => {
+const PurpleButton = ({ description, wrapperStyle, buttonStyle }: ButtonProps) => {
   return (
     <div className={`text-center ${wrapperStyle}`}>
-      <button
-        className={`purple-button text-base sm:text-xl ${buttonStyle}`}
-        role="button"
-        onClick={(e) => {
-          if (typeof onClickFunc === "function") return onClickFunc(e, onClickFuncArgs);
-        }}
-      >
+      <button className={`purple-button text-base sm:text-xl ${buttonStyle}`} role="button">
         {description}
       </button>
     </div>
