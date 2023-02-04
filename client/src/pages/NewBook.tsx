@@ -3,8 +3,7 @@ import { useRecoilValue } from "recoil";
 import Bounce from "react-reveal/Bounce";
 
 import { post } from "src/utils/api";
-import { selectedColorAtom, bookTitleAtom } from "../recoil/new-book";
-import { WARNING_MESSAGE } from "src/constants/WARNING_MESSAGE";
+import { selectedColorAtom } from "../recoil/new-book";
 import { PinkPurpleBackground } from "src/components/common/Backgrounds";
 import BackButton from "src/components/common/BackButton";
 import PageTitle from "src/components/common/PageTitle";
@@ -15,26 +14,25 @@ import BookTitleInputContainer from "src/components/new-book/BookTitleInputConta
 import PurpleButton from "src/components/common/PurpleButton";
 import { accessTokenAtom } from "src/recoil/token";
 import { API_URL } from "src/constants/API_URL";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
-interface CreateNewDiaryArgs {
-  color: string;
-  name: string;
+interface NewBookName {
+  bookName: string;
 }
 
 const NewBook = () => {
+  const navigate = useNavigate();
   const accessToken = useRecoilValue(accessTokenAtom);
   const selectedColor = useRecoilValue(selectedColorAtom);
-  const diaryTitle = useRecoilValue(bookTitleAtom);
+  const { register, handleSubmit } = useForm<NewBookName>({
+    mode: "onChange",
+  });
 
-  const createNewDiary = async (
-    e: React.ChangeEvent<HTMLInputElement>,
-    { color, name }: CreateNewDiaryArgs
-  ) => {
+  const createNewDiary = async ({ bookName }: NewBookName) => {
     try {
-      if (diaryTitle.length < 1) return alert(WARNING_MESSAGE.titleLength);
-      await post(API_URL.books, { color, name }, accessToken);
-      //  TODO: api 완성되는대로 db로 데이터 post하도록 변경하기 23.01.25
-      return { selectedColor, diaryTitle };
+      await post(API_URL.books, { color: selectedColor, bookName }, accessToken);
+      navigate(-1);
     } catch (err) {
       alert(err);
     }
@@ -44,18 +42,14 @@ const NewBook = () => {
       <BackButton />
       <PageTitle title="일기장 만들기" />
       <Bounce duration={1500}>
-        <DiaryIcon />
-        <ContainerTitle>표지 색상 선택</ContainerTitle>
-        <ColorSelectContainer />
-        <ContainerTitle>일기장 제목</ContainerTitle>
-        <BookTitleInputContainer />
-        <PurpleButton
-          description="생성하기"
-          wrapperStyle="mt-[5vh]"
-          buttonStyle="sm:w-40"
-          onClickFunc={createNewDiary}
-          onClickFuncArgs={{ selectedColor, diaryTitle }}
-        />
+        <form onSubmit={handleSubmit(createNewDiary)}>
+          <DiaryIcon />
+          <ContainerTitle>표지 색상 선택</ContainerTitle>
+          <ColorSelectContainer />
+          <ContainerTitle>일기장 제목</ContainerTitle>
+          <BookTitleInputContainer register={register("bookName")} />
+          <PurpleButton description="생성하기" wrapperStyle="mt-[5vh]" buttonStyle="sm:w-40" />
+        </form>
       </Bounce>
     </PinkPurpleBackground>
   );
