@@ -5,7 +5,7 @@ export const selectedColorAtom = atom({
   default: "000000",
 });
 
-export const diaryTitleAtom = atom({
-  key: "diaryTitle",
+export const bookTitleAtom = atom({
+  key: "bookTitle",
   default: "",
 });

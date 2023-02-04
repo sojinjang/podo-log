@@ -3,7 +3,7 @@ import { useState } from "react";
 import tw from "tailwind-styled-components";
 import { useSetRecoilState } from "recoil";
 
-import { diaryTitleAtom } from "src/recoil/new-diary";
+import { bookTitleAtom } from "src/recoil/new-book";
 
 const TitleInput = tw.input`
   font-[notosans] bg-transparent ml-[5px] w-[70%] sm:text-lg
@@ -12,9 +12,9 @@ const TitleInput = tw.input`
 const LetterCount = tw.div`
   font-[notosans] text-gray-1000 ml-auto mr-[5px]
 `;
-const DiaryTitleInputContainer = () => {
+const BookTitleInputContainer = () => {
   const [letterCount, setLetterCount] = useState(0);
-  const setDiaryTitle = useSetRecoilState(diaryTitleAtom);
+  const setDiaryTitle = useSetRecoilState(bookTitleAtom);
   return (
     <div className="w-[85%] flex rounded-md bg-white/60 p-3 mx-auto mt-[1.5vh] ">
       <TitleInput
@@ -32,4 +32,4 @@ const DiaryTitleInputContainer = () => {
   );
 };
 
-export default DiaryTitleInputContainer;
+export default BookTitleInputContainer;

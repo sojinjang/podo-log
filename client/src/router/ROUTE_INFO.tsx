@@ -51,7 +51,7 @@ export const PRIVATE_ROUTE: RouteInfoObj = {
     element: <NewBook />,
   },
   newDiary: {
-    path: "/new-diary",
+    path: "/books/:bookId/new-diary",
     element: <NewDiary />,
   },
   diaryDetail: {
