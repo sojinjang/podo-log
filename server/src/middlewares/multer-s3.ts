@@ -14,16 +14,12 @@ const makeKeyFromURL = (location: string) => {
   return location.split("/").slice(-2).join("/");
 };
 
-const uploadDirectory = (reqUri: string) => {
-  reqUri.split("/");
-};
-
 const imageUploader = multer({
   storage: multerS3({
     s3: s3Client,
     bucket: bucketName,
     key: (req: Request, file, callback) => {
-      const uploadDirectory = req.query.directory ?? "default";
+      const uploadDirectory = file.fieldname ?? "default";
       const extension = path.extname(file.originalname).toLowerCase();
       const filename = file.originalname.replace(/([^\w\.]*)/g, "");
       if (!allowedExtensions.includes(extension)) {
