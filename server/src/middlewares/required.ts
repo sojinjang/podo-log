@@ -6,7 +6,7 @@ import { logger } from "./../utils/pino";
 export const isLoggedIn = asyncHandler(async (req, res, next) => {
   passport.authenticate("accessJwt", { session: false }, (err, user, info) => {
     if (err) {
-      // 에러 분기 필요
+      logger.error(err);
       return next(err);
     }
     if (user) {
