@@ -7,8 +7,8 @@ import { imageUploader } from "../../middlewares";
 const router = Router();
 router.post(
   "/",
-  validator(schema.createDiary),
   imageUploader.single("picture"),
+  validator(schema.createDiary),
   diaryController.create
 );
 router.patch(
