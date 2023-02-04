@@ -39,7 +39,7 @@ export default NotFound;
 const PodoLog = tw.p`
 w-full mb-[10vh] drop-shadow-xl 
 font-[notosans] font-black text-[4vh]
-bg-gradient-to-r from-blue-400 via-green-200/70 to-indigo-400 inline-block text-transparent bg-clip-text
+bg-gradient-to-r from-blue-400 via-green-200/70 to-[#b280f5] inline-block text-transparent bg-clip-text
 `;
 const NotFoundIcon = tw.img`
 mx-auto mb-[1vh] h-[20vh]
