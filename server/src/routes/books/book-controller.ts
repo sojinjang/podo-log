@@ -28,6 +28,15 @@ class BookController {
     return new SuccessResponse(messageDTO.message, messageDTO.data).send(res);
   });
 
+  getMembers = asyncHandler(async (req: LoggedRequest, res) => {
+    const bookId = parseInt(req.params.bookId);
+    const userBookDTO: UserBookDTO = { userId: req.user.userId, bookId };
+
+    const messageDTO = await this.bookService.getMembers(userBookDTO);
+
+    return new SuccessResponse(messageDTO.message, messageDTO.data).send(res);
+  });
+
   pacthById = asyncHandler(async (req: LoggedRequest, res) => {
     const bookId = parseInt(req.params.bookId);
     const { bookName, color } = req.body;
