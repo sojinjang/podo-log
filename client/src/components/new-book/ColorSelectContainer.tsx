@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import tw from "tailwind-styled-components";
 import { useRecoilState, useResetRecoilState } from "recoil";
 
-import { selectedColorAtom } from "../../recoil/new-book";
+import { selectedColorAtom } from "../../recoil/book-color";
 import { DIARY_COLOR } from "src/constants/DIARY_COLOR";
 
 const renderColorSelectButtons = () => {
