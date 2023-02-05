@@ -27,7 +27,10 @@ class BookService {
     if (!isMember) throw new ForbiddenError("구성원이 아니라 조회할 수 없습니다.");
 
     const members = await this.userBookModel.getMembers({ bookId: userBookDTO.bookId });
-
+    members.map((member) => {
+      member.isMe = member.userId === userBookDTO.userId;
+      return member;
+    });
     const messageDTO = { message: "일기장 멤버 조회에 성공하였습니다.", data: members };
 
     return messageDTO;
