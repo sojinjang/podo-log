@@ -90,10 +90,9 @@ async function patch(endpointInput: string, params = "", data = {}, token: Token
   return result;
 }
 
-async function del(endpointInput: string, params = "", data = {}, token: Token = undefined) {
+async function del(endpointInput: string, params = "", token: Token = undefined) {
   const endpoint = process.env.REACT_APP_SERVER_URL + endpointInput;
   const apiUrl = params === "" ? endpoint : `${endpoint}/${params}`;
-  const bodyData = JSON.stringify(data);
 
   const res = await fetch(apiUrl, {
     method: "DELETE",
@@ -101,7 +100,6 @@ async function del(endpointInput: string, params = "", data = {}, token: Token =
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: bodyData,
   });
 
   if (!res.ok) {
@@ -113,4 +111,4 @@ async function del(endpointInput: string, params = "", data = {}, token: Token =
   return result;
 }
 
-export { get, post, postFormData, patch, del as delete };
+export { get, post, postFormData, patch, del };
