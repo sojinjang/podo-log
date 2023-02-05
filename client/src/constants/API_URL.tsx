@@ -8,6 +8,9 @@ export const API_URL = Object.freeze({
   inviteCode: function (bookId: number) {
     return this.books + `/${bookId}/invtt-code`;
   },
+  members: function (bookId: number) {
+    return this.books + `/${bookId}/members`;
+  },
   diaryList: function (bookId: number, limit: number, startIdx: number) {
     return this.books + `/${bookId}/diaries?limit=${limit}&start=${startIdx}`;
   },
