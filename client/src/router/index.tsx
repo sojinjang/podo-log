@@ -14,7 +14,7 @@ const Router = () => {
   useDidMountEffect(() => {
     const currentLocation = window.location.pathname;
     for (const pages of PRIVATE_ROUTE_ARR) {
-      const isPrivateLocation = pages.path === currentLocation;
+      const isPrivateLocation = pages.path === "/" + currentLocation.split("/")[1];
       if (isPrivateLocation) {
         refreshToken(setAccessToken);
         break;
