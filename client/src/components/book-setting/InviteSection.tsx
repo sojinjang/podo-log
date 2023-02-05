@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import tw from "tailwind-styled-components";
 import { useRecoilState } from "recoil";
 
+import { accessTokenAtom } from "src/recoil/token";
 import { get, patch } from "src/utils/api";
 import { API_URL } from "src/constants/API_URL";
-import { accessTokenAtom } from "src/recoil/token";
 import { refreshToken } from "src/utils/token";
+import { useDidMountEffect } from "src/utils/hooks";
 
 const InviteSection = () => {
   const params = useParams();
@@ -32,9 +33,7 @@ const InviteSection = () => {
     }
   };
 
-  useEffect(() => {
-    getInviteCode();
-  }, []);
+  useDidMountEffect(getInviteCode, []);
 
   return (
     <InviteContainer>
