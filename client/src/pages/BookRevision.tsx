@@ -30,12 +30,17 @@ const BookRevision = () => {
   const bookId = params.bookId;
   const accessToken = useRecoilValue(accessTokenAtom);
   const [selectedColor, setSelectedColor] = useRecoilState(selectedColorAtom);
-  const { register, handleSubmit } = useForm<BookNameType>({
+
+  const { register, getValues, handleSubmit } = useForm<BookNameType>({
     mode: "onChange",
     defaultValues: {
       bookName: location.state.name,
     },
   });
+  const currentName = getValues("bookName");
+  const isRevised =
+    selectedColor !== location.state.color || currentName !== location.state.name;
+  const buttonCursorStyle = isRevised ? "" : "cursor-not-allowed";
 
   useEffect(() => {
     setSelectedColor(location.state.color);
@@ -43,13 +48,13 @@ const BookRevision = () => {
 
   const reviseBookInfo = async ({ bookName }: BookNameType) => {
     try {
+      if (!isRevised) return;
       await patch(API_URL.books, bookId, { color: selectedColor, bookName }, accessToken);
       navigate(PRIVATE_ROUTE.books.path);
     } catch (err) {
-      alert(err);
+      if (err instanceof Error) alert(err.message);
     }
   };
-
   return (
     <PinkPurpleBackground>
       <BackButton />
@@ -61,7 +66,11 @@ const BookRevision = () => {
           <ColorSelectContainer />
           <ContainerTitle>일기장 제목</ContainerTitle>
           <BookTitleInputContainer register={register("bookName")} />
-          <PurpleButton description="수정하기" wrapperStyle="mt-[5vh]" buttonStyle="sm:w-40" />
+          <PurpleButton
+            description="수정하기"
+            wrapperStyle="mt-[5vh]"
+            buttonStyle={`sm:w-40 ${buttonCursorStyle}`}
+          />
         </form>
       </Bounce>
     </PinkPurpleBackground>
