@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import tw from "tailwind-styled-components";
 import { useRecoilState } from "recoil";
 
-import { get } from "src/utils/api";
+import { get, patch } from "src/utils/api";
 import { API_URL } from "src/constants/API_URL";
 import { accessTokenAtom } from "src/recoil/token";
 import { refreshToken } from "src/utils/token";
@@ -23,6 +23,15 @@ const InviteSection = () => {
     }
   };
 
+  const renewInviteCode = async () => {
+    try {
+      const response = await patch(API_URL.inviteCode(bookId), "", {}, accessToken);
+      setInviteCode(response.data.invttCode);
+    } catch (err) {
+      refreshToken(setAccessToken);
+    }
+  };
+
   useEffect(() => {
     getInviteCode();
   }, []);
@@ -32,9 +41,9 @@ const InviteSection = () => {
       <div className="m-auto">
         <p className="text-center text-[2.5vh]">일기장을 공유하고 싶은 분을 초대해보세요!</p>
         <div className="flex h-[2vh] mt-[1.5vh]">
-          <InviteCodeButton>
+          <InviteCodeButton onClick={renewInviteCode}>
             <img src={require("../../assets/icons/refresh.png")} />
-            <p className="ml-1 text-[1.5vh]">초대코드 재생성</p>
+            <p className="ml-1 text-[1.5vh]">초대코드 갱신</p>
           </InviteCodeButton>
         </div>
         <div className="flex">
