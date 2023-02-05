@@ -1,10 +1,32 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import tw from "tailwind-styled-components";
+import { useRecoilState } from "recoil";
 
 import { get } from "src/utils/api";
 import { API_URL } from "src/constants/API_URL";
+import { accessTokenAtom } from "src/recoil/token";
+import { refreshToken } from "src/utils/token";
 
 const InviteSection = () => {
+  const params = useParams();
+  const bookId = Number(params.bookId);
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenAtom);
+  const [inviteCode, setInviteCode] = useState<string>("");
+
+  const getInviteCode = async () => {
+    try {
+      const response = await get(API_URL.inviteCode(bookId), "", accessToken);
+      setInviteCode(response.data.invttCode);
+    } catch (err) {
+      refreshToken(setAccessToken);
+    }
+  };
+
+  useEffect(() => {
+    getInviteCode();
+  }, []);
+
   return (
     <InviteContainer>
       <div className="m-auto">
@@ -17,7 +39,7 @@ const InviteSection = () => {
         </div>
         <div className="flex">
           <InviteCodeButton>
-            <p className="mt-1 text-[2.5vh]">📎1BBBBB</p>
+            <p className="mt-1 text-[2.5vh]">📎{inviteCode}</p>
           </InviteCodeButton>
         </div>
       </div>
