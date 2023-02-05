@@ -8,6 +8,7 @@ import { patch } from "src/utils/api";
 import { accessTokenAtom } from "src/recoil/token";
 import { selectedColorAtom } from "../recoil/book-color";
 import { API_URL } from "src/constants/API_URL";
+import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 
 import { PinkPurpleBackground } from "src/components/common/Backgrounds";
 import BackButton from "src/components/common/BackButton";
@@ -31,6 +32,9 @@ const BookRevision = () => {
   const [selectedColor, setSelectedColor] = useRecoilState(selectedColorAtom);
   const { register, handleSubmit } = useForm<BookNameType>({
     mode: "onChange",
+    defaultValues: {
+      bookName: location.state.name,
+    },
   });
 
   useEffect(() => {
@@ -40,7 +44,7 @@ const BookRevision = () => {
   const reviseBookInfo = async ({ bookName }: BookNameType) => {
     try {
       await patch(API_URL.books, bookId, { color: selectedColor, bookName }, accessToken);
-      navigate(-1);
+      navigate(PRIVATE_ROUTE.books.path);
     } catch (err) {
       alert(err);
     }
