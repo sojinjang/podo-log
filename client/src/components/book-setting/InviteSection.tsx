@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import tw from "tailwind-styled-components";
 import { useRecoilState } from "recoil";
+import Fade from "react-reveal/Fade";
 
 import { accessTokenAtom } from "src/recoil/token";
 import { get, patch } from "src/utils/api";
@@ -14,6 +15,7 @@ const InviteSection = () => {
   const bookId = Number(params.bookId);
   const [accessToken, setAccessToken] = useRecoilState(accessTokenAtom);
   const [inviteCode, setInviteCode] = useState<string>("");
+  const [isCopied, setIscopied] = useState<boolean>(false);
 
   const getInviteCode = async () => {
     try {
@@ -33,6 +35,18 @@ const InviteSection = () => {
     }
   };
 
+  const handleCopyClipBoard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setIscopied(true);
+      setTimeout(() => {
+        setIscopied(false);
+      }, 1500);
+    } catch (e) {
+      alert("복사에 실패하였습니다");
+    }
+  };
+
   useDidMountEffect(getInviteCode, []);
 
   return (
@@ -46,10 +60,19 @@ const InviteSection = () => {
           </InviteCodeButton>
         </div>
         <div className="flex">
-          <InviteCodeButton>
+          <InviteCodeButton
+            onClick={() => {
+              handleCopyClipBoard(inviteCode);
+            }}
+          >
             <p className="mt-1 text-[2.5vh]">📎{inviteCode}</p>
           </InviteCodeButton>
         </div>
+        {isCopied && (
+          <Fade bottom duration={1300}>
+            <CopySuccessMessage>클립보드 복사 완료 🧚</CopySuccessMessage>
+          </Fade>
+        )}
       </div>
     </InviteContainer>
   );
@@ -59,10 +82,14 @@ export default InviteSection;
 
 const InviteContainer = tw.div`
 flex bg-white/60 rounded-lg shadow-lg 
-mx-auto my-[2vh] w-[90%] h-[18vh]
+mx-auto my-[2vh] w-[90%] py-[3vh] 
 `;
 
 const InviteCodeButton = tw.div`
 flex mx-auto text-center cursor-pointer hover:opacity-50
 drop-shadow-lg hover:drop-shadow-none ease-in duration-300
+`;
+
+const CopySuccessMessage = tw.p`
+mx-auto text-center mt-1
 `;
