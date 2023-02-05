@@ -90,5 +90,5 @@ drop-shadow-lg hover:drop-shadow-none ease-in duration-300
 `;
 
 const CopySuccessMessage = tw.p`
-mx-auto text-center mt-1
+mx-auto text-center mt-1 text-[1.2vh]
 `;
