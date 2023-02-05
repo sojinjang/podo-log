@@ -24,5 +24,5 @@ rounded-full object-cover shadow-lg mr-2 md:mr-3
 `;
 
 const Nickname = tw.p`
-my-auto font-[notosans] text-[1.6vh]
+my-auto font-[notosans] text-[1.6vh] mr-1 md:mr-2
 `;
