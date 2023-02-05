@@ -11,7 +11,7 @@ const SettingButtonImg = tw.img`
 
 const SettingButton = () => {
   return (
-    <Link to={PRIVATE_ROUTE.bookSetting.path}>
+    <Link to={PRIVATE_ROUTE.bookSetting.path.split("/").reverse()[0]}>
       <div className="relative">
         <SettingButtonImg src={settingIcon} />
       </div>
