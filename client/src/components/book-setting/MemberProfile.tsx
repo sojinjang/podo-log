@@ -1,11 +1,13 @@
 import React from "react";
 import tw from "tailwind-styled-components";
 import { MemberInfo } from "./BookMembersInfo";
+import defaultProfileImg from "../../assets/icons/default_profile.png";
 
 const MemberProfile = ({ profile, nickname, isMe }: MemberInfo) => {
+  const profileImg = profile === "없음" ? defaultProfileImg : profile;
   return (
     <ProfileContainer>
-      <ProfileImg src={profile}></ProfileImg>
+      <ProfileImg src={profileImg}></ProfileImg>
       <Nickname>{nickname}</Nickname>
       {isMe && <Nickname>(me!)</Nickname>}
     </ProfileContainer>
