@@ -58,7 +58,7 @@ mx-auto mb-[2vh] w-[90%]
 `;
 
 const ProfileImg = tw.img`
-w-[45px] h-[45px] min-[390px]:w-[60px] min-[390px]:h-[60px] md:w-[65px] md:w-[65px] 
+w-[45px] h-[45px] min-[390px]:w-[60px] min-[390px]:h-[60px] md:w-[65px] md:h-[65px] 
 rounded-full object-cover shadow-lg ml-4 my-4 mr-2 md:ml-6 md:my-6 md:mr-4
 `;
 

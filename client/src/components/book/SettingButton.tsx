@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import tw from "tailwind-styled-components";
 
 import settingIcon from "../../assets/icons/setting.png";
@@ -10,12 +10,21 @@ const SettingButtonImg = tw.img`
 `;
 
 const SettingButton = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const onClickSetting = () => {
+    navigate(PRIVATE_ROUTE.bookSetting.path.split("/").reverse()[0], {
+      state: {
+        name: location.state.name,
+        color: location.state.color,
+      },
+    });
+  };
+
   return (
-    <Link to={PRIVATE_ROUTE.bookSetting.path}>
-      <div className="relative">
-        <SettingButtonImg src={settingIcon} />
-      </div>
-    </Link>
+    <div onClick={onClickSetting} className="relative">
+      <SettingButtonImg src={settingIcon} />
+    </div>
   );
 };
 

@@ -19,7 +19,7 @@ import SignUpButton from "src/components/home/SignUpButton";
 
 const Home = () => {
   const ACCESS_TOKEN_EXPIRY_TIME = 3600 * 1000;
-  const REFRESH_TIME = 60000;
+  const REFRESH_TIME = 30 * 1000;
   const navigate = useNavigate();
   const [URLSearchParams] = useSearchParams();
   const [accessToken, setAccessToken] = useRecoilState<Token>(accessTokenAtom);

@@ -5,6 +5,7 @@ import {
   BookList,
   Book,
   BookSetting,
+  BookRevision,
   SignUp,
   NewBook,
   NewDiary,
@@ -45,6 +46,10 @@ export const PRIVATE_ROUTE: RouteInfoObj = {
   bookSetting: {
     path: "/books/:bookId/setting",
     element: <BookSetting />,
+  },
+  bookRevision: {
+    path: "/books/:bookId/revision",
+    element: <BookRevision />,
   },
   newBook: {
     path: "/new-book",

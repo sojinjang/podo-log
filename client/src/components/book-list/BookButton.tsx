@@ -11,6 +11,7 @@ export const BookButton = ({ bookId, bookName, numMembers, color }: DiaryInfo) =
       state: {
         name: bookName,
         numMembers: numMembers,
+        color: color,
       },
     });
   };
