@@ -3,7 +3,7 @@ import { useRecoilValue } from "recoil";
 import Bounce from "react-reveal/Bounce";
 
 import { post } from "src/utils/api";
-import { selectedColorAtom } from "../recoil/new-book";
+import { selectedColorAtom } from "../recoil/book-color";
 import { PinkPurpleBackground } from "src/components/common/Backgrounds";
 import BackButton from "src/components/common/BackButton";
 import PageTitle from "src/components/common/PageTitle";
