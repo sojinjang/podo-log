@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import tw from "tailwind-styled-components";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import Fade from "react-reveal/Fade";
 
+import { BookIdType } from "src/pages/BookSetting";
 import { accessTokenAtom } from "src/recoil/token";
 import { get, patch } from "src/utils/api";
 import { API_URL } from "src/constants/API_URL";
 import { refreshToken } from "src/utils/token";
 import { useDidMountEffect } from "src/utils/hooks";
 
-const InviteSection = () => {
-  const params = useParams();
-  const bookId = Number(params.bookId);
-  const [accessToken, setAccessToken] = useRecoilState(accessTokenAtom);
+const InviteSection = ({ bookId }: BookIdType) => {
+  const accessToken = useRecoilValue(accessTokenAtom);
   const [inviteCode, setInviteCode] = useState<string>("");
   const [isCopied, setIscopied] = useState<boolean>(false);
 
