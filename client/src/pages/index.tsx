@@ -1,7 +1,7 @@
 import Home from "./Home";
 import BookList from "./BookList";
 import Book from "./Book";
-import BookSetting from "./BookSetting";
+import { BookSetting } from "./BookSetting";
 import NewDiary from "./NewDiary";
 import DiaryDetail from "./DiaryDetail";
 import NotFound from "./NotFound";
