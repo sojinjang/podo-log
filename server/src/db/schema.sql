@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `user` (
     PRIMARY KEY (`userId`)
 );
 
-CREATE TABLE IF NOT EXISTS `grain_id` (
+CREATE TABLE IF NOT EXISTS `grain` (
 	`grainId`	bigint	NOT NULL auto_increment,
     `userId`	bigint	NOT NULL,
 	`grain`	int	NOT NULL DEFAULT 0,
