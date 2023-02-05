@@ -22,7 +22,7 @@ const InviteSection = () => {
       const response = await get(API_URL.inviteCode(bookId), "", accessToken);
       setInviteCode(response.data.invttCode);
     } catch (err) {
-      refreshToken(setAccessToken);
+      if (err instanceof Error) alert(err.message);
     }
   };
 
@@ -31,7 +31,7 @@ const InviteSection = () => {
       const response = await patch(API_URL.inviteCode(bookId), "", {}, accessToken);
       setInviteCode(response.data.invttCode);
     } catch (err) {
-      refreshToken(setAccessToken);
+      if (err instanceof Error) alert(err.message);
     }
   };
 
