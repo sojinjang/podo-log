@@ -19,10 +19,10 @@ flex md:mt-4 mt-2 md:mb-2 mb-1
 `;
 
 const ProfileImg = tw.img`
-w-[40px] h-[40px] min-[390px]:w-[55px] min-[390px]:h-[55px] md:w-[60px] md:h-[60px] 
-rounded-full object-cover shadow-lg mr-2 md:mr-4
+w-[37px] h-[37px] min-[390px]:w-[52px] min-[390px]:h-[52px] md:w-[65px] md:h-[65px] 
+rounded-full object-cover shadow-lg mr-2 md:mr-3
 `;
 
 const Nickname = tw.p`
-my-auto font-[notosans] text-[1.5vh]
+my-auto font-[notosans] text-[1.6vh]
 `;
