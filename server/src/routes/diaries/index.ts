@@ -2,13 +2,14 @@ import { Router } from "express";
 import { diaryController } from "./diary-controller";
 import validator, { ValidationSource } from "../../utils/validator";
 import schema from "./schema";
-import { imageUploader } from "../../middlewares";
+import { imageUploader, isBookMember } from "../../middlewares";
 
 const router = Router();
 router.post(
   "/",
   imageUploader.single("picture"),
   validator(schema.createDiary),
+  isBookMember,
   diaryController.create
 );
 router.patch(

@@ -1,5 +1,5 @@
 import { ForbiddenError, NoDataError } from "../../core/api-error";
-import { diaryModel } from "../../db/models";
+import { diaryModel, userBookModel } from "../../db/models";
 import { imageDeleter } from "../../middlewares";
 import {
   CreateDiaryDTO,
@@ -14,6 +14,8 @@ import { checkResult } from "../../utils";
 
 class DiaryService {
   private diaryModel = diaryModel;
+  private userBookModel = userBookModel;
+
   async create(diaryDTO: CreateDiaryDTO) {
     const result = await this.diaryModel.create(diaryDTO);
     const messageDTO = checkResult(result, "일기쓰기에 성공하였습니다.");

@@ -22,7 +22,7 @@ interface SignUpInput {
 
 const createSignUpForm = (profileImg: Img, { nickname, email, password }: SignUpInput) => {
   const formData = new FormData();
-  formData.append("profile", profileImg);
+  if (profileImg) formData.append("profile", profileImg);
   formData.append("nickname", nickname);
   formData.append("email", email);
   formData.append("password", password);
