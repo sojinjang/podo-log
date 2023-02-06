@@ -18,7 +18,7 @@ interface DiaryInput {
 
 const createDiaryForm = (diaryImg: Img, bookId: string, { title, content }: DiaryInput) => {
   const formData = new FormData();
-  formData.append("picture", diaryImg);
+  if (diaryImg) formData.append("picture", diaryImg);
   formData.append("bookId", bookId);
   formData.append("title", title);
   formData.append("content", content);
