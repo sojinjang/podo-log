@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { API_URL } from "src/constants/API_URL";
-import { get } from "src/utils/api";
 import tw from "tailwind-styled-components";
 import { useRecoilValue } from "recoil";
+
 import { accessTokenAtom } from "src/recoil/token";
+import { API_URL } from "src/constants/API_URL";
+import { get } from "src/utils/api";
 import { DiaryId } from "./DetailedDiaryContainer";
-import NewComment from "./NewComment";
 import { useDidMountEffect } from "src/utils/hooks";
+import NewComment from "./NewComment";
 import { Comment, CommentReply } from "./Comment";
 
 export interface CommentType {
@@ -27,7 +28,11 @@ export const CommentSection = ({ diaryId }: DiaryId) => {
   const getComments = async () => {
     try {
       const response = await get(API_URL.diaryComments(diaryId), "", accessToken);
-      setCommentsArr(response.data);
+      setCommentsArr(
+        response.data.sort(function (a: CommentType, b: CommentType) {
+          return a.commentId - b.commentId;
+        })
+      );
     } catch (err) {
       if (err instanceof Error) alert(err.message);
     }
@@ -77,7 +82,10 @@ export const CommentSection = ({ diaryId }: DiaryId) => {
     <div className="pb-6 md:pb-8">
       <Divider />
       <CommentsContainer>댓글 {commentsArr.length}</CommentsContainer>
-      {mock.map((commentFam) => {
+      {commentsArr.map((comment) => {
+        return <Comment data={comment} key={comment.commentId} />;
+      })}
+      {/* {mock.map((commentFam) => {
         return (
           <>
             <Comment data={commentFam.comment} key={commentFam.comment.commentId} />
@@ -86,7 +94,7 @@ export const CommentSection = ({ diaryId }: DiaryId) => {
             })}
           </>
         );
-      })}
+      })} */}
       <NewComment diaryId={diaryId} />
     </div>
   );
