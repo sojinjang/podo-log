@@ -3,6 +3,10 @@ import { API_URL } from "src/constants/API_URL";
 import { get } from "src/utils/api";
 import tw from "tailwind-styled-components";
 import { Input, InputContainer } from "../common/Input";
+import { useRecoilValue } from "recoil";
+import { accessTokenAtom } from "src/recoil/token";
+import { DiaryId } from "./DetailedDiaryContainer";
+import NewComment from "./NewComment";
 
 interface Comment {
   commentId: number;
@@ -15,18 +19,15 @@ interface Comment {
   updatedAt: Date;
 }
 
-const CommentSection = () => {
-  const [newComment, setNewComment] = useState<string>("");
+const CommentSection = ({ diaryId }: DiaryId) => {
+  const accessToken = useRecoilValue(accessTokenAtom);
   const [commentsArr, setCommentsArr] = useState<Comment[]>([]);
 
   return (
     <div className="w-[90%] mx-auto pb-6 md:pb-8">
       <Divider />
       <div className="text-[1.8vh]">댓글 3</div>
-      <InputContainer className="flex-row w-full mt-2 md:mt-3 shadow-lg">
-        <Input className="font-[Do Hyeon] w-[90%]" placeholder="댓글을 입력해주세요." />
-        <PostButton>등록</PostButton>
-      </InputContainer>
+      <NewComment diaryId={diaryId} />
     </div>
   );
 };
