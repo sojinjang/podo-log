@@ -7,7 +7,7 @@ const isSuccess = (result: ResultSetHeader) => {
   if (result.changedRows === undefined) {
     status = result.affectedRows >= 1 ? true : false;
   } else {
-    status = result.changedRows >= 1 ? true : false;
+    status = result.warningStatus === 0 ? true : false;
   }
   return status;
 };

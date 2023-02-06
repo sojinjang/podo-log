@@ -40,6 +40,16 @@ class UserService {
     return messageDTO;
   }
 
+  async getGrape(userDTO: UserEntity) {
+    const userIdDTO: UserIdDTO = { userId: userDTO.userId };
+    const [grain] = await this.userModel.getGrain(userIdDTO);
+    const data = { ...grain, grape: userDTO.grape };
+
+    const messageDTO = { message: "내 정보 조회에 성공하였습니다.", data };
+
+    return messageDTO;
+  }
+
   async pacthById(exUser: UserEntity, updateUserDTO: UpdateUserDTO) {
     const { userId, password: exHashedPassword } = exUser;
     const { password, newPassword } = updateUserDTO;

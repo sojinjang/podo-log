@@ -16,9 +16,22 @@ class CommentModel {
   }
 
   async get(getCommentDTO: GetCommentDTO, columnArr: string[] = ["*"]) {
+    const joinQuery = `JOIN user on user.userId = comment.userId`;
+    columnArr = [
+      "commentId",
+      "comment.userId",
+      "nickname",
+      "profile",
+      "parentCommentId",
+      "reply",
+      "comment.createdAt",
+      "comment.updatedAt",
+    ];
+
     const { query, values } = commentBuildQuery.makeSelectQuery(
       { ...getCommentDTO },
-      columnArr
+      columnArr,
+      joinQuery
     );
     logger.info(query);
     logger.debug(values);
