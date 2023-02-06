@@ -20,7 +20,9 @@ const DiaryContainer = ({ viewRef, data }: DiaryContainerProps) => {
   const navigate = useNavigate();
   const onClickDiary = () => {
     navigate(`${PRIVATE_ROUTE.books.path}/${data.bookId}/${data.diaryId}`, {
-      state: {},
+      state: {
+        diaryInfo: data,
+      },
     });
   };
 
