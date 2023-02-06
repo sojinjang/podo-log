@@ -8,7 +8,7 @@ import { Diary } from "../book/DiaryListContainer";
 import DefaultProfileImg from "../../assets/icons/default_profile.png";
 import StickerButton from "./StickerButton";
 import { CommentSection } from "./CommentSection";
-import { ProfileImg } from "../common/ProfileImg";
+import { ProfileImg, Nickname, Date } from "../common/WriterInfo";
 
 interface DiaryContainerProps {
   data: Diary;
@@ -27,7 +27,7 @@ export const DetailedDiaryContainer = ({ data }: DiaryContainerProps) => {
     <Fade duration={1000}>
       <Container>
         <div className="flex">
-          <ProfileImg src={profileImgSrc}></ProfileImg>
+          <ProfileImg className="mr-2 md:mr-3" src={profileImgSrc}></ProfileImg>
           <div className="my-auto">
             <Nickname>{data.nickname}</Nickname>
             <div className="flex">
@@ -48,15 +48,7 @@ export const DetailedDiaryContainer = ({ data }: DiaryContainerProps) => {
 
 const Container = tw.div`
 bg-white/60 rounded-lg shadow-lg
-mx-auto my-[8vh] w-[90%]
-`;
-
-const Nickname = tw.p`
-text-[1.8vh] md:text-[1.6vh]
-`;
-
-const Date = tw.p`
-text-gray-1000 text-[1.5vh] md:text-[1.4vh]
+mx-auto my-[8vh] w-[90%] p-[3vh]
 `;
 
 const Photo = tw.img`
@@ -64,11 +56,11 @@ w-[70%] mx-6 md:mx-8
 `;
 
 const DiaryTitle = tw.p`
-mx-6 md:mx-8 mt-2 text-[2.2vh] md:text-[2vh]
+mt-2 text-[2.2vh] md:text-[2vh]
 whitespace-pre-line break-all
 `;
 
 const DiaryContent = tw.p`
-mx-6 md:mx-8 pb-4 md:pb-6 text-[1.8vh] md:text-[1.6vh] 
+pb-4 md:pb-6 text-[1.8vh] md:text-[1.6vh] 
 whitespace-pre-line break-all
 `;

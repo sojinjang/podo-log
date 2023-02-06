@@ -12,7 +12,7 @@ const NewComment = ({ diaryId }: DiaryId) => {
   const [newComment, setNewComment] = useState<string>("");
 
   return (
-    <InputContainer className="flex-row w-full mt-2 md:mt-3 shadow-lg">
+    <InputContainer className="flex-row w-full mt-6 md:mt-8 shadow-lg">
       <Input
         className="font-[Do Hyeon] w-[90%]"
         placeholder="댓글을 입력해주세요. (90자 이하)"

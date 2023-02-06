@@ -16,12 +16,13 @@ const StickerButton = ({ diaryId }: DiaryId) => {
 export default StickerButton;
 
 const ButtonContainer = tw.div`
-mr-6 md:mr-8 mb-2 md:mb-4 cursor-pointer hover:opacity-50
+mb-2 md:mb-4 cursor-pointer hover:opacity-50
 drop-shadow-xl hover:drop-shadow-none ease-in duration-300
 `;
 
 const StickerIcon = tw.img`
-w-[25px] h-[25px] min-[390px]:w-[33px] min-[390px]:h-[33px] md:w-[45px] md:h-[45px] m-auto
+w-[25px] h-[25px] min-[390px]:w-[33px] min-[390px]:h-[33px] md:w-[38px] md:h-[38px] 
+m-auto
 `;
 
 const ButtonDesc = tw.p`
