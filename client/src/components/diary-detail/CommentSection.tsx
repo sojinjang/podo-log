@@ -7,7 +7,7 @@ import { accessTokenAtom } from "src/recoil/token";
 import { DiaryId } from "./DetailedDiaryContainer";
 import NewComment from "./NewComment";
 import { useDidMountEffect } from "src/utils/hooks";
-import Comment from "./Comment";
+import { Comment, CommentReply } from "./Comment";
 
 export interface CommentType {
   commentId: number;
@@ -33,15 +33,62 @@ export const CommentSection = ({ diaryId }: DiaryId) => {
     }
   };
 
+  console.log(commentsArr);
+
+  const mock = [
+    {
+      parents: {
+        commentId: 1,
+        userId: 1,
+        nickname: "test1",
+        profile: "없음",
+        parentCommentId: 0,
+        reply: "11111 댓글 내용 채우는중 테스트 11111",
+        createdAt: "2023-02-06T06:22:46.000Z",
+        updatedAt: "2023-02-06T06:22:46.000Z",
+      },
+      reply: [
+        {
+          commentId: 1,
+          userId: 1,
+          nickname: "test1",
+          profile: "없음",
+          parentCommentId: 0,
+          reply: "11111 댓글 내용 채우는중 테스트 11111",
+          createdAt: "2023-02-06T06:22:46.000Z",
+          updatedAt: "2023-02-06T06:22:46.000Z",
+        },
+        {
+          commentId: 1,
+          userId: 1,
+          nickname: "test1",
+          profile: "없음",
+          parentCommentId: 0,
+          reply: "11111 댓글 내용 채우는중 테스트 11111",
+          createdAt: "2023-02-06T06:22:46.000Z",
+          updatedAt: "2023-02-06T06:22:46.000Z",
+        },
+      ],
+    },
+  ];
+
   useDidMountEffect(getComments, []);
 
   return (
     <div className="pb-6 md:pb-8">
       <Divider />
       <CommentsContainer>댓글 {commentsArr.length}</CommentsContainer>
-      {commentsArr.map((comment) => {
-        return <Comment data={comment} key={comment.commentId} />;
-      })}
+      {/* {commentsArr.map((comment) => {
+        return (
+          <>
+            <Comment data={comment} key={comment.commentId} />
+                {comment.map((c) => {
+                    return (
+                    <CommentReply data={c} key={comment.commentId+100} />
+                )}
+          </>
+        );
+      })} */}
       <NewComment diaryId={diaryId} />
     </div>
   );
