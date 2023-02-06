@@ -1,30 +1,53 @@
-import React, { useState } from "react";
+import React from "react";
+import { useRecoilValue } from "recoil";
+import tw from "tailwind-styled-components";
+import { useForm } from "react-hook-form";
+
+import { accessTokenAtom } from "src/recoil/token";
 import { API_URL } from "src/constants/API_URL";
 import { post } from "src/utils/api";
-import tw from "tailwind-styled-components";
 import { Input, InputContainer } from "../common/Input";
-import { useRecoilValue } from "recoil";
-import { accessTokenAtom } from "src/recoil/token";
 import { DiaryId } from "./DetailedDiaryContainer";
 
-const NewComment = ({ diaryId }: DiaryId) => {
-  const accessToken = useRecoilValue(accessTokenAtom);
-  const [newComment, setNewComment] = useState<string>("");
+interface CommentInput {
+  readonly comment: string;
+}
 
+interface NewCommentProps extends DiaryId {
+  parentCommentId?: 0;
+}
+
+const NewComment = ({ diaryId, parentCommentId = 0 }: NewCommentProps) => {
+  const accessToken = useRecoilValue(accessTokenAtom);
+  const { register, handleSubmit } = useForm<CommentInput>({ mode: "onChange" });
+
+  const onSubmitComment = async ({ comment }: CommentInput) => {
+    try {
+      await post(API_URL.comments, { diaryId, parentCommentId, reply: comment }, accessToken);
+    } catch (err) {
+      if (err instanceof Error) alert(err.message);
+    }
+  };
   return (
-    <InputContainer className="flex-row w-full mt-6 md:mt-8 shadow-lg">
-      <Input
-        className="font-[Do Hyeon] w-[90%]"
-        placeholder="댓글을 입력해주세요. (90자 이하)"
-      />
-      <PostButton>등록</PostButton>
-    </InputContainer>
+    <form onSubmit={handleSubmit(onSubmitComment)}>
+      <InputContainer className="flex-row w-full mt-6 md:mt-8 shadow-lg">
+        <Input
+          className="font-[notosans] w-[90%]"
+          placeholder="댓글을 입력해주세요. (60자 이하)"
+          minLength={1}
+          maxLength={180}
+          required
+          {...register("comment")}
+        />
+        <PostButton>등록</PostButton>
+      </InputContainer>
+    </form>
   );
 };
 
 export default NewComment;
 
-const PostButton = tw.div` 
-w-[10%] ml-auto cursor-pointer text-center
+const PostButton = tw.button` 
+font-[notosans] w-[10%] ml-auto cursor-pointer text-center
 text-sm sm:text-lg text-purple-1000 hover:opacity-50 ease-in duration-300
 `;
