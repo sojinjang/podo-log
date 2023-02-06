@@ -15,7 +15,7 @@ const StickerButton = () => {
 export default StickerButton;
 
 const ButtonContainer = tw.div`
-mr-4 md:mr-6 mb-4 md:mb-6 cursor-pointer hover:opacity-50
+mr-6 md:mr-8 mb-2 md:mb-4 cursor-pointer hover:opacity-50
 drop-shadow-xl hover:drop-shadow-none ease-in duration-300
 `;
 
