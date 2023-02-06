@@ -23,9 +23,6 @@ class BookService {
   }
 
   async getMembers(userBookDTO: UserBookDTO) {
-    const isMember = await this.userBookModel.checkUserBook(userBookDTO);
-    if (!isMember) throw new ForbiddenError("구성원이 아니라 조회할 수 없습니다.");
-
     const members = await this.userBookModel.getMembers({ bookId: userBookDTO.bookId });
     members.map((member) => {
       member.isMe = member.userId === userBookDTO.userId;
@@ -36,11 +33,7 @@ class BookService {
     return messageDTO;
   }
 
-  async pacthById(bookIdDTO: BookIdDTO, updateBookDTO: UpdateBookDTO, userIdDTO: UserIdDTO) {
-    const userBookDTO: UserBookDTO = { userId: userIdDTO.userId, bookId: bookIdDTO.bookId };
-    const isMember = await this.userBookModel.checkUserBook(userBookDTO);
-    if (!isMember) throw new ForbiddenError("구성원이 아니라 권한이 없습니다.");
-
+  async pacthById(bookIdDTO: BookIdDTO, updateBookDTO: UpdateBookDTO) {
     const result = await this.bookModel.pacth(bookIdDTO, updateBookDTO);
     const messageDTO = checkResult(result, "일기장 수정에 성공하였습니다.");
     return messageDTO;

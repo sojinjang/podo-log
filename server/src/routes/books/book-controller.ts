@@ -42,9 +42,8 @@ class BookController {
     const { bookName, color } = req.body;
 
     let updateBookDTO: UpdateBookDTO = { bookName, color };
-    const userIdDTO: UserIdDTO = { userId: req.user.userId };
 
-    const messageDTO = await this.bookService.pacthById({ bookId }, updateBookDTO, userIdDTO);
+    const messageDTO = await this.bookService.pacthById({ bookId }, updateBookDTO);
     return new SuccessMsgResponse(messageDTO.message).send(res);
   });
 
