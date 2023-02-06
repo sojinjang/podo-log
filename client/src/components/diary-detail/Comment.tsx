@@ -6,13 +6,16 @@ import changeToKoreanTime from "src/utils/time";
 
 interface Props {
   data: CommentType;
+  isReply?: boolean;
 }
-const Comment = ({ data }: Props) => {
+
+export const Comment = ({ data, isReply = false }: Props) => {
+  const WIDTH = isReply ? "w-[95%]" : "";
   const profileImgSrc = data.profile === "없음" ? DefaultProfileImg : data.profile;
   const isRevised = data.createdAt !== data.updatedAt;
 
   return (
-    <SingleFamilyComment>
+    <SingleCommentContainer className={WIDTH}>
       <div className="flex">
         <CommentWriterImg src={profileImgSrc}></CommentWriterImg>
         <div className="my-auto">
@@ -24,23 +27,29 @@ const Comment = ({ data }: Props) => {
         </div>
       </div>
       <CommentContent>{data.reply}</CommentContent>
-    </SingleFamilyComment>
+    </SingleCommentContainer>
   );
 };
 
-export default Comment;
+export const CommentReply = ({ data }: Props) => {
+  return (
+    <div className="flex justify-end">
+      <Comment data={data} isReply={true}></Comment>
+    </div>
+  );
+};
 
-const SingleFamilyComment = tw.div`
+const SingleCommentContainer = tw.div`
 mb-2 md:mb-3
 `;
 
 const CommentWriterImg = tw.img`
-w-[28px] h-[28px] min-[390px]:w-[38px] min-[390px]:h-[38px] md:w-[47px] md:h-[47px] 
+w-[28px] h-[28px] min-[390px]:w-[38px] min-[390px]:h-[38px] md:w-[44px] md:h-[44px] 
 rounded-full object-cover shadow-lg mr-2 md:mr-3
 `;
 
 const CommentWriter = tw.p`
-text-[1.3vh] md:text-[1.2vh]
+text-[1.3vh] md:text-[1.4vh]
 `;
 
 const CommentDate = tw.p`
