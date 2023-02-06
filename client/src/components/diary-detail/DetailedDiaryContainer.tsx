@@ -7,7 +7,8 @@ import changeToKoreanTime from "src/utils/time";
 import { Diary } from "../book/DiaryListContainer";
 import DefaultProfileImg from "../../assets/icons/default_profile.png";
 import StickerButton from "./StickerButton";
-import CommentSection from "./CommentSection";
+import { CommentSection } from "./CommentSection";
+import { ProfileImg } from "../common/ProfileImg";
 
 interface DiaryContainerProps {
   data: Diary;
@@ -50,17 +51,12 @@ bg-white/60 rounded-lg shadow-lg
 mx-auto my-[8vh] w-[90%]
 `;
 
-const ProfileImg = tw.img`
-w-[45px] h-[45px] min-[390px]:w-[60px] min-[390px]:h-[60px] md:w-[65px] md:h-[65px] 
-rounded-full object-cover shadow-lg ml-4 my-4 mr-2 md:ml-6 md:my-6 md:mr-4
-`;
-
 const Nickname = tw.p`
-text-[1.8vh] md:text-[1.5vh]
+text-[1.8vh] md:text-[1.6vh]
 `;
 
 const Date = tw.p`
-text-gray-1000 text-[1.5vh] md:text-[1.3vh]
+text-gray-1000 text-[1.5vh] md:text-[1.4vh]
 `;
 
 const Photo = tw.img`
