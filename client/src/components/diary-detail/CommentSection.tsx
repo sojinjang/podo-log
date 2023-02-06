@@ -30,7 +30,8 @@ export const CommentSection = ({ diaryId }: DiaryId) => {
       const response = await get(API_URL.diaryComments(diaryId), "", accessToken);
       setCommentsArr(
         response.data.sort(function (a: CommentType, b: CommentType) {
-          return a.commentId - b.commentId;
+          if (a.createdAt > b.createdAt) return 1;
+          if (a.createdAt < b.createdAt) return -1;
         })
       );
     } catch (err) {
