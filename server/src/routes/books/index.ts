@@ -4,6 +4,7 @@ import { bookController } from "./book-controller";
 import validator, { ValidationSource } from "../../utils/validator";
 import schema from "./schema";
 import { diaryController } from "../diaries/diary-controller";
+import { isBookMember } from "../../middlewares";
 
 const router = Router();
 router.post("/", validator(schema.createBook), bookController.create);
@@ -11,18 +12,21 @@ router.get("/", bookController.getByUserId);
 router.get(
   "/:bookId/members",
   validator(schema.bookId, ValidationSource.PARAM),
+  isBookMember,
   bookController.getMembers
 );
 router.get(
   "/:bookId/diaries",
   validator(schema.bookId, ValidationSource.PARAM),
   validator(schema.getPage, ValidationSource.QUERY),
+  isBookMember,
   diaryController.getByBookId
 );
 router.patch(
   "/:bookId",
   validator(schema.bookId, ValidationSource.PARAM),
   validator(schema.patchBook),
+  isBookMember,
   bookController.pacthById
 );
 router.delete(

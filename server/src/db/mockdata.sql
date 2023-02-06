@@ -4,9 +4,9 @@ insert into user(email,password,nickname) values("test3@test.com","$2b$10$oCYLyg
 insert into user(email,password,nickname) values("test4@test.com","$2b$10$oCYLyg.ukI6E9DfT4SAYl.vR7OB39S8OrqB5dRknx3C0cAjN5nUmO","test4");
 
 
-insert into book(bookName,color) values("일기장1","111111");
-insert into book(bookName,color) values("일기장2","111111");
-insert into book(bookName,color) values("일기장3","111111");
+insert into book(bookName,color) values("일기장1","000000");
+insert into book(bookName,color) values("일기장2","008fff");
+insert into book(bookName,color) values("일기장3","50e3c2");
 
 insert into user_book(userId,bookId) values(1,1);
 insert into user_book(userId,bookId) values(1,2);
