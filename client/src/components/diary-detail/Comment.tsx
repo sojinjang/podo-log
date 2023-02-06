@@ -58,4 +58,5 @@ text-gray-1000 text-[0.5vh] min-[390px]:text-[0.9vh]  md:text-[1vh]
 
 const CommentContent = tw.p`
 text-[1.6vh] min-[390px]:text-[1.4vh] mt-1 md:mt-2
+whitespace-pre-line break-all
 `;
