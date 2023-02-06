@@ -1,4 +1,5 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import tw from "tailwind-styled-components";
 import Fade from "react-reveal/Fade";
 
@@ -11,9 +12,13 @@ import CommentSection from "./CommentSection";
 interface DiaryContainerProps {
   data: Diary;
 }
+export interface DiaryId {
+  diaryId: number;
+}
 
-const DetailedDiaryContainer = ({ data }: DiaryContainerProps) => {
-  console.log(data);
+export const DetailedDiaryContainer = ({ data }: DiaryContainerProps) => {
+  const params = useParams();
+  const diaryId = Number(params.diaryId);
   const profileImgSrc = data.profile === "없음" ? DefaultProfileImg : data.profile;
   const isRevised = data.createdAt !== data.updatedAt;
 
@@ -33,14 +38,12 @@ const DetailedDiaryContainer = ({ data }: DiaryContainerProps) => {
         {data.picture && <Photo src={data.picture} />}
         <DiaryTitle>{data.title}</DiaryTitle>
         <DiaryContent>{data.content}</DiaryContent>
-        <StickerButton />
-        <CommentSection />
+        <StickerButton diaryId={diaryId} />
+        <CommentSection diaryId={diaryId} />
       </Container>
     </Fade>
   );
 };
-
-export default DetailedDiaryContainer;
 
 const Container = tw.div`
 bg-white/60 rounded-lg shadow-lg

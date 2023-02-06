@@ -1,7 +1,8 @@
 import React from "react";
 import tw from "tailwind-styled-components";
+import { DiaryId } from "./DetailedDiaryContainer";
 
-const StickerButton = () => {
+const StickerButton = ({ diaryId }: DiaryId) => {
   return (
     <div className="flex justify-end">
       <ButtonContainer>
