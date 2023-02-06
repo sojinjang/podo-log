@@ -7,8 +7,9 @@ import { accessTokenAtom } from "src/recoil/token";
 import { DiaryId } from "./DetailedDiaryContainer";
 import NewComment from "./NewComment";
 import { useDidMountEffect } from "src/utils/hooks";
+import Comment from "./Comment";
 
-interface Comment {
+export interface CommentType {
   commentId: number;
   userID: number;
   nickname: string;
@@ -19,9 +20,10 @@ interface Comment {
   updatedAt: Date;
 }
 
-const CommentSection = ({ diaryId }: DiaryId) => {
+export const CommentSection = ({ diaryId }: DiaryId) => {
   const accessToken = useRecoilValue(accessTokenAtom);
-  const [commentsArr, setCommentsArr] = useState<Comment[]>([]);
+  const [commentsArr, setCommentsArr] = useState<CommentType[]>([]);
+
   const getComments = async () => {
     try {
       const response = await get(API_URL.diaryComments(diaryId), "", accessToken);
@@ -34,17 +36,21 @@ const CommentSection = ({ diaryId }: DiaryId) => {
   useDidMountEffect(getComments, []);
 
   return (
-    <div className="w-[90%] mx-auto pb-6 md:pb-8">
+    <div className="pb-6 md:pb-8">
       <Divider />
-      <div className="text-[1.8vh]">댓글 {commentsArr.length}</div>
+      <CommentsContainer>댓글 {commentsArr.length}</CommentsContainer>
+      {commentsArr.map((comment) => {
+        return <Comment data={comment} key={comment.commentId} />;
+      })}
       <NewComment diaryId={diaryId} />
     </div>
   );
 };
 
-export default CommentSection;
-
 const Divider = tw.hr`
-w-full h-[2px] bg-[#C7C7C7]
-mb-4 md:mb-6
+h-[2px] bg-[#C7C7C7] mx-auto
+`;
+
+const CommentsContainer = tw.div`
+mt-2 md:mt-3 mb-1 md:mb-2 mx-auto text-[1.8vh]
 `;
