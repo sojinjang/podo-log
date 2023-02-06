@@ -11,7 +11,7 @@ import { Comment, CommentReply } from "./Comment";
 
 export interface CommentType {
   commentId: number;
-  userID: number;
+  userId: number;
   nickname: string;
   profile: string;
   parentCommentId: number;
@@ -32,41 +32,40 @@ export const CommentSection = ({ diaryId }: DiaryId) => {
       if (err instanceof Error) alert(err.message);
     }
   };
-
-  console.log(commentsArr);
-
+  // TODO: 백에서 api 변경해주면 mock data 대신 db 데이터로 변경
+  const mockDate = new Date("2023-02-06T06:22:46.000Z");
   const mock = [
     {
-      parents: {
+      comment: {
         commentId: 1,
         userId: 1,
         nickname: "test1",
         profile: "없음",
         parentCommentId: 0,
         reply: "11111 댓글 내용 채우는중 테스트 11111",
-        createdAt: "2023-02-06T06:22:46.000Z",
-        updatedAt: "2023-02-06T06:22:46.000Z",
+        createdAt: mockDate,
+        updatedAt: mockDate,
       },
       reply: [
         {
-          commentId: 1,
+          commentId: 2,
           userId: 1,
           nickname: "test1",
           profile: "없음",
           parentCommentId: 0,
-          reply: "11111 댓글 내용 채우는중 테스트 11111",
-          createdAt: "2023-02-06T06:22:46.000Z",
-          updatedAt: "2023-02-06T06:22:46.000Z",
+          reply: "대댓글 1",
+          createdAt: mockDate,
+          updatedAt: mockDate,
         },
         {
-          commentId: 1,
+          commentId: 3,
           userId: 1,
           nickname: "test1",
           profile: "없음",
           parentCommentId: 0,
-          reply: "11111 댓글 내용 채우는중 테스트 11111",
-          createdAt: "2023-02-06T06:22:46.000Z",
-          updatedAt: "2023-02-06T06:22:46.000Z",
+          reply: "대댓글 2",
+          createdAt: mockDate,
+          updatedAt: mockDate,
         },
       ],
     },
@@ -78,17 +77,16 @@ export const CommentSection = ({ diaryId }: DiaryId) => {
     <div className="pb-6 md:pb-8">
       <Divider />
       <CommentsContainer>댓글 {commentsArr.length}</CommentsContainer>
-      {/* {commentsArr.map((comment) => {
+      {mock.map((commentFam) => {
         return (
           <>
-            <Comment data={comment} key={comment.commentId} />
-                {comment.map((c) => {
-                    return (
-                    <CommentReply data={c} key={comment.commentId+100} />
-                )}
+            <Comment data={commentFam.comment} key={commentFam.comment.commentId} />
+            {commentFam.reply.map((reply) => {
+              return <CommentReply data={reply} key={reply.commentId} />;
+            })}
           </>
         );
-      })} */}
+      })}
       <NewComment diaryId={diaryId} />
     </div>
   );
