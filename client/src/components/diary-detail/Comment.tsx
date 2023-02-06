@@ -44,18 +44,18 @@ mb-2 md:mb-3
 `;
 
 const CommentWriterImg = tw.img`
-w-[28px] h-[28px] min-[390px]:w-[38px] min-[390px]:h-[38px] md:w-[44px] md:h-[44px] 
+w-[30px] h-[30px] min-[390px]:w-[38px] min-[390px]:h-[38px] md:w-[48px] md:h-[48px] 
 rounded-full object-cover shadow-lg mr-2 md:mr-3
 `;
 
 const CommentWriter = tw.p`
-text-[1.3vh] md:text-[1.4vh]
+text-[1.6vh] min-[390px]:text-[1.4vh]
 `;
 
 const CommentDate = tw.p`
-text-gray-1000 text-[0.9vh] md:text-[1vh]
+text-gray-1000 text-[0.5vh] min-[390px]:text-[0.9vh]  md:text-[1vh]
 `;
 
 const CommentContent = tw.p`
-text-[1.5vh] md:text-[1.3vh] mt-1 md:mt-2
+text-[1.6vh] min-[390px]:text-[1.4vh] mt-1 md:mt-2
 `;
