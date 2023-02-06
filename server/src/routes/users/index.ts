@@ -17,6 +17,7 @@ router.post(
 router.use("/", isLoggedIn, loginedRouter);
 
 loginedRouter.get("/", userController.getMyData);
+loginedRouter.get("/grape", userController.getGrape);
 loginedRouter.patch("/", validator(schema.patchUser), userController.pacthById);
 loginedRouter.patch("/withdrawal", userController.withdrawalById);
 loginedRouter.delete("/", userController.deleteById);

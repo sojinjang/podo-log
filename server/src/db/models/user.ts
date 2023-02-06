@@ -59,6 +59,15 @@ class UserModel {
     return result;
   }
 
+  async getGrain(userIdDTO: GetUserDTO, columnArr: string[] = ["*"]) {
+    const { query, values } = grainBuildQuery.makeSelectQuery({ ...userIdDTO }, columnArr);
+    logger.info(query);
+    logger.debug(values);
+    const [result] = await pool.query<RowDataPacket[]>(query, values);
+    logger.debug(result);
+    return result;
+  }
+
   async pacth(whereDTO: GetUserDTO, userDTO: UpdateUserDTO) {
     const { query, values } = userBuildQuery.makeUpdateQuery({ ...whereDTO }, { ...userDTO });
     logger.info(query);
