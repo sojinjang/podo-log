@@ -25,6 +25,13 @@ class UserController {
     return new SuccessResponse(messageDTO.message, messageDTO.data).send(res);
   });
 
+  getGrape = asyncHandler(async (req: LoggedRequest, res) => {
+    const userDTO = req.user;
+    const messageDTO = await this.userService.getGrape(userDTO);
+
+    return new SuccessResponse(messageDTO.message, messageDTO.data).send(res);
+  });
+
   pacthById = asyncHandler(async (req: LoggedRequest, res) => {
     const { nickname, password, newPassword } = req.body;
 

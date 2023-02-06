@@ -3,8 +3,7 @@ import mysqlConfig from "../config/mysql.config";
 import { logger } from "./../utils/pino";
 import { environment } from "../config";
 
-const env = environment;
-const config = mysqlConfig(env);
+const config = mysqlConfig(environment);
 
 export const pool = mysql.createPool(config);
 
