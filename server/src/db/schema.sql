@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 	`userId`	bigint	NOT NULL auto_increment,
 	`email`	varchar(30) NULL unique,
 	`password`	varchar(60)	NULL,
-	`nickname`	varchar(40)	NOT NULL DEFAULT "없음",
+	`nickname`	varchar(20)	NOT NULL DEFAULT "없음",
 	`profile`	varchar(110) NOT NULL DEFAULT "없음",
 	`role`	ENUM('user','admin') NOT NULL DEFAULT 'user', 
 	`grape`	int	NOT NULL DEFAULT 0,
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `sticker` (
 
 CREATE TABLE IF NOT EXISTS `book` (
 	`bookId`	bigint	NOT NULL auto_increment,
-	`bookName`	varchar(50)	NOT NULL DEFAULT '이름없음',
+	`bookName`	varchar(30)	NOT NULL DEFAULT '이름없음',
 	`color`	varchar(10)	NULL,
     `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, 
     `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
@@ -87,8 +87,8 @@ CREATE TABLE IF NOT EXISTS `diary` (
 	`bookId`	bigint	NOT NULL,
 	`userId`	bigint	NOT NULL,
 	`picture`	varchar(110) NULL,
-	`title`	varchar(50)	NULL,
-	`content`	varchar(600) NULL,
+	`title`	varchar(40)	NULL,
+	`content`	varchar(450) NULL,
     `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, 
     `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
     `deletedAt` DATETIME,
