@@ -7,13 +7,14 @@ import changeToKoreanTime from "src/utils/time";
 interface CommentProps {
   data: CommentType;
   isReply?: boolean;
+  changeReplyState?: () => void;
 }
 
-export const Comment = ({ data, isReply = false }: CommentProps) => {
+export const Comment = ({ data, isReply = false, changeReplyState }: CommentProps) => {
   const WIDTH = isReply ? "w-[95%]" : "";
   const profileImgSrc = data.profile === "없음" ? DefaultProfileImg : data.profile;
   const isRevised = data.createdAt !== data.updatedAt;
-  console.log(data);
+
   return (
     <SingleCommentContainer className={WIDTH}>
       <div className="flex">
@@ -28,7 +29,12 @@ export const Comment = ({ data, isReply = false }: CommentProps) => {
       </div>
       <div className="flex mt-1 md:mt-2">
         <CommentContent>{data.reply}</CommentContent>
-        {!isReply && <CommentReplyIcon src={require("../../assets/icons/reply.png")} />}
+        {!isReply && (
+          <CommentReplyIcon
+            onClick={changeReplyState}
+            src={require("../../assets/icons/reply.png")}
+          />
+        )}
       </div>
     </SingleCommentContainer>
   );

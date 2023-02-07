@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { DiaryId } from "./DetailedDiaryContainer";
 import { Comment, CommentReply } from "./Comment";
@@ -10,17 +10,24 @@ interface CommentsFamilyProps extends DiaryId {
 }
 
 export const CommentsFamily = ({ diaryId, commentsFam }: CommentsFamilyProps) => {
+  const [isReplyWritingEnabled, setIsReplyWritingEnabled] = useState(false);
+  const changeReplyState = () => {
+    setIsReplyWritingEnabled((prev) => !prev);
+  };
+
   return (
     <React.Fragment key={commentsFam.parentComment?.commentId}>
-      <Comment data={commentsFam.parentComment} />
+      <Comment data={commentsFam.parentComment} changeReplyState={changeReplyState} />
       {commentsFam.reComments?.map((recomment) => {
         return <CommentReply data={recomment} key={recomment.commentId} />;
       })}
-      <ReplyComment
-        diaryId={diaryId}
-        parentNickname={commentsFam.parentComment.nickname}
-        parentCommentId={commentsFam.parentComment.commentId}
-      />
+      {isReplyWritingEnabled && (
+        <ReplyComment
+          diaryId={diaryId}
+          parentNickname={commentsFam.parentComment.nickname}
+          parentCommentId={commentsFam.parentComment.commentId}
+        />
+      )}
     </React.Fragment>
   );
 };
