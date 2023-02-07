@@ -50,7 +50,7 @@ const NewDiaryForm = () => {
         className={`${inputStyle}`}
         placeholder="제목을 입력해주세요."
         minLength={2}
-        maxLength={20}
+        maxLength={30}
         required
         {...register("title")}
       />
@@ -58,8 +58,8 @@ const NewDiaryForm = () => {
       <ContentInput
         className={`${inputStyle}`}
         placeholder="내용을 입력해주세요."
-        minLength={4}
-        maxLength={290}
+        minLength={2}
+        maxLength={400}
         required
         {...register("content")}
       />
