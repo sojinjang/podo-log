@@ -13,11 +13,11 @@ interface CommentInput {
   readonly comment: string;
 }
 
-interface NewCommentProps extends DiaryId {
-  parentCommentId?: 0;
+export interface NewCommentProps extends DiaryId {
+  parentCommentId?: number;
 }
 
-const NewComment = ({ diaryId, parentCommentId = 0 }: NewCommentProps) => {
+export const NewComment = ({ diaryId, parentCommentId = 0 }: NewCommentProps) => {
   const accessToken = useRecoilValue(accessTokenAtom);
   const { register, handleSubmit } = useForm<CommentInput>({ mode: "onChange" });
 
@@ -31,7 +31,7 @@ const NewComment = ({ diaryId, parentCommentId = 0 }: NewCommentProps) => {
   };
   return (
     <form onSubmit={handleSubmit(onSubmitComment)}>
-      <InputContainer className="flex-row w-full mt-6 md:mt-8 shadow-lg">
+      <InputContainer className="flex-row w-full mt-0 shadow-lg">
         <Input
           className="font-[notosans] w-[90%]"
           placeholder="댓글을 입력해주세요. (최대 150자)"
@@ -45,8 +45,6 @@ const NewComment = ({ diaryId, parentCommentId = 0 }: NewCommentProps) => {
     </form>
   );
 };
-
-export default NewComment;
 
 const PostButton = tw.button` 
 font-[notosans] w-[10%] ml-auto cursor-pointer text-center

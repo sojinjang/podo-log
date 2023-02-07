@@ -4,12 +4,13 @@ import { CommentType } from "./CommentSection";
 import DefaultProfileImg from "../../assets/icons/default_profile.png";
 import changeToKoreanTime from "src/utils/time";
 
-interface Props {
+interface CommentProps {
   data: CommentType;
   isReply?: boolean;
+  changeReplyState?: () => void;
 }
 
-export const Comment = ({ data, isReply = false }: Props) => {
+export const Comment = ({ data, isReply = false, changeReplyState }: CommentProps) => {
   const WIDTH = isReply ? "w-[95%]" : "";
   const profileImgSrc = data.profile === "없음" ? DefaultProfileImg : data.profile;
   const isRevised = data.createdAt !== data.updatedAt;
@@ -26,12 +27,20 @@ export const Comment = ({ data, isReply = false }: Props) => {
           </div>
         </div>
       </div>
-      <CommentContent>{data.reply}</CommentContent>
+      <div className="flex mt-1 md:mt-2">
+        <CommentContent>{data.reply}</CommentContent>
+        {!isReply && (
+          <CommentReplyIcon
+            onClick={changeReplyState}
+            src={require("../../assets/icons/reply.png")}
+          />
+        )}
+      </div>
     </SingleCommentContainer>
   );
 };
 
-export const CommentReply = ({ data }: Props) => {
+export const CommentReply = ({ data }: CommentProps) => {
   return (
     <div className="flex justify-end">
       <Comment data={data} isReply={true}></Comment>
@@ -57,6 +66,11 @@ text-gray-1000 text-[0.5vh] min-[390px]:text-[0.9vh]  md:text-[1vh]
 `;
 
 const CommentContent = tw.p`
-text-[1.6vh] min-[390px]:text-[1.4vh] mt-1 md:mt-2
+text-[1.6vh] min-[390px]:text-[1.4vh] 
 whitespace-pre-line break-all
+`;
+
+const CommentReplyIcon = tw.img`
+h-[1.6vh] min-[390px]:h-[1.4vh] ml-auto ml-2 my-auto cursor-pointer
+hover:opacity-50 ease-in duration-300
 `;
