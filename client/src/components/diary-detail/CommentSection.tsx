@@ -21,81 +21,44 @@ export interface CommentType {
   updatedAt: Date;
 }
 
+interface CommentFamType {
+  parentComment: CommentType;
+  reComments?: CommentType[];
+}
+
 export const CommentSection = ({ diaryId }: DiaryId) => {
   const accessToken = useRecoilValue(accessTokenAtom);
-  const [commentsArr, setCommentsArr] = useState<CommentType[]>([]);
+  const [commentsFamArr, setCommentsFamArr] = useState<CommentFamType[]>([]);
+  const reCommentsSum = commentsFamArr.reduce((accumulator, currentObj) => {
+    if (currentObj.reComments) return accumulator + currentObj.reComments.length;
+    return accumulator;
+  }, 0);
 
   const getComments = async () => {
     try {
       const response = await get(API_URL.diaryComments(diaryId), "", accessToken);
-      setCommentsArr(
-        response.data.sort(function (a: CommentType, b: CommentType) {
-          if (a.createdAt > b.createdAt) return 1;
-          if (a.createdAt < b.createdAt) return -1;
-        })
-      );
+      setCommentsFamArr(response.data);
     } catch (err) {
       if (err instanceof Error) alert(err.message);
     }
   };
-  // TODO: 백에서 api 변경해주면 mock data 대신 db 데이터로 변경
-  const mockDate = new Date("2023-02-06T06:22:46.000Z");
-  const mock = [
-    {
-      comment: {
-        commentId: 1,
-        userId: 1,
-        nickname: "test1",
-        profile: "없음",
-        parentCommentId: 0,
-        reply: "11111 댓글 내용 채우는중 테스트 11111",
-        createdAt: mockDate,
-        updatedAt: mockDate,
-      },
-      reply: [
-        {
-          commentId: 2,
-          userId: 1,
-          nickname: "test1",
-          profile: "없음",
-          parentCommentId: 0,
-          reply: "대댓글 1",
-          createdAt: mockDate,
-          updatedAt: mockDate,
-        },
-        {
-          commentId: 3,
-          userId: 1,
-          nickname: "test1",
-          profile: "없음",
-          parentCommentId: 0,
-          reply: "대댓글 2",
-          createdAt: mockDate,
-          updatedAt: mockDate,
-        },
-      ],
-    },
-  ];
 
   useDidMountEffect(getComments, []);
 
   return (
     <div className="pb-6 md:pb-8">
       <Divider />
-      <CommentsContainer>댓글 {commentsArr.length}</CommentsContainer>
-      {commentsArr.map((comment) => {
-        return <Comment data={comment} key={comment.commentId} />;
-      })}
-      {/* {mock.map((commentFam) => {
+      <CommentsContainer>댓글 {commentsFamArr.length + reCommentsSum}</CommentsContainer>
+      {commentsFamArr.map((commentsFam) => {
         return (
-          <>
-            <Comment data={commentFam.comment} key={commentFam.comment.commentId} />
-            {commentFam.reply.map((reply) => {
-              return <CommentReply data={reply} key={reply.commentId} />;
+          <React.Fragment key={commentsFam.parentComment?.commentId}>
+            <Comment data={commentsFam.parentComment} />
+            {commentsFam.reComments?.map((recomment) => {
+              return <CommentReply data={recomment} key={recomment.commentId} />;
             })}
-          </>
+          </React.Fragment>
         );
-      })} */}
+      })}
       <NewComment diaryId={diaryId} />
     </div>
   );
