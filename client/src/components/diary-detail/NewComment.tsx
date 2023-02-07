@@ -34,9 +34,9 @@ const NewComment = ({ diaryId, parentCommentId = 0 }: NewCommentProps) => {
       <InputContainer className="flex-row w-full mt-6 md:mt-8 shadow-lg">
         <Input
           className="font-[notosans] w-[90%]"
-          placeholder="댓글을 입력해주세요. (60자 이하)"
+          placeholder="댓글을 입력해주세요. (최대 150자)"
           minLength={1}
-          maxLength={180}
+          maxLength={150}
           required
           {...register("comment")}
         />
