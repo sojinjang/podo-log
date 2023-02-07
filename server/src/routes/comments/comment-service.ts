@@ -3,6 +3,7 @@ import { commentModel } from "../../db/models";
 import {
   CommentIdDTO,
   CreateCommentDTO,
+  DataObj,
   DicComment,
   GetCommentDTO,
   UpdateCommentDTO,
@@ -21,17 +22,21 @@ class CommentService {
 
   async getByDiaryId(diaryIdDTO: GetCommentDTO) {
     const comments = await this.commentModel.get(diaryIdDTO);
+    let data: DataObj[];
+    if (comments.length > 0) {
+      const dicComment = comments.reduce((dic, comment) => {
+        const parentKey = comment.parentCommentId;
+        dic[parentKey] ? dic[parentKey].push(comment) : (dic[parentKey] = [comment]);
+        return dic;
+      }, {} as DicComment);
 
-    const dicComment = comments.reduce((dic, comment) => {
-      const parentKey = comment.parentCommentId;
-      dic[parentKey] ? dic[parentKey].push(comment) : (dic[parentKey] = [comment]);
-      return dic;
-    }, {} as DicComment);
-
-    const data = dicComment[0].map((parentComment: RowDataPacket) => {
-      const reComments = dicComment[parentComment.commentId];
-      return { parentComment, reComments };
-    });
+      data = dicComment[0].map((parentComment: RowDataPacket) => {
+        const reComments = dicComment[parentComment.commentId];
+        return { parentComment, reComments };
+      });
+    } else {
+      data = [];
+    }
 
     const messageDTO = { message: "댓글 조회에 성공하였습니다.", data };
 
