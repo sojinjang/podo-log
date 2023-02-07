@@ -8,8 +8,7 @@ import { get } from "src/utils/api";
 import { DiaryId } from "./DetailedDiaryContainer";
 import { useDidMountEffect } from "src/utils/hooks";
 import { NewComment } from "./NewComment";
-import { Comment, CommentReply } from "./Comment";
-import { ReplyComment } from "./ReplyComment";
+import { CommentsFamily } from "./CommentsFamily";
 
 export interface CommentType {
   commentId: number;
@@ -22,7 +21,7 @@ export interface CommentType {
   updatedAt: Date;
 }
 
-interface CommentFamType {
+export interface CommentFamType {
   parentComment: CommentType;
   reComments?: CommentType[];
 }
@@ -52,17 +51,11 @@ export const CommentSection = ({ diaryId }: DiaryId) => {
       <NumCommentsWrapper>댓글 {commentsFamArr.length + reCommentsSum}</NumCommentsWrapper>
       {commentsFamArr.map((commentsFam) => {
         return (
-          <React.Fragment key={commentsFam.parentComment?.commentId}>
-            <Comment data={commentsFam.parentComment} />
-            {commentsFam.reComments?.map((recomment) => {
-              return <CommentReply data={recomment} key={recomment.commentId} />;
-            })}
-            <ReplyComment
-              diaryId={diaryId}
-              parentNickname={commentsFam.parentComment.nickname}
-              parentCommentId={commentsFam.parentComment.commentId}
-            />
-          </React.Fragment>
+          <CommentsFamily
+            diaryId={diaryId}
+            commentsFam={commentsFam}
+            key={commentsFam.parentComment?.commentId}
+          />
         );
       })}
       <div className="h-[2vh]" />
