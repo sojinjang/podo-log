@@ -7,8 +7,9 @@ import { API_URL } from "src/constants/API_URL";
 import { get } from "src/utils/api";
 import { DiaryId } from "./DetailedDiaryContainer";
 import { useDidMountEffect } from "src/utils/hooks";
-import NewComment from "./NewComment";
+import { NewComment } from "./NewComment";
 import { Comment, CommentReply } from "./Comment";
+import { ReplyComment } from "./ReplyComment";
 
 export interface CommentType {
   commentId: number;
@@ -48,7 +49,7 @@ export const CommentSection = ({ diaryId }: DiaryId) => {
   return (
     <div className="pb-6 md:pb-8">
       <Divider />
-      <CommentsContainer>댓글 {commentsFamArr.length + reCommentsSum}</CommentsContainer>
+      <NumCommentsWrapper>댓글 {commentsFamArr.length + reCommentsSum}</NumCommentsWrapper>
       {commentsFamArr.map((commentsFam) => {
         return (
           <React.Fragment key={commentsFam.parentComment?.commentId}>
@@ -56,9 +57,15 @@ export const CommentSection = ({ diaryId }: DiaryId) => {
             {commentsFam.reComments?.map((recomment) => {
               return <CommentReply data={recomment} key={recomment.commentId} />;
             })}
+            <ReplyComment
+              diaryId={diaryId}
+              parentNickname={commentsFam.parentComment.nickname}
+              parentCommentId={commentsFam.parentComment.commentId}
+            />
           </React.Fragment>
         );
       })}
+      <div className="h-[2vh]" />
       <NewComment diaryId={diaryId} />
     </div>
   );
@@ -68,6 +75,6 @@ const Divider = tw.hr`
 h-[2px] bg-[#C7C7C7] mx-auto
 `;
 
-const CommentsContainer = tw.div`
+const NumCommentsWrapper = tw.div`
 mt-2 md:mt-3 mb-1 md:mb-2 mx-auto text-[1.8vh]
 `;
