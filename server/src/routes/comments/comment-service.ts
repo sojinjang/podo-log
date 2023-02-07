@@ -1,7 +1,9 @@
+import { RowDataPacket } from "mysql2";
 import { commentModel } from "../../db/models";
 import {
   CommentIdDTO,
   CreateCommentDTO,
+  DicComment,
   GetCommentDTO,
   UpdateCommentDTO,
   UserIdDTO,
@@ -20,7 +22,18 @@ class CommentService {
   async getByDiaryId(diaryIdDTO: GetCommentDTO) {
     const comments = await this.commentModel.get(diaryIdDTO);
 
-    const messageDTO = { message: "댓글 조회에 성공하였습니다.", data: comments };
+    const dicComment = comments.reduce((dic, comment) => {
+      const parentKey = comment.parentCommentId;
+      dic[parentKey] ? dic[parentKey].push(comment) : (dic[parentKey] = [comment]);
+      return dic;
+    }, {} as DicComment);
+
+    const data = dicComment[0].map((parentComment: RowDataPacket) => {
+      const reComments = dicComment[parentComment.commentId];
+      return { parentComment, reComments };
+    });
+
+    const messageDTO = { message: "댓글 조회에 성공하였습니다.", data };
 
     return messageDTO;
   }
@@ -33,7 +46,6 @@ class CommentService {
     const [comment] = await this.commentModel.get(commentIdDTO);
 
     if (!comment) throw new NoDataError("요청한 댓글이 존재하지 않습니다.");
-
 
     if (comment.userId !== userIdDTO.userId)
       throw new ForbiddenError("작성자가 아니라 권한이 없습니다.");
@@ -48,7 +60,6 @@ class CommentService {
     const [comment] = await this.commentModel.get(commentIdDTO);
 
     if (!comment) throw new NoDataError("요청한 댓글이 존재하지 않습니다.");
-
 
     if (comment.userId !== userIdDTO.userId)
       throw new ForbiddenError("작성자가 아니라 권한이 없습니다.");
