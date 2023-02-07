@@ -24,6 +24,7 @@ const NewComment = ({ diaryId, parentCommentId = 0 }: NewCommentProps) => {
   const onSubmitComment = async ({ comment }: CommentInput) => {
     try {
       await post(API_URL.comments, { diaryId, parentCommentId, reply: comment }, accessToken);
+      window.location.reload();
     } catch (err) {
       if (err instanceof Error) alert(err.message);
     }
