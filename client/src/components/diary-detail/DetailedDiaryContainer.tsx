@@ -52,7 +52,7 @@ mx-auto my-[8vh] w-[90%] p-[3vh]
 `;
 
 const Photo = tw.img`
-w-[70%] mx-6 md:mx-8
+max-w-[90%] mt-3
 `;
 
 const DiaryTitle = tw.p`
