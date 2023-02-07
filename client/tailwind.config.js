@@ -1,4 +1,4 @@
-const DIARY_COLOR = [
+const BOOK_COLOR = [
   "000000",
   "008fff",
   "50e3c2",
@@ -13,7 +13,7 @@ const DIARY_COLOR = [
   "ff5436",
 ];
 
-const BG_DIARY_COLOR = DIARY_COLOR.reduce((acc, cur) => {
+const BG_BOOK_COLOR = BOOK_COLOR.reduce((acc, cur) => {
   acc.push(`bg-[#${cur}]`);
   return acc;
 }, []);
@@ -21,7 +21,7 @@ const BG_DIARY_COLOR = DIARY_COLOR.reduce((acc, cur) => {
 module.exports = {
   purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
   content: [],
-  safelist: BG_DIARY_COLOR,
+  safelist: BG_BOOK_COLOR,
   mode: "jit",
   darkMode: false, // or 'media' or 'class'
   theme: {
