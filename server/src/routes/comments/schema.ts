@@ -4,7 +4,7 @@ export default {
   createComment: Joi.object().keys({
     diaryId: Joi.number().required(),
     parentCommentId: Joi.number().optional(),
-    reply: Joi.string().required().max(180, "utf8"),
+    reply: Joi.string().required().max(150),
   }),
   commentId: Joi.object().keys({
     commentId: Joi.number().required(),
@@ -13,6 +13,6 @@ export default {
     diaryId: Joi.number().required(),
   }),
   patchComment: Joi.object().keys({
-    reply: Joi.string().required().max(180, "utf8"),
+    reply: Joi.string().required().max(150),
   }),
 };
