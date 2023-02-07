@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 
 import { PinkPurpleBackground } from "src/components/common/Backgrounds";
 import BackButton from "../components/common/BackButton";
-import DetailedDiaryContainer from "src/components/diary-detail/DetailedDiaryContainer";
+import { DetailedDiaryContainer } from "src/components/diary-detail/DetailedDiaryContainer";
 
 const DiaryDetail = () => {
   const location = useLocation();
