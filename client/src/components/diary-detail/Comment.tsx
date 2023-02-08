@@ -1,10 +1,15 @@
 import React, { useState } from "react";
+import { useRecoilValue } from "recoil";
 import tw from "tailwind-styled-components";
-import { CommentType } from "./CommentSection";
+
 import changeToKoreanTime from "src/utils/time";
+import { accessTokenAtom } from "src/recoil/token";
+
+import { CommentType } from "./CommentSection";
 import DefaultProfileImg from "../../assets/icons/default_profile.png";
 import MenuImg from "../../assets/icons/menu.png";
 import DropdownImg from "../../assets/icons/dropdown_menu.png";
+import { getUserId } from "../../utils/getUserId";
 
 interface CommentProps {
   data: CommentType;
@@ -13,6 +18,8 @@ interface CommentProps {
 }
 
 export const Comment = ({ data, isReply = false, changeReplyState }: CommentProps) => {
+  const accessToken = useRecoilValue(accessTokenAtom);
+  const isCommentWriter = getUserId(accessToken) === data.userId;
   const [isDropdownActivatied, setIsDropdownActivatied] = useState<boolean>(false);
   const changeDropdownState = () => {
     setIsDropdownActivatied((prev) => !prev);
@@ -33,7 +40,9 @@ export const Comment = ({ data, isReply = false, changeReplyState }: CommentProp
             {isRevised && <CommentDate className="ml-1">(수정됨)</CommentDate>}
           </div>
         </div>
-        <DropdownMenuIcon onClick={changeDropdownState} src={dropdownMenuImgSrc} />
+        {isCommentWriter && (
+          <DropdownMenuIcon onClick={changeDropdownState} src={dropdownMenuImgSrc} />
+        )}
       </div>
       <div className="flex mt-1 md:mt-2">
         <CommentContent>{data.reply}</CommentContent>
