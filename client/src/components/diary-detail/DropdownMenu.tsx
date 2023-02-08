@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import tw from "tailwind-styled-components";
 import { Menu, Transition } from "@headlessui/react";
 
@@ -7,6 +7,17 @@ import DropdownImg from "../../assets/icons/dropdown_menu.png";
 
 export const DropdownMenu = () => {
   const [isDropdownActivatied, setIsDropdownActivatied] = useState<boolean>(false);
+  const dropdownButtonRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (dropdownButtonRef.current && !dropdownButtonRef.current.contains(e.target as Node)) {
+        setIsDropdownActivatied(false);
+      }
+    };
+    window.addEventListener("mousedown", handleClick);
+    return () => window.removeEventListener("mousedown", handleClick);
+  }, [dropdownButtonRef]);
+
   const changeDropdownState = () => {
     setIsDropdownActivatied((prev) => !prev);
   };
@@ -15,7 +26,7 @@ export const DropdownMenu = () => {
 
   return (
     <Menu as="div" className="relative ml-auto">
-      <Menu.Button>
+      <Menu.Button ref={dropdownButtonRef}>
         <DropdownMenuIcon onClick={changeDropdownState} src={dropdownMenuImgSrc} />
       </Menu.Button>
       <Transition
