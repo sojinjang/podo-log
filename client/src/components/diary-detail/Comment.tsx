@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import tw from "tailwind-styled-components";
 import { CommentType } from "./CommentSection";
-import DefaultProfileImg from "../../assets/icons/default_profile.png";
 import changeToKoreanTime from "src/utils/time";
+import DefaultProfileImg from "../../assets/icons/default_profile.png";
+import MenuImg from "../../assets/icons/menu.png";
+import DropdownImg from "../../assets/icons/dropdown_menu.png";
 
 interface CommentProps {
   data: CommentType;
@@ -11,14 +13,19 @@ interface CommentProps {
 }
 
 export const Comment = ({ data, isReply = false, changeReplyState }: CommentProps) => {
-  const WIDTH = isReply ? "w-[95%]" : "";
+  const [isDropdownActivatied, setIsDropdownActivatied] = useState<boolean>(false);
+  const changeDropdownState = () => {
+    setIsDropdownActivatied((prev) => !prev);
+  };
+  const commentWidth = isReply ? "w-[95%]" : "";
   const profileImgSrc = data.profile === "없음" ? DefaultProfileImg : data.profile;
   const isRevised = data.createdAt !== data.updatedAt;
+  const dropdownMenuImgSrc = isDropdownActivatied ? DropdownImg : MenuImg;
 
   return (
-    <SingleCommentContainer className={WIDTH}>
+    <SingleCommentContainer className={commentWidth}>
       <div className="flex">
-        <CommentWriterImg src={profileImgSrc}></CommentWriterImg>
+        <CommentWriterImg src={profileImgSrc} />
         <div className="my-auto">
           <CommentWriter>{data.nickname}</CommentWriter>
           <div className="flex">
@@ -26,6 +33,7 @@ export const Comment = ({ data, isReply = false, changeReplyState }: CommentProp
             {isRevised && <CommentDate className="ml-1">(수정됨)</CommentDate>}
           </div>
         </div>
+        <DropdownMenuIcon onClick={changeDropdownState} src={dropdownMenuImgSrc} />
       </div>
       <div className="flex mt-1 md:mt-2">
         <CommentContent>{data.reply}</CommentContent>
@@ -73,4 +81,9 @@ whitespace-pre-line break-all
 const CommentReplyIcon = tw.img`
 h-[1.6vh] min-[390px]:h-[1.4vh] ml-auto ml-2 my-auto cursor-pointer
 hover:opacity-50 ease-in duration-300
+`;
+
+const DropdownMenuIcon = tw.img`
+w-[15px] h-[15px] min-[390px]:w-[19px] min-[390px]:h-[19px] md:w-[24px] md:h-[24px] 
+ml-auto cursor-pointer hover:opacity-50 ease-in duration-300
 `;
