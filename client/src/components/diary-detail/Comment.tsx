@@ -1,49 +1,78 @@
-import React from "react";
+import React, { useState } from "react";
+import { useRecoilValue } from "recoil";
 import tw from "tailwind-styled-components";
+
+import changeToKoreanTime from "src/utils/time";
+import { accessTokenAtom } from "src/recoil/token";
+
 import { CommentType } from "./CommentSection";
 import DefaultProfileImg from "../../assets/icons/default_profile.png";
-import changeToKoreanTime from "src/utils/time";
+import { getUserId } from "../../utils/getUserId";
+import { DropdownMenu } from "./DropdownMenu";
+import { EditComment } from "./EditComment";
 
 interface CommentProps {
   data: CommentType;
+  parentNickname?: string;
   isReply?: boolean;
   changeReplyState?: () => void;
 }
 
-export const Comment = ({ data, isReply = false, changeReplyState }: CommentProps) => {
-  const WIDTH = isReply ? "w-[95%]" : "";
+export const Comment = ({
+  data,
+  parentNickname,
+  isReply = false,
+  changeReplyState,
+}: CommentProps) => {
+  const accessToken = useRecoilValue(accessTokenAtom);
+  const [isBeingEdited, setIsBeingEdited] = useState(false);
+  const isCommentWriter = getUserId(accessToken) === data.userId;
+  const commentWidth = isReply ? "w-[95%]" : "";
   const profileImgSrc = data.profile === "없음" ? DefaultProfileImg : data.profile;
   const isRevised = data.createdAt !== data.updatedAt;
 
   return (
-    <SingleCommentContainer className={WIDTH}>
-      <div className="flex">
-        <CommentWriterImg src={profileImgSrc}></CommentWriterImg>
-        <div className="my-auto">
-          <CommentWriter>{data.nickname}</CommentWriter>
-          <div className="flex">
-            <CommentDate>{changeToKoreanTime(data.updatedAt)}</CommentDate>
-            {isRevised && <CommentDate className="ml-1">(수정됨)</CommentDate>}
-          </div>
-        </div>
-      </div>
-      <div className="flex mt-1 md:mt-2">
-        <CommentContent>{data.reply}</CommentContent>
-        {!isReply && (
-          <CommentReplyIcon
-            onClick={changeReplyState}
-            src={require("../../assets/icons/reply.png")}
-          />
-        )}
-      </div>
+    <SingleCommentContainer className={commentWidth}>
+      {!isBeingEdited && (
+        <>
+          <CommentUpperSection>
+            <CommentWriterImg src={profileImgSrc} />
+            <div className="my-auto">
+              <CommentWriter>{data.nickname}</CommentWriter>
+              <div className="flex">
+                <CommentDate>{changeToKoreanTime(data.updatedAt)}</CommentDate>
+                {isRevised && <CommentDate className="ml-1">(수정됨)</CommentDate>}
+              </div>
+            </div>
+            {isCommentWriter && <DropdownMenu setIsBeingEdited={setIsBeingEdited} />}
+          </CommentUpperSection>
+          <CommentLowerSection>
+            <CommentContent>{data.reply}</CommentContent>
+            {!isReply && (
+              <CommentReplyIcon
+                onClick={changeReplyState}
+                src={require("../../assets/icons/reply.png")}
+              />
+            )}
+          </CommentLowerSection>
+        </>
+      )}
+      {isBeingEdited && (
+        <EditComment
+          commentId={data.commentId}
+          comment={data.reply}
+          parentNickname={parentNickname}
+          setIsBeingEdited={setIsBeingEdited}
+        ></EditComment>
+      )}
     </SingleCommentContainer>
   );
 };
 
-export const CommentReply = ({ data }: CommentProps) => {
+export const CommentReply = ({ data, parentNickname }: CommentProps) => {
   return (
     <div className="flex justify-end">
-      <Comment data={data} isReply={true}></Comment>
+      <Comment data={data} parentNickname={parentNickname} isReply={true}></Comment>
     </div>
   );
 };
@@ -52,9 +81,17 @@ const SingleCommentContainer = tw.div`
 mb-2 md:mb-3
 `;
 
+const CommentUpperSection = tw.div`
+flex
+`;
+
+const CommentLowerSection = tw.div`
+flex mt-1 md:mt-2
+`;
+
 const CommentWriterImg = tw.img`
 w-[30px] h-[30px] min-[390px]:w-[38px] min-[390px]:h-[38px] md:w-[48px] md:h-[48px] 
-rounded-full object-cover shadow-lg mr-2 md:mr-3
+rounded-full object-cover shadow-lg my-auto mr-2 md:mr-3
 `;
 
 const CommentWriter = tw.p`
