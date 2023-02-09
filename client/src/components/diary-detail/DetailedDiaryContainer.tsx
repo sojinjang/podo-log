@@ -9,6 +9,9 @@ import DefaultProfileImg from "../../assets/icons/default_profile.png";
 import StickerButton from "./StickerButton";
 import { CommentSection } from "./CommentSection";
 import { ProfileImg, Nickname, Date } from "../common/WriterInfo";
+import DeleteWarningModal from "./DeleteWarningModal";
+import { isDeleteModalVisibleAtom } from "../../recoil/diary-detail/atom";
+import { useRecoilState } from "recoil";
 
 interface DiaryContainerProps {
   data: Diary;
@@ -20,6 +23,9 @@ export interface DiaryId {
 export const DetailedDiaryContainer = ({ data }: DiaryContainerProps) => {
   const params = useParams();
   const diaryId = Number(params.diaryId);
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useRecoilState(
+    isDeleteModalVisibleAtom
+  );
   const profileImgSrc = data.profile === "없음" ? DefaultProfileImg : data.profile;
   const isRevised = data.createdAt !== data.updatedAt;
 
@@ -41,6 +47,13 @@ export const DetailedDiaryContainer = ({ data }: DiaryContainerProps) => {
         <DiaryContent>{data.content}</DiaryContent>
         <StickerButton diaryId={diaryId} />
         <CommentSection diaryId={diaryId} />
+        {isDeleteModalVisible && (
+          <DeleteWarningModal
+            onClose={() => {
+              setIsDeleteModalVisible(false);
+            }}
+          />
+        )}
       </Container>
     </Fade>
   );
