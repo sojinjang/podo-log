@@ -19,7 +19,13 @@ export const CommentsFamily = ({ diaryId, commentsFam }: CommentsFamilyProps) =>
     <React.Fragment key={commentsFam.parentComment?.commentId}>
       <Comment data={commentsFam.parentComment} changeReplyState={changeReplyState} />
       {commentsFam.reComments?.map((recomment) => {
-        return <CommentReply data={recomment} key={recomment.commentId} />;
+        return (
+          <CommentReply
+            parentNickname={commentsFam.parentComment.nickname}
+            data={recomment}
+            key={recomment.commentId}
+          />
+        );
       })}
       {isReplyWritingEnabled && (
         <ReplyComment
