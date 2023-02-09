@@ -3,6 +3,11 @@ insert into user(email,password,nickname) values("test2@test.com","$2b$10$oCYLyg
 insert into user(email,password,nickname) values("test3@test.com","$2b$10$oCYLyg.ukI6E9DfT4SAYl.vR7OB39S8OrqB5dRknx3C0cAjN5nUmO","test3");
 insert into user(email,password,nickname) values("test4@test.com","$2b$10$oCYLyg.ukI6E9DfT4SAYl.vR7OB39S8OrqB5dRknx3C0cAjN5nUmO","test4");
 
+insert into user_grain(userId) values(1);
+insert into user_grain(userId) values(2);
+insert into user_grain(userId) values(3);
+insert into user_grain(userId) values(4);
+
 
 insert into book(bookName,color) values("일기장1","000000");
 insert into book(bookName,color) values("일기장2","008fff");
