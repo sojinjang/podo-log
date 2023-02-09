@@ -5,7 +5,11 @@ import { Menu, Transition } from "@headlessui/react";
 import MenuImg from "../../assets/icons/menu.png";
 import DropdownImg from "../../assets/icons/dropdown_menu.png";
 
-export const DropdownMenu = () => {
+interface DropdownMenuProps {
+  setIsBeingEdited: (state: boolean) => void;
+}
+
+export const DropdownMenu = ({ setIsBeingEdited }: DropdownMenuProps) => {
   const [isDropdownActivatied, setIsDropdownActivatied] = useState<boolean>(false);
   const dropdownButtonRef = useRef<HTMLButtonElement>(null);
   useEffect(() => {
@@ -40,7 +44,11 @@ export const DropdownMenu = () => {
       >
         <Menu.Items className="absolute right-1 bg-white/60 p-1 md:p-3 rounded-xl shadow-lg">
           <Menu.Item>
-            <ButtonContainer>
+            <ButtonContainer
+              onClick={() => {
+                setIsBeingEdited(true);
+              }}
+            >
               <ButtonIconImg src={require("../../assets/icons/pencil.png")} />
               <ButtonDesc>수정</ButtonDesc>
             </ButtonContainer>
