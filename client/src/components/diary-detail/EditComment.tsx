@@ -2,6 +2,7 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 import tw from "tailwind-styled-components";
 import { useForm } from "react-hook-form";
+import Fade from "react-reveal/Fade";
 
 import { accessTokenAtom } from "src/recoil/token";
 import { API_URL } from "src/constants/API_URL";
@@ -43,28 +44,31 @@ export const EditComment = ({
   };
 
   return (
-    <>
-      {parentNickname && (
-        <div className="flex text-[1.5vh] min-[390px]:text-[1.3vh]">
-          <div className="font-[notosans] font-bold">{parentNickname}</div>
-          <div className="font-[notosans]">님에게 답글 남기는중</div>
-        </div>
-      )}
-      <form onSubmit={handleSubmit(onSubmitComment)}>
-        <InputContainer className="flex-row w-full mt-0 shadow-lg">
-          <Input
-            className="font-[notosans] w-[90%]"
-            placeholder="댓글을 입력해주세요. (최대 150자)"
-            minLength={1}
-            maxLength={150}
-            required
-            {...register("comment")}
-          />
-          <CancelButton onClick={() => setIsBeingEdited(false)}>취소</CancelButton>
-          <PostButton>수정</PostButton>
-        </InputContainer>
-      </form>
-    </>
+    <Fade>
+      <>
+        {parentNickname && (
+          <div className="flex text-[1.5vh] min-[390px]:text-[1.3vh]">
+            <div className="font-[notosans] font-bold">{parentNickname}</div>
+            <div className="font-[notosans]">님에게 답글 남기는중</div>
+          </div>
+        )}
+        <form onSubmit={handleSubmit(onSubmitComment)}>
+          <InputContainer className="flex-row w-full mt-0 shadow-lg">
+            <Input
+              className="font-[notosans] w-[90%]"
+              placeholder="댓글을 입력해주세요. (최대 150자)"
+              minLength={1}
+              maxLength={150}
+              required
+              {...register("comment")}
+            />
+            <CancelButton onClick={() => setIsBeingEdited(false)}>취소</CancelButton>
+            <PostButton>수정</PostButton>
+          </InputContainer>
+        </form>
+      </>
+    </Fade>
+
   );
 };
 

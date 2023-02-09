@@ -11,7 +11,7 @@ import DefaultProfileImg from "../../assets/icons/default_profile.png";
 import StickerButton from "./StickerButton";
 import { CommentSection } from "./CommentSection";
 import { ProfileImg, Nickname, Date } from "../common/WriterInfo";
-import DeleteWarningModal from "./DeleteWarningModal";
+import DeleteModal from "./DeleteModal";
 
 interface DiaryContainerProps {
   data: Diary;
@@ -54,7 +54,8 @@ export const DetailedDiaryContainer = ({ data }: DiaryContainerProps) => {
         <StickerButton diaryId={diaryId} />
         <CommentSection diaryId={diaryId} />
         {isDeleteModalVisible && (
-          <DeleteWarningModal
+          <DeleteModal
+
             onClose={() => {
               setIsDeleteModalVisible(false);
             }}

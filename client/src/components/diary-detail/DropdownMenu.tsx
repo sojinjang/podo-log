@@ -6,13 +6,16 @@ import { Menu, Transition } from "@headlessui/react";
 import MenuImg from "../../assets/icons/menu.png";
 import DropdownImg from "../../assets/icons/dropdown_menu.png";
 import { isDeleteModalVisibleAtom } from "src/recoil/diary-detail";
+import { DeleteInfo, deleteInfoAtom } from "../../recoil/diary-detail/atom";
 
 interface DropdownMenuProps {
   setIsBeingEdited: (state: boolean) => void;
+  deleteInfo: DeleteInfo;
 }
 
-export const DropdownMenu = ({ setIsBeingEdited }: DropdownMenuProps) => {
+export const DropdownMenu = ({ setIsBeingEdited, deleteInfo }: DropdownMenuProps) => {
   const setIsDeleteModalVisible = useSetRecoilState(isDeleteModalVisibleAtom);
+  const setDeleteInfo = useSetRecoilState(deleteInfoAtom);
   const [isDropdownActivatied, setIsDropdownActivatied] = useState<boolean>(false);
   const dropdownButtonRef = useRef<HTMLButtonElement>(null);
   useEffect(() => {
@@ -59,6 +62,7 @@ export const DropdownMenu = ({ setIsBeingEdited }: DropdownMenuProps) => {
           <Menu.Item>
             <ButtonContainer
               onClick={() => {
+                setDeleteInfo(deleteInfo);
                 setIsDeleteModalVisible(true);
               }}
             >
