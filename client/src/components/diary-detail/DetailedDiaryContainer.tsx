@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useRecoilState, useResetRecoilState } from "recoil";
 import { useParams } from "react-router-dom";
 import tw from "tailwind-styled-components";
 import Fade from "react-reveal/Fade";
 
+import { isDeleteModalVisibleAtom } from "../../recoil/diary-detail/atom";
 import changeToKoreanTime from "src/utils/time";
 import { Diary } from "../book/DiaryListContainer";
 import DefaultProfileImg from "../../assets/icons/default_profile.png";
@@ -10,8 +12,6 @@ import StickerButton from "./StickerButton";
 import { CommentSection } from "./CommentSection";
 import { ProfileImg, Nickname, Date } from "../common/WriterInfo";
 import DeleteWarningModal from "./DeleteWarningModal";
-import { isDeleteModalVisibleAtom } from "../../recoil/diary-detail/atom";
-import { useRecoilState } from "recoil";
 
 interface DiaryContainerProps {
   data: Diary;
@@ -26,8 +26,14 @@ export const DetailedDiaryContainer = ({ data }: DiaryContainerProps) => {
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useRecoilState(
     isDeleteModalVisibleAtom
   );
+  const resetIsDeleteModalVisible = useResetRecoilState(isDeleteModalVisibleAtom);
   const profileImgSrc = data.profile === "없음" ? DefaultProfileImg : data.profile;
   const isRevised = data.createdAt !== data.updatedAt;
+  useEffect(() => {
+    return () => {
+      resetIsDeleteModalVisible();
+    };
+  }, []);
 
   return (
     <Fade duration={1000}>
