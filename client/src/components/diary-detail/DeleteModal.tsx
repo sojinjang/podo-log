@@ -1,5 +1,5 @@
-import React from "react";
-import { useRecoilValue } from "recoil";
+import React, { useEffect } from "react";
+import { useRecoilValue, useResetRecoilState } from "recoil";
 import tw from "tailwind-styled-components";
 import Fade from "react-reveal/Fade";
 
@@ -16,6 +16,13 @@ interface ModalProps {
 const DeleteModal = ({ onClose }: ModalProps) => {
   const accessToken = useRecoilValue(accessTokenAtom);
   const deleteInfo = useRecoilValue(deleteInfoAtom);
+  const resetDeleteInfo = useResetRecoilState(deleteInfoAtom);
+
+  useEffect(() => {
+    return () => {
+      resetDeleteInfo();
+    };
+  }, []);
 
   const onClickDelete = async () => {
     const apiUrl = deleteInfo.target === "diary" ? API_URL.diary : API_URL.comments;
