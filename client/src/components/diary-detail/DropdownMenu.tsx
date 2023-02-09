@@ -1,15 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useSetRecoilState } from "recoil";
 import tw from "tailwind-styled-components";
 import { Menu, Transition } from "@headlessui/react";
 
 import MenuImg from "../../assets/icons/menu.png";
 import DropdownImg from "../../assets/icons/dropdown_menu.png";
+import { isDeleteModalVisibleAtom } from "src/recoil/diary-detail";
 
 interface DropdownMenuProps {
   setIsBeingEdited: (state: boolean) => void;
 }
 
 export const DropdownMenu = ({ setIsBeingEdited }: DropdownMenuProps) => {
+  const setIsDeleteModalVisible = useSetRecoilState(isDeleteModalVisibleAtom);
   const [isDropdownActivatied, setIsDropdownActivatied] = useState<boolean>(false);
   const dropdownButtonRef = useRef<HTMLButtonElement>(null);
   useEffect(() => {
@@ -54,7 +57,11 @@ export const DropdownMenu = ({ setIsBeingEdited }: DropdownMenuProps) => {
             </ButtonContainer>
           </Menu.Item>
           <Menu.Item>
-            <ButtonContainer>
+            <ButtonContainer
+              onClick={() => {
+                setIsDeleteModalVisible(true);
+              }}
+            >
               <ButtonIconImg src={require("../../assets/icons/trash-can.png")} />
               <ButtonDesc>삭제</ButtonDesc>
             </ButtonContainer>
@@ -74,6 +81,7 @@ const ButtonContainer = tw.div`
 flex max-w-[90px] w-[14vw] md:w-[9vw] py-1 px-2 cursor-pointer mx-auto
 hover:opacity-50 ease-in duration-300 
 `;
+
 const ButtonIconImg = tw.img`
 h-[1.5vh] min-[390px]:h-[1.3vh]
 my-auto mr-2 md:mr-4
