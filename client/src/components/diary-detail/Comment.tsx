@@ -44,7 +44,12 @@ export const Comment = ({
                 {isRevised && <CommentDate className="ml-1">(수정됨)</CommentDate>}
               </div>
             </div>
-            {isCommentWriter && <DropdownMenu setIsBeingEdited={setIsBeingEdited} />}
+            {isCommentWriter && (
+              <DropdownMenu
+                deleteInfo={{ id: data.commentId, target: "comment" }}
+                setIsBeingEdited={setIsBeingEdited}
+              />
+            )}
           </CommentUpperSection>
           <CommentLowerSection>
             <CommentContent>{data.reply}</CommentContent>
