@@ -17,3 +17,4 @@ export const deleteInfoAtom = atom<DeleteInfo>({
     target: undefined,
   },
 });
+

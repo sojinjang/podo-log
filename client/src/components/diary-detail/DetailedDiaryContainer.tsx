@@ -55,6 +55,7 @@ export const DetailedDiaryContainer = ({ data }: DiaryContainerProps) => {
         <CommentSection diaryId={diaryId} />
         {isDeleteModalVisible && (
           <DeleteModal
+
             onClose={() => {
               setIsDeleteModalVisible(false);
             }}
