@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 	`email`	varchar(30) NULL unique,
 	`password`	varchar(60)	NULL,
 	`nickname`	varchar(20)	NOT NULL DEFAULT "없음",
-	`profile`	varchar(110) NOT NULL DEFAULT "없음",
+	`profile`	varchar(60) NOT NULL DEFAULT "없음",
 	`role`	ENUM('user','admin') NOT NULL DEFAULT 'user', 
 	`grape`	int	NOT NULL DEFAULT 0,
     `snsId` varchar(60) NOT NULL DEFAULT 0,
@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS `user_grain` (
 CREATE TABLE IF NOT EXISTS `package` (
 	`packageId`	bigint	NOT NULL auto_increment,
 	`packageName`	varchar(40)	NOT NULL,
+	`podoPrice`	int	NOT NULL DEFAULT 1,
      PRIMARY KEY (`packageId`)
 );
 
@@ -86,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `diary` (
 	`diaryId`	bigint	NOT NULL auto_increment,
 	`bookId`	bigint	NOT NULL,
 	`userId`	bigint	NOT NULL,
-	`picture`	varchar(110) NULL,
+	`picture`	varchar(60) NOT NULL DEFAULT "없음",
 	`title`	varchar(40)	NULL,
 	`content`	varchar(450) NULL,
     `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, 
