@@ -8,7 +8,7 @@ interface ModalProps {
   onClose: () => void;
 }
 
-const DeleteWarningModal = ({ onClose }: ModalProps) => {
+const DeleteModal = ({ onClose }: ModalProps) => {
   return (
     <>
       <Background onClick={onClose} />
@@ -36,7 +36,7 @@ const DeleteWarningModal = ({ onClose }: ModalProps) => {
   );
 };
 
-export default DeleteWarningModal;
+export default DeleteModal;
 
 const Background = tw.div`
 top-0 right-0 bottom-0 left-0 fixed bg-transparent 
