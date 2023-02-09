@@ -18,7 +18,7 @@ class DiaryController {
     const { userId } = req.user;
     const bookId = parseInt(req.body.bookId);
     const { title, content } = req.body;
-    const picture = req.file?.location;
+    const picture = req.file?.key;
 
     const createDiaryDTO = { userId, bookId, title, content, picture } as CreateDiaryDTO;
 
@@ -63,7 +63,7 @@ class DiaryController {
   updatePicture = asyncHandler(async (req: FileRequest, res) => {
     const diaryId = parseInt(req.params.diaryId);
     const { userId } = req.user;
-    const picture = req.file?.location;
+    const picture = req.file?.key;
     if (!picture) throw new BadRequestError("이미지를 보내주세요.");
 
     const messageDTO = await this.diaryService.updateImage({ diaryId, picture }, { userId });

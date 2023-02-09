@@ -10,11 +10,10 @@ import {
   UpdateDiaryPictureDTO,
   UserIdDTO,
 } from "../../types";
-import { checkResult } from "../../utils";
+import { checkResult, buildImgLocation } from "../../utils";
 
 class DiaryService {
   private diaryModel = diaryModel;
-  private userBookModel = userBookModel;
 
   async create(diaryDTO: CreateDiaryDTO) {
     const result = await this.diaryModel.create(diaryDTO);
@@ -24,7 +23,9 @@ class DiaryService {
 
   async getByBookId(bookIdDTO: GetDiaryDTO, pageDTO: PageDTO) {
     const diaries = await this.diaryModel.getWithUser(bookIdDTO, pageDTO);
-    const messageDTO = { message: "일기 조회에 성공하였습니다.", data: diaries };
+    const data = buildImgLocation(diaries, "picture", "profile");
+
+    const messageDTO = { message: "일기 조회에 성공하였습니다.", data };
     return messageDTO;
   }
 

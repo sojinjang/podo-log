@@ -8,7 +8,7 @@ import {
   UserProfileDTO,
 } from "../../types";
 import { imageDeleter } from "../../middlewares";
-import { checkResult } from "../../utils";
+import { checkResult, buildImgLocation } from "../../utils";
 import { AuthFailureError, BadRequestError } from "../../core/api-error";
 
 class UserService {
@@ -30,12 +30,15 @@ class UserService {
     const userIdDTO: UserIdDTO = { userId };
     const [user] = await this.userModel.get(userIdDTO);
     delete user.password;
-    return user;
+    const imgedUser = buildImgLocation(user, "profile");
+    return imgedUser;
   }
 
   async getMyData(userDTO: UserEntity) {
     delete userDTO.password;
-    const messageDTO = { message: "내 정보 조회에 성공하였습니다.", data: userDTO };
+    const data = buildImgLocation(userDTO, "profile");
+
+    const messageDTO = { message: "내 정보 조회에 성공하였습니다.", data };
 
     return messageDTO;
   }

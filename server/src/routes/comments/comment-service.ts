@@ -9,7 +9,7 @@ import {
   UpdateCommentDTO,
   UserIdDTO,
 } from "../../types";
-import { checkResult } from "../../utils";
+import { buildImgLocation, checkResult } from "../../utils";
 import { ForbiddenError, NoDataError } from "./../../core/api-error";
 
 class CommentService {
@@ -22,9 +22,11 @@ class CommentService {
 
   async getByDiaryId(diaryIdDTO: GetCommentDTO) {
     const comments = await this.commentModel.get(diaryIdDTO);
+
     let data: DataObj[];
     if (comments.length > 0) {
-      const dicComment = comments.reduce((dic, comment) => {
+      const imgedComments = buildImgLocation(comments, "profile") as typeof comments;
+      const dicComment = imgedComments.reduce((dic, comment) => {
         const parentKey = comment.parentCommentId;
         dic[parentKey] ? dic[parentKey].push(comment) : (dic[parentKey] = [comment]);
         return dic;

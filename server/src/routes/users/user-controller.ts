@@ -9,7 +9,7 @@ class UserController {
 
   localJoin = asyncHandler(async (req: FileRequest, res) => {
     const { email, nickname, password } = req.body;
-    const profile = req.file?.location;
+    const profile = req.file?.key;
 
     const createUserDTO = { email, nickname, password, profile } as CreateUserDTO;
 
@@ -59,7 +59,7 @@ class UserController {
   });
 
   updateProfile = asyncHandler(async (req: FileRequest, res) => {
-    const profile = req.file?.location;
+    const profile = req.file?.key;
     if (!profile) throw new BadRequestError("이미지를 보내주세요.");
 
     const messageDTO = await this.userService.updateImage(req.user, { profile });
