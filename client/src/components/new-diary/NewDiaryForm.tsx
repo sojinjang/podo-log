@@ -1,5 +1,4 @@
 import React from "react";
-import tw from "tailwind-styled-components";
 import { useRecoilValue } from "recoil";
 import { useForm } from "react-hook-form";
 
@@ -10,6 +9,7 @@ import { API_URL } from "src/constants/API_URL";
 import { postFormData } from "src/utils/api";
 import { useNavigate, useParams } from "react-router-dom";
 import { accessTokenAtom } from "src/recoil/token";
+import { DiaryForm, TitleInput, inputStyle, ContentInput } from "../diary/DiaryFormElem";
 
 interface DiaryInput {
   readonly title: string;
@@ -68,16 +68,3 @@ const NewDiaryForm = () => {
 };
 
 export default NewDiaryForm;
-
-const DiaryForm = tw.form`
-h-[80vh] w-[80%] bg-white/60 m-auto rounded-xl mt-[3vh] overflow-y-scroll
-`;
-const inputStyle = `font-[notosans] 
-bg-transparent p-4 sm:p-6 w-full`;
-
-const TitleInput = tw.input`
-text-xl sm:text-2xl font-semibold
-`;
-const ContentInput = tw.textarea`
-h-[30%] mt-[1vh] text-base sm:text-xl font-medium
-`;

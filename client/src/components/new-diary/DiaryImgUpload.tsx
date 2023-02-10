@@ -1,10 +1,15 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useRecoilState, useResetRecoilState } from "recoil";
 import { diaryImgAtom } from "src/recoil/new-diary";
-import tw from "tailwind-styled-components";
 
 import imgUploadIcon from "../../assets/icons/image.png";
 import trashCanIcon from "../../assets/icons/trash-can-white.png";
+import {
+  UploadedImg,
+  TrashCanIcon,
+  ImgUploadContainer,
+  ImgUploadIcon,
+} from "../diary/DairyImgUploadElem";
 
 const DiaryImgUpload = () => {
   const reader = new FileReader();
@@ -60,21 +65,3 @@ const DiaryImgUpload = () => {
 };
 
 export default DiaryImgUpload;
-
-const UploadedImg = tw.img`
-max-w-[80%] mx-auto
-`;
-
-const ImgUploadContainer = tw.div`
-flex bg-[#F0F0F0] w-[65%] h-[35%] mx-auto rounded-xl cursor-pointer
-hover:opacity-70 transition duration-500 ease-in-out
-`;
-
-const ImgUploadIcon = tw.img`
-w-[15%] m-auto
-`;
-
-const TrashCanIcon = tw.img`
-w-[5%] absolute right-[12%] top-[1vh] cursor-pointer
-drop-shadow-2xl hover:drop-shadow-none transition ease-in duration-300
-`;
