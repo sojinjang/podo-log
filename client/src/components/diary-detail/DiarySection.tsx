@@ -1,12 +1,18 @@
 import React from "react";
+import { useRecoilValue } from "recoil";
 import tw from "tailwind-styled-components";
 
+import { accessTokenAtom } from "src/recoil/token";
+import { getUserId } from "src/utils/getUserId";
 import changeToKoreanTime from "src/utils/time";
 import DefaultProfileImg from "../../assets/icons/default_profile.png";
 import { ProfileImg, Nickname, Date } from "../common/WriterInfo";
 import { DiaryContainerProps } from "./DetailedDiaryContainer";
+import { DropdownMenu } from "./DropdownMenu";
 
 export const DiarySection = ({ data }: DiaryContainerProps) => {
+  const accessToken = useRecoilValue(accessTokenAtom);
+  const isDiaryWriter = getUserId(accessToken) === data.userId;
   const profileImgSrc = data.profile === "없음" ? DefaultProfileImg : data.profile;
   const hasPicture = data.picture !== "없음";
   const isRevised = data.createdAt !== data.updatedAt;
@@ -22,6 +28,7 @@ export const DiarySection = ({ data }: DiaryContainerProps) => {
             {isRevised && <Date className="ml-1">(수정됨)</Date>}
           </div>
         </div>
+        {isDiaryWriter && <DropdownMenu deleteInfo={{ id: data.diaryId, target: "diary" }} />}
       </div>
       {hasPicture && <Photo src={String(data.picture)} />}
       <DiaryTitle>{data.title}</DiaryTitle>
