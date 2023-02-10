@@ -64,6 +64,22 @@ export class BuildQuery {
     return { query, values };
   }
 
+  makeArrInsertQuery(stickerDTOArr: DataObj[]) {
+    const values = stickerDTOArr.reduce((acc: any[], stickerDTO) => {
+      const { valueArr: values } = BuildQuery.objToKeyValueArr(stickerDTO);
+      acc = [...acc, ...values];
+      return acc;
+    }, []);
+    const { keyArr } = BuildQuery.objToKeyValueArr(stickerDTOArr[0]);
+
+    const columns = keyArr.join(", ");
+    const Qs = new Array(keyArr.length).fill("?").join(", ");
+    const manyQs = new Array(stickerDTOArr.length).fill(`(${Qs})`).join(", ");
+
+    const query = `insert into ${this.table} (${columns}) values ${manyQs}`;
+    return { query, values };
+  }
+
   makeUpdateQuery(whereDTO: DataObj, updateDTO: DataObj) {
     const { keyArr: updateKeyArr, valueArr: updateValueArr } =
       BuildQuery.objToKeyValueArr(updateDTO);
