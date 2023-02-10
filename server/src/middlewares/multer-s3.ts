@@ -2,12 +2,11 @@ import path from "path";
 import multer from "multer";
 import multerS3 from "multer-s3";
 import { logger } from "../utils";
-import { awsS3ClientConfig, bucketName } from "../config/aws-s3.config";
-import { S3Client, DeleteObjectCommand } from "@aws-sdk/client-s3";
+import { s3Client, bucketName } from "../config/aws-s3.config";
+import { DeleteObjectCommand } from "@aws-sdk/client-s3";
 import { Request } from "express";
 import { BadRequestError } from "../core/api-error";
 
-const s3Client = new S3Client(awsS3ClientConfig);
 const allowedExtensions = [".png", ".jpg", ".jpeg", ".bmp", ".gif"];
 
 interface Callback {
@@ -16,7 +15,7 @@ interface Callback {
 
 const uploaderKeySwitch = (req: Request, file: Express.Multer.File, callback: Callback) => {
   const isPackage = file.fieldname === "package";
-  const uploadDirectory = isPackage ? req.body.packageName : file.fieldname ?? "default";
+  const uploadDirectory = file.fieldname ?? "default";
   const extension = path.extname(file.originalname).toLowerCase();
   const filename = file.originalname.replace(/([^\w\.]*)/g, "");
   if (!allowedExtensions.includes(extension)) {
