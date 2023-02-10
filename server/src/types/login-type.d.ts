@@ -11,10 +11,11 @@ export interface LoggedRequest extends Request {
 }
 
 interface S3File extends Express.Multer.File {
-  location?: string;
-  key?: string;
+  location: string;
+  key: string;
 }
 
 export interface FileRequest extends LoggedRequest {
   file?: S3File;
+  files?: S3File[];
 }
