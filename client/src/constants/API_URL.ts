@@ -15,7 +15,9 @@ export const API_URL = Object.freeze({
     return this.books + `/${bookId}/diaries?limit=${limit}&start=${startIdx}`;
   },
   diary: "/api/diaries",
-  diaryImg: "/api/diaries/image",
+  diaryImg: function (diaryId: string) {
+    return this.diary + `/image/${diaryId}`;
+  },
   comments: "/api/comments",
   diaryComments: function (diaryId: number) {
     return this.comments + `?diaryId=${diaryId}`;
