@@ -12,6 +12,7 @@ router.post(
   isBookMember,
   diaryController.create
 );
+
 router.patch(
   "/:diaryId",
   validator(schema.diaryId, ValidationSource.PARAM),
