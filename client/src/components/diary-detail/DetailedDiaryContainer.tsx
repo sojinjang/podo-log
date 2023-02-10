@@ -28,6 +28,7 @@ export const DetailedDiaryContainer = ({ data }: DiaryContainerProps) => {
   );
   const resetIsDeleteModalVisible = useResetRecoilState(isDeleteModalVisibleAtom);
   const profileImgSrc = data.profile === "없음" ? DefaultProfileImg : data.profile;
+  const hasPicture = data.picture !== "없음";
   const isRevised = data.createdAt !== data.updatedAt;
   useEffect(() => {
     return () => {
@@ -48,14 +49,13 @@ export const DetailedDiaryContainer = ({ data }: DiaryContainerProps) => {
             </div>
           </div>
         </div>
-        {data.picture && <Photo src={data.picture} />}
+        {hasPicture && <Photo src={String(data.picture)} />}
         <DiaryTitle>{data.title}</DiaryTitle>
         <DiaryContent>{data.content}</DiaryContent>
         <StickerButton diaryId={diaryId} />
         <CommentSection diaryId={diaryId} />
         {isDeleteModalVisible && (
           <DeleteModal
-
             onClose={() => {
               setIsDeleteModalVisible(false);
             }}
