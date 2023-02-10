@@ -9,11 +9,11 @@ import { isDeleteModalVisibleAtom } from "src/recoil/diary-detail";
 import { DeleteInfo, deleteInfoAtom } from "../../recoil/diary-detail/atom";
 
 interface DropdownMenuProps {
-  setIsBeingEdited: (state: boolean) => void;
+  setCommentIsBeingEdited: (state: boolean) => void;
   deleteInfo: DeleteInfo;
 }
 
-export const DropdownMenu = ({ setIsBeingEdited, deleteInfo }: DropdownMenuProps) => {
+export const DropdownMenu = ({ setCommentIsBeingEdited, deleteInfo }: DropdownMenuProps) => {
   const setIsDeleteModalVisible = useSetRecoilState(isDeleteModalVisibleAtom);
   const setDeleteInfo = useSetRecoilState(deleteInfoAtom);
   const [isDropdownActivatied, setIsDropdownActivatied] = useState<boolean>(false);
@@ -48,11 +48,11 @@ export const DropdownMenu = ({ setIsBeingEdited, deleteInfo }: DropdownMenuProps
         leaveFrom="transform scale-100 opacity-100"
         leaveTo="transform scale-50 opacity-0"
       >
-        <Menu.Items className="absolute right-1 bg-white/60 p-1 md:p-3 rounded-xl shadow-lg">
+        <Menu.Items className="absolute z-20 right-1 bg-white/60 p-1 md:p-3 rounded-xl shadow-lg">
           <Menu.Item>
             <ButtonContainer
               onClick={() => {
-                setIsBeingEdited(true);
+                setCommentIsBeingEdited(true);
               }}
             >
               <ButtonIconImg src={require("../../assets/icons/pencil.png")} />

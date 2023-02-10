@@ -47,7 +47,7 @@ export const Comment = ({
             {isCommentWriter && (
               <DropdownMenu
                 deleteInfo={{ id: data.commentId, target: "comment" }}
-                setIsBeingEdited={setIsBeingEdited}
+                setCommentIsBeingEdited={setIsBeingEdited}
               />
             )}
           </CommentUpperSection>
