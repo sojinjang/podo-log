@@ -29,6 +29,16 @@ class DiaryService {
     return messageDTO;
   }
 
+  async getById(getDiaryDTO: GetDiaryDTO) {
+    const [diary] = await this.diaryModel.get(getDiaryDTO);
+    if (!diary) throw new NoDataError("요청한 다이어리가 존재하지 않습니다.");
+
+    const data = buildImgLocation(diary, "picture");
+
+    const messageDTO = { message: "일기 조회에 성공하였습니다.", data };
+    return messageDTO;
+  }
+
   async pacthById(
     diaryIdDTO: DiaryIdDTO,
     updateDiaryDTO: UpdateDiaryDTO,

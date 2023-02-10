@@ -22,6 +22,14 @@ router.get(
   isBookMember,
   diaryController.getByBookId
 );
+
+router.get(
+  "/:bookId/diaries/:diaryId",
+  validator(schema.getByDiaryId, ValidationSource.PARAM),
+  isBookMember,
+  diaryController.getByDiaryId
+);
+
 router.patch(
   "/:bookId",
   validator(schema.bookId, ValidationSource.PARAM),
