@@ -10,11 +10,7 @@ import { postFormData } from "src/utils/api";
 import { useNavigate, useParams } from "react-router-dom";
 import { accessTokenAtom } from "src/recoil/token";
 import { DiaryForm, TitleInput, inputStyle, ContentInput } from "../diary/DiaryFormElem";
-
-interface DiaryInput {
-  readonly title: string;
-  readonly content: string;
-}
+import { DiaryInput } from "../diary/DiaryInput";
 
 const createDiaryForm = (diaryImg: Img, bookId: string, { title, content }: DiaryInput) => {
   const formData = new FormData();
