@@ -16,6 +16,7 @@ interface DiaryContainerProps {
 
 const DiaryContainer = ({ viewRef, data }: DiaryContainerProps) => {
   const profileImgSrc = data.profile === "없음" ? DefaultProfileImg : data.profile;
+  const hasPicture = data.picture !== "없음";
   const isRevised = data.createdAt !== data.updatedAt;
   const navigate = useNavigate();
   const onClickDiary = () => {
@@ -39,7 +40,7 @@ const DiaryContainer = ({ viewRef, data }: DiaryContainerProps) => {
             </div>
           </div>
         </div>
-        {data.picture && <Photo src={data.picture} />}
+        {hasPicture && <Photo src={String(data.picture)} />}
         <DiaryTitle>{data.title}</DiaryTitle>
         <DiaryContent>{data.content}</DiaryContent>
         <CommentContainer>
