@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import tw from "tailwind-styled-components";
 import { Menu, Transition } from "@headlessui/react";
 
+import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 import MenuImg from "../../assets/icons/menu.png";
 import DropdownImg from "../../assets/icons/dropdown_menu.png";
 import { isDeleteModalVisibleAtom } from "src/recoil/diary-detail";
@@ -14,6 +16,7 @@ interface DropdownMenuProps {
 }
 
 export const DropdownMenu = ({ setCommentIsBeingEdited, deleteInfo }: DropdownMenuProps) => {
+  const navigate = useNavigate();
   const setIsDeleteModalVisible = useSetRecoilState(isDeleteModalVisibleAtom);
   const setDeleteInfo = useSetRecoilState(deleteInfoAtom);
   const [isDropdownActivatied, setIsDropdownActivatied] = useState<boolean>(false);
@@ -52,7 +55,8 @@ export const DropdownMenu = ({ setCommentIsBeingEdited, deleteInfo }: DropdownMe
           <Menu.Item>
             <ButtonContainer
               onClick={() => {
-                if (setCommentIsBeingEdited) setCommentIsBeingEdited(true);
+                if (setCommentIsBeingEdited) return setCommentIsBeingEdited(true);
+                navigate(PRIVATE_ROUTE.diaryRevision.path.split("/").reverse()[0]);
               }}
             >
               <ButtonIconImg src={require("../../assets/icons/pencil.png")} />
