@@ -21,7 +21,8 @@ const DeleteModal = ({ onClose }: ModalProps) => {
     const apiUrl = deleteInfo.target === "diary" ? API_URL.diary : API_URL.comments;
     try {
       await del(apiUrl, String(deleteInfo.id), accessToken);
-      window.location.reload();
+      if (deleteInfo.target === "diary") return window.history.back();
+      return window.location.reload();
     } catch (err) {
       if (err instanceof Error) alert(err.message);
     }
