@@ -11,6 +11,12 @@ router.post(
   validator(schema.createPackage),
   packageController.create
 );
+router.post(
+  "/:packageId",
+  validator(schema.packageId, ValidationSource.PARAM),
+  packageController.buyPackage
+);
+// router.get("/mine", packageController.getMyPackage);
 // router.patch(
 //   "/:diaryId",
 //   validator(schema.diaryId, ValidationSource.PARAM),

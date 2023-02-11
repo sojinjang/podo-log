@@ -17,3 +17,17 @@ export interface CreatePackageServiceDTO {
   stickers: (Sticker | undefined)[];
   podoPrice?: number;
 }
+
+export interface PackageIdDTO {
+  packageId: number;
+}
+export interface PackageDTO {
+  packageId: number;
+  packageName: string;
+  podoPrice: number;
+}
+
+export interface UserPackageDTO {
+  packageId?: number;
+  userId?: number;
+}

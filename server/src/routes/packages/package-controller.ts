@@ -1,5 +1,5 @@
 import { packageService } from "./package-service";
-import { CreatePackageControllerDTO, FileRequest } from "../../types";
+import { FileRequest, LoggedRequest } from "../../types";
 import asyncHandler from "../../utils/async-handler";
 import { SuccessMsgResponse, SuccessResponse } from "../../core/api-response";
 import { BadRequestError } from "../../core/api-error";
@@ -9,7 +9,7 @@ class PackageController {
 
   create = asyncHandler(async (req: FileRequest, res) => {
     const { packageName } = req.body;
-    const podoPrice = parseInt(req.body.podoPrice) || 0;
+    const podoPrice = parseInt(req.body.podoPrice) || 1;
     const packageArr = req.files;
     if (typeof packageArr === "undefined" || packageArr.length === 0)
       throw new BadRequestError("패키지를 보내주세요.");
@@ -19,15 +19,18 @@ class PackageController {
     return new SuccessResponse(messageDTO.message, messageDTO.data).send(res);
   });
 
-  // getByBookId = asyncHandler(async (req: LoggedRequest, res) => {
-  //   const bookId = parseInt(req.params.bookId);
-  //   const limit = parseInt(req.query.limit as string) || 10;
-  //   const start = parseInt(req.query.start as string) || 1;
-  //   const offset = start - 1;
+  buyPackage = asyncHandler(async (req: LoggedRequest, res) => {
+    const packageId = parseInt(req.params.packageId);
+    const user = req.user;
 
-  //   const bookIdDTO: GetDiaryDTO = { bookId };
-  //   const pageDTO: PageDTO = { limit, offset };
-  //   const messageDTO = await this.packageService.getByBookId(bookIdDTO, pageDTO);
+    const messageDTO = await this.packageService.buyPackage({ packageId }, user);
+    return new SuccessResponse(messageDTO.message, messageDTO.data).send(res);
+  });
+
+  // getMyPackage = asyncHandler(async (req: LoggedRequest, res) => {
+  //   const { userId } = req.user;
+
+  //   const messageDTO = await this.packageService.getByUserId({ userId });
   //   return new SuccessResponse(messageDTO.message, messageDTO.data).send(res);
   // });
 

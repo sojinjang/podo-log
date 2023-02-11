@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 CREATE TABLE IF NOT EXISTS `user_grain` (
 	`grainId`	bigint	NOT NULL auto_increment,
     `userId`	bigint	NOT NULL,
-	`grain`	int	NOT NULL DEFAULT 0,
+	`grain`	int	NOT NULL DEFAULT 1,
     PRIMARY KEY (`grainId`, `userId`),
      FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -40,6 +40,7 @@ CREATE TABLE IF NOT EXISTS `user_package` (
     `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
     `deletedAt` DATETIME, 
     PRIMARY KEY (`userPackageId`,`userId`,`packageId`),
+    UNIQUE  `user_package_unique` (`userId`, `packageId`), 
     FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (`packageId`) REFERENCES `package` (`packageId`) ON DELETE NO ACTION ON UPDATE CASCADE
 );

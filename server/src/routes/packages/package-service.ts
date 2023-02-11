@@ -1,7 +1,13 @@
 import { ForbiddenError, NoDataError } from "../../core/api-error";
 import { packageModel } from "../../db/models";
-import { imageDeleter } from "../../middlewares";
-import { CreatePackageControllerDTO } from "../../types";
+import {
+  CreatePackageControllerDTO,
+  DataObj,
+  PackageDTO,
+  PackageIdDTO,
+  UserEntity,
+  UserPackageDTO,
+} from "../../types";
 import { checkResult, compressImageUploadByKey } from "../../utils";
 
 class PackageService {
@@ -18,9 +24,44 @@ class PackageService {
     return messageDTO;
   }
 
-  // async getByBookId(bookIdDTO: GetDiaryDTO, pageDTO: PageDTO) {
-  //   const diaries = await this.packageModel.getWithUser(bookIdDTO, pageDTO);
-  //   const messageDTO = { message: "일기 조회에 성공하였습니다.", data: diaries };
+  async buyPackage(packageIdDTO: PackageIdDTO, user: UserEntity) {
+    const [stickerPckg] = await this.packageModel.getOnlyPackage(packageIdDTO);
+    if (!stickerPckg) throw new NoDataError("요청한 패키지가 존재하지 않습니다.");
+    if (user.grape < stickerPckg.podoPrice) throw new ForbiddenError("포도가 모자릅니다.");
+
+    const result = await this.packageModel.buyPackage(packageIdDTO, user);
+    const messageDTO = checkResult(result, "패키지 구매에 성공하였습니다.");
+    return messageDTO;
+  }
+
+  // async getByUserId(userIdDTO: UserPackageDTO) {
+  //   const myPackagesInquiry = await this.packageModel.getOnlyUserPackage(userIdDTO);
+
+  //   const [myPackagesTimeDic, myPackageIds] = myPackagesInquiry.reduce(
+  //     ([timeDic, ids], cur) => {
+  //       const diffdays = (Date.now() - cur.createdAt.getTime()) / (1000 * 60 * 60 * 24);
+  //       const packageId: number = cur.packageId;
+  //       if (diffdays > 7)
+  //         this.packageModel.deleteUserPackageByPackageId({ packageId }); //기다릴 필요 없을듯
+  //       else {
+  //         timeDic[packageId] = cur.createdAt;
+  //         ids.push(packageId);
+  //       }
+  //       return [timeDic, ids];
+  //     },
+  //     [{}, []] as [DataObj, Array<number>]
+  //   );
+
+  //   if (myPackageIds.length === 0)
+  //     return { message: "패키지 조회에 성공하였습니다.", data: [] };
+
+  //   const myPackages = await this.packageModel.getPackageJoinStickersByPakcageId(myPackageIds);
+
+  //   const myPackagesAddDate = myPackages.map((myPackage) => {
+  //     myPackage.createdAt = myPackagesTimeDic[myPackage.packageId];
+  //     return myPackage;
+  //   });
+  //   const messageDTO = { message: "패키지 조회에 성공하였습니다.", data: myPackagesAddDate };
   //   return messageDTO;
   // }
 
