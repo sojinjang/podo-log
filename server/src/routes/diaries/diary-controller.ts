@@ -38,6 +38,14 @@ class DiaryController {
     return new SuccessResponse(messageDTO.message, messageDTO.data).send(res);
   });
 
+  getByDiaryId = asyncHandler(async (req: LoggedRequest, res) => {
+    const bookId = parseInt(req.params.bookId);
+    const diaryId = parseInt(req.params.diaryId);
+
+    const messageDTO = await this.diaryService.getById({ bookId, diaryId });
+    return new SuccessResponse(messageDTO.message, messageDTO.data).send(res);
+  });
+
   pacthById = asyncHandler(async (req: LoggedRequest, res) => {
     const diaryId = parseInt(req.params.diaryId);
     const { title, content } = req.body;
