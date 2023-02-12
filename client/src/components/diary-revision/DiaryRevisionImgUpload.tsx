@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { useRecoilState, useResetRecoilState } from "recoil";
 
 import { diaryRevisionImgAtom } from "src/recoil/diary-revision/atom";
+import { convertURLtoFile } from "src/utils/image";
 import imgUploadIcon from "../../assets/icons/image.png";
 import trashCanIcon from "../../assets/icons/trash-can-white.png";
 import {
@@ -34,6 +35,19 @@ const DiaryRevisionImgUpload = ({ ogPic }: ImgRevisionProps) => {
     if (typeof diaryImg === "string") URL.revokeObjectURL(diaryImg);
     setDiaryImg("");
   };
+  const setOgPic = async () => {
+    if (!ogPic) return;
+    const ogImgFile = await convertURLtoFile(ogPic);
+    setDiaryImg(ogImgFile);
+    reader.readAsDataURL(ogImgFile);
+    reader.onloadend = () => {
+      setImgPreview(reader.result);
+    };
+  };
+
+  useEffect(() => {
+    setOgPic();
+  }, [ogPic]);
 
   useEffect(() => {
     return () => {
