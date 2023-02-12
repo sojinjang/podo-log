@@ -25,4 +25,5 @@ export const API_URL = Object.freeze({
   diaryComments: function (diaryId: number) {
     return this.comments + `?diaryId=${diaryId}`;
   },
+  myPackages: "/api/packages/mine",
 });
