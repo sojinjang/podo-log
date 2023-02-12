@@ -33,12 +33,16 @@ const DiaryDetail = () => {
     isDeleteModalVisibleAtom
   );
   const resetIsDeleteModalVisible = useResetRecoilState(isDeleteModalVisibleAtom);
+  const changeStickerEditState = () => {
+    setIsEditingSticker((prev) => !prev);
+  };
 
   useEffect(() => {
     return () => {
       resetIsDeleteModalVisible();
     };
   }, []);
+
   return (
     <PinkPurpleBackground className="overflow-y-scroll">
       <BackButton />
@@ -46,7 +50,7 @@ const DiaryDetail = () => {
       <Fade duration={1000}>
         <DiarySectionContainer>
           <DiarySection data={data} />
-          <StickerButton />
+          <StickerButton changeEditState={changeStickerEditState} />
           <CommentSection diaryId={diaryId} />
           {isDeleteModalVisible && (
             <DeleteModal
