@@ -40,6 +40,7 @@ const DiaryDetail = () => {
   useEffect(() => {
     return () => {
       resetIsDeleteModalVisible();
+      setIsEditingSticker(false);
     };
   }, []);
 
