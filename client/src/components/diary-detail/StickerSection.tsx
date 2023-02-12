@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
+import { useRecoilValue } from "recoil";
+import { API_URL } from "src/constants/API_URL";
+import { accessTokenAtom } from "src/recoil/token";
+import { get } from "src/utils/api";
 import tw from "tailwind-styled-components";
 
 import sticker1 from "../../assets/emoji/confused.png";
 import sticker2 from "../../assets/emoji/confusion.png";
 import sticker3 from "../../assets/emoji/crying.png";
 import sticker4 from "../../assets/emoji/dead-skin.png";
+import { useDidMountEffect } from "src/utils/hooks";
 
 interface StickerSectionProps {
   changeEditState: () => void;
@@ -12,6 +17,22 @@ interface StickerSectionProps {
 
 export const StickerSection = ({ changeEditState }: StickerSectionProps) => {
   const mockStickerArr = [sticker1, sticker2, sticker3, sticker4];
+  const [myStickerPack, setMyStickerPack] = useState([]);
+  const accessToken = useRecoilValue(accessTokenAtom);
+  const getMyStickerPack = async () => {
+    try {
+      const response = await get(API_URL.myPackages, "", accessToken);
+      const myStickerPackArr = response.data;
+      setMyStickerPack(myStickerPackArr);
+      console.log(myStickerPack);
+    } catch (err) {
+      if (err instanceof Error) alert(err.message);
+    }
+  };
+
+  useDidMountEffect(() => {
+    getMyStickerPack();
+  }, []);
 
   return (
     <Container>
@@ -67,5 +88,5 @@ hover:scale-105 transition duration-500 ease-in-out
 `;
 
 const ExpirationDate = tw.p`
-font-[notosans] mt-auto ml-auto text-[1.4vh] md:text-[1.2vh]
+font-[notosans] text-gray-1000 mt-auto ml-auto text-[1.4vh] md:text-[1.2vh]
 `;
