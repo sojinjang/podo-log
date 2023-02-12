@@ -5,7 +5,7 @@ import { useRecoilValue } from "recoil";
 import { accessTokenAtom } from "src/recoil/token";
 import { API_URL } from "src/constants/API_URL";
 import { get } from "src/utils/api";
-import { DiaryId } from "./DetailedDiaryContainer";
+import { DiaryId } from "../../pages/DiaryDetail";
 import { useDidMountEffect } from "src/utils/hooks";
 import { NewComment } from "./NewComment";
 import { CommentsFamily } from "./CommentsFamily";
