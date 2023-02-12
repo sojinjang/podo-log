@@ -6,7 +6,7 @@ import DiaryRevisionImgUpload from "./DiaryRevisionImgUpload";
 import { diaryRevisionImgAtom } from "src/recoil/diary-revision/atom";
 import { Img } from "src/recoil/new-diary/atom";
 import { API_URL } from "src/constants/API_URL";
-import { postFormData, patch, get } from "src/utils/api";
+import { postFormData, patch, get, del } from "src/utils/api";
 import { useNavigate, useParams } from "react-router-dom";
 import { accessTokenAtom } from "src/recoil/token";
 import { DiaryForm, TitleInput, inputStyle, ContentInput } from "../diary/DiaryFormElem";
@@ -17,9 +17,9 @@ interface DiaryOgInput extends DiaryInput {
   picture: Blob | null;
 }
 
-const createDiaryForm = (diaryImg: Img) => {
+const createFormData = (diaryImg: Img) => {
   const formData = new FormData();
-  if (diaryImg) formData.append("picture", diaryImg);
+  formData.append("picture", diaryImg);
 
   return formData;
 };
@@ -42,12 +42,15 @@ const DiaryRevisionForm = () => {
       return { title, content };
     },
   });
+
   const onSubmitDiaryForm = async ({ title, content }: DiaryInput) => {
-    const formData = createDiaryForm(diaryImg);
+    const isPicDeleted = ogData?.picture !== null && diaryImg === "";
+    const isPicChanged = ogData?.picture !== diaryImg && diaryImg !== "";
     try {
       await patch(API_URL.diary, diaryId, { title, content }, accessToken);
-      if (ogData?.picture !== diaryImg && ogData?.picture !== null)
-        await postFormData(API_URL.diaryImg(diaryId), formData, accessToken);
+      if (isPicDeleted) await del(API_URL.diaryImg(diaryId), "", accessToken);
+      if (isPicChanged)
+        await postFormData(API_URL.diaryImg(diaryId), createFormData(diaryImg), accessToken);
       navigate(-2);
     } catch (err) {
       if (err instanceof Error) alert(err.message);
