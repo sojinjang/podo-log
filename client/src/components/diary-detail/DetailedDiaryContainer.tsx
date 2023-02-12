@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useRecoilState, useResetRecoilState } from "recoil";
 import { useParams } from "react-router-dom";
-import tw from "tailwind-styled-components";
 import Fade from "react-reveal/Fade";
 
 import { isDeleteModalVisibleAtom } from "../../recoil/diary-detail/atom";
@@ -10,6 +9,7 @@ import StickerButton from "./StickerButton";
 import { CommentSection } from "./CommentSection";
 import DeleteModal from "./DeleteModal";
 import { DiarySection } from "./DiarySection";
+import { DiarySectionContainer } from "./DiarySectionContainer";
 
 export interface DiaryContainerProps {
   data: Diary;
@@ -35,7 +35,7 @@ export const DetailedDiaryContainer = ({ data }: DiaryContainerProps) => {
 
   return (
     <Fade duration={1000}>
-      <Container>
+      <DiarySectionContainer>
         <DiarySection data={data} />
         <StickerButton diaryId={diaryId} />
         <CommentSection diaryId={diaryId} />
@@ -46,12 +46,7 @@ export const DetailedDiaryContainer = ({ data }: DiaryContainerProps) => {
             }}
           />
         )}
-      </Container>
+      </DiarySectionContainer>
     </Fade>
   );
 };
-
-const Container = tw.div`
-bg-white/60 rounded-lg shadow-lg
-mx-auto my-[8vh] w-[90%] p-[3vh]
-`;
