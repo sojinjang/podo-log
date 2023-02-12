@@ -11,9 +11,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { accessTokenAtom } from "src/recoil/token";
 import { DiaryForm, TitleInput, inputStyle, ContentInput } from "../diary/DiaryFormElem";
 import { DiaryInput } from "../diary/DiaryInput";
+import { convertURLtoFile } from "src/utils/image";
 
 interface DiaryOgInput extends DiaryInput {
-  picture: string;
+  picture: Blob | null;
 }
 
 const createDiaryForm = (diaryImg: Img) => {
@@ -36,16 +37,18 @@ const DiaryRevisionForm = () => {
     defaultValues: async () => {
       const response = await get(API_URL.bookDiary(Number(bookId)), diaryId, accessToken);
       const { title, picture, content } = response.data;
-      setOgData({ title, picture, content });
-      return { title, picture, content };
+      const pictureFile = picture === "없음" ? null : await convertURLtoFile(picture);
+      setOgData({ title, picture: pictureFile, content });
+      return { title, content };
     },
   });
   const onSubmitDiaryForm = async ({ title, content }: DiaryInput) => {
     const formData = createDiaryForm(diaryImg);
     try {
       await patch(API_URL.diary, diaryId, { title, content }, accessToken);
-      await postFormData(API_URL.diaryImg(diaryId), formData, accessToken);
-      navigate(-1);
+      if (ogData?.picture !== diaryImg && ogData?.picture !== null)
+        await postFormData(API_URL.diaryImg(diaryId), formData, accessToken);
+      navigate(-2);
     } catch (err) {
       if (err instanceof Error) alert(err.message);
     }
@@ -61,7 +64,7 @@ const DiaryRevisionForm = () => {
         required
         {...register("title")}
       />
-      <DiaryRevisionImgUpload ogPic={ogData?.picture ? ogData.picture : ""} />
+      {ogData && <DiaryRevisionImgUpload ogPicFile={ogData.picture} />}
       <ContentInput
         className={`${inputStyle}`}
         placeholder="내용을 입력해주세요."
