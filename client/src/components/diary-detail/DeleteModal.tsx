@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useRecoilValue, useResetRecoilState } from "recoil";
+import React from "react";
+import { useRecoilValue } from "recoil";
 import tw from "tailwind-styled-components";
 import Fade from "react-reveal/Fade";
 
@@ -16,19 +16,13 @@ interface ModalProps {
 const DeleteModal = ({ onClose }: ModalProps) => {
   const accessToken = useRecoilValue(accessTokenAtom);
   const deleteInfo = useRecoilValue(deleteInfoAtom);
-  const resetDeleteInfo = useResetRecoilState(deleteInfoAtom);
-
-  useEffect(() => {
-    return () => {
-      resetDeleteInfo();
-    };
-  }, []);
 
   const onClickDelete = async () => {
     const apiUrl = deleteInfo.target === "diary" ? API_URL.diary : API_URL.comments;
     try {
       await del(apiUrl, String(deleteInfo.id), accessToken);
-      window.location.reload();
+      if (deleteInfo.target === "diary") return window.history.back();
+      return window.location.reload();
     } catch (err) {
       if (err instanceof Error) alert(err.message);
     }
@@ -44,7 +38,7 @@ const DeleteModal = ({ onClose }: ModalProps) => {
           </CloseButton>
           <Content>
             <ConfirmMsg>정말 삭제하시겠습니까?</ConfirmMsg>
-            <GrapeImg src={require("../../assets/grape/grape_8.png")}></GrapeImg>
+            <GrapeImg src={require("../../assets/grape/grape_8.png")} />
             <WarningMsg>⚠️주의하세요!⚠️</WarningMsg>
             <DisadvantageDesc>
               삭제한 정보는 복구할 수 없으며
@@ -55,7 +49,7 @@ const DeleteModal = ({ onClose }: ModalProps) => {
             </DisadvantageDesc>
           </Content>
           <ButtonContainer onClick={onClickDelete}>
-            <PurpleButton description="삭제하기" wrapperStyle="pb-[2vh] " />
+            <PurpleButton description="삭제하기" wrapperStyle="pb-[2vh]" />
           </ButtonContainer>
         </Fade>
       </ModalSection>

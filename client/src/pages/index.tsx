@@ -5,6 +5,7 @@ import { BookSetting } from "./BookSetting";
 import BookRevision from "./BookRevision";
 import NewDiary from "./NewDiary";
 import DiaryDetail from "./DiaryDetail";
+import DiaryRevision from "./DiaryRevision";
 import NotFound from "./NotFound";
 import SignUp from "./SignUp";
 import NewBook from "./NewBook";
@@ -19,6 +20,7 @@ export {
   BookRevision,
   NewDiary,
   DiaryDetail,
+  DiaryRevision,
   NotFound,
   SignUp,
   NewBook,

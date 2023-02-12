@@ -1,7 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useRecoilState, useResetRecoilState } from "recoil";
-import { diaryImgAtom } from "src/recoil/new-diary";
 
+import { useDidMountEffect } from "src/utils/hooks";
+import { diaryRevisionImgAtom } from "src/recoil/diary-revision/atom";
 import imgUploadIcon from "../../assets/icons/image.png";
 import trashCanIcon from "../../assets/icons/trash-can-white.png";
 import {
@@ -11,13 +12,15 @@ import {
   ImgUploadIcon,
 } from "../diary/DairyImgUploadElem";
 
-const DiaryImgUpload = () => {
+interface ImgRevisionProps {
+  ogPicFile: Blob | null;
+}
+const DiaryRevisionImgUpload = ({ ogPicFile }: ImgRevisionProps) => {
   const reader = new FileReader();
   const imgRef = useRef<HTMLInputElement>(null);
-  const [diaryImg, setDiaryImg] = useRecoilState(diaryImgAtom);
-  const resetDiaryImg = useResetRecoilState(diaryImgAtom);
+  const [diaryImg, setDiaryImg] = useRecoilState(diaryRevisionImgAtom);
+  const resetDiaryImg = useResetRecoilState(diaryRevisionImgAtom);
   const [imgPreview, setImgPreview] = useState<string | ArrayBuffer | null>("");
-
   const saveImgFile = () => {
     if (imgRef?.current?.files) {
       const file = imgRef.current.files[0];
@@ -28,11 +31,20 @@ const DiaryImgUpload = () => {
       };
     }
   };
-
   const deleteImgFile = () => {
     if (typeof diaryImg === "string") URL.revokeObjectURL(diaryImg);
     setDiaryImg("");
   };
+  const setOgPic = async () => {
+    if (!ogPicFile) return;
+    setDiaryImg(ogPicFile);
+    reader.readAsDataURL(ogPicFile);
+    reader.onloadend = () => {
+      setImgPreview(reader.result);
+    };
+  };
+
+  useDidMountEffect(setOgPic, [ogPicFile]);
 
   useEffect(() => {
     return () => {
@@ -64,4 +76,4 @@ const DiaryImgUpload = () => {
   );
 };
 
-export default DiaryImgUpload;
+export default DiaryRevisionImgUpload;

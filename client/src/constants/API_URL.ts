@@ -11,10 +11,16 @@ export const API_URL = Object.freeze({
   members: function (bookId: number) {
     return this.books + `/${bookId}/members`;
   },
+  bookDiary: function (bookId: number) {
+    return this.books + `/${bookId}/diaries`;
+  },
   diaryList: function (bookId: number, limit: number, startIdx: number) {
-    return this.books + `/${bookId}/diaries?limit=${limit}&start=${startIdx}`;
+    return this.bookDiary(bookId) + `?limit=${limit}&start=${startIdx}`;
   },
   diary: "/api/diaries",
+  diaryImg: function (diaryId: string) {
+    return this.diary + `/image/${diaryId}`;
+  },
   comments: "/api/comments",
   diaryComments: function (diaryId: number) {
     return this.comments + `?diaryId=${diaryId}`;

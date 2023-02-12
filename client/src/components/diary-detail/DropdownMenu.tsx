@@ -1,19 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import tw from "tailwind-styled-components";
 import { Menu, Transition } from "@headlessui/react";
 
+import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 import MenuImg from "../../assets/icons/menu.png";
 import DropdownImg from "../../assets/icons/dropdown_menu.png";
 import { isDeleteModalVisibleAtom } from "src/recoil/diary-detail";
 import { DeleteInfo, deleteInfoAtom } from "../../recoil/diary-detail/atom";
 
 interface DropdownMenuProps {
-  setIsBeingEdited: (state: boolean) => void;
+  setCommentIsBeingEdited?: (state: boolean) => void;
   deleteInfo: DeleteInfo;
 }
 
-export const DropdownMenu = ({ setIsBeingEdited, deleteInfo }: DropdownMenuProps) => {
+export const DropdownMenu = ({ setCommentIsBeingEdited, deleteInfo }: DropdownMenuProps) => {
+  const navigate = useNavigate();
   const setIsDeleteModalVisible = useSetRecoilState(isDeleteModalVisibleAtom);
   const setDeleteInfo = useSetRecoilState(deleteInfoAtom);
   const [isDropdownActivatied, setIsDropdownActivatied] = useState<boolean>(false);
@@ -48,11 +51,12 @@ export const DropdownMenu = ({ setIsBeingEdited, deleteInfo }: DropdownMenuProps
         leaveFrom="transform scale-100 opacity-100"
         leaveTo="transform scale-50 opacity-0"
       >
-        <Menu.Items className="absolute right-1 bg-white/60 p-1 md:p-3 rounded-xl shadow-lg">
+        <Menu.Items className="absolute z-20 right-1 bg-white/60 backdrop-blur-3xl p-1 md:p-3 rounded-xl shadow-lg">
           <Menu.Item>
             <ButtonContainer
               onClick={() => {
-                setIsBeingEdited(true);
+                if (setCommentIsBeingEdited) return setCommentIsBeingEdited(true);
+                navigate(PRIVATE_ROUTE.diaryRevision.path.split("/").reverse()[0]);
               }}
             >
               <ButtonIconImg src={require("../../assets/icons/pencil.png")} />
