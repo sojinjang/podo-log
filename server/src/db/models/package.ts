@@ -88,6 +88,15 @@ class PackageModel {
     }
   }
 
+  async getStickers(packageIdDTO: PackageIdDTO, columnArr: string[] = ["*"]) {
+    const { query, values } = stickerBuildQuery.makeSelectQuery({ ...packageIdDTO });
+    logger.info(query);
+    logger.debug(values);
+    const [result] = await pool.query<RowDataPacket[]>(query, values);
+    logger.debug(result);
+    return result;
+  }
+
   async getOnlyPackage(packageIdDTO: PackageIdDTO, columnArr: string[] = ["*"]) {
     const { query, values } = packageBuildQuery.makeSelectQuery({ ...packageIdDTO });
     logger.info(query);
@@ -133,40 +142,6 @@ class PackageModel {
     return result;
   }
 
-  // async getPackage(PackageIdDTO: PackageIdDTO, columnArr: string[] = ["*"]) {
-  //   const joinQuery = `JOIN user on user.userId = comment.userId`;
-  //   columnArr = [
-  //     "commentId",
-  //     "comment.userId",
-  //     "nickname",
-  //     "profile",
-  //     "parentCommentId",
-  //     "reply",
-  //     "comment.createdAt",
-  //     "comment.updatedAt",
-  //   ];
-  //   const { query, values } = packageBuildQuery.makeSelectQuery(
-  //     { ...getCommentDTO },
-  //     columnArr,
-  //     joinQuery
-  //   );
-  //   logger.info(query);
-  //   logger.debug(values);
-  //   const [result] = await pool.query<RowDataPacket[]>(query, values);
-  //   logger.debug(result);
-  //   return result;
-  // }
-  // async pacth(whereDTO: CommentIdDTO, commentDTO: UpdateCommentDTO) {
-  //   const { query, values } = packageBuildQuery.makeUpdateQuery(
-  //     { ...whereDTO },
-  //     { ...commentDTO }
-  //   );
-  //   logger.info(query);
-  //   logger.debug(values);
-  //   const [result] = await pool.query<ResultSetHeader>(query, values);
-  //   logger.debug(result);
-  //   return result;
-  // }
   async deleteUserPackageByPackageId(packageIdDTO: PackageIdDTO) {
     const { query, values } = userPackageBuildQuery.makeDeleteQuery({ ...packageIdDTO });
     logger.info(query);
@@ -180,6 +155,14 @@ class PackageModel {
     const inQuery = `user_package.packageId In (${packageIdArr.join(",")})`;
 
     const { query, values } = userPackageBuildQuery.makeDeleteQuery(undefined, inQuery);
+    logger.info(query);
+    logger.debug(values);
+    const [result] = await pool.query<ResultSetHeader>(query, values);
+    logger.debug(result);
+    return result;
+  }
+  async deletePackage(packageIdDTO: PackageIdDTO) {
+    const { query, values } = packageBuildQuery.makeDeleteQuery({ ...packageIdDTO });
     logger.info(query);
     logger.debug(values);
     const [result] = await pool.query<ResultSetHeader>(query, values);

@@ -3,7 +3,7 @@ import multer from "multer";
 import multerS3 from "multer-s3";
 import { logger } from "../utils";
 import { s3Client, bucketName } from "../config/aws-s3.config";
-import { DeleteObjectCommand } from "@aws-sdk/client-s3";
+import { DeleteObjectCommand, DeleteObjectsCommand } from "@aws-sdk/client-s3";
 import { Request } from "express";
 import { BadRequestError } from "../core/api-error";
 
@@ -53,4 +53,19 @@ const imageDeleter = async (key: string) => {
   }
 };
 
-export { imageUploader, imageDeleter };
+const imageObjDeleter = async (Objects: { Key: string }[]) => {
+  let params = {
+    Bucket: bucketName,
+    Delete: { Objects },
+  };
+  try {
+    const data = await s3Client.send(new DeleteObjectsCommand(params));
+    logger.info(`정상 삭제 되었습니다.`);
+    logger.info(data);
+  } catch (err) {
+    logger.error(err);
+    throw new BadRequestError("이미지 삭제에 실패하였습니다.");
+  }
+};
+
+export { imageUploader, imageDeleter, imageObjDeleter };
