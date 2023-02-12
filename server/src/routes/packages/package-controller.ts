@@ -27,6 +27,12 @@ class PackageController {
     return new SuccessResponse(messageDTO.message, messageDTO.data).send(res);
   });
 
+  getStickersByPackageId = asyncHandler(async (req: LoggedRequest, res) => {
+    const packageId = parseInt(req.params.packageId);
+
+    const messageDTO = await this.packageService.getStickersByPackageId({ packageId });
+    return new SuccessResponse(messageDTO.message, messageDTO.data).send(res);
+  });
   getMyPackage = asyncHandler(async (req: LoggedRequest, res) => {
     const { userId } = req.user;
 
@@ -41,46 +47,13 @@ class PackageController {
     return new SuccessResponse(messageDTO.message, messageDTO.data).send(res);
   });
 
-  // pacthById = asyncHandler(async (req: LoggedRequest, res) => {
-  //   const diaryId = parseInt(req.params.diaryId);
-  //   const { title, content } = req.body;
-  //   const { userId } = req.user;
+  deletePackage = asyncHandler(async (req: LoggedRequest, res) => {
+    const packageId = parseInt(req.params.packageId);
 
-  //   let updateDiaryDTO: UpdateDiaryDTO = { title, content };
+    const messageDTO = await this.packageService.deletePackage({ packageId });
 
-  //   const messageDTO = await this.packageService.pacthById({ diaryId }, updateDiaryDTO, {
-  //     userId,
-  //   });
-  //   return new SuccessMsgResponse(messageDTO.message).send(res);
-  // });
-
-  // deleteById = asyncHandler(async (req: LoggedRequest, res) => {
-  //   const diaryId = parseInt(req.params.diaryId);
-  //   const { userId } = req.user;
-
-  //   const messageDTO = await this.packageService.deleteById({ diaryId }, { userId });
-
-  //   return new SuccessMsgResponse(messageDTO.message).send(res);
-  // });
-
-  // updatePicture = asyncHandler(async (req: FileRequest, res) => {
-  //   const diaryId = parseInt(req.params.diaryId);
-  //   const { userId } = req.user;
-  //   const picture = req.file?.key;
-  //   if (!picture) throw new BadRequestError("이미지를 보내주세요.");
-
-  //   const messageDTO = await this.packageService.updateImage({ diaryId, picture }, { userId });
-
-  //   return new SuccessMsgResponse(messageDTO.message).send(res);
-  // });
-
-  // deletePicture = asyncHandler(async (req: FileRequest, res) => {
-  //   const diaryId = parseInt(req.params.diaryId);
-  //   const { userId } = req.user;
-  //   const messageDTO = await this.packageService.deleteImage({ diaryId }, { userId });
-
-  //   return new SuccessMsgResponse(messageDTO.message).send(res);
-  // });
+    return new SuccessMsgResponse(messageDTO.message).send(res);
+  });
 }
 
 export const packageController = new PackageController();
