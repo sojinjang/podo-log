@@ -6,12 +6,19 @@ import sticker2 from "../../assets/emoji/confusion.png";
 import sticker3 from "../../assets/emoji/crying.png";
 import sticker4 from "../../assets/emoji/dead-skin.png";
 
-export const StickerSection = () => {
+interface StickerSectionProps {
+  changeEditState: () => void;
+}
+
+export const StickerSection = ({ changeEditState }: StickerSectionProps) => {
   const mockStickerArr = [sticker1, sticker2, sticker3, sticker4];
 
   return (
     <Container>
-      <SectionTitle>스티커</SectionTitle>
+      <div className="flex">
+        <SectionTitle>스티커</SectionTitle>
+        <CloseButton onClick={changeEditState}>X</CloseButton>
+      </div>
       <DivisionLine />
       <div className="flex">
         <StickerPackName className="underline">emoji</StickerPackName>
@@ -29,11 +36,16 @@ export const StickerSection = () => {
 
 const Container = tw.div`
 fixed bottom-0 h-[30vh] w-[calc(100vh/16*9)] flex flex-col bg-white/60
-backdrop-blur-sm rounded-t-lg p-3 z-10overflow-y-scroll
+backdrop-blur-sm rounded-t-lg p-4 z-10 overflow-y-scroll
 `;
 
 const SectionTitle = tw.p`
 font-[notosans] font-bold text-[2.1vh] md:text-[1.9vh]
+`;
+
+const CloseButton = tw.button`
+flex flex-end cursor-pointer ml-auto
+font-[notosans] text-[2vh] md:text-[1.8vh]
 `;
 
 const DivisionLine = tw.hr`

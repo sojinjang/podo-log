@@ -64,7 +64,7 @@ const DiaryDetail = () => {
       </Fade>
       {isEditingSticker && (
         <>
-          <StickerSection />
+          <StickerSection changeEditState={changeStickerEditState} />
           <div className="h-[23vh] " />
         </>
       )}
