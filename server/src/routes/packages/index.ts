@@ -16,13 +16,16 @@ router.post(
   validator(schema.packageId, ValidationSource.PARAM),
   packageController.buyPackage
 );
-// router.get("/mine", packageController.getMyPackage);
+router.get("/mine", packageController.getMyPackage);
+router.get("/shop", packageController.getPackageInshop);
+
 // router.patch(
 //   "/:diaryId",
 //   validator(schema.diaryId, ValidationSource.PARAM),
 //   validator(schema.patchDiary),
 //   packageController.pacthById
 // );
+
 // router.delete(
 //   "/:diaryId",
 //   validator(schema.diaryId, ValidationSource.PARAM),

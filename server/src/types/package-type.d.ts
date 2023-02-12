@@ -30,4 +30,5 @@ export interface PackageDTO {
 export interface UserPackageDTO {
   packageId?: number;
   userId?: number;
+  expiration?: date;
 }

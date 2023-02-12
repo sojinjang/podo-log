@@ -39,7 +39,8 @@ export class BuildQuery {
     whereDTO?: DataObj,
     columnArr: string[] = ["*"],
     joinQuery: string = "",
-    pageQuery: string = ""
+    pageQuery: string = "",
+    inQuery: string = ""
   ) {
     let wheres, values;
     if (whereDTO === undefined) wheres = "";
@@ -48,9 +49,10 @@ export class BuildQuery {
       wheres = BuildQuery.keyArrToWheres(keyArr);
       values = valueArr;
     }
-
     const columns = columnArr.join(", ");
-    const query = `select ${columns} from ${this.table} ${joinQuery} where ${wheres} ${pageQuery}`;
+    const query = `select ${columns} from ${this.table} ${joinQuery} ${
+      wheres || inQuery ? "where" : ""
+    } ${wheres} ${inQuery}  ${pageQuery}`;
     return { query, values };
   }
 
@@ -94,11 +96,16 @@ export class BuildQuery {
     return { query, values };
   }
 
-  makeDeleteQuery(whereDTO: DataObj) {
-    const { keyArr, valueArr: values } = BuildQuery.objToKeyValueArr(whereDTO);
-    const wheres = BuildQuery.keyArrToWheres(keyArr);
+  makeDeleteQuery(whereDTO?: DataObj, inQuery: string = "") {
+    let wheres, values;
+    if (whereDTO === undefined) wheres = "";
+    else {
+      const { keyArr, valueArr } = BuildQuery.objToKeyValueArr(whereDTO);
+      wheres = BuildQuery.keyArrToWheres(keyArr);
+      values = valueArr;
+    }
 
-    const query = `delete from ${this.table} where ${wheres}`;
+    const query = `delete from ${this.table} where ${wheres} ${inQuery}`;
     return { query, values };
   }
 }

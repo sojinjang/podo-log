@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS `user_package` (
 	`userPackageId`	bigint	NOT NULL auto_increment,
 	`userId`	bigint	NOT NULL,
 	`packageId`	bigint	NOT NULL,
+	`expiration`DATETIME NOT NULL,
     `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, 
     `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
     `deletedAt` DATETIME, 

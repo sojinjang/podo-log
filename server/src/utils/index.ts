@@ -7,3 +7,4 @@ export * from "./create-invtt-code";
 export * from "./check-result";
 export * from "./build-image-location";
 export * from "./image-upload-with-resizing";
+export * from "./check-expiration-package";
