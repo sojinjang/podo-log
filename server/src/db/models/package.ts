@@ -53,7 +53,7 @@ class PackageModel {
     }
   }
 
-  async buyPackage(packageIdDTO: PackageIdDTO, user: UserEntity) {
+  async buyPackage(packageDTO: UserPackageDTO, user: UserEntity) {
     const conn = await pool.getConnection();
     try {
       const { userId, grape } = user;
@@ -68,7 +68,7 @@ class PackageModel {
       logger.debug(result1);
 
       const { query: query2, values: values2 } = userPackageBuildQuery.makeInsertQuery({
-        packageId: packageIdDTO.packageId,
+        ...packageDTO,
         userId,
       });
       logger.info(query2);
@@ -106,26 +106,32 @@ class PackageModel {
     return result;
   }
 
-  // async getPackageJoinStickersByPakcageId(
-  //   packageIdArr: number[],
-  //   columnArr: string[] = ["*"]
-  // ) {
-  //   const joinQuery = `JOIN (select packageId ,JSON_ARRAYAGG(JSON_OBJECT('stickerId', stickerId, 'stickerName', stickerName ,'stickerImg',stickerImg)) as stickers from sticker group by packageId ) as st on st.packageId = package.packageId`;
-  //   const inQuery = `package.packageId In (${packageIdArr.join(",")})`;
+  async getPackageJoinStickersByPakcageIdArr(
+    packageIdArr: number[],
+    isIn: boolean = true,
+    columnArr: string[] = ["*"]
+  ) {
+    let inQuery;
+    if (packageIdArr.length === 0) {
+      if (isIn) return [];
+      else inQuery = ``;
+    }
 
-  //   const { query, values } = packageBuildQuery.makeSelectQuery(
-  //     undefined,
-  //     undefined,
-  //     joinQuery,
-  //     undefined,
-  //     inQuery
-  //   );
-  //   logger.info(query);
-  //   logger.debug(values);
-  //   const [result] = await pool.query<RowDataPacket[]>(query, values);
-  //   logger.debug(result);
-  //   return result;
-  // }
+    const joinQuery = `JOIN (select packageId ,JSON_ARRAYAGG(JSON_OBJECT('stickerId', stickerId, 'stickerName', stickerName ,'stickerImg',stickerImg)) as stickers from sticker group by packageId ) as st on st.packageId = package.packageId`;
+
+    const { query, values } = packageBuildQuery.makeSelectQuery(
+      undefined,
+      undefined,
+      joinQuery,
+      undefined,
+      inQuery
+    );
+    logger.info(query);
+    logger.debug(values);
+    const [result] = await pool.query<RowDataPacket[]>(query, values);
+    logger.debug(result);
+    return result;
+  }
 
   // async getPackage(PackageIdDTO: PackageIdDTO, columnArr: string[] = ["*"]) {
   //   const joinQuery = `JOIN user on user.userId = comment.userId`;
@@ -163,6 +169,17 @@ class PackageModel {
   // }
   async deleteUserPackageByPackageId(packageIdDTO: PackageIdDTO) {
     const { query, values } = userPackageBuildQuery.makeDeleteQuery({ ...packageIdDTO });
+    logger.info(query);
+    logger.debug(values);
+    const [result] = await pool.query<ResultSetHeader>(query, values);
+    logger.debug(result);
+    return result;
+  }
+  async deleteUserPackageByPackageIdArr(packageIdArr: number[]) {
+    if (packageIdArr.length === 0) return [];
+    const inQuery = `user_package.packageId In (${packageIdArr.join(",")})`;
+
+    const { query, values } = userPackageBuildQuery.makeDeleteQuery(undefined, inQuery);
     logger.info(query);
     logger.debug(values);
     const [result] = await pool.query<ResultSetHeader>(query, values);

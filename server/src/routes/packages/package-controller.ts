@@ -27,12 +27,19 @@ class PackageController {
     return new SuccessResponse(messageDTO.message, messageDTO.data).send(res);
   });
 
-  // getMyPackage = asyncHandler(async (req: LoggedRequest, res) => {
-  //   const { userId } = req.user;
+  getMyPackage = asyncHandler(async (req: LoggedRequest, res) => {
+    const { userId } = req.user;
 
-  //   const messageDTO = await this.packageService.getByUserId({ userId });
-  //   return new SuccessResponse(messageDTO.message, messageDTO.data).send(res);
-  // });
+    const messageDTO = await this.packageService.getByUserId({ userId });
+    return new SuccessResponse(messageDTO.message, messageDTO.data).send(res);
+  });
+
+  getPackageInshop = asyncHandler(async (req: LoggedRequest, res) => {
+    const { userId } = req.user;
+
+    const messageDTO = await this.packageService.getPackageInshop({ userId });
+    return new SuccessResponse(messageDTO.message, messageDTO.data).send(res);
+  });
 
   // pacthById = asyncHandler(async (req: LoggedRequest, res) => {
   //   const diaryId = parseInt(req.params.diaryId);
