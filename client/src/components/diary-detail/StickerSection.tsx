@@ -6,6 +6,7 @@ import { get } from "src/utils/api";
 import tw from "tailwind-styled-components";
 
 import { useDidMountEffect } from "src/utils/hooks";
+import changeToKoreanDate from "src/utils/date";
 
 interface StickerSectionProps {
   changeEditState: () => void;
@@ -19,7 +20,10 @@ interface StickerPack {
 }
 
 interface Stickers {
-  [packageId: number]: StickerInfo[];
+  [packageId: number]: {
+    expiration: Date;
+    stickers: StickerInfo[];
+  };
 }
 
 interface StickerInfo {
@@ -45,7 +49,7 @@ export const StickerSection = ({ changeEditState }: StickerSectionProps) => {
   const pairPackIdWithStickers = (myStickerPackArr: StickerPack[]) => {
     const stickersObj: Stickers = {};
     myStickerPackArr.forEach((pack: StickerPack) => {
-      stickersObj[pack.packageId] = pack.stickers;
+      stickersObj[pack.packageId] = { expiration: pack.expiration, stickers: pack.stickers };
     });
     return stickersObj;
   };
@@ -78,11 +82,13 @@ export const StickerSection = ({ changeEditState }: StickerSectionProps) => {
       </div>
       <StickerPreviewContainer>
         {stickers &&
-          stickers[targetPackId].map((sticker) => {
+          stickers[targetPackId]["stickers"].map((sticker) => {
             return <StickerPreview key={sticker.stickerId} src={sticker.stickerImg} />;
           })}
       </StickerPreviewContainer>
-      <ExpirationDate>~2022/01/17</ExpirationDate>
+      <ExpirationDate>
+        {stickers && `~ ${changeToKoreanDate(stickers[targetPackId]["expiration"])}`}
+      </ExpirationDate>
     </Container>
   );
 };
