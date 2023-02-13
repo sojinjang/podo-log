@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { useRecoilState, useResetRecoilState, useRecoilValue } from "recoil";
+import { v4 as uuidv4 } from "uuid";
 import Fade from "react-reveal/Fade";
 
 import { isDeleteModalVisibleAtom, selectedStickersAtom } from "../recoil/diary-detail/atom";
@@ -44,7 +45,7 @@ const DiaryDetail = () => {
       setIsEditingSticker(false);
     };
   }, []);
-  console.log(selectedStickers);
+
   return (
     <PinkPurpleBackground className="overflow-auto">
       <BackButton />
@@ -53,7 +54,7 @@ const DiaryDetail = () => {
           <StickerSaveBtn />
           {selectedStickers.map((sticker) => {
             return (
-              <div key={sticker.stickerId} className="relative">
+              <div key={uuidv4()} className="relative">
                 <div className="z-10 absolute top-[10vh]">
                   <img className="h-[10vh]" src={sticker.stickerImg} />
                 </div>
