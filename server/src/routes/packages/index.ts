@@ -11,18 +11,20 @@ router.post(
   validator(schema.createPackage),
   packageController.create
 );
+router.get("/mine", packageController.getMyPackage);
+router.get("/shop", packageController.getPackageInshop);
+
 router.post(
   "/:packageId",
   validator(schema.packageId, ValidationSource.PARAM),
   packageController.buyPackage
 );
+
 router.get(
   "/:packageId",
   validator(schema.packageId, ValidationSource.PARAM),
   packageController.getStickersByPackageId
 );
-router.get("/mine", packageController.getMyPackage);
-router.get("/shop", packageController.getPackageInshop);
 
 router.delete(
   "/:packageId",
