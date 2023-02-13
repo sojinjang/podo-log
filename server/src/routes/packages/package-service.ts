@@ -7,7 +7,12 @@ import {
   UserEntity,
   UserPackageDTO,
 } from "../../types";
-import { checkExpiration, checkResult, compressImageUploadByKey } from "../../utils";
+import {
+  buildImgLocation,
+  checkExpiration,
+  checkResult,
+  compressImageUploadByKey,
+} from "../../utils";
 
 class PackageService {
   private packageModel = packageModel;
@@ -40,8 +45,9 @@ class PackageService {
 
   async getStickersByPackageId(packageIdDTO: PackageIdDTO) {
     const stikers = await this.packageModel.getStickers(packageIdDTO);
+    const data = buildImgLocation(stikers, "stickerImg");
 
-    const messageDTO = { message: "패키지 조회에 성공하였습니다.", data: stikers };
+    const messageDTO = { message: "패키지 조회에 성공하였습니다.", data };
     return messageDTO;
   }
 
@@ -57,6 +63,8 @@ class PackageService {
 
     const myPackagesAddDate = myPackages.map((myPackage) => {
       myPackage.expiration = myPackagesTimeDic[myPackage.packageId];
+      myPackage.stickers = buildImgLocation(myPackage.stickers, "stickerImg");
+
       return myPackage;
     });
 
@@ -72,7 +80,16 @@ class PackageService {
       false
     );
 
-    const messageDTO = { message: "상점 패키지 조회에 성공하였습니다.", data: shopPackages };
+    const shopPackagesAddImgDomain = shopPackages.map((pckg) => {
+      pckg.stickers = buildImgLocation(pckg.stickers, "stickerImg");
+
+      return pckg;
+    });
+
+    const messageDTO = {
+      message: "상점 패키지 조회에 성공하였습니다.",
+      data: shopPackagesAddImgDomain,
+    };
     return messageDTO;
   }
 
