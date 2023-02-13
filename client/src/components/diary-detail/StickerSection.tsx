@@ -5,29 +5,48 @@ import { accessTokenAtom } from "src/recoil/token";
 import { get } from "src/utils/api";
 import tw from "tailwind-styled-components";
 
-import sticker1 from "../../assets/emoji/confused.png";
-import sticker2 from "../../assets/emoji/confusion.png";
-import sticker3 from "../../assets/emoji/crying.png";
-import sticker4 from "../../assets/emoji/dead-skin.png";
 import { useDidMountEffect } from "src/utils/hooks";
 
 interface StickerSectionProps {
   changeEditState: () => void;
 }
 
+interface StickerPack {
+  packageId: number;
+  packageName: string;
+  expiration: Date;
+  stickers: StickerInfo[];
+}
+
+interface Stickers {
+  [packageId: number]: StickerInfo[];
+}
+
+interface StickerInfo {
+  stickerId: number;
+  stickerImg: string;
+}
+
 export const StickerSection = ({ changeEditState }: StickerSectionProps) => {
-  const mockStickerArr = [sticker1, sticker2, sticker3, sticker4];
-  const [myStickerPack, setMyStickerPack] = useState([]);
+  const [myStickerPack, setMyStickerPack] = useState<StickerPack[]>([]);
+  const [stickers, setStickers] = useState<Stickers | null>(null);
   const accessToken = useRecoilValue(accessTokenAtom);
   const getMyStickerPack = async () => {
     try {
       const response = await get(API_URL.myPackages, "", accessToken);
       const myStickerPackArr = response.data;
       setMyStickerPack(myStickerPackArr);
-      console.log(myStickerPack);
+      setStickers(pairPackIdWithStickers(myStickerPackArr));
     } catch (err) {
       if (err instanceof Error) alert(err.message);
     }
+  };
+  const pairPackIdWithStickers = (myStickerPackArr: StickerPack[]) => {
+    const stickersObj: Stickers = {};
+    myStickerPackArr.forEach((pack: StickerPack) => {
+      stickersObj[pack.packageId] = pack.stickers;
+    });
+    return stickersObj;
   };
 
   useDidMountEffect(() => {
@@ -43,12 +62,15 @@ export const StickerSection = ({ changeEditState }: StickerSectionProps) => {
       <DivisionLine />
       <div className="flex">
         <StickerPackName className="underline">emoji</StickerPackName>
-        <StickerPackName>frog</StickerPackName>
+        {myStickerPack.map((pack) => {
+          return <StickerPackName key={pack.packageId}>{pack.packageName}</StickerPackName>;
+        })}
       </div>
       <StickerPreviewContainer>
-        {mockStickerArr.map((sticker) => {
-          return <StickerPreview key={sticker} src={sticker} />;
-        })}
+        {stickers &&
+          stickers[4].map((sticker) => {
+            return <StickerPreview key={sticker.stickerId} src={sticker.stickerImg} />;
+          })}
       </StickerPreviewContainer>
       <ExpirationDate>~2022/01/17</ExpirationDate>
     </Container>
