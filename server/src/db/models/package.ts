@@ -124,6 +124,8 @@ class PackageModel {
     if (packageIdArr.length === 0) {
       if (isIn) return [];
       else inQuery = ``;
+    } else {
+      inQuery = `package.packageId ${isIn ? "in" : "not in"} (${packageIdArr.join(",")})`;
     }
 
     const joinQuery = `JOIN (select packageId ,JSON_ARRAYAGG(JSON_OBJECT('stickerId', stickerId, 'stickerName', stickerName ,'stickerImg',stickerImg)) as stickers from sticker group by packageId ) as st on st.packageId = package.packageId`;
