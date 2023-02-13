@@ -1,4 +1,5 @@
 import { atom } from "recoil";
+import { StickerInfo } from "src/components/diary-detail/StickerSection";
 
 export interface DeleteInfo {
   id: number | undefined;
@@ -18,3 +19,7 @@ export const deleteInfoAtom = atom<DeleteInfo>({
   },
 });
 
+export const selectedStickersAtom = atom<StickerInfo[]>({
+  key: "selectedStickersAtom",
+  default: [],
+});
