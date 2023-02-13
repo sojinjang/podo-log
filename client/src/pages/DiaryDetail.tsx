@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useLocation } from "react-router-dom";
-import { useRecoilState, useResetRecoilState } from "recoil";
+import { useRecoilState, useResetRecoilState, useRecoilValue } from "recoil";
 import Fade from "react-reveal/Fade";
 
-import { isDeleteModalVisibleAtom } from "../recoil/diary-detail/atom";
+import { isDeleteModalVisibleAtom, selectedStickersAtom } from "../recoil/diary-detail/atom";
 import { PinkPurpleBackground } from "src/components/common/Backgrounds";
 import BackButton from "../components/common/BackButton";
 import { Diary } from "../components/book/DiaryListContainer";
@@ -29,6 +29,7 @@ const DiaryDetail = () => {
   const params = useParams();
   const diaryId = Number(params.diaryId);
   const [isEditingSticker, setIsEditingSticker] = useState<boolean>(true);
+  const selectedStickers = useRecoilValue(selectedStickersAtom);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useRecoilState(
     isDeleteModalVisibleAtom
   );
@@ -43,11 +44,24 @@ const DiaryDetail = () => {
       setIsEditingSticker(false);
     };
   }, []);
-
+  console.log(selectedStickers);
   return (
-    <PinkPurpleBackground className="overflow-y-scroll">
+    <PinkPurpleBackground className="overflow-auto">
       <BackButton />
-      {isEditingSticker && <StickerSaveBtn />}
+      {isEditingSticker && (
+        <>
+          <StickerSaveBtn />
+          {selectedStickers.map((sticker) => {
+            return (
+              <div key={sticker.stickerId} className="relative">
+                <div className="z-10 absolute top-[10vh]">
+                  <img className="h-[10vh]" src={sticker.stickerImg} />
+                </div>
+              </div>
+            );
+          })}
+        </>
+      )}
       <Fade duration={1000}>
         <DiarySectionContainer>
           <DiarySection data={data} />
@@ -65,7 +79,7 @@ const DiaryDetail = () => {
       {isEditingSticker && (
         <>
           <StickerSection changeEditState={changeStickerEditState} />
-          <div className="h-[23vh] " />
+          <div className="h-[23vh]" />
         </>
       )}
     </PinkPurpleBackground>

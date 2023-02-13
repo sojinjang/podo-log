@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { API_URL } from "src/constants/API_URL";
 import { accessTokenAtom } from "src/recoil/token";
 import { get } from "src/utils/api";
@@ -7,34 +7,36 @@ import tw from "tailwind-styled-components";
 
 import { useDidMountEffect } from "src/utils/hooks";
 import changeToKoreanDate from "src/utils/date";
+import { selectedStickersAtom } from "src/recoil/diary-detail/atom";
 
 interface StickerSectionProps {
   changeEditState: () => void;
 }
-
+export interface StickerInfo {
+  stickerId: number;
+  stickerImg: string;
+}
 interface StickerPack {
   packageId: number;
   packageName: string;
   expiration: Date;
   stickers: StickerInfo[];
 }
-
-interface Stickers {
-  [packageId: number]: {
-    expiration: Date;
-    stickers: StickerInfo[];
-  };
+interface StickersPreview {
+  [packageId: number]: StickersWithExpiry;
 }
-
-interface StickerInfo {
-  stickerId: number;
-  stickerImg: string;
+interface StickersInfoArrObj {
+  stickers: StickerInfo[];
+}
+interface StickersWithExpiry extends StickersInfoArrObj {
+  expiration: Date;
 }
 
 export const StickerSection = ({ changeEditState }: StickerSectionProps) => {
   const [myStickerPack, setMyStickerPack] = useState<StickerPack[]>([]);
-  const [stickers, setStickers] = useState<Stickers | null>(null);
+  const [stickers, setStickers] = useState<StickersPreview | null>(null);
   const [targetPackId, setTargetPackId] = useState<number>(2);
+  const setSelectedStickers = useSetRecoilState(selectedStickersAtom);
   const accessToken = useRecoilValue(accessTokenAtom);
   const getMyStickerPack = async () => {
     try {
@@ -47,7 +49,7 @@ export const StickerSection = ({ changeEditState }: StickerSectionProps) => {
     }
   };
   const pairPackIdWithStickers = (myStickerPackArr: StickerPack[]) => {
-    const stickersObj: Stickers = {};
+    const stickersObj: StickersPreview = {};
     myStickerPackArr.forEach((pack: StickerPack) => {
       stickersObj[pack.packageId] = { expiration: pack.expiration, stickers: pack.stickers };
     });
@@ -83,7 +85,20 @@ export const StickerSection = ({ changeEditState }: StickerSectionProps) => {
       <StickerPreviewContainer>
         {stickers &&
           stickers[targetPackId]["stickers"].map((sticker) => {
-            return <StickerPreview key={sticker.stickerId} src={sticker.stickerImg} />;
+            return (
+              <StickerPreview
+                onClick={() => {
+                  setSelectedStickers((prev) => {
+                    return [
+                      ...prev,
+                      { stickerId: sticker.stickerId, stickerImg: sticker.stickerImg },
+                    ];
+                  });
+                }}
+                key={sticker.stickerId}
+                src={sticker.stickerImg}
+              />
+            );
           })}
       </StickerPreviewContainer>
       <ExpirationDate>
