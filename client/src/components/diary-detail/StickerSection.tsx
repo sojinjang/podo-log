@@ -30,6 +30,7 @@ interface StickerInfo {
 export const StickerSection = ({ changeEditState }: StickerSectionProps) => {
   const [myStickerPack, setMyStickerPack] = useState<StickerPack[]>([]);
   const [stickers, setStickers] = useState<Stickers | null>(null);
+  const [targetPackId, setTargetPackId] = useState<number>(2);
   const accessToken = useRecoilValue(accessTokenAtom);
   const getMyStickerPack = async () => {
     try {
@@ -61,14 +62,23 @@ export const StickerSection = ({ changeEditState }: StickerSectionProps) => {
       </div>
       <DivisionLine />
       <div className="flex">
-        <StickerPackName className="underline">emoji</StickerPackName>
         {myStickerPack.map((pack) => {
-          return <StickerPackName key={pack.packageId}>{pack.packageName}</StickerPackName>;
+          return (
+            <StickerPackName
+              onClick={() => {
+                setTargetPackId(pack.packageId);
+              }}
+              key={pack.packageId}
+              className={pack.packageId === targetPackId ? "underline" : ""}
+            >
+              {pack.packageName}
+            </StickerPackName>
+          );
         })}
       </div>
       <StickerPreviewContainer>
         {stickers &&
-          stickers[4].map((sticker) => {
+          stickers[targetPackId].map((sticker) => {
             return <StickerPreview key={sticker.stickerId} src={sticker.stickerImg} />;
           })}
       </StickerPreviewContainer>
