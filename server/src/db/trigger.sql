@@ -1,5 +1,5 @@
 DELIMITER $$
- 
+
 CREATE TRIGGER delete_nobody_book
 AFTER DELETE ON user_book
 FOR EACH ROW 

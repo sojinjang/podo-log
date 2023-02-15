@@ -19,10 +19,18 @@ router.patch(
   validator(schema.patchDiary),
   diaryController.pacthById
 );
+
 router.delete(
   "/:diaryId",
   validator(schema.diaryId, ValidationSource.PARAM),
   diaryController.deleteById
+);
+
+router.post(
+  "/:diaryId/stickers",
+  validator(schema.diaryId, ValidationSource.PARAM),
+  validator(schema.putStickers),
+  diaryController.putStickers
 );
 
 router.post("/image/:diaryId", imageUploader.single("picture"), diaryController.updatePicture);

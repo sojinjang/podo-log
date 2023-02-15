@@ -3,7 +3,6 @@ export interface CreateInvttCodeDTO {
   invttCode: string;
 }
 export interface GetInvttCodeDTO {
-  codeId?: number;
   bookId?: number;
   invttCode?: string;
 }

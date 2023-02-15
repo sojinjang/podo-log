@@ -18,11 +18,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 );
 
 CREATE TABLE IF NOT EXISTS `user_grain` (
-	`grainId`	bigint	NOT NULL auto_increment,
     `userId`	bigint	NOT NULL,
 	`grain`	int	NOT NULL DEFAULT 1,
-    PRIMARY KEY (`grainId`, `userId`),
-     FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
+    PRIMARY KEY (`userId`),
+    FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS `package` (
@@ -33,15 +32,13 @@ CREATE TABLE IF NOT EXISTS `package` (
 );
 
 CREATE TABLE IF NOT EXISTS `user_package` (
-	`userPackageId`	bigint	NOT NULL auto_increment,
 	`userId`	bigint	NOT NULL,
 	`packageId`	bigint	NOT NULL,
-	`expiration`DATETIME NOT NULL,
+    `expiration` DATETIME ,
     `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, 
     `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
     `deletedAt` DATETIME, 
-    PRIMARY KEY (`userPackageId`,`userId`,`packageId`),
-    UNIQUE  `user_package_unique` (`userId`, `packageId`), 
+    PRIMARY KEY (`userId`, `packageId`),
     FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (`packageId`) REFERENCES `package` (`packageId`) ON DELETE NO ACTION ON UPDATE CASCADE
 );
@@ -51,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `sticker` (
 	`packageId`	bigint	NOT NULL,
 	`stickerName`	varchar(40)	NULL,
 	`stickerImg`	varchar(110) NULL,
-    PRIMARY KEY (`stickerId`,`packageId`),
+    PRIMARY KEY (`stickerId`),
     FOREIGN KEY (`packageId`) REFERENCES `package` (`packageId`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -66,21 +63,16 @@ CREATE TABLE IF NOT EXISTS `book` (
 );
 
 CREATE TABLE IF NOT EXISTS `invtt_code` (
-	`codeId`	bigint	NOT NULL auto_increment,
 	`bookId`	bigint	NOT NULL,
 	`invttCode`	varchar(15) NOT NULL unique,
-    `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, 
-    `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
-    `deletedAt` DATETIME, 
-    PRIMARY KEY (`codeId`, `bookId`),
+    PRIMARY KEY (`bookId`),
     FOREIGN KEY (`bookId`) REFERENCES `book` (`bookId`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS `user_book` (
-	`userBookId`	bigint	NOT NULL auto_increment,
 	`bookId`	bigint	NOT NULL,
 	`userId`	bigint	NOT NULL,
-    PRIMARY KEY (`userBookId`,`bookId`,`userId`),
+    PRIMARY KEY (`bookId`,`userId`),
     FOREIGN KEY (`bookId`) REFERENCES `book` (`bookId`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -95,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `diary` (
     `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, 
     `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
     `deletedAt` DATETIME,
-    PRIMARY KEY (`diaryId`,`bookId`,`userId`),
+    PRIMARY KEY (`diaryId`),
     FOREIGN KEY (`bookId`) REFERENCES `book` (`bookId`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -109,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
     `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, 
     `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
     `deletedAt` DATETIME,
-    PRIMARY KEY (`commentId`,`userId`,`diaryId`),
+    PRIMARY KEY (`commentId`),
     FOREIGN KEY (`diaryId`) REFERENCES `diary` (`diaryId`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -119,12 +111,12 @@ CREATE TABLE IF NOT EXISTS `sticked_sticker` (
 	`stickerId`	bigint	NOT NULL,
 	`diaryId`	bigint	NOT NULL,
 	`userId`	bigint	NOT NULL,
-	`positionX`	int	NULL,
-	`positionY`	int	NULL,
+	`locX`	int	NOT NULL,
+	`locY`	int	NOT NULL,
     `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, 
     `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
     `deletedAt` DATETIME, 
-    PRIMARY KEY (`stickedStickerId`,`stickerId`,`diaryId`,`userId`),
+    PRIMARY KEY (`stickedStickerId`),
     FOREIGN KEY (`stickerId`) REFERENCES `sticker` (`stickerId`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (`diaryId`) REFERENCES `diary` (`diaryId`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (`userId`)  REFERENCES `user` (`userId`)  ON DELETE CASCADE ON UPDATE CASCADE

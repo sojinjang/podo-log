@@ -1,9 +1,17 @@
 import { pool } from "../index";
 import { logger, BuildQuery } from "../../utils";
-import { CreateDiaryDTO, DiaryIdDTO, GetDiaryDTO, PageDTO, UpdateDiaryDTO } from "../../types";
+import {
+  CreateDiaryDTO,
+  DiaryIdDTO,
+  GetDiaryDTO,
+  PageDTO,
+  StickedStickersDTO,
+  UpdateDiaryDTO,
+} from "../../types";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
 
 const diaryBuildQuery = new BuildQuery("diary");
+const stickedStickerBuildQuery = new BuildQuery("sticked_sticker");
 
 class DiaryModel {
   async create(diaryDTO: CreateDiaryDTO) {
@@ -67,6 +75,16 @@ class DiaryModel {
 
   async deleteById(diaryIdDTO: DiaryIdDTO) {
     const { query, values } = diaryBuildQuery.makeDeleteQuery({ ...diaryIdDTO });
+    logger.info(query);
+    logger.debug(values);
+    const [result] = await pool.query<ResultSetHeader>(query, values);
+    logger.debug(result);
+    return result;
+  }
+
+  async putStickers(stickedStickersDTOArr: StickedStickersDTO[]) {
+    const { query, values } =
+      stickedStickerBuildQuery.makeArrInsertQuery(stickedStickersDTOArr);
     logger.info(query);
     logger.debug(values);
     const [result] = await pool.query<ResultSetHeader>(query, values);

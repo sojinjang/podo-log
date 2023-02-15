@@ -6,6 +6,7 @@ import {
   DiaryIdDTO,
   GetDiaryDTO,
   PageDTO,
+  PutStickersDTO,
   UpdateDiaryDTO,
   UpdateDiaryPictureDTO,
   UserIdDTO,
@@ -66,6 +67,16 @@ class DiaryService {
 
     if (diary.picture !== "없음") imageDeleter(diary.picture);
 
+    return messageDTO;
+  }
+
+  async putStickers(putStickersDTO: PutStickersDTO) {
+    const { userId, diaryId, stickers } = putStickersDTO;
+
+    const stickedStickers = stickers.map((sticker) => ({ ...sticker, userId, diaryId }));
+
+    const result = await this.diaryModel.putStickers(stickedStickers);
+    const messageDTO = checkResult(result, "스티커를 붙였습니다.");
     return messageDTO;
   }
 

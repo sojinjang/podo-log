@@ -66,17 +66,17 @@ export class BuildQuery {
     return { query, values };
   }
 
-  makeArrInsertQuery(stickerDTOArr: DataObj[]) {
-    const values = stickerDTOArr.reduce((acc: any[], stickerDTO) => {
-      const { valueArr: values } = BuildQuery.objToKeyValueArr(stickerDTO);
+  makeArrInsertQuery(DTOArr: DataObj[]) {
+    const values = DTOArr.reduce((acc: any[], DTO) => {
+      const { valueArr: values } = BuildQuery.objToKeyValueArr(DTO);
       acc = [...acc, ...values];
       return acc;
     }, []);
-    const { keyArr } = BuildQuery.objToKeyValueArr(stickerDTOArr[0]);
+    const { keyArr } = BuildQuery.objToKeyValueArr(DTOArr[0]);
 
     const columns = keyArr.join(", ");
     const Qs = new Array(keyArr.length).fill("?").join(", ");
-    const manyQs = new Array(stickerDTOArr.length).fill(`(${Qs})`).join(", ");
+    const manyQs = new Array(DTOArr.length).fill(`(${Qs})`).join(", ");
 
     const query = `insert into ${this.table} (${columns}) values ${manyQs}`;
     return { query, values };
