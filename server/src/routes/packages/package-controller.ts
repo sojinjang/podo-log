@@ -9,7 +9,7 @@ class PackageController {
 
   create = asyncHandler(async (req: FileRequest, res) => {
     const { packageName } = req.body;
-    const podoPrice = parseInt(req.body.podoPrice) || 1;
+    const podoPrice = parseInt(req.body.podoPrice) ?? 1;
     const packageArr = req.files;
     if (typeof packageArr === "undefined" || packageArr.length === 0)
       throw new BadRequestError("패키지를 보내주세요.");
