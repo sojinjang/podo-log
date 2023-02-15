@@ -17,4 +17,11 @@ export default {
     title: Joi.string().optional().max(30),
     content: Joi.string().optional().max(400),
   }),
+  putStickers: Joi.array().items(
+    Joi.object({
+      stickerId: Joi.number().required(),
+      locX: Joi.number().required(),
+      locY: Joi.number().required(),
+    })
+  ),
 };
