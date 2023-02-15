@@ -8,9 +8,11 @@ import {
   UserIdDTO,
 } from "../../types";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
+import { defaultPackageIds } from "../../config";
 
 const userBuildQuery = new BuildQuery("user");
 const grainBuildQuery = new BuildQuery("user_grain");
+const userPackageQuery = new BuildQuery("user_package");
 
 class UserModel {
   async create(userDTO: CreateUserDTO | SNSCreateUserDTO) {
@@ -27,8 +29,9 @@ class UserModel {
       const [result1] = await conn.query<ResultSetHeader>(query1, values1);
       logger.debug(result1);
 
+      const userId = result1.insertId;
       const grainDTO = {
-        userId: result1.insertId,
+        userId,
         grain: 0,
       };
       const { query: query2, values: values2 } = grainBuildQuery.makeInsertQuery({
@@ -38,6 +41,14 @@ class UserModel {
       logger.debug(values2);
       const [result2] = await conn.query<ResultSetHeader>(query2, values2);
       logger.debug(result2);
+
+      const setDefaultPackage = defaultPackageIds.map((packageId) => ({ userId, packageId }));
+      const { query: query3, values: values3 } =
+        userPackageQuery.makeArrInsertQuery(setDefaultPackage);
+      logger.info(query3);
+      logger.debug(values3);
+      const [result3] = await conn.query<ResultSetHeader>(query3, values3);
+      logger.debug(result3);
 
       await conn.commit();
       return result1;
