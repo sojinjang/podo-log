@@ -21,6 +21,13 @@ export const isLoggedIn = asyncHandler(async (req, res, next) => {
   })(req, res, next);
 });
 
+export const isAdmin = asyncHandler(async (req: LoggedRequest, res, next) => {
+  const { role } = req.user;
+  const isAdmin = role === "admin";
+  if (!isAdmin) next(new ForbiddenError("관리자만 접근할수 있습니다."));
+  next();
+});
+
 export const isBookMember = asyncHandler(async (req: LoggedRequest, res, next) => {
   const bookId = parseInt(req.body.bookId || req.params.bookId);
   const userBookDTO = { userId: req.user.userId, bookId };
