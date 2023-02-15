@@ -39,3 +39,20 @@ export interface UpdateDiaryPictureDTO {
   diaryId?: number;
   picture?: string;
 }
+
+export interface PutStickersDTO extends UserDStikersDTO {
+  stickers: stickersDTO[];
+}
+
+export interface StickedStickersDTO extends UserDStikersDTO, stickerDTO {}
+
+export interface UserDStikersDTO {
+  userId: number;
+  diaryId: number;
+}
+
+export interface stickersDTO {
+  stickerId: number;
+  locX: number;
+  locY: number;
+}
