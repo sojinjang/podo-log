@@ -33,9 +33,11 @@ class PackageService {
     if (!stickerPckg) throw new NoDataError("요청한 패키지가 존재하지 않습니다.");
     if (user.grape < stickerPckg.podoPrice) throw new ForbiddenError("포도가 모자릅니다.");
 
+    const expiration =
+      stickerPckg.podoPrice !== 0 ? new Date(Date.now() + 1000 * 60 * 60 * 24 * 7) : null;
     const packageDTO = {
       ...packageIdDTO,
-      expiration: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
+      expiration,
     };
 
     const result = await this.packageModel.buyPackage(packageDTO, user);

@@ -2,15 +2,18 @@ import { Router } from "express";
 import { packageController } from "./package-controller";
 import validator, { ValidationSource } from "../../utils/validator";
 import schema from "./schema";
-import { imageUploader, isBookMember } from "../../middlewares";
+import { imageUploader, isAdmin } from "../../middlewares";
 
 const router = Router();
+
 router.post(
   "/",
+  // isAdmin,
   imageUploader.array("package"),
   validator(schema.createPackage),
   packageController.create
 );
+
 router.get("/mine", packageController.getMyPackage);
 router.get("/shop", packageController.getPackageInshop);
 
@@ -28,6 +31,7 @@ router.get(
 
 router.delete(
   "/:packageId",
+  // isAdmin,
   validator(schema.packageId, ValidationSource.PARAM),
   packageController.deletePackage
 );
