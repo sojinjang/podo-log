@@ -56,7 +56,14 @@ const DiaryDetail = () => {
           {isEditingSticker && (
             <>
               {selectedStickers.map((sticker) => {
-                return <MoveableSticker key={uuidv4()} stickerImg={sticker.stickerImg} />;
+                const uniqueId = uuidv4();
+                return (
+                  <MoveableSticker
+                    key={uniqueId}
+                    id={uniqueId}
+                    stickerImg={sticker.stickerImg}
+                  />
+                );
               })}
             </>
           )}

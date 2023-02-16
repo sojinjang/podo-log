@@ -3,16 +3,17 @@ import Moveable from "react-moveable";
 import { useDidMountEffect } from "src/utils/hooks";
 
 interface DraggableStickerProps {
+  id: string;
   stickerImg: string;
 }
 
-const MoveableSticker = ({ stickerImg }: DraggableStickerProps) => {
+const MoveableSticker = ({ id, stickerImg }: DraggableStickerProps) => {
   const [targetElem, setTargetElem] = useState<HTMLElement | SVGElement | null>(null);
   const [style, setStyle] = useState("");
 
   useDidMountEffect(() => {
-    const targetElem = document.querySelector(".target") as HTMLElement;
-    // target.style.transform = `translate(${style.translate[0]}px, ${style.translate[1]}px)`;
+    const targetElem = document.querySelector(`.target-${id}`) as HTMLElement;
+    // targetElem.style.transform = `translate(${(508 / 1385) * 100}vh, ${(95 / 1385) * 100}vh)`;
     setTargetElem(targetElem);
   }, []);
 
@@ -29,9 +30,7 @@ const MoveableSticker = ({ stickerImg }: DraggableStickerProps) => {
           //   target.style.transform = style;
         }}
       />
-      <div className="target z-10 absolute cursor-pointer">
-        <img className="h-[10vh]" src={stickerImg} />
-      </div>
+      <img className={`target-${id} h-[10vh] absolute cursor-pointer`} src={stickerImg} />
     </>
   );
 };
