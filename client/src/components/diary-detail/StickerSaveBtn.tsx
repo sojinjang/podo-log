@@ -1,9 +1,38 @@
 import React from "react";
 import tw from "tailwind-styled-components";
+import { useRecoilValue } from "recoil";
 
-const StickerSaveBtn = () => {
+import { accessTokenAtom } from "src/recoil/token";
+import { selectedStickersAtom } from "src/recoil/diary-detail/atom";
+import { post } from "src/utils/api";
+import { API_URL } from "src/constants/API_URL";
+
+interface StickerSaveButtonProps {
+  diaryId: number;
+  changeStickerEditState: () => void;
+}
+const StickerSaveBtn = ({ diaryId, changeStickerEditState }: StickerSaveButtonProps) => {
+  const accessToken = useRecoilValue(accessTokenAtom);
+  const selectedStickers = useRecoilValue(selectedStickersAtom);
+  const refineStickersData = () => {
+    const stickersData = selectedStickers.map((sticker) => {
+      const { stickerId, locX, locY } = sticker;
+      return { stickerId, locX, locY };
+    });
+    return stickersData;
+  };
+  const handleOnClickSave = async () => {
+    try {
+      const stickers = refineStickersData();
+      await post(API_URL.stickers(diaryId), stickers, accessToken);
+      changeStickerEditState();
+    } catch (err) {
+      alert(err);
+    }
+  };
+
   return (
-    <div className="relative leading-[70px] align-middle">
+    <div onClick={handleOnClickSave} className="relative leading-[70px] align-middle">
       <Button>저장</Button>
     </div>
   );

@@ -49,7 +49,9 @@ const DiaryDetail = () => {
   return (
     <PinkPurpleBackground className="overflow-auto">
       <BackButton />
-      {isEditingSticker && <StickerSaveBtn />}
+      {isEditingSticker && (
+        <StickerSaveBtn diaryId={diaryId} changeStickerEditState={changeStickerEditState} />
+      )}
       <Fade duration={1000}>
         <DiarySectionContainer className="relative overflow-hidden">
           {isEditingSticker && (
