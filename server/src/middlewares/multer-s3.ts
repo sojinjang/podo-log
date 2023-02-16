@@ -26,15 +26,21 @@ const uploaderKeySwitch = (req: Request, file: Express.Multer.File, callback: Ca
   callback(null, key);
 };
 
-const imageUploader = multer({
-  storage: multerS3({
-    s3: s3Client,
-    bucket: bucketName,
-    key: uploaderKeySwitch,
-    acl: "public-read-write",
-  }),
-  limits: { fileSize: 5 * 1024 * 1024 },
-});
+const fileSize = (fieldname?: string) => {
+  return { fileSize: fieldname === "package" ? 20 * 1024 * 1024 : 10 * 1024 * 1024 };
+};
+
+const imageUploader = (fieldname?: string) => {
+  return multer({
+    storage: multerS3({
+      s3: s3Client,
+      bucket: bucketName,
+      key: uploaderKeySwitch,
+      acl: "public-read-write",
+    }),
+    limits: fileSize(fieldname),
+  });
+};
 
 const imageDeleter = async (key: string) => {
   let params = {

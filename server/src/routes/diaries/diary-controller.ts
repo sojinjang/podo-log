@@ -68,6 +68,16 @@ class DiaryController {
     return new SuccessMsgResponse(messageDTO.message).send(res);
   });
 
+  putStickers = asyncHandler(async (req: FileRequest, res) => {
+    const { userId } = req.user;
+    const diaryId = parseInt(req.params.diaryId);
+    const stickers = req.body;
+
+    const putStickersDTO = { userId, diaryId, stickers };
+    const messageDTO = await this.diaryService.putStickers(putStickersDTO);
+    return new SuccessResponse(messageDTO.message, messageDTO.data).send(res);
+  });
+
   updatePicture = asyncHandler(async (req: FileRequest, res) => {
     const diaryId = parseInt(req.params.diaryId);
     const { userId } = req.user;

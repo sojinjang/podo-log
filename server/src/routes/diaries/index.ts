@@ -7,7 +7,7 @@ import { imageUploader, isBookMember } from "../../middlewares";
 const router = Router();
 router.post(
   "/",
-  imageUploader.single("picture"),
+  imageUploader().single("picture"),
   validator(schema.createDiary),
   isBookMember,
   diaryController.create
@@ -19,13 +19,25 @@ router.patch(
   validator(schema.patchDiary),
   diaryController.pacthById
 );
+
 router.delete(
   "/:diaryId",
   validator(schema.diaryId, ValidationSource.PARAM),
   diaryController.deleteById
 );
 
-router.post("/image/:diaryId", imageUploader.single("picture"), diaryController.updatePicture);
+router.post(
+  "/:diaryId/stickers",
+  validator(schema.diaryId, ValidationSource.PARAM),
+  validator(schema.putStickers),
+  diaryController.putStickers
+);
+
+router.post(
+  "/image/:diaryId",
+  imageUploader().single("picture"),
+  diaryController.updatePicture
+);
 router.delete("/image/:diaryId", diaryController.deletePicture);
 
 export default router;

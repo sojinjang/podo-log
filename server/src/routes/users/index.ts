@@ -9,7 +9,7 @@ const loginedRouter = Router();
 
 router.post(
   "/",
-  imageUploader.single("profile"),
+  imageUploader().single("profile"),
   validator(schema.localJoin),
   userController.localJoin
 );
@@ -21,7 +21,7 @@ loginedRouter.get("/grape", userController.getGrape);
 loginedRouter.patch("/", validator(schema.patchUser), userController.pacthById);
 loginedRouter.patch("/withdrawal", userController.withdrawalById);
 loginedRouter.delete("/", userController.deleteById);
-loginedRouter.post("/image", imageUploader.single("profile"), userController.updateProfile);
+loginedRouter.post("/image", imageUploader().single("profile"), userController.updateProfile);
 loginedRouter.delete("/image", userController.deleteProfile);
 
 export default router;
