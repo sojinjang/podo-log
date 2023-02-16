@@ -23,8 +23,15 @@ class DiaryService {
   }
 
   async getByBookId(bookIdDTO: GetDiaryDTO, pageDTO: PageDTO) {
-    const diaries = await this.diaryModel.getWithUser(bookIdDTO, pageDTO);
-    const data = buildImgLocation(diaries, "picture", "profile");
+    const diaries = await this.diaryModel.getWithUserStickers(bookIdDTO, pageDTO);
+
+    const data = diaries.map((dairy) => {
+      const stickers = dairy.stickers
+        ? buildImgLocation(dairy.stickers, "stickerImg")
+        : undefined;
+      const dairyAddImg = buildImgLocation(dairy, "picture", "profile");
+      return { ...dairyAddImg, stickers };
+    });
 
     const messageDTO = { message: "일기 조회에 성공하였습니다.", data };
     return messageDTO;
