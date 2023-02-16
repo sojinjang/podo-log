@@ -9,7 +9,7 @@ const router = Router();
 router.post(
   "/",
   // isAdmin,
-  imageUploader.array("package"),
+  imageUploader("package").array("package"),
   validator(schema.createPackage),
   packageController.create
 );
