@@ -15,6 +15,7 @@ import { CommentSection } from "src/components/diary-detail/CommentSection";
 import DeleteModal from "src/components/diary-detail//DeleteModal";
 import { DiarySection } from "src/components/diary-detail/DiarySection";
 import { DiarySectionContainer } from "src/components/diary-detail/DiarySectionContainer";
+import MoveableSticker from "src/components/diary-detail/MoveableSticker";
 
 export interface DiaryContainerProps {
   data: Diary;
@@ -49,22 +50,16 @@ const DiaryDetail = () => {
   return (
     <PinkPurpleBackground className="overflow-auto">
       <BackButton />
-      {isEditingSticker && (
-        <>
-          <StickerSaveBtn />
-          {selectedStickers.map((sticker) => {
-            return (
-              <div key={uuidv4()} className="relative">
-                <div className="z-10 absolute top-[10vh]">
-                  <img className="h-[10vh]" src={sticker.stickerImg} />
-                </div>
-              </div>
-            );
-          })}
-        </>
-      )}
+      {isEditingSticker && <StickerSaveBtn />}
       <Fade duration={1000}>
-        <DiarySectionContainer>
+        <DiarySectionContainer className="relative overflow-hidden">
+          {isEditingSticker && (
+            <>
+              {selectedStickers.map((sticker) => {
+                return <MoveableSticker key={uuidv4()} stickerImg={sticker.stickerImg} />;
+              })}
+            </>
+          )}
           <DiarySection data={data} />
           <StickerButton changeEditState={changeStickerEditState} />
           <CommentSection diaryId={diaryId} />
