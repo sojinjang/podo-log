@@ -8,8 +8,8 @@ export interface DeleteInfo {
 
 export interface MoveableStickerInfo extends StickerInfo {
   uniqueId: string;
-  x: number;
-  y: number;
+  locX: number;
+  locY: number;
 }
 
 export const isDeleteModalVisibleAtom = atom<boolean>({

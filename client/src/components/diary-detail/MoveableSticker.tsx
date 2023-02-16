@@ -15,23 +15,21 @@ const MoveableSticker = ({ sticker }: DraggableStickerProps) => {
 
   useDidMountEffect(() => {
     const targetElem = document.querySelector(`.target-${sticker.uniqueId}`) as HTMLElement;
-    targetElem.style.transform = `translate(${sticker.x}vh, ${sticker.y}vh`;
+    targetElem.style.transform = `translate(${sticker.locX}vh, ${sticker.locY}vh`;
     setTargetElem(targetElem);
   }, []);
 
   const handleUpdateStickers = (newSticker: MoveableStickerInfo) => {
     setSelectedStickers((prevStickers) => {
       return [
-        ...prevStickers.filter(
-          (sticker: MoveableStickerInfo) => sticker.uniqueId !== newSticker.uniqueId
-        ),
+        ...prevStickers.filter((sticker) => sticker.uniqueId !== newSticker.uniqueId),
         newSticker,
       ];
     });
   };
 
   const handleDragStart = (e: OnDragStart) => {
-    e.set([convertToAbsCoord(sticker.x), convertToAbsCoord(sticker.y)]);
+    e.set([convertToAbsCoord(sticker.locX), convertToAbsCoord(sticker.locY)]);
   };
   const handleOnDrag = (e: OnDrag) => {
     const positionX = convertToRelativeCoord(e.beforeTranslate[0]);
@@ -43,8 +41,8 @@ const MoveableSticker = ({ sticker }: DraggableStickerProps) => {
     const positionY = convertToRelativeCoord(e.lastEvent.beforeTranslate[1]);
     handleUpdateStickers({
       ...sticker,
-      x: positionX,
-      y: positionY,
+      locX: positionX,
+      locY: positionY,
     });
   };
 

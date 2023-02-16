@@ -15,7 +15,7 @@ interface StickerSectionProps {
   changeEditState: () => void;
 }
 export interface StickerInfo {
-  stickerId?: number;
+  stickerId: number;
   stickerImg: string;
 }
 interface StickerPack {
@@ -95,10 +95,11 @@ export const StickerSection = ({ changeEditState }: StickerSectionProps) => {
                     return [
                       ...prev,
                       {
+                        stickerId: sticker.stickerId,
                         uniqueId: uuidv4(),
                         stickerImg: sticker.stickerImg,
-                        x: 0,
-                        y: 0,
+                        locX: 0,
+                        locY: 0,
                       },
                     ];
                   });
