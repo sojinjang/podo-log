@@ -19,8 +19,10 @@ class PackageService {
 
   async create(createPackageDTO: CreatePackageControllerDTO) {
     const { packageArr, packageName, podoPrice } = createPackageDTO;
+    const packageNameKey = packageName.replace(/([^\w\.]*)/g, "_");
+
     const stickers = await Promise.all(
-      packageArr.map(async ({ key }) => compressImageUploadByKey(key, packageName))
+      packageArr.map(async ({ key }) => compressImageUploadByKey(key, packageNameKey))
     );
 
     const result = await this.packageModel.create({ packageName, podoPrice, stickers });

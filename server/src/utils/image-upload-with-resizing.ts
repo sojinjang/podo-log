@@ -12,12 +12,12 @@ interface ImgConfig {
 
 export const compressImageUploadByKey = async (
   key: string,
-  packageName: string,
+  packageNameKey: string,
   width: number = 150
 ) => {
   try {
     const [_, stickerName, extension] = key.split(/[\.\/]/g);
-    const compressedKey = `packages/${packageName}/${stickerName}.${packageExtension}`;
+    const compressedKey = `packages/${packageNameKey}/${stickerName}.${packageExtension}`;
     logger.info(compressedKey);
     const exImgConfig = {
       Bucket: bucketName,
