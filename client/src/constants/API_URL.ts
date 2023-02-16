@@ -26,4 +26,7 @@ export const API_URL = Object.freeze({
     return this.comments + `?diaryId=${diaryId}`;
   },
   myPackages: "/api/packages/mine",
+  stickers: function (diaryId: number) {
+    return this.diary + `/${diaryId}/stickers`;
+  },
 });
