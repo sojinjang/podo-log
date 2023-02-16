@@ -150,139 +150,139 @@ VALUES
         42,
         4,
         'qozb_1',
-        'packages/crayon shinchan 1/qozb_1.png'
+        'packages/crayon_shinchan_1/qozb_1.png'
     ),
     (
         43,
         4,
         'qozb_4',
-        'packages/crayon shinchan 1/qozb_4.png'
+        'packages/crayon_shinchan_1/qozb_4.png'
     ),
     (
         44,
         4,
         'qozb_5',
-        'packages/crayon shinchan 1/qozb_5.png'
+        'packages/crayon_shinchan_1/qozb_5.png'
     ),
     (
         45,
         4,
         'qozb_12',
-        'packages/crayon shinchan 1/qozb_12.png'
+        'packages/crayon_shinchan_1/qozb_12.png'
     ),
     (
         46,
         4,
         'qozb_13',
-        'packages/crayon shinchan 1/qozb_13.png'
+        'packages/crayon_shinchan_1/qozb_13.png'
     ),
     (
         47,
         4,
         'qozb_43',
-        'packages/crayon shinchan 1/qozb_43.png'
+        'packages/crayon_shinchan_1/qozb_43.png'
     ),
     (
         48,
         4,
         'qozc8',
-        'packages/crayon shinchan 1/qozc8.png'
+        'packages/crayon_shinchan_1/qozc8.png'
     ),
     (
         49,
         4,
         'qozc12',
-        'packages/crayon shinchan 1/qozc12.png'
+        'packages/crayon_shinchan_1/qozc12.png'
     ),
     (
         50,
         4,
         'qozc13',
-        'packages/crayon shinchan 1/qozc13.png'
+        'packages/crayon_shinchan_1/qozc13.png'
     ),
     (
         51,
         4,
         'qozc15',
-        'packages/crayon shinchan 1/qozc15.png'
+        'packages/crayon_shinchan_1/qozc15.png'
     ),
     (
         52,
         4,
         'qozc18',
-        'packages/crayon shinchan 1/qozc18.png'
+        'packages/crayon_shinchan_1/qozc18.png'
     ),
     (
         53,
         4,
         'qozc19',
-        'packages/crayon shinchan 1/qozc19.png'
+        'packages/crayon_shinchan_1/qozc19.png'
     ),
     (
         54,
         5,
         'qozb_2',
-        'packages/crayon shinchan 2/qozb_2.png'
+        'packages/crayon_shinchan_2/qozb_2.png'
     ),
     (
         55,
         5,
         'qozb_3',
-        'packages/crayon shinchan 2/qozb_3.png'
+        'packages/crayon_shinchan_2/qozb_3.png'
     ),
     (
         56,
         5,
         'qozb_6',
-        'packages/crayon shinchan 2/qozb_6.png'
+        'packages/crayon_shinchan_2/qozb_6.png'
     ),
     (
         57,
         5,
         'qozb_8',
-        'packages/crayon shinchan 2/qozb_8.png'
+        'packages/crayon_shinchan_2/qozb_8.png'
     ),
     (
         58,
         5,
         'qozb_9',
-        'packages/crayon shinchan 2/qozb_9.png'
+        'packages/crayon_shinchan_2/qozb_9.png'
     ),
     (
         59,
         5,
         'qozb_14',
-        'packages/crayon shinchan 2/qozb_14.png'
+        'packages/crayon_shinchan_2/qozb_14.png'
     ),
     (
         60,
         5,
         'qozb_22',
-        'packages/crayon shinchan 2/qozb_22.png'
+        'packages/crayon_shinchan_2/qozb_22.png'
     ),
     (
         61,
         5,
         'qozb_46',
-        'packages/crayon shinchan 2/qozb_46.png'
+        'packages/crayon_shinchan_2/qozb_46.png'
     ),
     (
         62,
         5,
         'qozc9',
-        'packages/crayon shinchan 2/qozc9.png'
+        'packages/crayon_shinchan_2/qozc9.png'
     ),
     (
         63,
         5,
         'qozc27',
-        'packages/crayon shinchan 2/qozc27.png'
+        'packages/crayon_shinchan_2/qozc27.png'
     ),
     (
         64,
         5,
         'qozc50',
-        'packages/crayon shinchan 2/qozc50.png'
+        'packages/crayon_shinchan_2/qozc50.png'
     ),
     (65, 6, 'beagle', 'packages/dogs/beagle.png'),
     (66, 6, 'beagle2', 'packages/dogs/beagle2.png'),
@@ -351,215 +351,215 @@ VALUES
         88,
         8,
         'arrowandbow',
-        'packages/heart 3d/arrowandbow.png'
+        'packages/heart_3d/arrowandbow.png'
     ),
     (
         89,
         8,
         'brokenheart',
-        'packages/heart 3d/brokenheart.png'
+        'packages/heart_3d/brokenheart.png'
     ),
     (
         90,
         8,
         'feelings',
-        'packages/heart 3d/feelings.png'
+        'packages/heart_3d/feelings.png'
     ),
     (
         91,
         8,
         'giftbox',
-        'packages/heart 3d/giftbox.png'
+        'packages/heart_3d/giftbox.png'
     ),
-    (92, 8, 'hearts', 'packages/heart 3d/hearts.png'),
+    (92, 8, 'hearts', 'packages/heart_3d/hearts.png'),
     (
         93,
         8,
         'lovemessages',
-        'packages/heart 3d/lovemessages.png'
+        'packages/heart_3d/lovemessages.png'
     ),
     (
         94,
         8,
         'truelove',
-        'packages/heart 3d/truelove.png'
+        'packages/heart_3d/truelove.png'
     ),
     (
         95,
         9,
         'angry',
-        'packages/human emotions/angry.png'
+        'packages/human_emotions/angry.png'
     ),
     (
         96,
         9,
         'angry2',
-        'packages/human emotions/angry2.png'
+        'packages/human_emotions/angry2.png'
     ),
     (
         97,
         9,
         'anxious',
-        'packages/human emotions/anxious.png'
+        'packages/human_emotions/anxious.png'
     ),
     (
         98,
         9,
         'confident',
-        'packages/human emotions/confident.png'
+        'packages/human_emotions/confident.png'
     ),
     (
         99,
         9,
         'inlove',
-        'packages/human emotions/inlove.png'
+        'packages/human_emotions/inlove.png'
     ),
     (
         100,
         9,
         'peaceful',
-        'packages/human emotions/peaceful.png'
+        'packages/human_emotions/peaceful.png'
     ),
     (
         101,
         9,
         'pensive',
-        'packages/human emotions/pensive.png'
+        'packages/human_emotions/pensive.png'
     ),
     (
         102,
         9,
         'resentful',
-        'packages/human emotions/resentful.png'
+        'packages/human_emotions/resentful.png'
     ),
     (
         103,
         9,
         'sick',
-        'packages/human emotions/sick.png'
+        'packages/human_emotions/sick.png'
     ),
     (
         104,
         9,
         'spiteful',
-        'packages/human emotions/spiteful.png'
+        'packages/human_emotions/spiteful.png'
     ),
     (
         105,
         9,
         'surprised',
-        'packages/human emotions/surprised.png'
+        'packages/human_emotions/surprised.png'
     ),
-    (106, 10, 'cake', 'packages/pixel dot/cake.png'),
+    (106, 10, 'cake', 'packages/pixel_dot/cake.png'),
     (
         107,
         10,
         'cherry',
-        'packages/pixel dot/cherry.png'
+        'packages/pixel_dot/cherry.png'
     ),
-    (108, 10, 'ghost', 'packages/pixel dot/ghost.png'),
+    (108, 10, 'ghost', 'packages/pixel_dot/ghost.png'),
     (
         109,
         10,
         'hotdog',
-        'packages/pixel dot/hotdog.png'
+        'packages/pixel_dot/hotdog.png'
     ),
     (
         110,
         10,
         'iwantpizza',
-        'packages/pixel dot/iwantpizza.png'
+        'packages/pixel_dot/iwantpizza.png'
     ),
     (
         111,
         10,
         'loading',
-        'packages/pixel dot/loading.png'
+        'packages/pixel_dot/loading.png'
     ),
-    (112, 10, 'luigi', 'packages/pixel dot/luigi.png'),
-    (113, 10, 'mario', 'packages/pixel dot/mario.png'),
-    (114, 10, 'panda', 'packages/pixel dot/panda.png'),
-    (115, 10, 'pika', 'packages/pixel dot/pika.png'),
+    (112, 10, 'luigi', 'packages/pixel_dot/luigi.png'),
+    (113, 10, 'mario', 'packages/pixel_dot/mario.png'),
+    (114, 10, 'panda', 'packages/pixel_dot/panda.png'),
+    (115, 10, 'pika', 'packages/pixel_dot/pika.png'),
     (
         116,
         10,
         'potatostick',
-        'packages/pixel dot/potatostick.png'
+        'packages/pixel_dot/potatostick.png'
     ),
-    (117, 10, 'ufo', 'packages/pixel dot/ufo.png'),
+    (117, 10, 'ufo', 'packages/pixel_dot/ufo.png'),
     (
         118,
         10,
         'flower',
-        'packages/pixel dot/flower.png'
+        'packages/pixel_dot/flower.png'
     ),
     (
         119,
         10,
         'icecream',
-        'packages/pixel dot/icecream.png'
+        'packages/pixel_dot/icecream.png'
     ),
-    (120, 11, 'bell', 'packages/stuff 3d/bell.png'),
+    (120, 11, 'bell', 'packages/stuff_3d/bell.png'),
     (
         121,
         11,
         'beveledcone',
-        'packages/stuff 3d/beveledcone.png'
+        'packages/stuff_3d/beveledcone.png'
     ),
     (
         122,
         11,
         'beveledcube',
-        'packages/stuff 3d/beveledcube.png'
+        'packages/stuff_3d/beveledcube.png'
     ),
     (
         123,
         11,
         'camera',
-        'packages/stuff 3d/camera.png'
+        'packages/stuff_3d/camera.png'
     ),
     (
         124,
         11,
         'christmasgift',
-        'packages/stuff 3d/christmasgift.png'
+        'packages/stuff_3d/christmasgift.png'
     ),
-    (125, 11, 'light', 'packages/stuff 3d/light.png'),
+    (125, 11, 'light', 'packages/stuff_3d/light.png'),
     (
         126,
         11,
         'moneybag',
-        'packages/stuff 3d/moneybag.png'
+        'packages/stuff_3d/moneybag.png'
     ),
     (
         127,
         11,
         'pinkpencil',
-        'packages/stuff 3d/pinkpencil.png'
+        'packages/stuff_3d/pinkpencil.png'
     ),
     (
         128,
         11,
         'premiumquality',
-        'packages/stuff 3d/premiumquality.png'
+        'packages/stuff_3d/premiumquality.png'
     ),
     (
         129,
         11,
         'target',
-        'packages/stuff 3d/target.png'
+        'packages/stuff_3d/target.png'
     ),
     (
         130,
         11,
         'tesseract',
-        'packages/stuff 3d/tesseract.png'
+        'packages/stuff_3d/tesseract.png'
     ),
     (
         131,
         11,
         'trophy',
-        'packages/stuff 3d/trophy.png'
+        'packages/stuff_3d/trophy.png'
     ),
     (
         132,
@@ -609,71 +609,71 @@ VALUES
         'rubylogo',
         'packages/programming/rubylogo.png'
     ),
-    (140, 13, 'asap', 'packages/etc 3d/asap.png'),
+    (140, 13, 'asap', 'packages/etc_3d/asap.png'),
     (
         141,
         13,
         'bitcoin',
-        'packages/etc 3d/bitcoin.png'
+        'packages/etc_3d/bitcoin.png'
     ),
     (
         142,
         13,
         'boyexplodingpartypopper',
-        'packages/etc 3d/boyexplodingpartypopper.png'
+        'packages/etc_3d/boyexplodingpartypopper.png'
     ),
     (
         143,
         13,
         'devilface',
-        'packages/etc 3d/devilface.png'
+        'packages/etc_3d/devilface.png'
     ),
     (
         144,
         13,
         'gang_hand',
-        'packages/etc 3d/gang_hand.png'
+        'packages/etc_3d/gang_hand.png'
     ),
     (
         145,
         13,
         'instagramlogo',
-        'packages/etc 3d/instagramlogo.png'
+        'packages/etc_3d/instagramlogo.png'
     ),
     (
         146,
         13,
         'iosphotos',
-        'packages/etc 3d/iosphotos.png'
+        'packages/etc_3d/iosphotos.png'
     ),
     (
         147,
         13,
         'location',
-        'packages/etc 3d/location.png'
+        'packages/etc_3d/location.png'
     ),
     (
         148,
         13,
         'mcdonalds',
-        'packages/etc 3d/mcdonalds.png'
+        'packages/etc_3d/mcdonalds.png'
     ),
     (
         149,
         13,
         'moneyheistpeople',
-        'packages/etc 3d/moneyheistpeople.png'
+        'packages/etc_3d/moneyheistpeople.png'
     ),
     (
         150,
         13,
         'newnotification',
-        'packages/etc 3d/newnotification.png'
+        'packages/etc_3d/newnotification.png'
     ),
-    (151, 13, 'skull', 'packages/etc 3d/skull.png'),
+    (151, 13, 'skull', 'packages/etc_3d/skull.png'),
     (
         152,
         13,
         'telegram1',
-        'packages/etc 3d/telegram1.png'
+        'packages/etc_3d/telegram1.png'
     );

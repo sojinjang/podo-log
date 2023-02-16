@@ -141,7 +141,7 @@ values
     (5, 5, DATE_ADD(now(), INTERVAL 7 DAY)),
     (5, 6, DATE_ADD(now(), INTERVAL 7 DAY));
 
---스티커 붙이기 
+-- 스티커 붙이기 
 INSERT INTO
     `sticked_sticker` (
         `stickedStickerId`,
