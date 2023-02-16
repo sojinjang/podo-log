@@ -8,6 +8,7 @@ import tw from "tailwind-styled-components";
 import { useDidMountEffect } from "src/utils/hooks";
 import changeToKoreanDate from "src/utils/date";
 import { selectedStickersAtom } from "src/recoil/diary-detail/atom";
+import { Values } from "../../constants/Values";
 
 interface StickerSectionProps {
   changeEditState: () => void;
@@ -28,14 +29,15 @@ interface StickersPreview {
 interface StickersInfoArrObj {
   stickers: StickerInfo[];
 }
+
 interface StickersWithExpiry extends StickersInfoArrObj {
-  expiration: Date;
+  expiration: Date | string;
 }
 
 export const StickerSection = ({ changeEditState }: StickerSectionProps) => {
   const [myStickerPack, setMyStickerPack] = useState<StickerPack[]>([]);
   const [stickers, setStickers] = useState<StickersPreview | null>(null);
-  const [targetPackId, setTargetPackId] = useState<number>(2);
+  const [targetPackId, setTargetPackId] = useState<number>(1);
   const setSelectedStickers = useSetRecoilState(selectedStickersAtom);
   const accessToken = useRecoilValue(accessTokenAtom);
   const getMyStickerPack = async () => {
@@ -102,7 +104,9 @@ export const StickerSection = ({ changeEditState }: StickerSectionProps) => {
           })}
       </StickerPreviewContainer>
       <ExpirationDate>
-        {stickers && `~ ${changeToKoreanDate(stickers[targetPackId]["expiration"])}`}
+        {stickers &&
+          stickers[targetPackId]["expiration"] !== Values.FREE_PACK_EXPIRY &&
+          `~ ${changeToKoreanDate(stickers[targetPackId]["expiration"])}`}
       </ExpirationDate>
     </Container>
   );
