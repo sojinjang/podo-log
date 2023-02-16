@@ -1,6 +1,6 @@
 import React from "react";
 import tw from "tailwind-styled-components";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useResetRecoilState } from "recoil";
 
 import { accessTokenAtom } from "src/recoil/token";
 import { selectedStickersAtom } from "src/recoil/diary-detail/atom";
@@ -14,6 +14,7 @@ interface StickerSaveButtonProps {
 const StickerSaveBtn = ({ diaryId, changeStickerEditState }: StickerSaveButtonProps) => {
   const accessToken = useRecoilValue(accessTokenAtom);
   const selectedStickers = useRecoilValue(selectedStickersAtom);
+  const resetSelectedStickers = useResetRecoilState(selectedStickersAtom);
   const refineStickersData = () => {
     const stickersData = selectedStickers.map((sticker) => {
       const { stickerId, locX, locY } = sticker;
@@ -25,6 +26,7 @@ const StickerSaveBtn = ({ diaryId, changeStickerEditState }: StickerSaveButtonPr
     try {
       const stickers = refineStickersData();
       await post(API_URL.stickers(diaryId), stickers, accessToken);
+      resetSelectedStickers();
       changeStickerEditState();
     } catch (err) {
       alert(err);
