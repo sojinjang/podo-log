@@ -16,6 +16,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.42.1",
     "react-intersection-observer": "^9.4.1",
+    "react-moveable": "^0.46.1",
     "react-reveal": "^1.2.2",
     "react-router-dom": "^6.6.2",
     "react-scripts": "5.0.1",
