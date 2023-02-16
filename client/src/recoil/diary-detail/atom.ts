@@ -6,6 +6,12 @@ export interface DeleteInfo {
   target: "diary" | "comment" | undefined;
 }
 
+export interface MoveableStickerInfo extends StickerInfo {
+  uniqueId: string;
+  x: number;
+  y: number;
+}
+
 export const isDeleteModalVisibleAtom = atom<boolean>({
   key: "isDeleteModalVisibleAtom",
   default: false,
@@ -19,7 +25,7 @@ export const deleteInfoAtom = atom<DeleteInfo>({
   },
 });
 
-export const selectedStickersAtom = atom<StickerInfo[]>({
+export const selectedStickersAtom = atom<MoveableStickerInfo[]>({
   key: "selectedStickersAtom",
   default: [],
 });

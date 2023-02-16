@@ -1,20 +1,21 @@
 import React, { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { API_URL } from "src/constants/API_URL";
+import tw from "tailwind-styled-components";
+import { v4 as uuidv4 } from "uuid";
+
 import { accessTokenAtom } from "src/recoil/token";
 import { get } from "src/utils/api";
-import tw from "tailwind-styled-components";
-
 import { useDidMountEffect } from "src/utils/hooks";
 import changeToKoreanDate from "src/utils/date";
 import { selectedStickersAtom } from "src/recoil/diary-detail/atom";
 import { Values } from "../../constants/Values";
+import { API_URL } from "src/constants/API_URL";
 
 interface StickerSectionProps {
   changeEditState: () => void;
 }
 export interface StickerInfo {
-  stickerId: number;
+  stickerId?: number;
   stickerImg: string;
 }
 interface StickerPack {
@@ -93,7 +94,12 @@ export const StickerSection = ({ changeEditState }: StickerSectionProps) => {
                   setSelectedStickers((prev) => {
                     return [
                       ...prev,
-                      { stickerId: sticker.stickerId, stickerImg: sticker.stickerImg },
+                      {
+                        uniqueId: uuidv4(),
+                        stickerImg: sticker.stickerImg,
+                        x: 0,
+                        y: 0,
+                      },
                     ];
                   });
                 }}
