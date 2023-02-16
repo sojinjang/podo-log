@@ -1,21 +1,45 @@
 import React, { useState } from "react";
-import Moveable from "react-moveable";
+import Moveable, { OnDragEnd } from "react-moveable";
+import { useSetRecoilState } from "recoil";
+import { MoveableStickerInfo, selectedStickersAtom } from "src/recoil/diary-detail/atom";
 import { useDidMountEffect } from "src/utils/hooks";
 
 interface DraggableStickerProps {
-  id: string;
-  stickerImg: string;
+  sticker: MoveableStickerInfo;
 }
 
-const MoveableSticker = ({ id, stickerImg }: DraggableStickerProps) => {
+const MoveableSticker = ({ sticker }: DraggableStickerProps) => {
   const [targetElem, setTargetElem] = useState<HTMLElement | SVGElement | null>(null);
-  const [style, setStyle] = useState("");
+  const setSelectedStickers = useSetRecoilState(selectedStickersAtom);
 
   useDidMountEffect(() => {
-    const targetElem = document.querySelector(`.target-${id}`) as HTMLElement;
-    // targetElem.style.transform = `translate(${(508 / 1385) * 100}vh, ${(95 / 1385) * 100}vh)`;
+    const targetElem = document.querySelector(`.target-${sticker.uniqueId}`) as HTMLElement;
+    targetElem.style.transform = `translate(${sticker.x}vh, ${sticker.y}vh)`;
     setTargetElem(targetElem);
   }, []);
+
+  const handleUpdateStickers = (newSticker: MoveableStickerInfo) => {
+    setSelectedStickers((prevStickers) => {
+      return [
+        ...prevStickers.filter(
+          (sticker: MoveableStickerInfo) => sticker.uniqueId !== newSticker.uniqueId
+        ),
+        newSticker,
+      ];
+    });
+  };
+
+  const handleDragEnd = (e: OnDragEnd) => {
+    if (e.lastEvent) {
+      const positionX = e.lastEvent.beforeTranslate[0];
+      const positionY = e.lastEvent.beforeTranslate[1];
+      handleUpdateStickers({
+        ...sticker,
+        x: positionX,
+        y: positionY,
+      });
+    }
+  };
 
   return (
     <>
@@ -25,12 +49,12 @@ const MoveableSticker = ({ id, stickerImg }: DraggableStickerProps) => {
         onDrag={({ target, transform }) => {
           target.style.transform = transform;
         }}
-        onDragEnd={({ target }) => {
-          setStyle(target.style.transform);
-          //   target.style.transform = style;
-        }}
+        onDragEnd={handleDragEnd}
       />
-      <img className={`target-${id} h-[10vh] absolute cursor-pointer`} src={stickerImg} />
+      <img
+        className={`target-${sticker.uniqueId} h-[8vh] z-10 absolute cursor-pointer`}
+        src={sticker.stickerImg}
+      />
     </>
   );
 };

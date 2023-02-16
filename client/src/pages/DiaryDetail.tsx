@@ -55,13 +55,7 @@ const DiaryDetail = () => {
           {isEditingSticker && (
             <>
               {selectedStickers.map((sticker) => {
-                return (
-                  <MoveableSticker
-                    key={sticker.uniqueId}
-                    id={sticker.uniqueId}
-                    sticker={sticker}
-                  />
-                );
+                return <MoveableSticker key={sticker.uniqueId} sticker={sticker} />;
               })}
             </>
           )}
