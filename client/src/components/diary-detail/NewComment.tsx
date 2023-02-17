@@ -7,7 +7,7 @@ import { accessTokenAtom } from "src/recoil/token";
 import { API_URL } from "src/constants/API_URL";
 import { post } from "src/utils/api";
 import { Input, InputContainer } from "../common/Input";
-import { DiaryId } from "./DetailedDiaryContainer";
+import { DiaryId } from "../../pages/DiaryDetail";
 
 interface CommentInput {
   readonly comment: string;

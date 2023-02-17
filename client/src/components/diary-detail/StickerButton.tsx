@@ -1,10 +1,13 @@
 import React from "react";
 import tw from "tailwind-styled-components";
-import { DiaryId } from "./DetailedDiaryContainer";
 
-const StickerButton = ({ diaryId }: DiaryId) => {
+interface StickerButtonProps {
+  changeEditState: () => void;
+}
+
+const StickerButton = ({ changeEditState }: StickerButtonProps) => {
   return (
-    <div className="flex justify-end">
+    <div onClick={changeEditState} className="flex justify-end">
       <ButtonContainer>
         <StickerIcon src={require("../../assets/icons/sticker.png")}></StickerIcon>
         <ButtonDesc>스티커</ButtonDesc>

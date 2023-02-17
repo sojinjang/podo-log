@@ -7,7 +7,7 @@ import { getUserId } from "src/utils/getUserId";
 import changeToKoreanTime from "src/utils/time";
 import DefaultProfileImg from "../../assets/icons/default_profile.png";
 import { ProfileImg, Nickname, Date } from "../common/WriterInfo";
-import { DiaryContainerProps } from "./DetailedDiaryContainer";
+import { DiaryContainerProps } from "../../pages/DiaryDetail";
 import { DropdownMenu } from "./DropdownMenu";
 
 export const DiarySection = ({ data }: DiaryContainerProps) => {

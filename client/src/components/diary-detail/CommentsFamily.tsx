@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { DiaryId } from "./DetailedDiaryContainer";
+import { DiaryId } from "../../pages/DiaryDetail";
 import { Comment, CommentReply } from "./Comment";
 import { ReplyComment } from "./ReplyComment";
 import { CommentFamType } from "./CommentSection";
