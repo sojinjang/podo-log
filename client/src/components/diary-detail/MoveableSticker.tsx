@@ -30,6 +30,12 @@ const MoveableSticker = ({ sticker }: DraggableStickerProps) => {
     });
   };
 
+  const handleDeleteStickers = (stickerBeDeleted: MoveableStickerInfo) => {
+    setSelectedStickers((prevStickers) => {
+      return prevStickers.filter((sticker) => sticker.uniqueId !== stickerBeDeleted.uniqueId);
+    });
+  };
+
   const handleDragStart = (e: OnDragStart) => {
     e.set([convertToAbsCoord(sticker.locX), convertToAbsCoord(sticker.locY)]);
   };
@@ -60,7 +66,12 @@ const MoveableSticker = ({ sticker }: DraggableStickerProps) => {
       />
       <MoveableStickerContainer className={`target-${sticker.uniqueId}`}>
         <StickerImg src={sticker.stickerImg} />
-        <CancelImg src={require("../../assets/icons/x.png")} />
+        <CancelImg
+          onClick={() => {
+            handleDeleteStickers(sticker);
+          }}
+          src={require("../../assets/icons/x.png")}
+        />
       </MoveableStickerContainer>
     </>
   );
