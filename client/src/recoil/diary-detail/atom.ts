@@ -1,15 +1,8 @@
 import { atom } from "recoil";
-import { StickerInfo } from "src/components/diary-detail/StickerSection";
 
 export interface DeleteInfo {
   id: number | undefined;
   target: "diary" | "comment" | undefined;
-}
-
-export interface MoveableStickerInfo extends StickerInfo {
-  uniqueId: string;
-  locX: number;
-  locY: number;
 }
 
 export const isDeleteModalVisibleAtom = atom<boolean>({
@@ -23,9 +16,4 @@ export const deleteInfoAtom = atom<DeleteInfo>({
     id: undefined,
     target: undefined,
   },
-});
-
-export const selectedStickersAtom = atom<MoveableStickerInfo[]>({
-  key: "selectedStickersAtom",
-  default: [],
 });

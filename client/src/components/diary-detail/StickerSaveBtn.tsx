@@ -3,18 +3,23 @@ import tw from "tailwind-styled-components";
 import { useRecoilValue, useResetRecoilState } from "recoil";
 
 import { accessTokenAtom } from "src/recoil/token";
-import { selectedStickersAtom } from "src/recoil/diary-detail/atom";
 import { post } from "src/utils/api";
 import { API_URL } from "src/constants/API_URL";
+import { MoveableStickerInfo } from "src/pages/DiaryDetail";
 
 interface StickerSaveButtonProps {
   diaryId: number;
+  selectedStickers: MoveableStickerInfo[];
   changeStickerEditState: () => void;
+  handleResetSelectedStcks: () => void;
 }
-const StickerSaveBtn = ({ diaryId, changeStickerEditState }: StickerSaveButtonProps) => {
+const StickerSaveBtn = ({
+  diaryId,
+  selectedStickers,
+  changeStickerEditState,
+  handleResetSelectedStcks,
+}: StickerSaveButtonProps) => {
   const accessToken = useRecoilValue(accessTokenAtom);
-  const selectedStickers = useRecoilValue(selectedStickersAtom);
-  const resetSelectedStickers = useResetRecoilState(selectedStickersAtom);
   const refineStickersData = () => {
     const stickersData = selectedStickers.map((sticker) => {
       const { stickerId, locX, locY } = sticker;
@@ -26,7 +31,7 @@ const StickerSaveBtn = ({ diaryId, changeStickerEditState }: StickerSaveButtonPr
     try {
       const stickers = refineStickersData();
       await post(API_URL.stickers(diaryId), stickers, accessToken);
-      resetSelectedStickers();
+      handleResetSelectedStcks();
       changeStickerEditState();
     } catch (err) {
       alert(err);

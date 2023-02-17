@@ -1,1 +1,1 @@
-export { isDeleteModalVisibleAtom, deleteInfoAtom, selectedStickersAtom } from "./atom";
+export { isDeleteModalVisibleAtom, deleteInfoAtom } from "./atom";

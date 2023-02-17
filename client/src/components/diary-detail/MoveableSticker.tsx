@@ -1,40 +1,29 @@
 import React, { useState } from "react";
 import tw from "tailwind-styled-components";
 import Moveable, { OnDragStart, OnDrag, OnDragEnd } from "react-moveable";
-import { useSetRecoilState } from "recoil";
 
-import { MoveableStickerInfo, selectedStickersAtom } from "src/recoil/diary-detail/atom";
 import { useDidMountEffect } from "src/utils/hooks";
 import { convertToRelativeCoord, convertToAbsCoord } from "src/utils/convertCoord";
+import { MoveableStickerInfo } from "src/pages/DiaryDetail";
 
 interface DraggableStickerProps {
   sticker: MoveableStickerInfo;
+  handleUpdateStickers: (newSticker: MoveableStickerInfo) => void;
+  handleDeleteStickers: (newSticker: MoveableStickerInfo) => void;
 }
 
-const MoveableSticker = ({ sticker }: DraggableStickerProps) => {
+const MoveableSticker = ({
+  sticker,
+  handleUpdateStickers,
+  handleDeleteStickers,
+}: DraggableStickerProps) => {
   const [targetElem, setTargetElem] = useState<HTMLElement | SVGElement | null>(null);
-  const setSelectedStickers = useSetRecoilState(selectedStickersAtom);
 
   useDidMountEffect(() => {
     const targetElem = document.querySelector(`.target-${sticker.uniqueId}`) as HTMLElement;
     targetElem.style.transform = `translate(${sticker.locX}vh, ${sticker.locY}vh`;
     setTargetElem(targetElem);
   }, []);
-
-  const handleUpdateStickers = (newSticker: MoveableStickerInfo) => {
-    setSelectedStickers((prevStickers) => {
-      return [
-        ...prevStickers.filter((sticker) => sticker.uniqueId !== newSticker.uniqueId),
-        newSticker,
-      ];
-    });
-  };
-
-  const handleDeleteStickers = (stickerBeDeleted: MoveableStickerInfo) => {
-    setSelectedStickers((prevStickers) => {
-      return prevStickers.filter((sticker) => sticker.uniqueId !== stickerBeDeleted.uniqueId);
-    });
-  };
 
   const handleDragStart = (e: OnDragStart) => {
     e.set([convertToAbsCoord(sticker.locX), convertToAbsCoord(sticker.locY)]);
@@ -55,6 +44,7 @@ const MoveableSticker = ({ sticker }: DraggableStickerProps) => {
       });
     }
   };
+
   return (
     <>
       <Moveable

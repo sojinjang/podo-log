@@ -1,18 +1,17 @@
 import React, { useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import tw from "tailwind-styled-components";
-import { v4 as uuidv4 } from "uuid";
 
 import { accessTokenAtom } from "src/recoil/token";
 import { get } from "src/utils/api";
 import { useDidMountEffect } from "src/utils/hooks";
 import changeToKoreanDate from "src/utils/date";
-import { selectedStickersAtom } from "src/recoil/diary-detail/atom";
 import { Values } from "../../constants/Values";
 import { API_URL } from "src/constants/API_URL";
 
 interface StickerSectionProps {
   changeEditState: () => void;
+  handleAddNewSticker: (newSticker: StickerInfo) => void;
 }
 export interface StickerInfo {
   stickerId: number;
@@ -35,11 +34,13 @@ interface StickersWithExpiry extends StickersInfoArrObj {
   expiration: Date | string;
 }
 
-export const StickerSection = ({ changeEditState }: StickerSectionProps) => {
+export const StickerSection = ({
+  changeEditState,
+  handleAddNewSticker,
+}: StickerSectionProps) => {
   const [myStickerPack, setMyStickerPack] = useState<StickerPack[]>([]);
   const [stickers, setStickers] = useState<StickersPreview | null>(null);
   const [targetPackId, setTargetPackId] = useState<number>(1);
-  const setSelectedStickers = useSetRecoilState(selectedStickersAtom);
   const accessToken = useRecoilValue(accessTokenAtom);
   const getMyStickerPack = async () => {
     try {
@@ -91,18 +92,7 @@ export const StickerSection = ({ changeEditState }: StickerSectionProps) => {
             return (
               <StickerPreview
                 onClick={() => {
-                  setSelectedStickers((prev) => {
-                    return [
-                      ...prev,
-                      {
-                        stickerId: sticker.stickerId,
-                        uniqueId: uuidv4(),
-                        stickerImg: sticker.stickerImg,
-                        locX: 18,
-                        locY: (18 * 16) / 9,
-                      },
-                    ];
-                  });
+                  handleAddNewSticker(sticker);
                 }}
                 key={sticker.stickerId}
                 src={sticker.stickerImg}
