@@ -98,8 +98,8 @@ export const StickerSection = ({ changeEditState }: StickerSectionProps) => {
                         stickerId: sticker.stickerId,
                         uniqueId: uuidv4(),
                         stickerImg: sticker.stickerImg,
-                        locX: 0,
-                        locY: 0,
+                        locX: 18,
+                        locY: 32,
                       },
                     ];
                   });
