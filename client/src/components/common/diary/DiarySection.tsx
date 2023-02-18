@@ -6,7 +6,7 @@ import { accessTokenAtom } from "src/recoil/token";
 import { getUserId } from "src/utils/getUserId";
 import changeToKoreanTime from "src/utils/time";
 import DefaultProfileImg from "../../assets/icons/default_profile.png";
-import { ProfileImg, Nickname, Date } from "../WriterInfo";
+import { ProfileImg, Nickname, Date } from "./WriterInfo";
 import { DropdownMenu } from "../../diary-detail/DropdownMenu";
 import { Diary } from "src/components/book/DiaryListContainer";
 
