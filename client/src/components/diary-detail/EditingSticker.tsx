@@ -5,6 +5,7 @@ import Moveable, { OnDragStart, OnDrag, OnDragEnd } from "react-moveable";
 import { useDidMountEffect } from "src/utils/hooks";
 import { convertToRelativeCoord, convertToAbsCoord } from "src/utils/convertCoord";
 import { EditingStickerInfo } from "src/pages/DiaryDetail";
+import { MoveableStickerContainer, StickerImg } from "../common/AffixedSticker";
 
 interface DraggableStickerProps {
   sticker: EditingStickerInfo;
@@ -53,9 +54,8 @@ const EditingSticker = ({
         onDragStart={handleDragStart}
         onDrag={handleOnDrag}
         onDragEnd={handleDragEnd}
-        OriginDraggable={true}
       />
-      <EditingStickerContainer className={`target-${sticker.uniqueId}`}>
+      <MoveableStickerContainer className={`target-${sticker.uniqueId}`}>
         <StickerImg src={sticker.stickerImg} />
         <CancelImg
           onClick={() => {
@@ -63,20 +63,12 @@ const EditingSticker = ({
           }}
           src={require("../../assets/icons/x.png")}
         />
-      </EditingStickerContainer>
+      </MoveableStickerContainer>
     </>
   );
 };
 
 export default EditingSticker;
-
-const EditingStickerContainer = tw.div`
-h-[8vh] z-10 flex absolute cursor-pointer
-`;
-
-const StickerImg = tw.img`
-mt-2 mr-2
-`;
 
 const CancelImg = tw.img`
 h-[2vh] absolute right-0 
