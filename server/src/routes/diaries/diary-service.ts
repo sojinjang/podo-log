@@ -77,6 +77,15 @@ class DiaryService {
     return messageDTO;
   }
 
+  async getStickersByDiaryId(diaryIdDTO: DiaryIdDTO) {
+    const stickers = await this.diaryModel.getStickersByDiaryId(diaryIdDTO);
+
+    const data = buildImgLocation(stickers, "stickerImg");
+
+    const messageDTO = { message: "일기 조회에 성공하였습니다.", data };
+    return messageDTO;
+  }
+
   async putStickers(putStickersDTO: PutStickersDTO) {
     const { userId, diaryId, stickers } = putStickersDTO;
 

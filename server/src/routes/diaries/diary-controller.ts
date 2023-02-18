@@ -68,6 +68,13 @@ class DiaryController {
     return new SuccessMsgResponse(messageDTO.message).send(res);
   });
 
+  getStickersByDiaryId = asyncHandler(async (req: LoggedRequest, res) => {
+    const diaryId = parseInt(req.params.diaryId);
+
+    const messageDTO = await this.diaryService.getStickersByDiaryId({ diaryId });
+    return new SuccessResponse(messageDTO.message, messageDTO.data).send(res);
+  });
+
   putStickers = asyncHandler(async (req: FileRequest, res) => {
     const { userId } = req.user;
     const diaryId = parseInt(req.params.diaryId);
