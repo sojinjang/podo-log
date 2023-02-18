@@ -36,8 +36,8 @@ export interface EditingStickerInfo extends StickerInfo {
 }
 
 const DiaryDetail = () => {
-  const DEFAULT_STKR_POS_X = 18;
-  const DEFAULT_STKR_POS_Y = (18 * 16) / 9;
+  const DEFAULT_STKR_POS_X = 10;
+  const DEFAULT_STKR_POS_Y = 10;
   const location = useLocation();
   const data = location.state.diaryInfo;
   const params = useParams();
