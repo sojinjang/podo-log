@@ -18,6 +18,7 @@ export interface Diary {
   content: string;
   profile: null | string;
   picture: null | string;
+  stickers: null | [];
   createdAt: Date;
   updatedAt: Date;
   numComments: number;
