@@ -27,6 +27,16 @@ export const AffixedSticker = ({ sticker, handleUpdateStickers }: AffixedSticker
     setTargetElem(targetElem);
   }, []);
 
+  const hideMovableBoxStyle = useCallback(() => {
+    const moveableControlBoxArr = Array.from(
+      document.querySelectorAll<HTMLElement>(`.moveable-control-box`)
+    );
+    moveableControlBoxArr.map((moveableBox) => {
+      return (moveableBox.style.visibility = "hidden");
+    });
+  }, [targetElem]);
+  useEffect(hideMovableBoxStyle, [targetElem]);
+
   const handleDragStart = (e: OnDragStart) => {
     e.set([convertToAbsCoord(sticker.locX), convertToAbsCoord(sticker.locY)]);
   };
