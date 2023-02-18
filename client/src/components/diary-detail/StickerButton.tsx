@@ -7,8 +7,8 @@ interface StickerButtonProps {
 
 const StickerButton = ({ changeEditState }: StickerButtonProps) => {
   return (
-    <div onClick={changeEditState} className="flex justify-end">
-      <ButtonContainer>
+    <div className="flex justify-end">
+      <ButtonContainer onClick={changeEditState}>
         <StickerIcon src={require("../../assets/icons/sticker.png")}></StickerIcon>
         <ButtonDesc>스티커</ButtonDesc>
       </ButtonContainer>
