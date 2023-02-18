@@ -5,8 +5,10 @@ import { v4 as uuidv4 } from "uuid";
 import Fade from "react-reveal/Fade";
 
 import { isDeleteModalVisibleAtom } from "../recoil/diary-detail/atom";
+import { accessTokenAtom } from "src/recoil/token";
 import { PinkPurpleBackground } from "src/components/common/Backgrounds";
 import BackButton from "../components/common/BackButton";
+import { AffixedSticker, AffixedStickerInfo } from "src/components/common/diary/Sticker";
 import { Diary } from "../components/book/DiaryListContainer";
 import StickerSaveBtn from "src/components/diary-detail/StickerSaveBtn";
 import { StickerInfo, StickerSection } from "src/components/diary-detail/StickerSection";
@@ -16,10 +18,8 @@ import DeleteModal from "src/components/diary-detail//DeleteModal";
 import { DiarySection } from "src/components/diary-detail/DiarySection";
 import { DiarySectionContainer } from "src/components/diary-detail/DiarySectionContainer";
 import EditingSticker from "src/components/diary-detail/EditingSticker";
-import { AffixedSticker, AffixedStickerInfo } from "src/components/common/AffixedSticker";
-import { API_URL } from "src/constants/API_URL";
 import { get } from "src/utils/api";
-import { accessTokenAtom } from "src/recoil/token";
+import { API_URL } from "src/constants/API_URL";
 
 export interface DiaryContainerProps {
   data: Diary;
@@ -123,8 +123,9 @@ const DiaryDetail = () => {
         <StickerSaveBtn
           diaryId={diaryId}
           selectedStickers={selectedStickers}
-          changeStickerEditState={changeStickerEditState}
+          handleUpdateStickers={handleUpdateAffixedStickers}
           handleResetSelectedStcks={handleResetSelectedStcks}
+          changeStickerEditState={changeStickerEditState}
         />
       )}
       <Fade duration={1000}>

@@ -5,7 +5,7 @@ import Moveable, { OnDragStart, OnDrag, OnDragEnd } from "react-moveable";
 import { useDidMountEffect } from "src/utils/hooks";
 import { convertToRelativeCoord, convertToAbsCoord } from "src/utils/convertCoord";
 import { EditingStickerInfo } from "src/pages/DiaryDetail";
-import { MoveableStickerContainer, StickerImg } from "../common/AffixedSticker";
+import { MoveableStickerContainer, StickerImg } from "../common/diary/Sticker";
 
 interface DraggableStickerProps {
   sticker: EditingStickerInfo;
