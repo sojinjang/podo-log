@@ -28,13 +28,18 @@ class DiaryModel {
     pageDTO: PageDTO,
     columnArr: string[] = ["*"]
   ) {
-    const joinQuery1 = `JOIN user on user.userId = diary.userId`;
-    const joinQuery2 = `left JOIN (select diaryId ,JSON_ARRAYAGG(JSON_OBJECT('stickedStickerId', stickedStickerId, 'stickerId', s.stickerId,'stickerName', stickerName,'stickerImg',stickerImg, 'userId', userId ,'locX',locX,'locY',locY)) as stickers from sticked_sticker ss
-    join sticker s on s.stickerId=ss.stickerId
-    group by diaryId ) as sst on sst.diaryId = diary.diaryId`;
-
-    const joinQuery = joinQuery1 + " " + joinQuery2;
+    const joinQuery = `JOIN user on user.userId = diary.userId`;
     const countQuery = `(select count(*) from comment as c where c.diaryId = diary.diaryId) as numComments`;
+    const countQuery2 = `(SELECT JSON_ARRAYAGG(JSON_OBJECT('stickedStickerId', stickedStickerId, 'stickerId',stickerId,'stickerName', stickerName,'stickerImg',stickerImg, 'userId', userId ,'locX',locX,'locY',locY))
+    FROM (
+      SELECT stickedStickerId, s.stickerId, stickerName, stickerImg, userId, locX, locY 
+      FROM sticked_sticker ss
+      JOIN sticker s ON s.stickerId = ss.stickerId
+      WHERE ss.diaryId = diary.diaryId
+      ORDER BY stickedStickerId ASC
+    ) AS sst
+   ) AS stickers`;
+
     const pageQuery = `ORDER BY diaryId DESC LIMIT ${pageDTO.offset}, ${pageDTO.limit}`;
     columnArr = [
       "diary.userId",
@@ -46,7 +51,7 @@ class DiaryModel {
       "title",
       "content",
       countQuery,
-      "stickers",
+      countQuery2,
       "diary.createdAt",
       "diary.updatedAt",
     ];
