@@ -6,11 +6,16 @@ import { accessTokenAtom } from "src/recoil/token";
 import { getUserId } from "src/utils/getUserId";
 import changeToKoreanTime from "src/utils/time";
 import DefaultProfileImg from "../../assets/icons/default_profile.png";
-import { ProfileImg, Nickname, Date } from "../common/WriterInfo";
-import { DiaryContainerProps } from "../../pages/DiaryDetail";
-import { DropdownMenu } from "./DropdownMenu";
+import { ProfileImg, Nickname, Date } from "../WriterInfo";
+import { DropdownMenu } from "../../diary-detail/DropdownMenu";
+import { Diary } from "src/components/book/DiaryListContainer";
 
-export const DiarySection = ({ data }: DiaryContainerProps) => {
+export interface DiaryContainerProps {
+  data: Diary;
+  isDetailPage: boolean;
+}
+
+export const DiarySection = ({ data, isDetailPage = true }: DiaryContainerProps) => {
   const accessToken = useRecoilValue(accessTokenAtom);
   const isDiaryWriter = getUserId(accessToken) === data.userId;
   const profileImgSrc = data.profile === "없음" ? DefaultProfileImg : data.profile;
@@ -28,7 +33,9 @@ export const DiarySection = ({ data }: DiaryContainerProps) => {
             {isRevised && <Date className="ml-1">(수정됨)</Date>}
           </div>
         </div>
-        {isDiaryWriter && <DropdownMenu deleteInfo={{ id: data.diaryId, target: "diary" }} />}
+        {isDetailPage && isDiaryWriter && (
+          <DropdownMenu deleteInfo={{ id: data.diaryId, target: "diary" }} />
+        )}
       </div>
       {hasPicture && <Photo src={String(data.picture)} />}
       <DiaryTitle>{data.title}</DiaryTitle>

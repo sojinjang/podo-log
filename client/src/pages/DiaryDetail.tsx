@@ -9,21 +9,16 @@ import { accessTokenAtom } from "src/recoil/token";
 import { PinkPurpleBackground } from "src/components/common/Backgrounds";
 import BackButton from "../components/common/BackButton";
 import { AffixedSticker, AffixedStickerInfo } from "src/components/common/diary/Sticker";
-import { Diary } from "../components/book/DiaryListContainer";
+import { DiarySection } from "src/components/common/diary/DiarySection";
+import { DiarySectionContainer } from "src/components/common/diary/DiarySectionContainer";
 import StickerSaveBtn from "src/components/diary-detail/StickerSaveBtn";
 import { StickerInfo, StickerSection } from "src/components/diary-detail/StickerSection";
 import StickerButton from "src/components/diary-detail/StickerButton";
 import { CommentSection } from "src/components/diary-detail/CommentSection";
 import DeleteModal from "src/components/diary-detail//DeleteModal";
-import { DiarySection } from "src/components/diary-detail/DiarySection";
-import { DiarySectionContainer } from "src/components/diary-detail/DiarySectionContainer";
 import EditingSticker from "src/components/diary-detail/EditingSticker";
 import { get } from "src/utils/api";
 import { API_URL } from "src/constants/API_URL";
-
-export interface DiaryContainerProps {
-  data: Diary;
-}
 
 export interface DiaryId {
   diaryId: number;
@@ -129,7 +124,7 @@ const DiaryDetail = () => {
         />
       )}
       <Fade duration={1000}>
-        <DiarySectionContainer className="relative overflow-hidden">
+        <DiarySectionContainer className="my-[8vh]">
           {stickers.map((sticker) => {
             return (
               <AffixedSticker
@@ -153,7 +148,7 @@ const DiaryDetail = () => {
               })}
             </>
           )}
-          <DiarySection data={data} />
+          <DiarySection data={data} isDetailPage={true} />
           <StickerButton changeEditState={changeStickerEditState} />
           <CommentSection diaryId={diaryId} />
           {isDeleteModalVisible && (
