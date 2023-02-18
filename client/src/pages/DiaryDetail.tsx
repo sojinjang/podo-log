@@ -1,43 +1,43 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useLocation } from "react-router-dom";
-import { useRecoilState, useResetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import { v4 as uuidv4 } from "uuid";
 import Fade from "react-reveal/Fade";
 
 import { isDeleteModalVisibleAtom } from "../recoil/diary-detail/atom";
+import { accessTokenAtom } from "src/recoil/token";
 import { PinkPurpleBackground } from "src/components/common/Backgrounds";
 import BackButton from "../components/common/BackButton";
-import { Diary } from "../components/book/DiaryListContainer";
+import { AffixedSticker, AffixedStickerInfo } from "src/components/common/diary/Sticker";
+import { DiarySection } from "src/components/common/diary/DiarySection";
+import { DiarySectionContainer } from "src/components/common/diary/DiarySectionContainer";
 import StickerSaveBtn from "src/components/diary-detail/StickerSaveBtn";
 import { StickerInfo, StickerSection } from "src/components/diary-detail/StickerSection";
 import StickerButton from "src/components/diary-detail/StickerButton";
 import { CommentSection } from "src/components/diary-detail/CommentSection";
 import DeleteModal from "src/components/diary-detail//DeleteModal";
-import { DiarySection } from "src/components/diary-detail/DiarySection";
-import { DiarySectionContainer } from "src/components/diary-detail/DiarySectionContainer";
-import MoveableSticker from "src/components/diary-detail/MoveableSticker";
-
-export interface DiaryContainerProps {
-  data: Diary;
-}
+import EditingSticker from "src/components/diary-detail/EditingSticker";
+import { get } from "src/utils/api";
+import { API_URL } from "src/constants/API_URL";
 
 export interface DiaryId {
   diaryId: number;
 }
 
-export interface MoveableStickerInfo extends StickerInfo {
+export interface EditingStickerInfo extends StickerInfo {
   uniqueId: string;
   locX: number;
   locY: number;
 }
 
 const DiaryDetail = () => {
-  const DEFAULT_STKR_POS_X = 18;
-  const DEFAULT_STKR_POS_Y = (18 * 16) / 9;
+  const DEFAULT_STKR_POS_X = 10;
+  const DEFAULT_STKR_POS_Y = 10;
   const location = useLocation();
   const data = location.state.diaryInfo;
   const params = useParams();
   const diaryId = Number(params.diaryId);
+  const accessToken = useRecoilValue(accessTokenAtom);
 
   const [isEditingSticker, setIsEditingSticker] = useState<boolean>(true);
   const changeStickerEditState = () => {
@@ -49,7 +49,30 @@ const DiaryDetail = () => {
   );
   const resetIsDeleteModalVisible = useResetRecoilState(isDeleteModalVisibleAtom);
 
-  const [selectedStickers, setSelectedStickers] = useState<MoveableStickerInfo[]>([]);
+  const [stickers, setStickers] = useState<AffixedStickerInfo[]>([]);
+  const getAffixedStickers = async () => {
+    try {
+      const response = await get(API_URL.stickers(diaryId), "", accessToken);
+      setStickers(response.data);
+    } catch (err) {
+      if (err instanceof Error) alert(err.message);
+    }
+  };
+  const handleUpdateAffixedStickers = (newSticker: AffixedStickerInfo) => {
+    setStickers((curStickers) => {
+      return [
+        ...curStickers.filter(
+          (sticker) => sticker.stickedStickerId !== newSticker.stickedStickerId
+        ),
+        newSticker,
+      ];
+    });
+  };
+  useEffect(() => {
+    getAffixedStickers();
+  }, []);
+
+  const [selectedStickers, setSelectedStickers] = useState<EditingStickerInfo[]>([]);
   const handleAddNewSticker = (newSticker: StickerInfo) => {
     setSelectedStickers((curStickers) => {
       return [
@@ -64,7 +87,7 @@ const DiaryDetail = () => {
       ];
     });
   };
-  const handleUpdateStickers = (newSticker: MoveableStickerInfo) => {
+  const handleUpdateStickers = (newSticker: EditingStickerInfo) => {
     setSelectedStickers((curStickers) => {
       return [
         ...curStickers.filter((sticker) => sticker.uniqueId !== newSticker.uniqueId),
@@ -72,7 +95,7 @@ const DiaryDetail = () => {
       ];
     });
   };
-  const handleDeleteStickers = (stickerBeDeleted: MoveableStickerInfo) => {
+  const handleDeleteStickers = (stickerBeDeleted: EditingStickerInfo) => {
     setSelectedStickers((curStickers) => {
       return curStickers.filter((sticker) => sticker.uniqueId !== stickerBeDeleted.uniqueId);
     });
@@ -95,17 +118,27 @@ const DiaryDetail = () => {
         <StickerSaveBtn
           diaryId={diaryId}
           selectedStickers={selectedStickers}
-          changeStickerEditState={changeStickerEditState}
+          handleUpdateStickers={handleUpdateAffixedStickers}
           handleResetSelectedStcks={handleResetSelectedStcks}
+          changeStickerEditState={changeStickerEditState}
         />
       )}
       <Fade duration={1000}>
-        <DiarySectionContainer className="relative overflow-hidden">
+        <DiarySectionContainer className="my-[8vh]">
+          {stickers.map((sticker) => {
+            return (
+              <AffixedSticker
+                key={sticker.stickedStickerId}
+                sticker={sticker}
+                handleUpdateStickers={handleUpdateAffixedStickers}
+              />
+            );
+          })}
           {isEditingSticker && (
             <>
               {selectedStickers.map((sticker) => {
                 return (
-                  <MoveableSticker
+                  <EditingSticker
                     key={sticker.uniqueId}
                     sticker={sticker}
                     handleUpdateStickers={handleUpdateStickers}
@@ -115,7 +148,7 @@ const DiaryDetail = () => {
               })}
             </>
           )}
-          <DiarySection data={data} />
+          <DiarySection data={data} isDetailPage={true} />
           <StickerButton changeEditState={changeStickerEditState} />
           <CommentSection diaryId={diaryId} />
           {isDeleteModalVisible && (

@@ -1,23 +1,26 @@
 import React from "react";
 import tw from "tailwind-styled-components";
-import { useRecoilValue, useResetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 
 import { accessTokenAtom } from "src/recoil/token";
 import { post } from "src/utils/api";
 import { API_URL } from "src/constants/API_URL";
-import { MoveableStickerInfo } from "src/pages/DiaryDetail";
+import { EditingStickerInfo } from "src/pages/DiaryDetail";
+import { AffixedStickerInfo } from "../common/diary/Sticker";
 
 interface StickerSaveButtonProps {
   diaryId: number;
-  selectedStickers: MoveableStickerInfo[];
-  changeStickerEditState: () => void;
+  selectedStickers: EditingStickerInfo[];
+  handleUpdateStickers: (newSticker: AffixedStickerInfo) => void;
   handleResetSelectedStcks: () => void;
+  changeStickerEditState: () => void;
 }
 const StickerSaveBtn = ({
   diaryId,
   selectedStickers,
-  changeStickerEditState,
+  handleUpdateStickers,
   handleResetSelectedStcks,
+  changeStickerEditState,
 }: StickerSaveButtonProps) => {
   const accessToken = useRecoilValue(accessTokenAtom);
   const refineStickersData = () => {
@@ -30,7 +33,11 @@ const StickerSaveBtn = ({
   const handleOnClickSave = async () => {
     try {
       const stickers = refineStickersData();
-      await post(API_URL.stickers(diaryId), stickers, accessToken);
+      const response = await post(API_URL.stickers(diaryId), stickers, accessToken);
+      const newAffixedStickers = response.data;
+      newAffixedStickers.forEach((sticker: AffixedStickerInfo) => {
+        handleUpdateStickers(sticker);
+      });
       handleResetSelectedStcks();
       changeStickerEditState();
     } catch (err) {

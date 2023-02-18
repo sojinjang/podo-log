@@ -38,7 +38,7 @@ export const DropdownMenu = ({ setCommentIsBeingEdited, deleteInfo }: DropdownMe
   const dropdownMenuImgSrc = isDropdownActivatied ? DropdownImg : MenuImg;
 
   return (
-    <Menu as="div" className="relative ml-auto">
+    <Menu as="div" className="relative my-auto ml-auto">
       <Menu.Button ref={dropdownButtonRef}>
         <DropdownMenuIcon onClick={changeDropdownState} src={dropdownMenuImgSrc} />
       </Menu.Button>
