@@ -92,6 +92,30 @@ class DiaryModel {
     return result;
   }
 
+  async getStickersByDiaryId(diaryIdDTO: DiaryIdDTO) {
+    const joinQuery = `JOIN sticker on sticker.stickerId = sticked_sticker.stickerId`;
+    const columnArr = [
+      "locX",
+      "locY",
+      "userId",
+      "sticker.stickerId",
+      "stickerImg",
+      "stickerName",
+      "stickedStickerId",
+      "packageId",
+    ];
+    const { query, values } = stickedStickerBuildQuery.makeSelectQuery(
+      { ...diaryIdDTO },
+      columnArr,
+      joinQuery
+    );
+    logger.info(query);
+    logger.debug(values);
+    const [result] = await pool.query<RowDataPacket[]>(query, values);
+    logger.debug(result);
+    return result;
+  }
+
   async putStickers(stickedStickersDTOArr: StickedStickersDTO[]) {
     const { query, values } =
       stickedStickerBuildQuery.makeArrInsertQuery(stickedStickersDTOArr);
