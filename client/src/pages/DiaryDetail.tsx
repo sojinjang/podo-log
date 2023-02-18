@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useLocation } from "react-router-dom";
-import { useRecoilState, useResetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import { v4 as uuidv4 } from "uuid";
 import Fade from "react-reveal/Fade";
 
@@ -16,6 +16,10 @@ import DeleteModal from "src/components/diary-detail//DeleteModal";
 import { DiarySection } from "src/components/diary-detail/DiarySection";
 import { DiarySectionContainer } from "src/components/diary-detail/DiarySectionContainer";
 import EditingSticker from "src/components/diary-detail/EditingSticker";
+import { AffixedSticker, AffixedStickerInfo } from "src/components/common/AffixedSticker";
+import { API_URL } from "src/constants/API_URL";
+import { get } from "src/utils/api";
+import { accessTokenAtom } from "src/recoil/token";
 
 export interface DiaryContainerProps {
   data: Diary;
@@ -38,6 +42,7 @@ const DiaryDetail = () => {
   const data = location.state.diaryInfo;
   const params = useParams();
   const diaryId = Number(params.diaryId);
+  const accessToken = useRecoilValue(accessTokenAtom);
 
   const [isEditingSticker, setIsEditingSticker] = useState<boolean>(true);
   const changeStickerEditState = () => {
@@ -48,6 +53,29 @@ const DiaryDetail = () => {
     isDeleteModalVisibleAtom
   );
   const resetIsDeleteModalVisible = useResetRecoilState(isDeleteModalVisibleAtom);
+
+  const [stickers, setStickers] = useState<AffixedStickerInfo[]>([]);
+  const getAffixedStickers = async () => {
+    try {
+      const response = await get(API_URL.stickers(diaryId), "", accessToken);
+      setStickers(response.data);
+    } catch (err) {
+      if (err instanceof Error) alert(err.message);
+    }
+  };
+  const handleUpdateAffixedStickers = (newSticker: AffixedStickerInfo) => {
+    setStickers((curStickers) => {
+      return [
+        ...curStickers.filter(
+          (sticker) => sticker.stickedStickerId !== newSticker.stickedStickerId
+        ),
+        newSticker,
+      ];
+    });
+  };
+  useEffect(() => {
+    getAffixedStickers();
+  }, []);
 
   const [selectedStickers, setSelectedStickers] = useState<EditingStickerInfo[]>([]);
   const handleAddNewSticker = (newSticker: StickerInfo) => {
@@ -101,6 +129,15 @@ const DiaryDetail = () => {
       )}
       <Fade duration={1000}>
         <DiarySectionContainer className="relative overflow-hidden">
+          {stickers.map((sticker) => {
+            return (
+              <AffixedSticker
+                key={sticker.stickedStickerId}
+                sticker={sticker}
+                handleUpdateStickers={handleUpdateAffixedStickers}
+              />
+            );
+          })}
           {isEditingSticker && (
             <>
               {selectedStickers.map((sticker) => {
