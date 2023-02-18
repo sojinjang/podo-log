@@ -92,7 +92,13 @@ class DiaryService {
     const stickedStickers = stickers.map((sticker) => ({ ...sticker, userId, diaryId }));
 
     const result = await this.diaryModel.putStickers(stickedStickers);
+    const stickersInDairy = await this.diaryModel.getStickersByDiaryId({ diaryId });
+    const data = buildImgLocation(stickersInDairy, "stickerImg");
+
     const messageDTO = checkResult(result, "스티커를 붙였습니다.");
+
+    messageDTO.data = data;
+
     return messageDTO;
   }
 
