@@ -26,6 +26,12 @@ router.delete(
   diaryController.deleteById
 );
 
+router.get(
+  "/:diaryId/stickers",
+  validator(schema.diaryId, ValidationSource.PARAM),
+  diaryController.getStickersByDiaryId
+);
+
 router.post(
   "/:diaryId/stickers",
   validator(schema.diaryId, ValidationSource.PARAM),
