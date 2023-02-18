@@ -5,11 +5,11 @@ import { useRecoilValue } from "recoil";
 import { accessTokenAtom } from "src/recoil/token";
 import { post } from "src/utils/api";
 import { API_URL } from "src/constants/API_URL";
-import { MoveableStickerInfo } from "src/pages/DiaryDetail";
+import { EditingStickerInfo } from "src/pages/DiaryDetail";
 
 interface StickerSaveButtonProps {
   diaryId: number;
-  selectedStickers: MoveableStickerInfo[];
+  selectedStickers: EditingStickerInfo[];
   changeStickerEditState: () => void;
   handleResetSelectedStcks: () => void;
 }

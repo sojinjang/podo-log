@@ -4,15 +4,15 @@ import Moveable, { OnDragStart, OnDrag, OnDragEnd } from "react-moveable";
 
 import { useDidMountEffect } from "src/utils/hooks";
 import { convertToRelativeCoord, convertToAbsCoord } from "src/utils/convertCoord";
-import { MoveableStickerInfo } from "src/pages/DiaryDetail";
+import { EditingStickerInfo } from "src/pages/DiaryDetail";
 
 interface DraggableStickerProps {
-  sticker: MoveableStickerInfo;
-  handleUpdateStickers: (newSticker: MoveableStickerInfo) => void;
-  handleDeleteStickers: (newSticker: MoveableStickerInfo) => void;
+  sticker: EditingStickerInfo;
+  handleUpdateStickers: (newSticker: EditingStickerInfo) => void;
+  handleDeleteStickers: (newSticker: EditingStickerInfo) => void;
 }
 
-const MoveableSticker = ({
+const EditingSticker = ({
   sticker,
   handleUpdateStickers,
   handleDeleteStickers,
@@ -53,8 +53,9 @@ const MoveableSticker = ({
         onDragStart={handleDragStart}
         onDrag={handleOnDrag}
         onDragEnd={handleDragEnd}
+        OriginDraggable={true}
       />
-      <MoveableStickerContainer className={`target-${sticker.uniqueId}`}>
+      <EditingStickerContainer className={`target-${sticker.uniqueId}`}>
         <StickerImg src={sticker.stickerImg} />
         <CancelImg
           onClick={() => {
@@ -62,14 +63,14 @@ const MoveableSticker = ({
           }}
           src={require("../../assets/icons/x.png")}
         />
-      </MoveableStickerContainer>
+      </EditingStickerContainer>
     </>
   );
 };
 
-export default MoveableSticker;
+export default EditingSticker;
 
-const MoveableStickerContainer = tw.div`
+const EditingStickerContainer = tw.div`
 h-[8vh] z-10 flex absolute cursor-pointer
 `;
 

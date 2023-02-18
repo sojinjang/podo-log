@@ -15,7 +15,7 @@ import { CommentSection } from "src/components/diary-detail/CommentSection";
 import DeleteModal from "src/components/diary-detail//DeleteModal";
 import { DiarySection } from "src/components/diary-detail/DiarySection";
 import { DiarySectionContainer } from "src/components/diary-detail/DiarySectionContainer";
-import MoveableSticker from "src/components/diary-detail/MoveableSticker";
+import EditingSticker from "src/components/diary-detail/EditingSticker";
 
 export interface DiaryContainerProps {
   data: Diary;
@@ -25,7 +25,7 @@ export interface DiaryId {
   diaryId: number;
 }
 
-export interface MoveableStickerInfo extends StickerInfo {
+export interface EditingStickerInfo extends StickerInfo {
   uniqueId: string;
   locX: number;
   locY: number;
@@ -49,7 +49,7 @@ const DiaryDetail = () => {
   );
   const resetIsDeleteModalVisible = useResetRecoilState(isDeleteModalVisibleAtom);
 
-  const [selectedStickers, setSelectedStickers] = useState<MoveableStickerInfo[]>([]);
+  const [selectedStickers, setSelectedStickers] = useState<EditingStickerInfo[]>([]);
   const handleAddNewSticker = (newSticker: StickerInfo) => {
     setSelectedStickers((curStickers) => {
       return [
@@ -64,7 +64,7 @@ const DiaryDetail = () => {
       ];
     });
   };
-  const handleUpdateStickers = (newSticker: MoveableStickerInfo) => {
+  const handleUpdateStickers = (newSticker: EditingStickerInfo) => {
     setSelectedStickers((curStickers) => {
       return [
         ...curStickers.filter((sticker) => sticker.uniqueId !== newSticker.uniqueId),
@@ -72,7 +72,7 @@ const DiaryDetail = () => {
       ];
     });
   };
-  const handleDeleteStickers = (stickerBeDeleted: MoveableStickerInfo) => {
+  const handleDeleteStickers = (stickerBeDeleted: EditingStickerInfo) => {
     setSelectedStickers((curStickers) => {
       return curStickers.filter((sticker) => sticker.uniqueId !== stickerBeDeleted.uniqueId);
     });
@@ -105,7 +105,7 @@ const DiaryDetail = () => {
             <>
               {selectedStickers.map((sticker) => {
                 return (
-                  <MoveableSticker
+                  <EditingSticker
                     key={sticker.uniqueId}
                     sticker={sticker}
                     handleUpdateStickers={handleUpdateStickers}
