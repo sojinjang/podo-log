@@ -29,7 +29,7 @@ const DeleteModal = ({ onClose }: ModalProps) => {
   };
 
   return (
-    <div className="z-20">
+    <div className="relative z-20">
       <Background onClick={onClose} />
       <ModalSection>
         <Fade>
