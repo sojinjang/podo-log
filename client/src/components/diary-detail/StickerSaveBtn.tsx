@@ -1,6 +1,6 @@
 import React from "react";
 import tw from "tailwind-styled-components";
-import { useRecoilValue, useResetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 
 import { accessTokenAtom } from "src/recoil/token";
 import { post } from "src/utils/api";
