@@ -6,15 +6,22 @@ import moveUpImg from "../../assets/icons/move_up.png";
 
 interface MoveBtnProps {
   isMoveDown: boolean;
+  grapeRef: React.RefObject<HTMLDivElement>;
+  stickerShopRef: React.RefObject<HTMLDivElement>;
 }
 
-const MoveBtn = ({ isMoveDown }: MoveBtnProps) => {
+const MoveBtn = ({ isMoveDown, grapeRef, stickerShopRef }: MoveBtnProps) => {
   const btnImg = isMoveDown ? moveDownImg : moveUpImg;
   const btnDesc = isMoveDown ? "스티커로 교환" : "내 포도알";
 
+  const moveToAnotherSection = () => {
+    if (isMoveDown) return stickerShopRef.current?.scrollIntoView({ behavior: "smooth" });
+    grapeRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <ContainerWrapper>
-      <Container className="flex cursor-pointer">
+      <Container onClick={moveToAnotherSection} className="flex cursor-pointer">
         <BtnIcon src={btnImg} />
         <BtnDesc>{btnDesc}</BtnDesc>
       </Container>
