@@ -7,11 +7,13 @@ import GrapeInfo from "../components/grape/GrapeInfo";
 
 const Grape = () => {
   return (
-    <DefaultBackground className="animated-grad-grape">
-      <GrapeInfo />
-      <MoveBtn ismoveDown={true} />
+    <div className="relative">
+      <DefaultBackground className="h-[200vh] animated-grad-grape">
+        <GrapeInfo />
+        <MoveBtn isMoveDown={true} />
+      </DefaultBackground>
       <Navbar activeMenu="grape" />
-    </DefaultBackground>
+    </div>
   );
 };
 
