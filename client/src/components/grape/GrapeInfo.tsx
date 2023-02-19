@@ -6,7 +6,7 @@ const GrapeInfo = () => {
     <GrapeInfoContainer>
       <DescContainer>
         <DescGrape className="mr-[1vh]">내가 모은 포도송이</DescGrape>
-        <DescGrape className="text-[#80A40E]">1</DescGrape>
+        <DescGrape className="text-[#BB86FC]">1</DescGrape>
         <DescGrape>개</DescGrape>
       </DescContainer>
       <DescContainer>
@@ -15,6 +15,7 @@ const GrapeInfo = () => {
         <DescGrapeAndGrain className="text-[#8687bd] mr-[1vh]">5</DescGrapeAndGrain>
         <DescGrapeAndGrain>포도알</DescGrapeAndGrain>
       </DescContainer>
+      <GrapeImg src={require("../../assets/grape/grape_5.png")} />
     </GrapeInfoContainer>
   );
 };
@@ -35,4 +36,8 @@ font-[jua] text-[3vh] text-[#353866]
 
 const DescGrapeAndGrain = tw.p`
 font-[jua] text-[2.5vh] text-[#353866]
+`;
+
+const GrapeImg = tw.img`
+mx-auto drop-shadow-2xl mt-[15vh] w-[25vh] h-[25vh]
 `;
