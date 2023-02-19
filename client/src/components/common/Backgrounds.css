@@ -18,8 +18,8 @@
 
 .animated-grad-grape {
   background: linear-gradient(45deg, #80a40e, #a6fff5, #9c27b0);
-  background-size: 300% 300%;
-  animation: gradient-bg 15s ease infinite;
+  background-size: 250% 250%;
+  animation: gradient-bg 12s ease infinite;
 }
 
 @keyframes gradient-bg {
