@@ -49,7 +49,7 @@ const BookList = () => {
         <PointingFinger />
         <BooksContainer isEmpty={isEmpty} userDiaryArr={userDiaryArr} />
       </div>
-      <Navbar />
+      <Navbar activeMenu="books" />
     </PinkPurpleBackground>
   );
 };
