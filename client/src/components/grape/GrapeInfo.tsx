@@ -28,7 +28,7 @@ const GrapeInfo = () => {
 export default GrapeInfo;
 
 const GrapeInfoContainer = tw.div`
-flex flex-col pt-[8vh] h-[85vh]
+flex flex-col pt-[8vh] h-[84vh]
 `;
 
 const DescContainer = tw.div`
