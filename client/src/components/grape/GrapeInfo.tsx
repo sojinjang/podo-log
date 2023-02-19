@@ -1,13 +1,14 @@
 import React from "react";
 import tw from "tailwind-styled-components";
 import Tada from "react-reveal/Tada";
+import { MyGrape } from "../../pages/Grape";
 
-interface RefProps {
-  ref: undefined;
+interface GrapeInfo {
+  data: MyGrape | null;
 }
 
 const GrapeInfo = React.forwardRef(function GrapeInfo(
-  props: RefProps,
+  { data }: GrapeInfo,
   ref: React.Ref<HTMLDivElement>
 ) {
   return (
@@ -15,14 +16,14 @@ const GrapeInfo = React.forwardRef(function GrapeInfo(
       <DescContainer>
         <DescGrape className="mr-[1vh]">내가 모은 포도송이</DescGrape>
         <Tada duration={2000}>
-          <DescGrape className="text-[#BB86FC]">1</DescGrape>
+          <DescGrape className="text-[#BB86FC]">{data?.grape}</DescGrape>
         </Tada>
         <DescGrape>개</DescGrape>
       </DescContainer>
       <DescContainer>
-        <DescGrapeAndGrain className="text-[#8687bd] mr-[1vh]">1</DescGrapeAndGrain>
+        <NumGrapeAndGrain>{data?.grape}</NumGrapeAndGrain>
         <DescGrapeAndGrain className="mr-[1vh]">포도송이,</DescGrapeAndGrain>
-        <DescGrapeAndGrain className="text-[#8687bd] mr-[1vh]">5</DescGrapeAndGrain>
+        <NumGrapeAndGrain>{data?.grain}</NumGrapeAndGrain>
         <DescGrapeAndGrain>포도알</DescGrapeAndGrain>
       </DescContainer>
       <Tada duration={2000}>
@@ -48,6 +49,10 @@ font-[jua] text-[3vh] text-[#353866]
 
 const DescGrapeAndGrain = tw.p`
 font-[jua] text-[2.5vh] text-[#353866]
+`;
+
+const NumGrapeAndGrain = tw.p`
+font-[jua] text-[2.5vh] text-[#8687bd] mr-[1vh]
 `;
 
 const GrapeImg = tw.img`
