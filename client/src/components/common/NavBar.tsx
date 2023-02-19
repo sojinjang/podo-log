@@ -40,7 +40,7 @@ export const Navbar = ({ activeMenu }: NavBarProps) => {
 };
 
 const BarContainer = tw.div`
-  flex justify-around px-12 mx-auto w-10/12 h-[80px] bg-white/60 rounded-2xl 
+  flex justify-around px-12 mx-auto w-10/12 h-[7vh] bg-white/60 rounded-2xl 
   absolute left-1/2 -translate-x-1/2 bottom-[3.5vh] shadow-lg
 `;
 
@@ -49,9 +49,9 @@ const Container = tw.div`
 `;
 
 const IconImg = tw.img`
-  m-auto w-[45px] h-[45px]
+  m-auto w-[3.5vh] h-[3.5vh]
 `;
 
 const Description = tw.div`
-  text-center font-[jua] text-xs
+  text-center font-[jua] text-[1vh]
 `;
