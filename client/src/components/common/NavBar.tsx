@@ -40,7 +40,7 @@ export const Navbar = ({ activeMenu }: NavBarProps) => {
 };
 
 const BarContainer = tw.div`
-  flex justify-around px-12 mx-auto w-10/12 h-[7vh] bg-white/60 rounded-2xl 
+  flex justify-around px-12 mx-auto w-[46.8vh] h-[7vh] bg-white/60 rounded-2xl 
   fixed left-1/2 -translate-x-1/2 bottom-[3.5vh] shadow-lg
 `;
 
