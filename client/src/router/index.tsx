@@ -1,6 +1,6 @@
 import React from "react";
 import { useSetRecoilState } from "recoil";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 
 import { useDidMountEffect } from "src/utils/hooks";
 import { accessTokenAtom } from "src/recoil/token";
@@ -23,7 +23,7 @@ const Router = () => {
   }, []);
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         {PUBLIC_ROUTE_ARR.map((route, index) => {
           return <Route path={route.path} element={route.element} key={index} />;
@@ -39,7 +39,7 @@ const Router = () => {
         })}
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
