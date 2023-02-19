@@ -7,7 +7,7 @@ import GrapeInfo from "../components/grape/GrapeInfo";
 
 const Grape = () => {
   return (
-    <DefaultBackground className="animated-gradient">
+    <DefaultBackground className="animated-grad-grape">
       <GrapeInfo />
       <MoveBtn ismoveDown={true} />
       <Navbar activeMenu="grape" />
