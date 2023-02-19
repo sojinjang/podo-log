@@ -2,7 +2,7 @@ name: Deployment
 on:
   push:
     branches:
-      - dev
+      - feat/fe/#169-auto-deployment
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -19,12 +19,12 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install Packages
         run: yarn install
-        working-directory:  ${{ env.working-directory }}
+        working-directory: ${{ env.working-directory }}
       - name: Build page
         run: yarn build
         env:
           REACT_APP_SERVER_URL: "${{ secrets.REACT_APP_SERVER_URL }}"
-        working-directory:  ${{ env.working-directory }}
+        working-directory: ${{ env.working-directory }}
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
