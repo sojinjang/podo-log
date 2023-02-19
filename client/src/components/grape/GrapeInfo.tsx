@@ -2,9 +2,16 @@ import React from "react";
 import tw from "tailwind-styled-components";
 import Tada from "react-reveal/Tada";
 
-const GrapeInfo = () => {
+interface RefProps {
+  ref: undefined;
+}
+
+const GrapeInfo = React.forwardRef(function GrapeInfo(
+  props: RefProps,
+  ref: React.Ref<HTMLDivElement>
+) {
   return (
-    <GrapeInfoContainer>
+    <GrapeInfoContainer ref={ref}>
       <DescContainer>
         <DescGrape className="mr-[1vh]">내가 모은 포도송이</DescGrape>
         <Tada duration={2000}>
@@ -23,7 +30,7 @@ const GrapeInfo = () => {
       </Tada>
     </GrapeInfoContainer>
   );
-};
+});
 
 export default GrapeInfo;
 
