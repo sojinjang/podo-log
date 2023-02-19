@@ -11,18 +11,6 @@ interface Menu {
   readonly menu: string;
 }
 
-const BarContainer = tw.div`
-  flex justify-around px-12 mx-auto w-10/12 h-[80px] bg-white/60 rounded-2xl absolute left-1/2 -translate-x-1/2
-`;
-
-const IconImg = tw.img`
-  m-auto w-[45px] h-[45px]
-`;
-
-const Description = tw.div`
-  text-center font-[jua] text-xs
-`;
-
 const ButtonContainer = ({ menu }: Menu): JSX.Element => {
   const activeMenu = useRecoilValue(activeMenuAtom);
   const isActive = menu === activeMenu;
@@ -40,14 +28,23 @@ const ButtonContainer = ({ menu }: Menu): JSX.Element => {
 
 export const Navbar = () => {
   return (
-    <div className="relative">
-      <div>
-        <BarContainer>
-          <ButtonContainer menu="books"></ButtonContainer>
-          <ButtonContainer menu="grape"></ButtonContainer>
-          <ButtonContainer menu="myPage"></ButtonContainer>
-        </BarContainer>
-      </div>
-    </div>
+    <BarContainer>
+      <ButtonContainer menu="books"></ButtonContainer>
+      <ButtonContainer menu="grape"></ButtonContainer>
+      <ButtonContainer menu="myPage"></ButtonContainer>
+    </BarContainer>
   );
 };
+
+const BarContainer = tw.div`
+  flex justify-around px-12 mx-auto w-10/12 h-[80px] bg-white/60 rounded-2xl 
+  absolute left-1/2 -translate-x-1/2 bottom-[3.5vh]
+`;
+
+const IconImg = tw.img`
+  m-auto w-[45px] h-[45px]
+`;
+
+const Description = tw.div`
+  text-center font-[jua] text-xs
+`;
