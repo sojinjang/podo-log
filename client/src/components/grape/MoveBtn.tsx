@@ -5,12 +5,12 @@ import moveDownImg from "../../assets/icons/move_down.png";
 import moveUpImg from "../../assets/icons/move_up.png";
 
 interface MoveBtnProps {
-  ismoveDown: boolean;
+  isMoveDown: boolean;
 }
 
-const MoveBtn = ({ ismoveDown }: MoveBtnProps) => {
-  const btnImg = ismoveDown ? moveDownImg : moveUpImg;
-  const btnDesc = ismoveDown ? "스티커로 교환" : "내 포도알";
+const MoveBtn = ({ isMoveDown }: MoveBtnProps) => {
+  const btnImg = isMoveDown ? moveDownImg : moveUpImg;
+  const btnDesc = isMoveDown ? "스티커로 교환" : "내 포도알";
 
   return (
     <ContainerWrapper>
