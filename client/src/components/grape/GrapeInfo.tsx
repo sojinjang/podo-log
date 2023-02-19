@@ -1,12 +1,15 @@
 import React from "react";
 import tw from "tailwind-styled-components";
+import Tada from "react-reveal/Tada";
 
 const GrapeInfo = () => {
   return (
     <GrapeInfoContainer>
       <DescContainer>
         <DescGrape className="mr-[1vh]">내가 모은 포도송이</DescGrape>
-        <DescGrape className="text-[#BB86FC]">1</DescGrape>
+        <Tada duration={2000}>
+          <DescGrape className="text-[#BB86FC]">1</DescGrape>
+        </Tada>
         <DescGrape>개</DescGrape>
       </DescContainer>
       <DescContainer>
@@ -15,7 +18,9 @@ const GrapeInfo = () => {
         <DescGrapeAndGrain className="text-[#8687bd] mr-[1vh]">5</DescGrapeAndGrain>
         <DescGrapeAndGrain>포도알</DescGrapeAndGrain>
       </DescContainer>
-      <GrapeImg src={require("../../assets/grape/grape_5.png")} />
+      <Tada duration={2000}>
+        <GrapeImg src={require("../../assets/grape/grape_5.png")} />
+      </Tada>
     </GrapeInfoContainer>
   );
 };
