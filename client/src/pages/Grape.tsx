@@ -1,7 +1,9 @@
 import React from "react";
 
+import { DefaultBackground } from "src/components/common/Backgrounds";
+
 const Grape = () => {
-  return <>포도알 페이지</>;
+  return <DefaultBackground className="animated-grad-grape"></DefaultBackground>;
 };
 
 export default Grape;

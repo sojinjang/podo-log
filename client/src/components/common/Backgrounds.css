@@ -15,3 +15,21 @@
     background-position: 0% 50%;
   }
 }
+
+.animated-grad-grape {
+  background: linear-gradient(45deg, #80a40e, #a6fff5, #9c27b0);
+  background-size: 300% 300%;
+  animation: gradient-bg 15s ease infinite;
+}
+
+@keyframes gradient-bg {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
