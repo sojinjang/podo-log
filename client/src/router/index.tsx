@@ -10,6 +10,7 @@ import { NotFound } from "../pages";
 
 const Router = () => {
   const setAccessToken = useSetRecoilState(accessTokenAtom);
+
   useEffect(() => {
     const currentLocation = window.location.pathname;
     for (const pages of PRIVATE_ROUTE_ARR) {
