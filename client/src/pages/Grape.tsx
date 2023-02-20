@@ -10,7 +10,8 @@ import MyGrapeNum from "src/components/grape/MyGrapeNum";
 import { StickerShopContainer } from "src/components/grape/StickerShopContainer";
 import { get } from "src/utils/api";
 import { API_URL } from "src/constants/API_URL";
-import { StickerPackList } from "src/components/grape/StickerPackList";
+import { StickerPackage, StickerPackList } from "src/components/grape/StickerPackList";
+import PackageDetail from "src/components/grape/PackageDetail";
 
 export interface MyGrape {
   grain: number;
@@ -21,7 +22,16 @@ const Grape = () => {
   const grapeRef = useRef<HTMLDivElement>(null);
   const stickerShopRef = useRef<HTMLDivElement>(null);
   const [myGrape, setMyGrape] = useState<MyGrape | null>(null);
+  const [focusedPack, setFocusedPack] = useState<StickerPackage | null>(null);
   const accessToken = useRecoilValue(accessTokenAtom);
+
+  const updateFocusedPack = (pack: StickerPackage | null) => {
+    setFocusedPack(pack);
+  };
+
+  const resetFocusedPack = () => {
+    setFocusedPack(null);
+  };
 
   const getMyGrapeData = async () => {
     try {
@@ -46,7 +56,11 @@ const Grape = () => {
         <StickerShopContainer ref={stickerShopRef}>
           <MoveBtn grapeRef={grapeRef} isMoveDown={false} />
           {myGrape && <MyGrapeNum grape={myGrape.grape} />}
-          <StickerPackList />
+          {focusedPack ? (
+            <PackageDetail focusedPack={focusedPack} resetFocusedPack={resetFocusedPack} />
+          ) : (
+            <StickerPackList updateFocusedPack={updateFocusedPack} />
+          )}
         </StickerShopContainer>
       </DefaultBackground>
       <Navbar activeMenu="grape" />
