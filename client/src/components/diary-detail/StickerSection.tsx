@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import tw from "tailwind-styled-components";
 
 import { accessTokenAtom } from "src/recoil/token";
 import { get } from "src/utils/api";
-import { useDidMountEffect } from "src/utils/hooks";
 import changeToKoreanDate from "src/utils/date";
 import { Values } from "../../constants/Values";
 import { API_URL } from "src/constants/API_URL";
@@ -60,7 +59,7 @@ export const StickerSection = ({
     return stickersObj;
   };
 
-  useDidMountEffect(() => {
+  useEffect(() => {
     getMyStickerPack();
   }, []);
 
