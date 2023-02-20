@@ -41,6 +41,9 @@ const PackageDetail = ({ focusedPack, resetFocusedPack }: PackageDetailProps) =>
             return <StickerImg key={sticker.stickerId} src={sticker.stickerImg} />;
           })}
         </StickerPreviewContainer>
+        <Announcement>
+          구매 즉시 포도송이가 차감되며, 구매한 스티커 팩은 일주일 간 사용 가능합니다.
+        </Announcement>
         <button className="purchase-btn">
           <span className=" font-sans text-[1.5vh]">구매하기</span>
         </button>
@@ -79,4 +82,8 @@ text-[1.6vh]
 
 const StickerImg = tw.img`
 h-[7vh] w-[7vh] m-[2vh]
+`;
+
+const Announcement = tw.p`
+font-sans text-[1.2vh] mx-auto
 `;
