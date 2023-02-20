@@ -58,7 +58,7 @@ export const DiaryListContainer = () => {
   };
   useEffect(() => {
     getDiaryList();
-  }, []);
+  }, [getDiaryList]);
   useEffect(() => {
     handleStartIdx();
   }, [inView, isLoading]);
