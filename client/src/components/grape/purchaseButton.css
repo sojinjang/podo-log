@@ -56,6 +56,14 @@
 .purchase-btn:after {
   background-color: #ffffff;
 }
+.purchase-btn:disabled {
+  background-color: #b0b0b0;
+  cursor: not-allowed;
+}
+
+.purchase-btn:disabled:before {
+  clip-path: polygon(-1% 0, 0 0, -25% 100%, -1% 100%);
+}
 
 .purchase-btn span {
   z-index: 1;
