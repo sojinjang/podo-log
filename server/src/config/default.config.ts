@@ -3,6 +3,7 @@ import { CookieOptions } from "express";
 export const environment = process.env.NODE_ENV as string;
 export const port = process.env.PORT;
 export const podologURL = process.env.PODOLOG_URL || (`http://localhost:3000` as string);
+export const podologOriginURL = process.env.PODOLOG_ORIGIN_URL || podologURL;
 export const S3AccessURL = process.env.S3_ACCESS_URL as string;
 
 function setCookieTime(time: number, unit: "d" | "h" | "m") {
@@ -18,7 +19,7 @@ export const cookieOption = (time: number, unit: "d" | "h" | "m"): CookieOptions
 };
 
 export const corsOption = {
-  origin: podologURL,
+  origin: podologOriginURL,
   optionsSuccessStatus: 200,
   credentials: true,
 };
