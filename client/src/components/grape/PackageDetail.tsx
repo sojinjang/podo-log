@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import tw from "tailwind-styled-components";
 import { useRecoilValue } from "recoil";
 import Fade from "react-reveal/Fade";
@@ -8,6 +8,7 @@ import { post } from "src/utils/api";
 import { API_URL } from "src/constants/API_URL";
 import { StickerPackage } from "src/components/grape/StickerPackList";
 import { StickerPreviewContainer } from "./Sticker";
+import "./purchaseButton.css";
 
 export interface PackageDetailProps {
   focusedPack: StickerPackage | null;
@@ -16,7 +17,7 @@ export interface PackageDetailProps {
 
 const PackageDetail = ({ focusedPack, resetFocusedPack }: PackageDetailProps) => {
   const accessToken = useRecoilValue(accessTokenAtom);
-
+  const [reset, setReset] = useState(0);
   const purchasePackage = async () => {
     try {
       await post(API_URL.grape, "", accessToken);
@@ -40,6 +41,9 @@ const PackageDetail = ({ focusedPack, resetFocusedPack }: PackageDetailProps) =>
             return <StickerImg key={sticker.stickerId} src={sticker.stickerImg} />;
           })}
         </StickerPreviewContainer>
+        <button className="purchase-btn">
+          <span className=" font-sans text-[1.5vh]">구매하기</span>
+        </button>
       </PackageDetailContainer>
     </Fade>
   );
