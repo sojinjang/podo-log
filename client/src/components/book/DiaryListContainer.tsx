@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
 
@@ -56,8 +56,10 @@ export const DiaryListContainer = () => {
       setStartIdx((prevState) => prevState + LIMIT);
     }
   };
-
-  useDidMountEffect(getDiaryList, [getDiaryList]);
+  useEffect(() => {
+    getDiaryList();
+  }, []);
+  // useDidMountEffect(getDiaryList, [getDiaryList]);
   useDidMountEffect(handleStartIdx, [inView, isLoading]);
 
   return (
