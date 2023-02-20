@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
 
 import { get } from "src/utils/api";
-import { useDidMountEffect } from "src/utils/hooks";
+// import { useDidMountEffect } from "src/utils/hooks";
 import { API_URL } from "src/constants/API_URL";
 import DiaryContainer from "./DiaryContainer";
 import { useRecoilValue } from "recoil";
