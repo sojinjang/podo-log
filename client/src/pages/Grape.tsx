@@ -7,7 +7,7 @@ import { Navbar } from "src/components/common/NavBar";
 import MoveBtn from "src/components/grape/MoveBtn";
 import GrapeInfo from "../components/grape/GrapeInfo";
 import MyGrapeNum from "src/components/grape/MyGrapeNum";
-import { StickerShopContainer } from "src/components/grape/StickerShopContainer";
+import { StickerShopContainer } from "src/components/grape/Sticker";
 import { get } from "src/utils/api";
 import { API_URL } from "src/constants/API_URL";
 import { StickerPackage, StickerPackList } from "src/components/grape/StickerPackList";

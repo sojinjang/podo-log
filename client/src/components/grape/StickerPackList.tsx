@@ -7,6 +7,7 @@ import Fade from "react-reveal/Fade";
 
 import { accessTokenAtom } from "src/recoil/token";
 import { StickerInfo } from "src/components/diary-detail/StickerSection";
+import { StickerPreviewContainer } from "./Sticker";
 
 export interface StickerPackage {
   packageId: number;
@@ -71,10 +72,6 @@ const PackageContainer = tw.div`
 w-[22vh] flex flex-col px-[1.5vh] py-[1vh]
 m-[1.5vh] bg-white/60 rounded-lg text-[1.7vh] cursor-pointer
 shadow-lg hover:shadow-none ease-in duration-300
-`;
-
-const StickerPreviewContainer = tw.div`
-flex flex-wrap justify-center p-[0.5vh]
 `;
 
 const StickerImg = tw.img`
