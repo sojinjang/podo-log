@@ -41,12 +41,14 @@ const PackageDetail = ({ focusedPack, resetFocusedPack }: PackageDetailProps) =>
             return <StickerImg key={sticker.stickerId} src={sticker.stickerImg} />;
           })}
         </StickerPreviewContainer>
-        <Announcement>
-          구매 즉시 포도송이가 차감되며, 구매한 스티커 팩은 일주일 간 사용 가능합니다.
-        </Announcement>
-        <button className="purchase-btn">
-          <span className=" font-sans text-[1.5vh]">구매하기</span>
-        </button>
+        <ButtonContainer>
+          <Announcement>
+            구매 즉시 포도송이가 차감되며, 구매한 스티커 팩은 일주일 간 사용 가능합니다.
+          </Announcement>
+          <button className="purchase-btn">
+            <BtnDesc>구매하기</BtnDesc>
+          </button>
+        </ButtonContainer>
       </PackageDetailContainer>
     </Fade>
   );
@@ -81,9 +83,17 @@ text-[1.6vh]
 `;
 
 const StickerImg = tw.img`
-h-[7vh] w-[7vh] m-[2vh]
+h-[6.3vh] w-[6.3vh] mx-[3vh] my-[2vh]
+`;
+
+const ButtonContainer = tw.div`
+flex flex-col mt-auto mb-[2.2vh]
 `;
 
 const Announcement = tw.p`
 font-sans text-[1.2vh] mx-auto
+`;
+
+const BtnDesc = tw.span`
+font-sans text-[1.5vh]
 `;
