@@ -10,6 +10,7 @@ import MyGrapeNum from "src/components/grape/MyGrapeNum";
 import { StickerShopContainer } from "src/components/grape/StickerShopContainer";
 import { get } from "src/utils/api";
 import { API_URL } from "src/constants/API_URL";
+import { StickerPackList } from "src/components/grape/StickerPackList";
 
 export interface MyGrape {
   grain: number;
@@ -45,6 +46,7 @@ const Grape = () => {
         <StickerShopContainer ref={stickerShopRef}>
           <MoveBtn grapeRef={grapeRef} isMoveDown={false} />
           {myGrape && <MyGrapeNum grape={myGrape.grape} />}
+          <StickerPackList />
         </StickerShopContainer>
       </DefaultBackground>
       <Navbar activeMenu="grape" />
