@@ -59,8 +59,11 @@ export const DiaryListContainer = () => {
   useEffect(() => {
     getDiaryList();
   }, []);
+  useEffect(() => {
+    handleStartIdx();
+  }, [inView, isLoading]);
   // useDidMountEffect(getDiaryList, [getDiaryList]);
-  useDidMountEffect(handleStartIdx, [inView, isLoading]);
+  // useDidMountEffect(handleStartIdx, [inView, isLoading]);
 
   return (
     <div>
