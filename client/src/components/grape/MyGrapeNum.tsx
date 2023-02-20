@@ -17,7 +17,7 @@ const MyGrapeNum = ({ grape }: MyGrapeNumProps) => {
 export default MyGrapeNum;
 
 const Container = tw.div`
-flex justify-end 
+flex justify-end mr-[5vh] mb-[1vh]
 `;
 
 const GrapeIcon = tw.img`
