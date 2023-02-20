@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import tw from "tailwind-styled-components";
 import { useRecoilValue } from "recoil";
 
@@ -6,7 +6,6 @@ import { accessTokenAtom } from "src/recoil/token";
 import { API_URL } from "src/constants/API_URL";
 import { get } from "src/utils/api";
 import { DiaryId } from "../../pages/DiaryDetail";
-import { useDidMountEffect } from "src/utils/hooks";
 import { NewComment } from "./NewComment";
 import { CommentsFamily } from "./CommentsFamily";
 
@@ -52,7 +51,9 @@ export const CommentSection = ({ diaryId }: DiaryId) => {
     }
   };
 
-  useDidMountEffect(getComments, []);
+  useEffect(() => {
+    getComments();
+  }, []);
 
   return (
     <div className="pb-6 md:pb-8">

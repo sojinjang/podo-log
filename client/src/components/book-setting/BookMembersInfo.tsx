@@ -6,7 +6,6 @@ import { API_URL } from "src/constants/API_URL";
 import { get } from "src/utils/api";
 import { BookIdType } from "src/pages/BookSetting";
 import { accessTokenAtom } from "src/recoil/token";
-// import { useDidMountEffect } from "src/utils/hooks";
 import MemberProfile from "./MemberProfile";
 
 export interface MemberInfo {
@@ -29,9 +28,6 @@ export const BookMembersInfo = ({ bookId }: BookIdType) => {
     }
   };
 
-  // useDidMountEffect(() => {
-  //   getBookmembers();
-  // }, []);
   useEffect(() => {
     getBookmembers();
   }, []);
