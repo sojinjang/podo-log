@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import tw from "tailwind-styled-components";
 
@@ -29,7 +29,10 @@ export const BookMembersInfo = ({ bookId }: BookIdType) => {
     }
   };
 
-  useDidMountEffect(() => {
+  // useDidMountEffect(() => {
+  //   getBookmembers();
+  // }, []);
+  useEffect(() => {
     getBookmembers();
   }, []);
 
