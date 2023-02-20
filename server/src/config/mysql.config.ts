@@ -2,14 +2,13 @@ export default function (user: string) {
   switch (user) {
     case "dev" || "production":
       return {
-        user: process.env.EC2_MYSQL_USER,
-        password: process.env.EC2_MYSQL_PASSWORD,
+        user: process.env.RDS_MYSQL_USER,
+        password: process.env.RDS_MYSQL_PASSWORD,
         database: "podolog",
-        host: process.env.EC2_MYSQL_HOST,
+        host: process.env.RDS_MYSQL_HOST,
         waitForConnections: true,
-        connectionLimit: 10,
+        connectionLimit: 60,
         queueLimit: 0,
-        timezone: "+00:00",
       };
     default:
       return {
