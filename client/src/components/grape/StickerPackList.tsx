@@ -75,5 +75,5 @@ shadow-lg hover:shadow-none ease-in duration-300
 `;
 
 const StickerImg = tw.img`
-h-[6.7vh] w-[6.7vh] m-[1.1vh]
+h-[6.3vh] w-[6.3vh] m-[1.3vh]
 `;
