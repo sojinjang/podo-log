@@ -1,4 +1,5 @@
 import React from "react";
+import tw from "tailwind-styled-components";
 import { useRecoilValue } from "recoil";
 import Fade from "react-reveal/Fade";
 
@@ -6,6 +7,7 @@ import { accessTokenAtom } from "src/recoil/token";
 import { post } from "src/utils/api";
 import { API_URL } from "src/constants/API_URL";
 import { StickerPackage } from "src/components/grape/StickerPackList";
+import { StickerPreviewContainer } from "./Sticker";
 
 export interface PackageDetailProps {
   focusedPack: StickerPackage | null;
@@ -26,32 +28,51 @@ const PackageDetail = ({ focusedPack, resetFocusedPack }: PackageDetailProps) =>
 
   return (
     <Fade bottom>
-      <div className="flex flex-col bg-white/60 rounded-lg shadow-lg w-[44vh] h-[75vh] mx-auto m-[1.5vh] px-[1.5vh] py-[1vh]">
-        <p onClick={resetFocusedPack} className="text-[2vh] font-sans ml-auto cursor-pointer">
-          X
-        </p>
-        <p className="text-[2.5vh] mx-auto">{focusedPack?.packageName}</p>
-        <div className="flex mx-auto">
-          <img
-            className="h-[1.5vh] my-auto mr-1.5"
-            src={require("../../assets/icons/grape.png")}
-          />
-          <p className="text-[1.6vh] align-bottom">{focusedPack?.podoPrice}</p>
-        </div>
-        <div className="flex flex-wrap justify-center p-[0.5vh]">
+      <PackageDetailContainer>
+        <CancelButton onClick={resetFocusedPack}>X</CancelButton>
+        <PackageName>{focusedPack?.packageName}</PackageName>
+        <PodoPriceContainer>
+          <PodoPriceImg src={require("../../assets/icons/grape.png")} />
+          <PodoPrice>{focusedPack?.podoPrice}</PodoPrice>
+        </PodoPriceContainer>
+        <StickerPreviewContainer>
           {focusedPack?.stickers.map((sticker) => {
-            return (
-              <img
-                className="h-[7vh] w-[7vh] m-[2vh]"
-                key={sticker.stickerId}
-                src={sticker.stickerImg}
-              />
-            );
+            return <StickerImg key={sticker.stickerId} src={sticker.stickerImg} />;
           })}
-        </div>
-      </div>
+        </StickerPreviewContainer>
+      </PackageDetailContainer>
     </Fade>
   );
 };
 
 export default PackageDetail;
+
+const PackageName = tw.p`
+text-[2.5vh] mx-auto
+`;
+
+const PackageDetailContainer = tw.div`
+flex flex-col bg-white/60 rounded-lg shadow-lg 
+w-[45vh] h-[75vh] mt-[2vh] mx-auto px-[1.5vh] py-[1vh]
+`;
+
+const CancelButton = tw.p`
+text-[2vh] font-sans ml-auto cursor-pointer
+drop-shadow-2xl hover:drop-shadow-none ease-in duration-100
+`;
+
+const PodoPriceContainer = tw.div`
+flex mx-auto
+`;
+
+const PodoPriceImg = tw.img`
+h-[1.5vh] my-auto mr-1.5
+`;
+
+const PodoPrice = tw.p`
+text-[1.6vh]
+`;
+
+const StickerImg = tw.img`
+h-[7vh] w-[7vh] m-[2vh]
+`;
