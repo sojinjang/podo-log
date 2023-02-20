@@ -33,6 +33,13 @@ const Grape = () => {
     setFocusedPack(null);
   };
 
+  const deductGrape = () => {
+    setMyGrape((prev) => {
+      if (prev) return { grape: prev.grape - 1, grain: prev.grain };
+      return prev;
+    });
+  };
+
   const getMyGrapeData = async () => {
     try {
       const response = await get(API_URL.grape, "", accessToken);
@@ -57,7 +64,11 @@ const Grape = () => {
           <MoveBtn grapeRef={grapeRef} isMoveDown={false} />
           {myGrape && <MyGrapeNum grape={myGrape.grape} />}
           {focusedPack ? (
-            <PackageDetail focusedPack={focusedPack} resetFocusedPack={resetFocusedPack} />
+            <PackageDetail
+              focusedPack={focusedPack}
+              resetFocusedPack={resetFocusedPack}
+              deductGrape={deductGrape}
+            />
           ) : (
             <StickerPackList updateFocusedPack={updateFocusedPack} />
           )}

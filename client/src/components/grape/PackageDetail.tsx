@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import tw from "tailwind-styled-components";
 import { useRecoilValue } from "recoil";
 import Fade from "react-reveal/Fade";
@@ -13,15 +13,16 @@ import "./purchaseButton.css";
 export interface PackageDetailProps {
   focusedPack: StickerPackage | null;
   resetFocusedPack: () => void;
+  deductGrape: () => void;
 }
 
-const PackageDetail = ({ focusedPack, resetFocusedPack }: PackageDetailProps) => {
+const PackageDetail = ({ focusedPack, resetFocusedPack, deductGrape }: PackageDetailProps) => {
   const accessToken = useRecoilValue(accessTokenAtom);
-  const [reset, setReset] = useState(0);
   const purchasePackage = async () => {
     try {
-      await post(API_URL.grape, "", accessToken);
-      //   setMyGrape({ grain, grape });
+      await post(API_URL.package(Number(focusedPack?.packageId)), {}, accessToken);
+      deductGrape();
+      resetFocusedPack();
     } catch (err) {
       if (err instanceof Error) alert(err.message);
     }
@@ -45,7 +46,7 @@ const PackageDetail = ({ focusedPack, resetFocusedPack }: PackageDetailProps) =>
           <Announcement>
             구매 즉시 포도송이가 차감되며, 구매한 스티커 팩은 일주일 간 사용 가능합니다.
           </Announcement>
-          <button className="purchase-btn">
+          <button onClick={purchasePackage} className="purchase-btn">
             <BtnDesc>구매하기</BtnDesc>
           </button>
         </ButtonContainer>
