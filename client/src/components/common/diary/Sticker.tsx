@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import tw from "tailwind-styled-components";
 import Moveable, { OnDragStart, OnDrag, OnDragEnd } from "react-moveable";
 
-import { useDidMountEffect } from "src/utils/hooks";
 import { convertToAbsCoord, convertToRelativeCoord } from "src/utils/convertCoord";
 
 export interface AffixedStickerInfo {
@@ -19,7 +18,7 @@ interface AffixedStickerProps {
 
 export const AffixedSticker = ({ sticker, handleUpdateStickers }: AffixedStickerProps) => {
   const [targetElem, setTargetElem] = useState<HTMLElement | SVGElement | null>(null);
-  useDidMountEffect(() => {
+  useEffect(() => {
     const targetElem = document.querySelector(
       `.target-${sticker.stickedStickerId}`
     ) as HTMLElement;
