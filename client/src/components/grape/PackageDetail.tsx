@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import tw from "tailwind-styled-components";
 import { useRecoilValue } from "recoil";
 import Fade from "react-reveal/Fade";
@@ -13,11 +13,18 @@ import "./purchaseButton.css";
 export interface PackageDetailProps {
   focusedPack: StickerPackage | null;
   resetFocusedPack: () => void;
+  numGrape: number;
   deductGrape: () => void;
 }
 
-const PackageDetail = ({ focusedPack, resetFocusedPack, deductGrape }: PackageDetailProps) => {
+const PackageDetail = ({
+  focusedPack,
+  resetFocusedPack,
+  numGrape,
+  deductGrape,
+}: PackageDetailProps) => {
   const accessToken = useRecoilValue(accessTokenAtom);
+  const [isPurchasable, setIsPurchasable] = useState(false);
   const purchasePackage = async () => {
     try {
       await post(API_URL.package(Number(focusedPack?.packageId)), {}, accessToken);
@@ -27,6 +34,10 @@ const PackageDetail = ({ focusedPack, resetFocusedPack, deductGrape }: PackageDe
       if (err instanceof Error) alert(err.message);
     }
   };
+
+  useEffect(() => {
+    if (focusedPack?.podoPrice) setIsPurchasable(numGrape >= focusedPack.podoPrice);
+  }, []);
 
   return (
     <Fade bottom>
@@ -46,7 +57,11 @@ const PackageDetail = ({ focusedPack, resetFocusedPack, deductGrape }: PackageDe
           <Announcement>
             구매 즉시 포도송이가 차감되며, 구매한 스티커 팩은 일주일 간 사용 가능합니다.
           </Announcement>
-          <button onClick={purchasePackage} className="purchase-btn">
+          <button
+            disabled={!isPurchasable}
+            onClick={purchasePackage}
+            className="purchase-btn cursor-not-allowed"
+          >
             <BtnDesc>구매하기</BtnDesc>
           </button>
         </ButtonContainer>

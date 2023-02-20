@@ -8,10 +8,10 @@ import MoveBtn from "src/components/grape/MoveBtn";
 import GrapeInfo from "../components/grape/GrapeInfo";
 import MyGrapeNum from "src/components/grape/MyGrapeNum";
 import { StickerShopContainer } from "src/components/grape/Sticker";
-import { get } from "src/utils/api";
-import { API_URL } from "src/constants/API_URL";
 import { StickerPackage, StickerPackList } from "src/components/grape/StickerPackList";
 import PackageDetail from "src/components/grape/PackageDetail";
+import { get } from "src/utils/api";
+import { API_URL } from "src/constants/API_URL";
 
 export interface MyGrape {
   grain: number;
@@ -63,10 +63,11 @@ const Grape = () => {
         <StickerShopContainer ref={stickerShopRef}>
           <MoveBtn grapeRef={grapeRef} isMoveDown={false} />
           {myGrape && <MyGrapeNum grape={myGrape.grape} />}
-          {focusedPack ? (
+          {focusedPack && myGrape ? (
             <PackageDetail
               focusedPack={focusedPack}
               resetFocusedPack={resetFocusedPack}
+              numGrape={myGrape.grape}
               deductGrape={deductGrape}
             />
           ) : (
