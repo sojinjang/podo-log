@@ -26,5 +26,5 @@ export default WithdrawalButton;
 
 const Button = tw.p`
 font-sans text-[#959595] text-[1.7vh] mx-auto cursor-pointer
-drop-shadow-2xl hover:drop-shadow-none transition ease-in duration-300
+drop-shadow-lg hover:drop-shadow-none transition ease-in duration-300
 `;
