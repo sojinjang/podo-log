@@ -58,6 +58,9 @@ export const MyInfoSection = () => {
                 <Info>{changeToKoreanDate(userData.createdAt)}</Info>
               </InfoLine>
             </InfoContainer>
+            <div className="inline-block">
+              <EditButton>정보 수정</EditButton>
+            </div>
           </div>
         </UnclickableContainer>
       )}
@@ -84,4 +87,9 @@ font-sans text-[1.5vh] text-[#959595] font-medium w-[7vh]
 
 const Info = tw.p`
 font-sans text-[1.5vh]
+`;
+
+const EditButton = tw.p`
+font-sans text-[1.5vh] text-[#959595] font-medium cursor-pointer
+drop-shadow-lg hover:drop-shadow-none transition ease-in duration-300
 `;
