@@ -10,7 +10,7 @@ import { PinkPurpleBackground } from "src/components/common/Backgrounds";
 import BackButton from "../components/common/BackButton";
 import { AffixedSticker, AffixedStickerInfo } from "src/components/common/diary/Sticker";
 import { DiarySection } from "src/components/common/diary/DiarySection";
-import { DiarySectionContainer } from "src/components/common/diary/DiarySectionContainer";
+import { UnclickableContainer } from "src/components/common/UnclickableContainer";
 import StickerSaveBtn from "src/components/diary-detail/StickerSaveBtn";
 import { StickerInfo, StickerSection } from "src/components/diary-detail/StickerSection";
 import StickerButton from "src/components/diary-detail/StickerButton";
@@ -124,7 +124,7 @@ const DiaryDetail = () => {
         />
       )}
       <Fade duration={1000}>
-        <DiarySectionContainer className="my-[8vh]">
+        <UnclickableContainer className="my-[8vh]">
           {stickers.map((sticker) => {
             return (
               <AffixedSticker
@@ -158,7 +158,7 @@ const DiaryDetail = () => {
               }}
             />
           )}
-        </DiarySectionContainer>
+        </UnclickableContainer>
       </Fade>
       {isEditingSticker && (
         <>

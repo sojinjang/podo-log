@@ -7,7 +7,7 @@ import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 import { Diary } from "./DiaryListContainer";
 import commentImg from "../../assets/icons/comment.png";
 import { AffixedSticker, AffixedStickerInfo } from "../common/diary/Sticker";
-import { DiarySectionContainer } from "../common/diary/DiarySectionContainer";
+import { UnclickableContainer } from "../common/UnclickableContainer";
 import { DiarySection } from "../common/diary/DiarySection";
 
 interface DiaryContainerProps {
@@ -42,7 +42,7 @@ const DiaryContainer = ({ viewRef, data }: DiaryContainerProps) => {
 
   return (
     <Fade bottom duration={1000}>
-      <DiarySectionContainer className={ContainerStyle} onClick={onClickDiary} ref={viewRef}>
+      <UnclickableContainer className={ContainerStyle} onClick={onClickDiary} ref={viewRef}>
         {stickers.map((sticker) => {
           return (
             <AffixedSticker
@@ -57,7 +57,7 @@ const DiaryContainer = ({ viewRef, data }: DiaryContainerProps) => {
           <CommentIcon src={commentImg} />
           <NumComments>{data.numComments}</NumComments>
         </CommentContainer>
-      </DiarySectionContainer>
+      </UnclickableContainer>
     </Fade>
   );
 };
