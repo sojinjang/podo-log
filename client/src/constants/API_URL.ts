@@ -3,6 +3,7 @@ export const API_URL = Object.freeze({
   naverLogin: "/api/login/naver",
   emailLogin: "/api/login/local",
   refreshToken: "/api/login/silent-refresh",
+  signOut: "/api/login/logout",
   users: "/api/users",
   books: "/api/books",
   inviteCode: function (bookId: number) {
