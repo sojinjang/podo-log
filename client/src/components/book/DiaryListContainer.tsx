@@ -1,9 +1,8 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
 
 import { get } from "src/utils/api";
-import { useDidMountEffect } from "src/utils/hooks";
 import { API_URL } from "src/constants/API_URL";
 import DiaryContainer from "./DiaryContainer";
 import { useRecoilValue } from "recoil";
@@ -57,8 +56,12 @@ export const DiaryListContainer = () => {
     }
   };
 
-  useDidMountEffect(getDiaryList, [getDiaryList]);
-  useDidMountEffect(handleStartIdx, [inView, isLoading]);
+  useEffect(() => {
+    getDiaryList();
+  }, [getDiaryList]);
+  useEffect(() => {
+    handleStartIdx();
+  }, [inView, isLoading]);
 
   return (
     <div>

@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useRecoilState, useResetRecoilState } from "recoil";
 
-import { useDidMountEffect } from "src/utils/hooks";
 import { diaryRevisionImgAtom } from "src/recoil/diary-revision/atom";
 import imgUploadIcon from "../../assets/icons/image.png";
 import trashCanIcon from "../../assets/icons/trash-can-white.png";
@@ -44,7 +43,9 @@ const DiaryRevisionImgUpload = ({ ogPicFile }: ImgRevisionProps) => {
     };
   };
 
-  useDidMountEffect(setOgPic, [ogPicFile]);
+  useEffect(() => {
+    setOgPic;
+  }, [ogPicFile]);
 
   useEffect(() => {
     return () => {

@@ -1,10 +1,10 @@
 import React from "react";
+import Fade from "react-reveal/Fade";
 
 import { DiaryInfo } from "src/pages/BookList";
 import { HeartDiaryButton } from "src/components/book-list/HeartDiaryButton";
 import { BookButton } from "src/components/book-list/BookButton";
 import { NewBookButton } from "./NewBookButton";
-import Fade from "react-reveal/Fade";
 
 interface DiaryContainerProps {
   isEmpty: boolean;

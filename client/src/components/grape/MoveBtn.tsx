@@ -32,11 +32,11 @@ const MoveBtn = ({ isMoveDown, grapeRef, stickerShopRef }: MoveBtnProps) => {
 export default MoveBtn;
 
 const ContainerWrapper = tw.div`
-flex justify-center
+flex justify-center mx-auto
 `;
 
 const Container = tw.div`
-flex
+flex w-[56vh] h-[3vh] justify-center
 drop-shadow-xl hover:drop-shadow-none transition ease-in duration-300
 `;
 
@@ -44,6 +44,6 @@ const BtnIcon = tw.img`
 h-[2.5vh] my-auto mr-2
 `;
 
-const BtnDesc = tw.p`
-font-[jua] text-[#80A40E] text-[2.5vh]
+const BtnDesc = tw.div`
+font-[jua] text-[#80A40E] text-[2.3vh] inline
 `;

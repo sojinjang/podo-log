@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import tw from "tailwind-styled-components";
 import Moveable, { OnDragStart, OnDrag, OnDragEnd } from "react-moveable";
 
-import { useDidMountEffect } from "src/utils/hooks";
 import { convertToRelativeCoord, convertToAbsCoord } from "src/utils/convertCoord";
 import { EditingStickerInfo } from "src/pages/DiaryDetail";
 import { MoveableStickerContainer, StickerImg } from "../common/diary/Sticker";
@@ -20,7 +19,7 @@ const EditingSticker = ({
 }: DraggableStickerProps) => {
   const [targetElem, setTargetElem] = useState<HTMLElement | SVGElement | null>(null);
 
-  useDidMountEffect(() => {
+  useEffect(() => {
     const targetElem = document.querySelector(`.target-${sticker.uniqueId}`) as HTMLElement;
     targetElem.style.transform = `translate(${sticker.locX}vh, ${sticker.locY}vh`;
     setTargetElem(targetElem);

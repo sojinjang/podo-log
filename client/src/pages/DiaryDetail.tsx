@@ -39,7 +39,7 @@ const DiaryDetail = () => {
   const diaryId = Number(params.diaryId);
   const accessToken = useRecoilValue(accessTokenAtom);
 
-  const [isEditingSticker, setIsEditingSticker] = useState<boolean>(true);
+  const [isEditingSticker, setIsEditingSticker] = useState<boolean>(false);
   const changeStickerEditState = () => {
     setIsEditingSticker((prev) => !prev);
   };

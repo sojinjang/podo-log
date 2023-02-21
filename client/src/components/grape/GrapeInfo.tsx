@@ -38,7 +38,7 @@ const GrapeInfo = React.forwardRef(function GrapeInfo(
 export default GrapeInfo;
 
 const GrapeInfoContainer = tw.div`
-flex flex-col pt-[8vh] h-[84vh]
+flex flex-col pt-[8vh] h-[80vh]
 `;
 
 const DescContainer = tw.div`

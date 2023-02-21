@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Fade from "react-reveal/Fade";
@@ -6,7 +6,6 @@ import Fade from "react-reveal/Fade";
 import { accessTokenAtom } from "src/recoil/token";
 import { Token } from "src/recoil/token/atom";
 import { refreshToken, moveToDiaries } from "../utils/token";
-import { useDidMountEffect } from "src/utils/hooks";
 
 import { DefaultBackground } from "src/components/common/Backgrounds";
 import "src/components/common/Backgrounds.css";
@@ -26,7 +25,7 @@ const Home = () => {
 
   // MEMO: 아래 hook을 자식 컴포넌트 (SNSLoginContainer)에서 실행하면 access token을 undefined로 인식.
   // 리팩토링 필요 23.02.01
-  useDidMountEffect(() => {
+  useEffect(() => {
     const isSNSLogin = URLSearchParams.get("snslogin") === "success";
     if (isSNSLogin) {
       refreshToken(setAccessToken);
@@ -36,7 +35,7 @@ const Home = () => {
     moveToDiaries(accessToken, navigate);
   }, [accessToken]);
 
-  useDidMountEffect(() => {
+  useEffect(() => {
     moveToDiaries(accessToken, navigate);
   }, []);
 

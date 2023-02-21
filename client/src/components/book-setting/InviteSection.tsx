@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import tw from "tailwind-styled-components";
 import { useRecoilValue } from "recoil";
 import Fade from "react-reveal/Fade";
@@ -7,7 +7,6 @@ import { BookIdType } from "src/pages/BookSetting";
 import { accessTokenAtom } from "src/recoil/token";
 import { get, patch } from "src/utils/api";
 import { API_URL } from "src/constants/API_URL";
-import { useDidMountEffect } from "src/utils/hooks";
 
 const InviteSection = ({ bookId }: BookIdType) => {
   const accessToken = useRecoilValue(accessTokenAtom);
@@ -44,7 +43,9 @@ const InviteSection = ({ bookId }: BookIdType) => {
     }
   };
 
-  useDidMountEffect(getInviteCode, []);
+  useEffect(() => {
+    getInviteCode();
+  }, []);
 
   return (
     <InviteContainer>
