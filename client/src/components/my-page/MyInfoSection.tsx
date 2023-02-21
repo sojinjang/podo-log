@@ -12,7 +12,7 @@ import { UnclickableContainer } from "../common/UnclickableContainer";
 interface UserData {
   nickname: string;
   profile: string;
-  provider: "local" | "kakao" | "naver";
+  provider: "podo" | "kakao" | "naver";
   createdAt: Date;
 }
 
