@@ -47,7 +47,7 @@ export const MyInfoSection = () => {
   return (
     <>
       {userData && (
-        <UnclickableContainer className="mt-[3vh] p-[2vh]">
+        <UnclickableContainer className="mt-[2vh] p-[2vh]">
           <div className="flex">
             <ProfileImg src={profileImg} />
             <InfoContainer>
