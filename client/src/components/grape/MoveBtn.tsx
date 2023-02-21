@@ -36,7 +36,7 @@ flex justify-center
 `;
 
 const Container = tw.div`
-flex
+flex h-[3vh]
 drop-shadow-xl hover:drop-shadow-none transition ease-in duration-300
 `;
 

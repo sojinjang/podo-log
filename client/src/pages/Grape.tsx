@@ -60,7 +60,7 @@ const Grape = () => {
         <div className="h-screen">
           <GrapeInfo data={myGrape} ref={grapeRef} />
           <MoveBtn stickerShopRef={stickerShopRef} isMoveDown={true} />
-          <div className="h-[15.5vh] w-screen" />
+          <div className="h-[15vh] w-screen" />
         </div>
         <StickerShopContainer ref={stickerShopRef}>
           <MoveBtn grapeRef={grapeRef} isMoveDown={false} />
