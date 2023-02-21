@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/podo-log/static/css/main.ead5ec8a.css",
-    "main.js": "/podo-log/static/js/main.c9506ff1.js",
+    "main.js": "/podo-log/static/js/main.5b317bdc.js",
     "static/media/grape_8.png": "/podo-log/static/media/grape_8.a7aebd8cecce951813b6.png",
     "static/media/grape_7.png": "/podo-log/static/media/grape_7.26b40f846169284b14dd.png",
     "static/media/grape_6.png": "/podo-log/static/media/grape_6.151caccfd1ddf3af5881.png",
@@ -36,10 +36,10 @@
     "static/media/trash-can.png": "/podo-log/static/media/trash-can.75637132e15283f97078.png",
     "index.html": "/podo-log/index.html",
     "main.ead5ec8a.css.map": "/podo-log/static/css/main.ead5ec8a.css.map",
-    "main.c9506ff1.js.map": "/podo-log/static/js/main.c9506ff1.js.map"
+    "main.5b317bdc.js.map": "/podo-log/static/js/main.5b317bdc.js.map"
   },
   "entrypoints": [
     "static/css/main.ead5ec8a.css",
-    "static/js/main.c9506ff1.js"
+    "static/js/main.5b317bdc.js"
   ]
 }
