@@ -15,7 +15,7 @@ class UserService {
   private userModel = userModel;
   async localJoin(userDTO: CreateUserDTO) {
     const { email, nickname, password } = userDTO;
-    const exUser = await this.userModel.get({ email });
+    const exUser = await this.userModel.get({ email }, false);
     if (exUser.length !== 0) throw new AuthFailureError("해당 이메일은 사용중입니다.");
 
     const hashedPassword = await bcrypt.hash(password, 10);
