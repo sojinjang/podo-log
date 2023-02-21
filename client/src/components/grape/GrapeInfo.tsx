@@ -26,7 +26,7 @@ const GrapeInfo = React.forwardRef(function GrapeInfo(
         <NumGrapeAndGrain>{data?.grain}</NumGrapeAndGrain>
         <DescGrapeAndGrain>포도알</DescGrapeAndGrain>
       </DescContainer>
-      {data?.grain && (
+      {typeof data?.grain == "number" && (
         <Tada duration={2000}>
           <GrapeImg src={require(`../../assets/grape/grape_${data.grain}.png`)} />
         </Tada>

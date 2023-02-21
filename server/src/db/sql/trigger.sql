@@ -15,8 +15,8 @@ FOR EACH ROW
 BEGIN
 DECLARE a int;
 select grain into a from user_grain where user_grain.userId = new.userId;
-IF a >= 7 THEN
-	UPDATE user_grain SET grain = grain - 7 WHERE user_grain.userId = new.userId;
+IF a >= 5 THEN
+	UPDATE user_grain SET grain = grain - 5 WHERE user_grain.userId = new.userId;
     UPDATE user SET grape = grape + 1 WHERE user.userId = new.userId;
 ELSE 
 	UPDATE user_grain SET grain = grain + 3 WHERE user_grain.userId = new.userId;
@@ -29,8 +29,8 @@ FOR EACH ROW
 BEGIN
 DECLARE a int;
 select grain into a from user_grain where user_grain.userId = new.userId;
-IF a >= 9 THEN
-	UPDATE user_grain SET grain = grain - 9 WHERE user_grain.userId = new.userId;
+IF a >= 7 THEN
+	UPDATE user_grain SET grain = grain - 7 WHERE user_grain.userId = new.userId;
     UPDATE user SET grape = grape + 1 WHERE user.userId = new.userId;
 ELSE 
 	UPDATE user_grain SET grain = grain + 1 WHERE user_grain.userId = new.userId;

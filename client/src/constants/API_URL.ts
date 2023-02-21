@@ -30,4 +30,8 @@ export const API_URL = Object.freeze({
     return this.diary + `/${diaryId}/stickers`;
   },
   grape: "/api/users/grape",
+  package: function (packageId: number) {
+    return `/api/packages/${packageId}`;
+  },
+  shop: "/api/packages/shop",
 });
