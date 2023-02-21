@@ -20,7 +20,7 @@ const naverVerify: NaverVerifyFunction = async (accessToken, refreshToken, profi
   logger.debug(profile);
   try {
     const snsId = profile.id;
-    const [exUser] = await userModel.get({ snsId, provider: "naver" });
+    const [exUser] = await userModel.get({ snsId, provider: "naver" }, false);
     if (exUser) {
       done(null, exUser);
     } else {

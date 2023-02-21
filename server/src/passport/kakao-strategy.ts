@@ -10,7 +10,7 @@ const kakaoVerify: VerifyFunction = async (accessToken, refreshToken, profile, d
   logger.debug(`카카오 accessToken` + accessToken);
   try {
     const snsId = profile.id;
-    const [exUser] = await userModel.get({ snsId, provider: "kakao" });
+    const [exUser] = await userModel.get({ snsId, provider: "kakao" }, false);
     if (exUser) {
       done(null, exUser);
     } else {
