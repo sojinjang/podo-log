@@ -7,6 +7,7 @@ export const API_URL = Object.freeze({
   withdrawal: "/api/users/withdrawal",
   users: "/api/users",
   books: "/api/books",
+  inviteCodeInput: "/api/books/invtt-code",
   inviteCode: function (bookId: number) {
     return this.books + `/${bookId}/invtt-code`;
   },
