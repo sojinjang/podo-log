@@ -1,7 +1,7 @@
 import { ForbiddenError } from "../../core/api-error";
 import { bookModel, userBookModel } from "../../db/models";
 import { BookIdDTO, UpdateBookDTO, CreateBookDTO, UserBookDTO, UserIdDTO } from "../../types";
-import { checkResult, createInvttCode } from "../../utils";
+import { buildImgLocation, checkResult, createInvttCode } from "../../utils";
 
 class BookService {
   private bookModel = bookModel;
@@ -28,7 +28,8 @@ class BookService {
       member.isMe = member.userId === userBookDTO.userId;
       return member;
     });
-    const messageDTO = { message: "일기장 멤버 조회에 성공하였습니다.", data: members };
+    const data = buildImgLocation(members, "profile");
+    const messageDTO = { message: "일기장 멤버 조회에 성공하였습니다.", data };
 
     return messageDTO;
   }
