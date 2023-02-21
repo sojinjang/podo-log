@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRecoilValue } from "recoil";
+import { useNavigate } from "react-router-dom";
 import tw from "tailwind-styled-components";
 
 import { accessTokenAtom } from "src/recoil/token";
@@ -18,6 +19,7 @@ interface UserData {
 
 export const MyInfoSection = () => {
   const accessToken = useRecoilValue(accessTokenAtom);
+  const navigate = useNavigate();
   const [userData, setUserData] = useState<UserData | null>(null);
   const [profileImg, setProfileImg] = useState<string>("");
 
@@ -28,6 +30,10 @@ export const MyInfoSection = () => {
     } catch (err) {
       if (err instanceof Error) alert(err.message);
     }
+  };
+
+  const onClickEditInfo = () => {
+    navigate("edit", { state: { myInfo: userData } });
   };
 
   useEffect(() => {
@@ -59,7 +65,7 @@ export const MyInfoSection = () => {
               </InfoLine>
             </InfoContainer>
             <div className="inline-block">
-              <EditButton>정보 수정</EditButton>
+              <EditButton onClick={onClickEditInfo}>정보 수정</EditButton>
             </div>
           </div>
         </UnclickableContainer>
