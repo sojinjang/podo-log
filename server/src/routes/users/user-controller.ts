@@ -36,7 +36,7 @@ class UserController {
     const { nickname, password, newPassword } = req.body;
 
     let updateUserDTO: UpdateUserDTO = {};
-    if (req.user.provider !== "local") {
+    if (req.user.provider !== "podo") {
       updateUserDTO = { nickname };
     } else {
       updateUserDTO = { nickname, password, newPassword };

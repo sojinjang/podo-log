@@ -159,12 +159,6 @@ VALUES
         'packages/crayon_shinchan_1/qozb_4.png'
     ),
     (
-        44,
-        4,
-        'qozb_5',
-        'packages/crayon_shinchan_1/qozb_5.png'
-    ),
-    (
         45,
         4,
         'qozb_12',

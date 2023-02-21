@@ -7,8 +7,9 @@ export interface UserEntity {
   role: "admin" | "user";
   grape: number;
   snsId: string;
-  provider: string;
+  provider: Provider;
 }
+export type Provider = "kakao" | "naver" | "podo";
 
 export interface UserIdDTO {
   userId: number;
@@ -24,14 +25,14 @@ export interface GetUserDTO {
   role?: "admin" | "user";
   grape?: number;
   snsId?: string;
-  provider?: string;
+  provider?: Provider;
 }
 
 export interface CreateUserDTO {
   email: string;
   password: string;
   nickname: string;
-  profile?: string;
+  profile?: Provider;
 }
 
 export interface SNSCreateUserDTO {
@@ -41,7 +42,7 @@ export interface SNSCreateUserDTO {
   nickname?: string;
   profile?: string;
   snsId: string;
-  provider: string;
+  provider: Provider;
 }
 
 export interface UpdateUserDTO {

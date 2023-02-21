@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS `user` (
     `role` ENUM('user', 'admin') NOT NULL DEFAULT 'user',
     `grape` int NOT NULL DEFAULT 0,
     `snsId` varchar(60) NOT NULL DEFAULT 0,
-    `provider` varchar(20) NOT NULL DEFAULT 'local',
+    `provider` varchar(20) NOT NULL DEFAULT 'podo',
     `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `deletedAt` DATETIME,
