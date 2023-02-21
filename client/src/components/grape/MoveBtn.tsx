@@ -44,6 +44,6 @@ const BtnIcon = tw.img`
 h-[2.5vh] my-auto mr-2
 `;
 
-const BtnDesc = tw.p`
-font-[jua] text-[#80A40E] text-[2.3vh]
+const BtnDesc = tw.div`
+font-[jua] text-[#80A40E] text-[2.3vh] inline
 `;
