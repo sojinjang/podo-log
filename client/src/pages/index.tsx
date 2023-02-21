@@ -11,6 +11,7 @@ import SignUp from "./SignUp";
 import NewBook from "./NewBook";
 import Grape from "./Grape";
 import MyPage from "./MyPage";
+import EditInfo from "./EditInfo";
 
 export {
   Home,
@@ -26,4 +27,5 @@ export {
   NewBook,
   Grape,
   MyPage,
+  EditInfo,
 };
