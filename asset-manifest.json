@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/podo-log/static/css/main.23964265.css",
-    "main.js": "/podo-log/static/js/main.9480229a.js",
+    "main.css": "/podo-log/static/css/main.ead5ec8a.css",
+    "main.js": "/podo-log/static/js/main.c9506ff1.js",
     "static/media/grape_8.png": "/podo-log/static/media/grape_8.a7aebd8cecce951813b6.png",
     "static/media/grape_7.png": "/podo-log/static/media/grape_7.26b40f846169284b14dd.png",
     "static/media/grape_6.png": "/podo-log/static/media/grape_6.151caccfd1ddf3af5881.png",
@@ -27,6 +27,7 @@
     "static/media/e054b8.png": "/podo-log/static/media/e054b8.1f4425f88aac7206e09d.png",
     "static/media/404-error.png": "/podo-log/static/media/404-error.286726b92da81426ff96.png",
     "static/media/000000.png": "/podo-log/static/media/000000.126ff37791d2a3d65f70.png",
+    "static/media/grape.png": "/podo-log/static/media/grape.f5e7368b79ff636933c7.png",
     "static/media/dropdown_menu.png": "/podo-log/static/media/dropdown_menu.a64b077a0c7faa3fa5ad.png",
     "static/media/setting.png": "/podo-log/static/media/setting.3dd0d4043525414feaae.png",
     "static/media/comment.png": "/podo-log/static/media/comment.93c283116d8693d6d955.png",
@@ -34,11 +35,11 @@
     "static/media/kakao.png": "/podo-log/static/media/kakao.fc34391ef74710b82c27.png",
     "static/media/trash-can.png": "/podo-log/static/media/trash-can.75637132e15283f97078.png",
     "index.html": "/podo-log/index.html",
-    "main.23964265.css.map": "/podo-log/static/css/main.23964265.css.map",
-    "main.9480229a.js.map": "/podo-log/static/js/main.9480229a.js.map"
+    "main.ead5ec8a.css.map": "/podo-log/static/css/main.ead5ec8a.css.map",
+    "main.c9506ff1.js.map": "/podo-log/static/js/main.c9506ff1.js.map"
   },
   "entrypoints": [
-    "static/css/main.23964265.css",
-    "static/js/main.9480229a.js"
+    "static/css/main.ead5ec8a.css",
+    "static/js/main.c9506ff1.js"
   ]
 }
