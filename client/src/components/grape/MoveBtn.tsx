@@ -32,11 +32,11 @@ const MoveBtn = ({ isMoveDown, grapeRef, stickerShopRef }: MoveBtnProps) => {
 export default MoveBtn;
 
 const ContainerWrapper = tw.div`
-flex justify-center
+flex justify-center mx-auto
 `;
 
 const Container = tw.div`
-flex h-[3vh]
+flex w-[56vh] h-[3vh] justify-center
 drop-shadow-xl hover:drop-shadow-none transition ease-in duration-300
 `;
 
