@@ -13,6 +13,7 @@ import {
   DiaryRevision,
   Grape,
   MyPage,
+  EditInfo,
 } from "../pages";
 
 interface RouteInfoObj {
@@ -75,6 +76,10 @@ export const PRIVATE_ROUTE: RouteInfoObj = {
   myPage: {
     path: "/my-page",
     element: <MyPage />,
+  },
+  myInfoEdit: {
+    path: "/my-page/edit",
+    element: <EditInfo />,
   },
 };
 
