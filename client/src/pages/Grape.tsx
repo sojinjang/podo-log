@@ -59,7 +59,7 @@ const Grape = () => {
       <DefaultBackground className="h-[200vh] animated-grad-grape">
         <GrapeInfo data={myGrape} ref={grapeRef} />
         <MoveBtn stickerShopRef={stickerShopRef} isMoveDown={true} />
-        <div className="h-[13vh] w-screen" />
+        <div className="h-[15vh] w-screen" />
         <StickerShopContainer ref={stickerShopRef}>
           <MoveBtn grapeRef={grapeRef} isMoveDown={false} />
           {myGrape && <MyGrapeNum grape={myGrape.grape} />}
