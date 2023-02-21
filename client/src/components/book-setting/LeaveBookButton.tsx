@@ -23,8 +23,7 @@ const LeaveBookButton = ({ bookId }: BookIdType) => {
   return (
     <ClickableContainer
       onClick={() => {
-        confirm("정말 일기장을 나가시겠습니까? 🥺");
-        leaveBook();
+        if (confirm("정말 일기장을 나가시겠습니까? 🥺")) leaveBook();
       }}
     >
       일기장 나가기
