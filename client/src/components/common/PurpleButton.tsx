@@ -11,7 +11,7 @@ const PurpleButton = ({ description, wrapperStyle, buttonStyle }: ButtonProps) =
   return (
     <div className={`text-center ${wrapperStyle}`}>
       <button
-        className={`purple-button text-[10px] min-[390px]:text-xs sm:text-base cursor-pointer ${buttonStyle}`}
+        className={`purple-button text-[1.2vh] cursor-pointer ${buttonStyle}`}
         role="button"
       >
         {description}
