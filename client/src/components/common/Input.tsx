@@ -6,9 +6,9 @@ w-[80%] py-[2vh] mt-[2vh] min-[390px]:mt-[6vh] mx-auto
 `;
 
 export const Input = tw.input`
-  font-[notosans] bg-transparent ml-[5px] text-sm sm:text-lg
+font-sans bg-transparent text-[1.3vh]
 `;
 
 export const InputContainer = tw.div`
-  w-[65%] flex flex-col rounded-md bg-white/40 p-3 mx-auto mt-[1.5vh]
+w-[65%] flex flex-col rounded-md bg-white/40 p-[0.8vh] mx-auto mt-[1.5vh]
 `;
