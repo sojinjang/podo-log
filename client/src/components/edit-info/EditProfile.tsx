@@ -5,11 +5,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import { accessTokenAtom } from "src/recoil/token";
 import { postFormData, del } from "src/utils/api";
-import DefaultProfileImg from "src/assets/icons/default_profile.png";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 import { API_URL } from "src/constants/API_URL";
 
 import PurpleButton from "src/components/common/PurpleButton";
+import NewProfile from "./NewProfile";
+import OriginalProfile from "./OriginalProfile";
 
 const EditProfile = () => {
   const accessToken = useRecoilValue(accessTokenAtom);
@@ -22,8 +23,10 @@ const EditProfile = () => {
   const [isPicChanged, setIsPicChanged] = useState(false);
 
   const saveImgFile = () => {
+    if (!isPicChanged) setIsPicChanged(true);
     if (imgRef?.current?.files) {
       const file = imgRef.current.files[0];
+      if (!file) return;
       setProfileImg(file);
       reader.readAsDataURL(file);
       reader.onloadend = () => {
@@ -31,8 +34,10 @@ const EditProfile = () => {
       };
     }
   };
+  const deleteOgPic = () => {
+    setIsPicChanged(true);
+  };
   const deleteImgFile = () => {
-    if (!isPicChanged) return setIsPicChanged(true);
     if (typeof profileImg === "string") URL.revokeObjectURL(profileImg);
     setProfileImg("");
   };
@@ -43,7 +48,9 @@ const EditProfile = () => {
   };
   const onClickEdit = async () => {
     if (!isPicChanged) return;
+    const isPicDeleted = profileImg === "";
     try {
+      if (isPicDeleted) return await del(API_URL.profile, "", accessToken);
       await postFormData(API_URL.profile, createFormData(), accessToken);
       navigate(PRIVATE_ROUTE.myPage.path);
     } catch (err) {
@@ -54,17 +61,16 @@ const EditProfile = () => {
   return (
     <div className="m-auto flex flex-col text-center">
       {isPicChanged ? (
-        <ProfileImg src={profileImg && profileImg ? imgPreview : DefaultProfileImg} />
+        <NewProfile
+          profileImg={profileImg}
+          imgPreview={imgPreview}
+          deleteImgFile={deleteImgFile}
+        />
       ) : (
-        <ProfileImg src={location.state.myInfo.profile} />
-      )}
-      {!profileImg && isPicChanged && (
-        <ProfileImgDescription htmlFor="profileImg">프로필 이미지 추가</ProfileImgDescription>
-      )}
-      {(profileImg || !isPicChanged) && (
-        <ProfileImgDescription onClick={deleteImgFile}>
-          프로필 이미지 삭제
-        </ProfileImgDescription>
+        <OriginalProfile
+          ogPicInfo={location.state.myInfo.profile}
+          deleteImgFile={deleteOgPic}
+        />
       )}
       <input
         className="hidden"
@@ -86,15 +92,6 @@ const EditProfile = () => {
 };
 
 export default EditProfile;
-
-const ProfileImg = tw.img`
-w-[10vh] h-[10vh] object-cover shadow-lg mx-auto my-2 rounded-full bg-white
-`;
-
-const ProfileImgDescription = tw.label`
-cursor-pointer text-purple-1000 text-[1.4vh]
-drop-shadow-lg hover:drop-shadow-none transition duration-300 ease-in-out
-`;
 
 const ButtonContainer = tw.div`
 inline-block w-auto mt-[1vh] mb-[1.5vh]
