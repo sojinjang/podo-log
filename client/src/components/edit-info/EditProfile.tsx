@@ -17,8 +17,9 @@ const EditProfile = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const reader = new FileReader();
-  const [profileImg, setProfileImg] = useState(location.state.myInfo.profile);
-  const [imgPreview, setImgPreview] = useState<string | ArrayBuffer | null>("");
+  const [profileImg, setProfileImg] = useState<string | Blob>("");
+  const [imgPreview, setImgPreview] = useState<string | ArrayBuffer | null>(null);
+  const [isPicChanged, setIsPicChanged] = useState(false);
 
   const saveImgFile = () => {
     if (imgRef?.current?.files) {
@@ -31,6 +32,7 @@ const EditProfile = () => {
     }
   };
   const deleteImgFile = () => {
+    if (!isPicChanged) return setIsPicChanged(true);
     if (typeof profileImg === "string") URL.revokeObjectURL(profileImg);
     setProfileImg("");
   };
@@ -39,7 +41,8 @@ const EditProfile = () => {
     formData.append("profile", profileImg);
     return formData;
   };
-  const onSubmitEdit = async () => {
+  const onClickEdit = async () => {
+    if (!isPicChanged) return;
     try {
       await postFormData(API_URL.profile, createFormData(), accessToken);
       navigate(PRIVATE_ROUTE.myPage.path);
@@ -50,11 +53,15 @@ const EditProfile = () => {
 
   return (
     <div className="m-auto flex flex-col text-center">
-      <ProfileImg src={profileImg && profileImg ? imgPreview : DefaultProfileImg} />
-      {!profileImg && (
+      {isPicChanged ? (
+        <ProfileImg src={profileImg && profileImg ? imgPreview : DefaultProfileImg} />
+      ) : (
+        <ProfileImg src={location.state.myInfo.profile} />
+      )}
+      {!profileImg && isPicChanged && (
         <ProfileImgDescription htmlFor="profileImg">프로필 이미지 추가</ProfileImgDescription>
       )}
-      {profileImg && (
+      {(profileImg || !isPicChanged) && (
         <ProfileImgDescription onClick={deleteImgFile}>
           프로필 이미지 삭제
         </ProfileImgDescription>
@@ -67,7 +74,7 @@ const EditProfile = () => {
         onChange={saveImgFile}
         ref={imgRef}
       />
-      <ButtonContainer onClick={onSubmitEdit}>
+      <ButtonContainer onClick={onClickEdit}>
         <PurpleButton
           description="이미지 수정하기"
           wrapperStyle="w-full"
