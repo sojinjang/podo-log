@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 
 import { PinkPurpleBackground } from "src/components/common/Backgrounds";
 import BackButton from "../components/common/BackButton";
@@ -9,6 +10,9 @@ import EditPassword from "../components/edit-info/EditPassword";
 import EditProfile from "src/components/edit-info/EditProfile";
 
 const EditInfo = () => {
+  const location = useLocation();
+  const isLocalLogin = location.state.myInfo.provider === "podo";
+
   return (
     <PinkPurpleBackground className="flex flex-col">
       <BackButton />
@@ -16,7 +20,7 @@ const EditInfo = () => {
       <UnclickableContainer className="m-auto w-[70%] py-[5vh]">
         <EditProfile />
         <EditNickname />
-        <EditPassword />
+        {isLocalLogin && <EditPassword />}
       </UnclickableContainer>
     </PinkPurpleBackground>
   );
