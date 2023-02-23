@@ -13,11 +13,12 @@ const NewProfile = ({ profileImg, imgPreview, deleteImgFile }: NewProfileProps) 
   return (
     <>
       <ProfileImg src={profileImg ? imgPreview : DefaultProfileImg} />
-      {profileImg ? (
+      {profileImg && (
         <ProfileImgDescription onClick={deleteImgFile}>
-          프로필 이미지 수정
+          프로필 이미지 삭제
         </ProfileImgDescription>
-      ) : (
+      )}
+      {!profileImg && (
         <ProfileImgDescription htmlFor="profileImg">프로필 이미지 추가</ProfileImgDescription>
       )}
     </>
