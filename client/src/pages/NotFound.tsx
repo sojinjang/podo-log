@@ -9,8 +9,8 @@ import Fade from "react-reveal/Fade";
 
 const NotFound = () => {
   const navigate = useNavigate();
-  const goBack = () => {
-    navigate(-1);
+  const onClickHome = () => {
+    navigate("/");
   };
   return (
     <PinkPurpleBackground className="flex">
@@ -21,9 +21,9 @@ const NotFound = () => {
           <NotFoundIcon src={require("../assets/icons/404-error.png")} />
           <p className="text-[3vh]">페이지를 찾을 수 없습니다.</p>
           <p className="text-[1.7vh]">입력하신 주소가 정확한지 확인해주세요.</p>
-          <ButtonContainer onClick={goBack}>
+          <ButtonContainer onClick={onClickHome}>
             <PurpleButton
-              description="뒤로 가기"
+              description="홈으로 가기"
               wrapperStyle="mt-[10vh]"
               buttonStyle="sm:w-40"
             />
