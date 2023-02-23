@@ -52,8 +52,6 @@
 💄 포도알을 모아 바꾼 스티커로 일기를 꾸밀 수 있어요. 
 ```
 
-## 🚀 프로젝트 구조도
-
 ## 📝 WIKI
 <table>
 <tbody>
@@ -62,7 +60,7 @@
     <td class="tg-0pky">https://www.figma.com/file/d7UHoXQr6xJI2JRNMgizU7/PODOLOG?node-id=0%3A1&amp;t=OfCPTwNxM1dw2bcm-1</td>
   </tr>
   <tr>
-    <td class="tg-fymr">api 문서</td>
+    <td class="tg-fymr">api</td>
     <td class="tg-0pky">https://www.notion.so/API-b93d406178364723b14dd5d81ac8749f</td>
   </tr>
   <tr>
