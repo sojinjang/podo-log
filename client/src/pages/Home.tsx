@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Fade from "react-reveal/Fade";
 
 import { accessTokenAtom } from "src/recoil/token";
@@ -20,13 +20,12 @@ const Home = () => {
   const ACCESS_TOKEN_EXPIRY_TIME = 3600 * 1000;
   const REFRESH_TIME = 30 * 1000;
   const navigate = useNavigate();
-  const [URLSearchParams] = useSearchParams();
   const [accessToken, setAccessToken] = useRecoilState<Token>(accessTokenAtom);
 
   // MEMO: 아래 hook을 자식 컴포넌트 (SNSLoginContainer)에서 실행하면 access token을 undefined로 인식.
   // 리팩토링 필요 23.02.01
   useEffect(() => {
-    const isSNSLogin = URLSearchParams.get("snslogin") === "success";
+    const isSNSLogin = location.search.includes("snslogin");
     if (isSNSLogin) {
       refreshToken(setAccessToken);
       setInterval(() => refreshToken(setAccessToken), ACCESS_TOKEN_EXPIRY_TIME - REFRESH_TIME);
