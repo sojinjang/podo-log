@@ -113,6 +113,6 @@ whitespace-pre-line break-all
 `;
 
 const CommentReplyIcon = tw.img`
-h-[1.6vh] min-[390px]:h-[1.4vh] ml-auto ml-2 my-auto cursor-pointer
+h-[1.6vh] min-[390px]:h-[1.4vh] ml-2 my-auto cursor-pointer
 hover:opacity-50 ease-in duration-300
 `;

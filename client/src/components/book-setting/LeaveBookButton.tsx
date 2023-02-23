@@ -6,7 +6,7 @@ import { accessTokenAtom } from "src/recoil/token";
 import { del } from "src/utils/api";
 import { API_URL } from "src/constants/API_URL";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
-import ClickableContainer from "./ClickableContainer";
+import ClickableContainer from "../common/ClickableContainer";
 import { BookIdType } from "src/pages/BookSetting";
 
 const LeaveBookButton = ({ bookId }: BookIdType) => {

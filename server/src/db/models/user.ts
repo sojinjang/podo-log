@@ -61,17 +61,18 @@ class UserModel {
     }
   }
 
-  async get(userDTO: GetUserDTO, columnArr: string[] = ["*"]) {
-    const { query, values } = userBuildQuery.makeSelectQuery({ ...userDTO }, columnArr);
+  async get(userDTO: GetUserDTO, deleteCheck = true) {
+    const { query, values } = userBuildQuery.makeSelectQuery({ ...userDTO });
     logger.info(query);
     logger.debug(values);
-    const [result] = await pool.query<RowDataPacket[]>(query, values);
+    const queryAddNull = deleteCheck ? query + ` and deletedAt is null` : query;
+    const [result] = await pool.query<RowDataPacket[]>(queryAddNull, values);
     logger.debug(result);
     return result;
   }
 
-  async getGrain(userIdDTO: GetUserDTO, columnArr: string[] = ["*"]) {
-    const { query, values } = grainBuildQuery.makeSelectQuery({ ...userIdDTO }, columnArr);
+  async getGrain(userIdDTO: GetUserDTO) {
+    const { query, values } = grainBuildQuery.makeSelectQuery({ ...userIdDTO });
     logger.info(query);
     logger.debug(values);
     const [result] = await pool.query<RowDataPacket[]>(query, values);

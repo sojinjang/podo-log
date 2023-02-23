@@ -3,8 +3,12 @@ export const API_URL = Object.freeze({
   naverLogin: "/api/login/naver",
   emailLogin: "/api/login/local",
   refreshToken: "/api/login/silent-refresh",
+  signOut: "/api/login/logout",
+  withdrawal: "/api/users/withdrawal",
   users: "/api/users",
+  profile: "/api/users/image",
   books: "/api/books",
+  inviteCodeInput: "/api/books/invtt-code",
   inviteCode: function (bookId: number) {
     return this.books + `/${bookId}/invtt-code`;
   },

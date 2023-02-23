@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import tw from "tailwind-styled-components";
 import { useRecoilState, useResetRecoilState } from "recoil";
 
 import { profileImgAtom } from "src/recoil/sign-up";
 import DefaultProfileImg from "../../assets/icons/default_profile.png";
+import { ProfileImg, ProfileImgDescription } from "../common/Profile";
 
 export const ProfileImgUpload = () => {
   const [profileImg, setProfileImg] = useRecoilState(profileImgAtom);
@@ -56,12 +56,3 @@ export const ProfileImgUpload = () => {
     </div>
   );
 };
-
-const ProfileImg = tw.img`
-w-[130px] h-[130px] object-cover shadow-lg mx-auto my-2 rounded-full bg-white
-`;
-
-const ProfileImgDescription = tw.label`
-cursor-pointer text-purple-1000 
-drop-shadow-lg hover:drop-shadow-none transition duration-300 ease-in-out
-`;
