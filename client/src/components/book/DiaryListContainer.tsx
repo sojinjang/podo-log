@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
+import _ from "lodash";
 
 import { get } from "src/utils/api";
 import { API_URL } from "src/constants/API_URL";
@@ -40,11 +41,14 @@ export const DiaryListContainer = () => {
       setIsLoading(true);
       const response = await get(API_URL.diaryList(bookId, LIMIT, startIdx), "", accessToken);
       const diaryList = response.data;
-      setDiaries((prevDiaries) => [...prevDiaries, ...diaryList]);
-      setIsLoading(false);
-      if (diaryList.length < LIMIT) {
-        setHasNextPage(false);
+      if (startIdx === 1) {
+        const uniqueDiaries = _.uniqBy([...diaries, ...diaryList], "diaryId");
+        setDiaries(uniqueDiaries);
+      } else {
+        setDiaries((prevDiaries) => [...prevDiaries, ...diaryList]);
       }
+      setIsLoading(false);
+      if (diaryList.length < LIMIT) setHasNextPage(false);
     } catch (err) {
       if (err instanceof Error) alert(err.message);
     }
