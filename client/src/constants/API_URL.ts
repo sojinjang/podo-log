@@ -6,6 +6,7 @@ export const API_URL = Object.freeze({
   signOut: "/api/login/logout",
   withdrawal: "/api/users/withdrawal",
   users: "/api/users",
+  profile: "/api/users/image",
   books: "/api/books",
   inviteCodeInput: "/api/books/invtt-code",
   inviteCode: function (bookId: number) {
