@@ -12,9 +12,9 @@ const Router = () => {
   const setAccessToken = useSetRecoilState(accessTokenAtom);
 
   useEffect(() => {
-    const currentLocation = window.location.pathname;
+    const currentLocation = location.href;
     for (const pages of PRIVATE_ROUTE_ARR) {
-      const isPrivateLocation = pages.path === "/" + currentLocation.split("/")[1];
+      const isPrivateLocation = currentLocation.includes(pages.path);
       if (isPrivateLocation) {
         refreshToken(setAccessToken);
         break;
