@@ -1,5 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
+import Fade from "react-reveal/Fade";
 
 import { PinkPurpleBackground } from "src/components/common/Backgrounds";
 import BackButton from "../components/common/BackButton";
@@ -18,9 +19,13 @@ const EditInfo = () => {
       <BackButton />
       <PageTitle title="내 정보 수정" />
       <UnclickableContainer className="m-auto w-[70%] py-[5vh]">
-        <EditProfile />
-        <EditNickname />
-        {isLocalLogin && <EditPassword />}
+        <Fade top>
+          <>
+            <EditProfile />
+            <EditNickname />
+            {isLocalLogin && <EditPassword />}
+          </>
+        </Fade>
       </UnclickableContainer>
     </PinkPurpleBackground>
   );
