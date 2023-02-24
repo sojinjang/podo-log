@@ -24,7 +24,7 @@ drop-shadow-xl hover:drop-shadow-none ease-in duration-300
 `;
 
 const StickerIcon = tw.img`
-w-[25px] h-[25px] min-[390px]:w-[33px] min-[390px]:h-[33px] md:w-[38px] md:h-[38px] 
+w-[3vh] h-[3vh]
 m-auto
 `;
 
