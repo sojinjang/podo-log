@@ -6,9 +6,7 @@ interface TitleProps {
 
 const ContainerTitle = ({ children }: TitleProps) => {
   return (
-    <div className="font-sans font-bold ml-[4vw] mt-[2vh] text-[2.5vh] md:text-[2vh]">
-      {children}
-    </div>
+    <div className="font-sans font-bold w-[75%] mx-auto mt-[2vh] text-[2vh]">{children}</div>
   );
 };
 
