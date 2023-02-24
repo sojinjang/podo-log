@@ -89,5 +89,5 @@ const EditPassword = () => {
 export default EditPassword;
 
 const PwConfirmMsg = tw.p`
-font-[notosans] text-red-600 text-xs sm:text-base mt-1 ml-[5px]
+font-sans text-red-600 text-xs sm:text-base mt-1 ml-[5px]
 `;

@@ -5,7 +5,7 @@ h-[80vh] w-[80%] bg-white/60 m-auto rounded-xl mt-[3vh] overflow-y-scroll
 `;
 
 export const inputStyle = `
-font-[notosans] 
+font-sans
 bg-transparent p-4 sm:p-6 w-full
 `;
 

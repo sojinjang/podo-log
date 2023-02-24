@@ -44,7 +44,7 @@ w-full h-[3px] mx-auto mt-4 bg-slate-50/80 rounded md:mt-10
 `;
 
 const SectionDescription = tw.p`
-font-[notosans] font-semibold text-slate-50/80 text-[1.5vh] my-4
+font-sans font-semibold text-slate-50/80 text-[1.5vh] my-4
 `;
 
 const IconContainer = tw.div`

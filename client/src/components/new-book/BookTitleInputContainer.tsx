@@ -32,9 +32,9 @@ const BookTitleInputContainer = ({ register, refreshIsTitleRevised }: TitleConta
 export default BookTitleInputContainer;
 
 const TitleInput = tw.input`
-  font-[notosans] bg-transparent ml-[5px] w-[70%] sm:text-lg
+  font-sans bg-transparent ml-[5px] w-[70%] sm:text-lg
 `;
 
 const LetterCount = tw.div`
-  font-[notosans] text-gray-1000 ml-auto mr-[5px]
+  font-sans text-gray-1000 ml-auto mr-[5px]
 `;

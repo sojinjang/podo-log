@@ -114,12 +114,12 @@ backdrop-blur-sm rounded-t-lg p-4 z-10 overflow-y-scroll
 `;
 
 const SectionTitle = tw.p`
-font-[notosans] font-bold text-[2.1vh] md:text-[1.9vh]
+font-sans font-bold text-[2.1vh] md:text-[1.9vh]
 `;
 
 const CloseButton = tw.button`
 flex flex-end cursor-pointer ml-auto
-font-[notosans] text-[2vh] md:text-[1.8vh]
+font-sans text-[2vh] md:text-[1.8vh]
 `;
 
 const DivisionLine = tw.hr`
@@ -127,7 +127,7 @@ h-[2px] bg-[#C7C7C7]
 `;
 
 const StickerPackName = tw.p`
-font-[notosans] text-[1.5vh] md:text-[1.4vh] font-semibold my-2 mr-3 cursor-pointer 
+font-sans text-[1.5vh] md:text-[1.4vh] font-semibold my-2 mr-3 cursor-pointer 
 hover:opacity-50 drop-shadow-xl hover:drop-shadow-none ease-in duration-300 
 `;
 
@@ -141,5 +141,5 @@ hover:scale-105 transition duration-500 ease-in-out
 `;
 
 const ExpirationDate = tw.p`
-font-[notosans] text-gray-1000 mt-auto ml-auto text-[1.4vh] md:text-[1.2vh]
+font-sans text-gray-1000 mt-auto ml-auto text-[1.4vh] md:text-[1.2vh]
 `;

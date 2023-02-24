@@ -96,5 +96,5 @@ my-auto mr-2 md:mr-4
 `;
 
 const ButtonDesc = tw.p`
-font-[notosans] text-[1.5vh] min-[390px]:text-[1.3vh] ml-auto
+font-sans text-[1.5vh] min-[390px]:text-[1.3vh] ml-auto
 `;

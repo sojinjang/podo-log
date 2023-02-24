@@ -78,7 +78,7 @@ flex flex-col mx-[2.5vh] min-[390px]:mx-[3.5vh] my-[3vh]
 `;
 
 const ConfirmMsg = tw.p`
-font-[notosans] font-bold text-[14px] min-[390px]:text-[1.6vh] mx-auto
+font-sans font-bold text-[14px] min-[390px]:text-[1.6vh] mx-auto
 `;
 
 const GrapeImg = tw.img`
@@ -86,11 +86,11 @@ w-[15vh] mx-auto
 `;
 
 const WarningMsg = tw.p`
-font-[notosans] text-[13px] min-[390px]:text-[1.3vh] mx-auto
+font-sans text-[13px] min-[390px]:text-[1.3vh] mx-auto
 `;
 
 const DisadvantageDesc = tw.p`
-font-[notosans] text-[10px] min-[390px]:text-[1.1vh] mx-auto 
+font-sans text-[10px] min-[390px]:text-[1.1vh] mx-auto 
 `;
 
 const ButtonContainer = tw.div`
