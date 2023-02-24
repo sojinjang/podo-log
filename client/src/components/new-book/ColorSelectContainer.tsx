@@ -10,7 +10,9 @@ const renderColorSelectButtons = () => {
 
   const colorSelectButtons = DIARY_COLOR.map((color) => {
     const isSelected = color === selectedColor;
-    const borderStyle = isSelected ? "border-white border-dashed border-[6px]" : "border-none";
+    const borderStyle = isSelected
+      ? "border-white border-dashed border-[0.5vh]"
+      : "border-none";
     return (
       <ColorSelectButton
         key={color}
@@ -34,12 +36,14 @@ const ColorSelectContainer = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-6 mt-[1.5vh] px-[5vw]">{renderColorSelectButtons()}</div>
+    <div className="grid grid-cols-6 w-[75%] mx-auto mt-[1.5vh]">
+      {renderColorSelectButtons()}
+    </div>
   );
 };
 
 export default ColorSelectContainer;
 
 const ColorSelectButton = tw.div`
-md:w-[65px] w-[35px] md:h-[65px] h-[35px] rounded-full m-auto mb-[2vh] cursor-pointer
+w-[5vh] h-[5vh] rounded-full m-auto mb-[2vh] cursor-pointer
 `;
