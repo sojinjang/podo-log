@@ -53,7 +53,7 @@ const InviteSection = ({ bookId }: BookIdType) => {
         <p className="text-center text-[2.5vh]">일기장을 공유하고 싶은 분을 초대해보세요!</p>
         <div className="flex h-[2vh] mt-[1.5vh]">
           <InviteCodeButton onClick={renewInviteCode}>
-            <img src={require("../../assets/icons/refresh.png")} />
+            <img className="w-[2vh]" src={require("../../assets/icons/refresh.png")} />
             <p className="ml-1 text-[1.5vh]">초대코드 갱신</p>
           </InviteCodeButton>
         </div>

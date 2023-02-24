@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import tw from "tailwind-styled-components";
 
 const BackButtonImg = tw.img`
-z-10 min-[390px]:h-[70px] h-[60px] absolute pt-[1vh] cursor-pointer
+z-10 h-[6.5vh] absolute pt-[1vh] cursor-pointer
 `;
 
 const BackButton = () => {

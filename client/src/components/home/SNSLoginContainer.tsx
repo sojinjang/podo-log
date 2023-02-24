@@ -36,7 +36,7 @@ const SNSLoginContainer = ({ sectionTitle }: SNSContainerProps) => {
 export default SNSLoginContainer;
 
 const SNSLoginButtonBg = tw.div`
-relative md:w-[65px] w-[40px] md:h-[65px] h-[40px] rounded-full m-auto mb-[2vh] cursor-pointer
+relative w-[5vh] h-[5vh] rounded-full m-auto mb-[2vh] cursor-pointer
 `;
 
 const Divider = tw.hr`
@@ -44,7 +44,7 @@ w-full h-[3px] mx-auto mt-4 bg-slate-50/80 rounded md:mt-10
 `;
 
 const SectionDescription = tw.p`
-font-[notosans] font-semibold text-slate-50/80 text-sm sm:text-lg my-4
+font-sans font-semibold text-slate-50/80 text-[1.5vh] my-4
 `;
 
 const IconContainer = tw.div`

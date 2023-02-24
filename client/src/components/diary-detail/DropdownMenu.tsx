@@ -86,15 +86,14 @@ ml-auto cursor-pointer hover:opacity-50 ease-in duration-300
 `;
 
 const ButtonContainer = tw.div`
-flex max-w-[90px] w-[14vw] md:w-[9vw] py-1 px-2 cursor-pointer mx-auto
+flex w-[9vh] py-[0.4vh] px-[1.2vh] cursor-pointer mx-auto
 hover:opacity-50 ease-in duration-300 
 `;
 
 const ButtonIconImg = tw.img`
-h-[1.5vh] min-[390px]:h-[1.3vh]
-my-auto mr-2 md:mr-4
+h-[1.7vh] my-auto
 `;
 
 const ButtonDesc = tw.p`
-font-[notosans] text-[1.5vh] min-[390px]:text-[1.3vh] ml-auto
+font-sans text-[1.6vh] ml-auto
 `;
