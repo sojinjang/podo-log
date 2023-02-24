@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -30,22 +30,18 @@ const BookRevision = () => {
   const bookId = params.bookId;
   const accessToken = useRecoilValue(accessTokenAtom);
   const [selectedColor, setSelectedColor] = useRecoilState(selectedColorAtom);
-
-  const { register, getValues, handleSubmit } = useForm<BookNameType>({
+  const [isTitleRevised, setIsTitleRevised] = useState(false);
+  const [isRevised, setIsRevised] = useState(false);
+  const [buttonCursorStyle, setButtonCursorStyle] = useState("");
+  const { register, handleSubmit } = useForm<BookNameType>({
     mode: "onChange",
     defaultValues: {
       bookName: location.state.name,
     },
   });
-  const currentName = getValues("bookName");
-  const isRevised =
-    selectedColor !== location.state.color || currentName !== location.state.name;
-  const buttonCursorStyle = isRevised ? "" : "cursor-not-allowed";
-
-  useEffect(() => {
-    setSelectedColor(location.state.color);
-  }, []);
-
+  const refreshIsTitleRevised = (currentTitle: string) => {
+    setIsTitleRevised(currentTitle !== location.state.name);
+  };
   const reviseBookInfo = async ({ bookName }: BookNameType) => {
     try {
       if (!isRevised) return;
@@ -55,6 +51,19 @@ const BookRevision = () => {
       if (err instanceof Error) alert(err.message);
     }
   };
+
+  useEffect(() => {
+    setSelectedColor(location.state.color);
+  }, []);
+
+  useEffect(() => {
+    setIsRevised(selectedColor !== location.state.color || isTitleRevised);
+  }, [selectedColor, isTitleRevised]);
+
+  useEffect(() => {
+    setButtonCursorStyle(isRevised ? "" : "cursor-not-allowed");
+  }, [isRevised]);
+
   return (
     <PinkPurpleBackground>
       <BackButton />
@@ -65,7 +74,10 @@ const BookRevision = () => {
           <ContainerTitle>표지 색상 선택</ContainerTitle>
           <ColorSelectContainer />
           <ContainerTitle>일기장 제목</ContainerTitle>
-          <BookTitleInputContainer register={register("bookName")} />
+          <BookTitleInputContainer
+            register={register("bookName")}
+            refreshIsTitleRevised={refreshIsTitleRevised}
+          />
           <PurpleButton
             description="수정하기"
             wrapperStyle="mt-[5vh]"

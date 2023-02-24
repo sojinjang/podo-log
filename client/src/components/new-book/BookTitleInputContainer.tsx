@@ -4,9 +4,10 @@ import tw from "tailwind-styled-components";
 
 interface TitleContainerProps {
   register: object;
+  refreshIsTitleRevised?: (currentTitle: string) => void;
 }
 
-const BookTitleInputContainer = ({ register }: TitleContainerProps) => {
+const BookTitleInputContainer = ({ register, refreshIsTitleRevised }: TitleContainerProps) => {
   const [letterCount, setLetterCount] = useState(0);
 
   return (
@@ -14,15 +15,16 @@ const BookTitleInputContainer = ({ register }: TitleContainerProps) => {
       <TitleInput
         placeholder="일기장 제목을 입력하세요."
         type="text"
-        maxLength={12}
+        maxLength={18}
         minLength={1}
         required
         {...register}
         onChange={(e) => {
           setLetterCount(e.target.value.length);
+          if (refreshIsTitleRevised) refreshIsTitleRevised(e.target.value);
         }}
       ></TitleInput>
-      <LetterCount>{letterCount}/12</LetterCount>
+      <LetterCount>{letterCount}/18</LetterCount>
     </div>
   );
 };

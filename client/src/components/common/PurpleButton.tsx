@@ -10,10 +10,7 @@ interface ButtonProps {
 const PurpleButton = ({ description, wrapperStyle, buttonStyle }: ButtonProps) => {
   return (
     <div className={`text-center ${wrapperStyle}`}>
-      <button
-        className={`purple-button text-[1.2vh] cursor-pointer ${buttonStyle}`}
-        role="button"
-      >
+      <button className={`purple-button text-[1.2vh] ${buttonStyle}`} role="button">
         {description}
       </button>
     </div>
