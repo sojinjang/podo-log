@@ -33,5 +33,5 @@ export const BookButton = ({ bookId, bookName, numMembers, color }: DiaryInfo) =
 };
 
 const DiaryDescription = tw.div`
-  flex justify-center mb-5 text-xl
+  flex justify-center mb-5 text-[1.7vh]
 `;
