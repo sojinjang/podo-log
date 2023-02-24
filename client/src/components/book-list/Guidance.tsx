@@ -6,7 +6,7 @@ interface GuidanceProps {
 }
 
 const Phrase = tw.p`
-  font-[jua] text-purple-1000 font-normal text-center text-3xl mt-[60px]`;
+  font-[jua] text-purple-1000 text-center text-[2.7vh] mt-[6vh]`;
 
 export const Guidance = ({ isEmpty }: GuidanceProps) => {
   if (isEmpty)
