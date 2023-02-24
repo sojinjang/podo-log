@@ -6,7 +6,7 @@ import settingIcon from "../../assets/icons/setting.png";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 
 const SettingButtonImg = tw.img`
-  min-[390px]:h-[50px] h-[40px] absolute top-[1.3vh] md:right-[1vw] right-[2vw] cursor-pointer
+  h-[4.5vh] absolute top-[2vh] right-[1.4vh] cursor-pointer
 `;
 
 const SettingButton = () => {
