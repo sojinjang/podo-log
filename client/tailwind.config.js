@@ -39,7 +39,6 @@ module.exports = {
       fontFamily: {
         jua: ["Jua", "sans-serif"],
         dohyeon: ["Do Hyeon", "sans-serif"],
-        notosans: ["Noto Sans", "sans-serif"],
       },
     },
   },
