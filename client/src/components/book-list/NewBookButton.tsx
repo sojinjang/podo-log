@@ -16,7 +16,7 @@ export const NewBookButton = () => {
         onClick={onClickImg}
         className="w-[15vh] h-[15vh] m-auto max-w-xs"
       />
-      <div className="font-[jua] text-gray-1000  flex justify-center mb-5 text-[1.7vh]">
+      <div className="font-[jua] text-gray-1000 flex justify-center mb-5 text-[1.7vh]">
         새 일기장 만들기
       </div>
     </div>
