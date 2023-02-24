@@ -6,7 +6,7 @@ w-[80%] py-[2vh] mt-[2vh] min-[390px]:mt-[6vh] mx-auto
 `;
 
 export const Input = tw.input`
-font-sans bg-transparent text-[1.5vh]
+font-sans bg-transparent text-[1.5vh] w-[85%]
 `;
 
 export const InputContainer = tw.div`
