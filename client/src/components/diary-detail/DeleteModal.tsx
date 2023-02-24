@@ -65,7 +65,7 @@ top-0 right-0 bottom-0 left-0 fixed bg-transparent
 
 const ModalSection = tw.div`
 fixed top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 bg-white/60 p-[1.5vh]
-flex flex-col rounded-lg shadow-lg backdrop-blur text-center w-[32vh]
+flex flex-col rounded-lg shadow-lg backdrop-blur text-center w-[31vh]
 `;
 
 const CloseButton = tw.button`
