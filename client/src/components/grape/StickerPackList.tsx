@@ -65,7 +65,7 @@ export const StickerPackList = ({ updateFocusedPack }: PackListProps) => {
 };
 
 const PackageListContainer = tw.div`
-flex flex-wrap justify-center h-[73vh] overflow-y-auto my-[1vh]
+flex flex-wrap justify-center h-[74vh] overflow-y-auto my-[1.5vh]
 `;
 
 const PackageContainer = tw.div`

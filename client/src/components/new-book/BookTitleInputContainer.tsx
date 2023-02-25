@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import tw from "tailwind-styled-components";
+import { Input, InputContainer } from "../common/Input";
 
 interface TitleContainerProps {
   register: object;
@@ -11,8 +12,8 @@ const BookTitleInputContainer = ({ register, refreshIsTitleRevised }: TitleConta
   const [letterCount, setLetterCount] = useState(0);
 
   return (
-    <div className="w-[85%] flex rounded-md bg-white/60 p-3 mx-auto mt-[1.5vh] ">
-      <TitleInput
+    <InputContainer className="flex-row w-[75%]">
+      <Input
         placeholder="일기장 제목을 입력하세요."
         type="text"
         maxLength={18}
@@ -23,18 +24,14 @@ const BookTitleInputContainer = ({ register, refreshIsTitleRevised }: TitleConta
           setLetterCount(e.target.value.length);
           if (refreshIsTitleRevised) refreshIsTitleRevised(e.target.value);
         }}
-      ></TitleInput>
+      ></Input>
       <LetterCount>{letterCount}/18</LetterCount>
-    </div>
+    </InputContainer>
   );
 };
 
 export default BookTitleInputContainer;
 
-const TitleInput = tw.input`
-  font-[notosans] bg-transparent ml-[5px] w-[70%] sm:text-lg
-`;
-
 const LetterCount = tw.div`
-  font-[notosans] text-gray-1000 ml-auto mr-[5px]
+  font-sans text-gray-1000 text-[1.4vh] ml-auto mr-[5px]
 `;

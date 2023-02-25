@@ -65,20 +65,20 @@ top-0 right-0 bottom-0 left-0 fixed bg-transparent
 
 const ModalSection = tw.div`
 fixed top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 bg-white/60 p-[1.5vh]
-flex flex-col rounded-lg shadow-lg backdrop-blur text-center
+flex flex-col rounded-lg shadow-lg backdrop-blur text-center w-[31vh]
 `;
 
 const CloseButton = tw.button`
-flex flex-end cursor-pointer ml-auto
-text-[14px] min-[390px]:text-[1.6vh]
+flex flex-end cursor-pointer ml-auto text-[2vh]
+hover:opacity-50 ease-in duration-200
 `;
 
 const Content = tw.div`
-flex flex-col mx-[2.5vh] min-[390px]:mx-[3.5vh] my-[3vh] 
+flex flex-col my-[3vh] 
 `;
 
 const ConfirmMsg = tw.p`
-font-[notosans] font-bold text-[14px] min-[390px]:text-[1.6vh] mx-auto
+font-sans font-bold text-[1.9vh] mx-auto
 `;
 
 const GrapeImg = tw.img`
@@ -86,11 +86,11 @@ w-[15vh] mx-auto
 `;
 
 const WarningMsg = tw.p`
-font-[notosans] text-[13px] min-[390px]:text-[1.3vh] mx-auto
+font-sans text-[1.7vh] mx-auto
 `;
 
 const DisadvantageDesc = tw.p`
-font-[notosans] text-[10px] min-[390px]:text-[1.1vh] mx-auto 
+font-sans text-[1.4vh] mx-auto 
 `;
 
 const ButtonContainer = tw.div`

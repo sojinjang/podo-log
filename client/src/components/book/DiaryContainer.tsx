@@ -74,7 +74,7 @@ flex justify-end
 `;
 
 const CommentIcon = tw.img`
-w-[25px] h-[25px] min-[390px]:w-[34px] min-[390px]:h-[34px] md:w-[37px] my-auto
+w-[2.5vh] h-[2.5vh] my-auto
 `;
 
 const NumComments = tw.p`

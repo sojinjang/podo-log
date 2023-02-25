@@ -82,8 +82,8 @@ w-[45vh] h-[75vh] mt-[2vh] mx-auto px-[1.5vh] py-[1vh]
 `;
 
 const CancelButton = tw.p`
-text-[2vh] font-sans ml-auto cursor-pointer
-drop-shadow-2xl hover:drop-shadow-none ease-in duration-100
+text-[2vh] p-1 font-sans ml-auto cursor-pointer
+drop-shadow-lg hover:drop-shadow-none hover:opacity-50 ease-in duration-300 
 `;
 
 const PodoPriceContainer = tw.div`

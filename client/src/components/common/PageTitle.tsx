@@ -6,12 +6,12 @@ interface TitleProps {
 }
 
 const Title = tw.div`
-  font-[jua] text-[3vh] md:text-[2.7vh] m-auto pt-[1.2vh]
+  font-[jua] text-[2.7vh] m-auto pt-[1vh]
 `;
 
 const PageTitle = ({ title }: TitleProps) => {
   return (
-    <div className="flex h-[70px]">
+    <div className="flex h-[7.5vh]">
       <Title>{title}</Title>
     </div>
   );

@@ -51,7 +51,7 @@ export const BookMembersInfo = ({ bookId }: BookIdType) => {
 };
 
 const Container = tw.div`
-font-[notosans] text-[1.7vh] bg-white/60 rounded-lg drop-shadow-lg
+font-sans text-[1.7vh] bg-white/60 rounded-lg drop-shadow-lg
 mx-auto mb-[1.5vh] w-[90%] md:p-5 p-3
 `;
 

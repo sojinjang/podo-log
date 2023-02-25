@@ -48,14 +48,14 @@ export const EditComment = ({
       <>
         {parentNickname && (
           <div className="flex text-[1.5vh] min-[390px]:text-[1.3vh]">
-            <div className="font-[notosans] font-bold">{parentNickname}</div>
-            <div className="font-[notosans]">님에게 답글 남기는중</div>
+            <div className="font-sans font-bold">{parentNickname}</div>
+            <div className="font-sans">님에게 답글 남기는중</div>
           </div>
         )}
         <form onSubmit={handleSubmit(onSubmitComment)}>
           <InputContainer className="flex-row w-full mt-0 shadow-lg">
             <Input
-              className="font-[notosans] w-[90%]"
+              className="font-sans w-[90%]"
               placeholder="댓글을 입력해주세요. (최대 150자)"
               minLength={1}
               maxLength={150}
@@ -68,16 +68,15 @@ export const EditComment = ({
         </form>
       </>
     </Fade>
-
   );
 };
 
 const CancelButton = tw.p` 
-font-[notosans] w-[10%] ml-auto cursor-pointer text-center
+font-sans w-[10%] ml-auto cursor-pointer text-center
 text-sm sm:text-lg text-grat-1000 hover:opacity-50 ease-in duration-300
 `;
 
 const PostButton = tw.button` 
-font-[notosans] w-[10%] ml-auto cursor-pointer text-center
+font-sans w-[10%] ml-auto cursor-pointer text-center
 text-sm sm:text-lg text-purple-1000 hover:opacity-50 ease-in duration-300
 `;
