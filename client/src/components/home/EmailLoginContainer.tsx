@@ -1,12 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 
 import { post } from "src/utils/api";
 import { refreshToken } from "src/utils/token";
 import { accessTokenAtom } from "src/recoil/token";
-import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 import { API_URL } from "src/constants/API_URL";
 import { Input, InputContainer } from "../common/Input";
 import PurpleButton from "../common/PurpleButton";
@@ -22,7 +20,6 @@ interface loginInput {
 }
 
 const EmailLoginContainer = ({ tokenExpireTime, refreshTime }: LoginProps) => {
-  const navigate = useNavigate();
   const { register, handleSubmit } = useForm<loginInput>({ mode: "onChange" });
   const setAccessToken = useSetRecoilState(accessTokenAtom);
 
@@ -31,7 +28,6 @@ const EmailLoginContainer = ({ tokenExpireTime, refreshTime }: LoginProps) => {
       const response = await post(API_URL.emailLogin, { email, password });
       setAccessToken(response.data.accessToken);
       setInterval(() => refreshToken(setAccessToken), tokenExpireTime - refreshTime);
-      navigate(PRIVATE_ROUTE.books.path);
     } catch (err) {
       if (err instanceof Error) alert(err.message);
     }
