@@ -13,8 +13,10 @@ export const refreshToken = async (setAccessToken: (arg: Token) => void) => {
   }
 };
 
-export const moveToDiaries = (accessToken: Token, navigate: (arg: string) => void) => {
+export const moveToDiaries = (accessToken: Token) => {
   if (accessToken) {
-    setTimeout(() => navigate(PRIVATE_ROUTE.books.path), 3000);
+    setTimeout(() => {
+      window.location.replace("#" + PRIVATE_ROUTE.books.path); // MEMO: for gh-pages Hash Router
+    }, 3000);
   }
 };
