@@ -11,10 +11,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { accessTokenAtom } from "src/recoil/token";
 import { DiaryForm, TitleInput, inputStyle, ContentInput } from "../diary/DiaryFormElem";
 import { DiaryInput } from "../diary/DiaryInput";
-import { convertURLtoFile } from "src/utils/image";
 
 interface DiaryOgInput extends DiaryInput {
-  picture: Blob | null;
+  picture: string;
 }
 
 const createFormData = (diaryImg: Img) => {
@@ -31,26 +30,26 @@ const DiaryRevisionForm = () => {
   const diaryId = String(params.diaryId);
   const accessToken = useRecoilValue(accessTokenAtom);
   const diaryImg = useRecoilValue(diaryRevisionImgAtom);
+  const [isPicChanged, setIsPicChanged] = useState(false);
   const [ogData, setOgData] = useState<DiaryOgInput | null>(null);
   const { register, handleSubmit } = useForm<DiaryInput>({
     mode: "onChange",
     defaultValues: async () => {
       const response = await get(API_URL.bookDiary(Number(bookId)), diaryId, accessToken);
       const { title, picture, content } = response.data;
-      const pictureFile = picture === "없음" ? null : await convertURLtoFile(picture);
-      setOgData({ title, picture: pictureFile, content });
+      setOgData({ title, picture: picture, content });
       return { title, content };
     },
   });
 
+  const onSubmitPicture = async () => {
+    if (diaryImg === "") return await del(API_URL.diaryImg(diaryId), "", accessToken);
+    await postFormData(API_URL.diaryImg(diaryId), createFormData(diaryImg), accessToken);
+  };
   const onSubmitDiaryForm = async ({ title, content }: DiaryInput) => {
-    const isPicDeleted = ogData?.picture !== null && diaryImg === "";
-    const isPicChanged = ogData?.picture !== diaryImg && diaryImg !== "";
     try {
       await patch(API_URL.diary, diaryId, { title, content }, accessToken);
-      if (isPicDeleted) await del(API_URL.diaryImg(diaryId), "", accessToken);
-      if (isPicChanged)
-        await postFormData(API_URL.diaryImg(diaryId), createFormData(diaryImg), accessToken);
+      if (isPicChanged) await onSubmitPicture();
       navigate(-2);
     } catch (err) {
       if (err instanceof Error) alert(err.message);
@@ -67,7 +66,15 @@ const DiaryRevisionForm = () => {
         required
         {...register("title")}
       />
-      {ogData && <DiaryRevisionImgUpload ogPicFile={ogData.picture} />}
+      {ogData && (
+        <DiaryRevisionImgUpload
+          ogPicSrc={ogData.picture}
+          isPicChanged={isPicChanged}
+          handlePicChanged={() => {
+            setIsPicChanged(true);
+          }}
+        />
+      )}
       <ContentInput
         className={`${inputStyle}`}
         placeholder="내용을 입력해주세요."

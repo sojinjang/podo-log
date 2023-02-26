@@ -2,19 +2,20 @@ import React, { useRef, useState, useEffect } from "react";
 import { useRecoilState, useResetRecoilState } from "recoil";
 
 import { diaryRevisionImgAtom } from "src/recoil/diary-revision/atom";
-import imgUploadIcon from "../../assets/icons/image.png";
-import trashCanIcon from "../../assets/icons/trash-can-white.png";
-import {
-  UploadedImg,
-  TrashCanIcon,
-  ImgUploadContainer,
-  ImgUploadIcon,
-} from "../diary/DairyImgUploadElem";
+import ExistingImg from "./ExistingImg";
+import NewImg from "./NewImg";
 
-interface ImgRevisionProps {
-  ogPicFile: Blob | null;
+export interface ImgRevisionProps {
+  ogPicSrc: string;
+  isPicChanged: boolean;
+  handlePicChanged: () => void;
 }
-const DiaryRevisionImgUpload = ({ ogPicFile }: ImgRevisionProps) => {
+
+const DiaryRevisionImgUpload = ({
+  ogPicSrc,
+  isPicChanged,
+  handlePicChanged,
+}: ImgRevisionProps) => {
   const reader = new FileReader();
   const imgRef = useRef<HTMLInputElement>(null);
   const [diaryImg, setDiaryImg] = useRecoilState(diaryRevisionImgAtom);
@@ -34,18 +35,6 @@ const DiaryRevisionImgUpload = ({ ogPicFile }: ImgRevisionProps) => {
     if (typeof diaryImg === "string") URL.revokeObjectURL(diaryImg);
     setDiaryImg("");
   };
-  const setOgPic = async () => {
-    if (!ogPicFile) return;
-    setDiaryImg(ogPicFile);
-    reader.readAsDataURL(ogPicFile);
-    reader.onloadend = () => {
-      setImgPreview(reader.result);
-    };
-  };
-
-  useEffect(() => {
-    setOgPic;
-  }, [ogPicFile]);
 
   useEffect(() => {
     return () => {
@@ -54,26 +43,24 @@ const DiaryRevisionImgUpload = ({ ogPicFile }: ImgRevisionProps) => {
   }, []);
 
   return (
-    <React.Fragment>
-      {diaryImg ? (
-        <div className="relative overflow-auto">
-          <UploadedImg src={imgPreview ? imgPreview : imgUploadIcon}></UploadedImg>
-          <TrashCanIcon onClick={() => deleteImgFile()} src={trashCanIcon} />
-        </div>
+    <>
+      {isPicChanged ? (
+        <NewImg
+          imgRef={imgRef}
+          diaryImg={diaryImg}
+          imgPreview={imgPreview}
+          deleteImgFile={deleteImgFile}
+          saveImgFile={saveImgFile}
+        />
       ) : (
-        <ImgUploadContainer onClick={() => imgRef?.current?.click()}>
-          <ImgUploadIcon src={imgUploadIcon} />
-          <input
-            className="hidden"
-            type="file"
-            accept="image/*"
-            id="profileImg"
-            onChange={saveImgFile}
-            ref={imgRef}
-          />
-        </ImgUploadContainer>
+        <ExistingImg
+          imgRef={imgRef}
+          ogPicSrc={ogPicSrc}
+          saveImgFile={saveImgFile}
+          handlePicChanged={handlePicChanged}
+        />
       )}
-    </React.Fragment>
+    </>
   );
 };
 
