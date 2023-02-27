@@ -14,9 +14,12 @@ export const refreshToken = async (setAccessToken: (arg: Token) => void) => {
 };
 
 export const moveToDiaries = (accessToken: Token) => {
+  const urlObj = new URL(window.location.href);
+  urlObj.search = "";
+  const rootUrl = String(urlObj).includes("#") ? String(urlObj) : String(urlObj) + "#/"; // MEMO: for gh-pages Hash Router
   if (accessToken) {
     setTimeout(() => {
-      window.location.replace("#" + PRIVATE_ROUTE.books.path); // MEMO: for gh-pages Hash Router
+      window.location.replace(rootUrl + PRIVATE_ROUTE.books.path.substring(1));
     }, 3000);
   }
 };
