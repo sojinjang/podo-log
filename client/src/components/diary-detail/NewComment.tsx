@@ -14,17 +14,25 @@ interface CommentInput {
 }
 
 export interface NewCommentProps extends DiaryId {
+  getComments: () => void;
+  changeReplyState?: () => void;
   parentCommentId?: number;
 }
 
-export const NewComment = ({ diaryId, parentCommentId = 0 }: NewCommentProps) => {
+export const NewComment = ({
+  diaryId,
+  getComments,
+  changeReplyState,
+  parentCommentId = 0,
+}: NewCommentProps) => {
   const accessToken = useRecoilValue(accessTokenAtom);
   const { register, handleSubmit } = useForm<CommentInput>({ mode: "onChange" });
 
   const onSubmitComment = async ({ comment }: CommentInput) => {
     try {
       await post(API_URL.comments, { diaryId, parentCommentId, reply: comment }, accessToken);
-      window.location.reload();
+      getComments();
+      if (changeReplyState) changeReplyState();
     } catch (err) {
       if (err instanceof Error) alert(err.message);
     }
