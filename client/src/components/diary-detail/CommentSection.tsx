@@ -64,12 +64,13 @@ export const CommentSection = ({ diaryId }: DiaryId) => {
           <CommentsFamily
             diaryId={diaryId}
             commentsFam={commentsFam}
+            getComments={getComments}
             key={commentsFam.parentComment?.commentId}
           />
         );
       })}
       <div className="h-[2vh]" />
-      <NewComment diaryId={diaryId} />
+      <NewComment diaryId={diaryId} getComments={getComments} />
     </div>
   );
 };
