@@ -23,12 +23,13 @@ export const NewComment = ({ changeReplyState, parentCommentId = 0 }: NewComment
   const accessToken = useRecoilValue(accessTokenAtom);
   const diaryId = useRecoilValue(focusedDiaryIdAtom);
   const reloadComments = useSetRecoilState(getComments);
-  const { register, handleSubmit } = useForm<CommentInput>({ mode: "onSubmit" });
+  const { register, handleSubmit, setValue } = useForm<CommentInput>({ mode: "onSubmit" });
 
   const onSubmitComment = async ({ comment }: CommentInput) => {
     try {
       await post(API_URL.comments, { diaryId, parentCommentId, reply: comment }, accessToken);
       reloadComments(1);
+      setValue("comment", "");
       if (changeReplyState) changeReplyState();
     } catch (err) {
       if (err instanceof Error) alert(err.message);
