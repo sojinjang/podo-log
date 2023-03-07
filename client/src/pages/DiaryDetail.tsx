@@ -1,6 +1,11 @@
 import React, { useState, useEffect, Suspense } from "react";
 import { useParams, useLocation } from "react-router-dom";
-import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
+import {
+  useRecoilState,
+  useRecoilValue,
+  useSetRecoilState,
+  useResetRecoilState,
+} from "recoil";
 import { v4 as uuidv4 } from "uuid";
 import Fade from "react-reveal/Fade";
 
@@ -32,7 +37,7 @@ const DiaryDetail = () => {
   const params = useParams();
   const location = useLocation();
   const data = location.state.diaryInfo;
-  const [diaryId, setDiaryId] = useRecoilState(focusedDiaryIdAtom);
+  const setDiaryId = useSetRecoilState(focusedDiaryIdAtom);
   const accessToken = useRecoilValue(accessTokenAtom);
 
   const [isEditingSticker, setIsEditingSticker] = useState<boolean>(false);
@@ -48,7 +53,7 @@ const DiaryDetail = () => {
   const [stickers, setStickers] = useState<AffixedStickerInfo[]>([]);
   const getAffixedStickers = async () => {
     try {
-      const response = await get(API_URL.stickers(diaryId), "", accessToken);
+      const response = await get(API_URL.stickers(Number(params.diaryId)), "", accessToken);
       setStickers(response.data);
     } catch (err) {
       if (err instanceof Error) alert(err.message);
