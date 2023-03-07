@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import { v4 as uuidv4 } from "uuid";
@@ -146,7 +146,9 @@ const DiaryDetail = () => {
           )}
           <DiarySection data={data} isDetailPage={true} />
           <StickerButton changeEditState={changeStickerEditState} />
-          <CommentSection />
+          <Suspense fallback={<div>loading...</div>}>
+            <CommentSection />
+          </Suspense>
           {isDeleteModalVisible && (
             <DeleteModal
               onClose={() => {

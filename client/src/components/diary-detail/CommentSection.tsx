@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import tw from "tailwind-styled-components";
 import { useRecoilValue } from "recoil";
 
-import { accessTokenAtom } from "src/recoil/token";
-import { focusedDiaryIdAtom } from "src/recoil/diary-detail/atom";
-import { API_URL } from "src/constants/API_URL";
-import { get } from "src/utils/api";
+import { getComments } from "src/recoil/diary-detail";
 import { NewComment } from "./NewComment";
 import { CommentsFamily } from "./CommentsFamily";
 
@@ -26,43 +23,26 @@ export interface CommentFamType {
 }
 
 export const CommentSection = () => {
-  const accessToken = useRecoilValue(accessTokenAtom);
-  const diaryId = useRecoilValue(focusedDiaryIdAtom);
-  const [commentsFamArr, setCommentsFamArr] = useState<CommentFamType[]>([]);
-  const reCommentsSum = commentsFamArr.reduce((accumulator, currentObj) => {
+  const comments = useRecoilValue<CommentFamType[]>(getComments);
+  const reCommentsSum = comments.reduce((accumulator, currentObj) => {
     if (currentObj.reComments) return accumulator + currentObj.reComments.length;
     return accumulator;
   }, 0);
 
-  const getComments = async () => {
-    try {
-      if (!diaryId) return;
-      const response = await get(API_URL.diaryComments(diaryId), "", accessToken);
-      setCommentsFamArr(response.data);
-    } catch (err) {
-      if (err instanceof Error) alert(err.message);
-    }
-  };
-
-  useEffect(() => {
-    getComments();
-  }, []);
-
   return (
     <div className="pb-6 md:pb-8">
       <Divider />
-      <NumCommentsWrapper>댓글 {commentsFamArr.length + reCommentsSum}</NumCommentsWrapper>
-      {commentsFamArr.map((commentsFam) => {
+      <NumCommentsWrapper>댓글 {comments.length + reCommentsSum}</NumCommentsWrapper>
+      {comments.map((commentsFam) => {
         return (
           <CommentsFamily
             commentsFam={commentsFam}
-            getComments={getComments}
             key={commentsFam.parentComment?.commentId}
           />
         );
       })}
       <div className="h-[2vh]" />
-      <NewComment getComments={getComments} />
+      <NewComment />
     </div>
   );
 };
