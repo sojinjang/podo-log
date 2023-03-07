@@ -67,7 +67,9 @@ export const Comment = ({
           commentId={data.commentId}
           comment={data.reply}
           parentNickname={parentNickname}
-          setIsBeingEdited={setIsBeingEdited}
+          cancelEdit={() => {
+            setIsBeingEdited(false);
+          }}
         ></EditComment>
       )}
     </SingleCommentContainer>

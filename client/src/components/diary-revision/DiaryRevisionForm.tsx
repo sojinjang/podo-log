@@ -33,7 +33,6 @@ const DiaryRevisionForm = () => {
   const [isPicChanged, setIsPicChanged] = useState(false);
   const [ogData, setOgData] = useState<DiaryOgInput | null>(null);
   const { register, handleSubmit } = useForm<DiaryInput>({
-    mode: "onChange",
     defaultValues: async () => {
       const response = await get(API_URL.bookDiary(Number(bookId)), diaryId, accessToken);
       const { title, picture, content } = response.data;

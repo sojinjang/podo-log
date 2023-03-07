@@ -20,7 +20,7 @@ interface loginInput {
 }
 
 const EmailLoginContainer = ({ tokenExpireTime, refreshTime }: LoginProps) => {
-  const { register, handleSubmit } = useForm<loginInput>({ mode: "onChange" });
+  const { register, handleSubmit } = useForm<loginInput>({ mode: "onSubmit" });
   const setAccessToken = useSetRecoilState(accessTokenAtom);
 
   const logIn = async ({ email, password }: loginInput) => {

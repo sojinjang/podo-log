@@ -1,10 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useParams, useLocation } from "react-router-dom";
-import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
+import {
+  useRecoilState,
+  useRecoilValue,
+  useSetRecoilState,
+  useResetRecoilState,
+} from "recoil";
 import { v4 as uuidv4 } from "uuid";
 import Fade from "react-reveal/Fade";
 
-import { isDeleteModalVisibleAtom } from "../recoil/diary-detail/atom";
+import { focusedDiaryIdAtom, isDeleteModalVisibleAtom } from "../recoil/diary-detail/atom";
 import { accessTokenAtom } from "src/recoil/token";
 import { PinkPurpleBackground } from "src/components/common/Backgrounds";
 import BackButton from "../components/common/BackButton";
@@ -20,10 +25,6 @@ import EditingSticker from "src/components/diary-detail/EditingSticker";
 import { get } from "src/utils/api";
 import { API_URL } from "src/constants/API_URL";
 
-export interface DiaryId {
-  diaryId: number;
-}
-
 export interface EditingStickerInfo extends StickerInfo {
   uniqueId: string;
   locX: number;
@@ -33,10 +34,10 @@ export interface EditingStickerInfo extends StickerInfo {
 const DiaryDetail = () => {
   const DEFAULT_STKR_POS_X = 10;
   const DEFAULT_STKR_POS_Y = 10;
+  const params = useParams();
   const location = useLocation();
   const data = location.state.diaryInfo;
-  const params = useParams();
-  const diaryId = Number(params.diaryId);
+  const setDiaryId = useSetRecoilState(focusedDiaryIdAtom);
   const accessToken = useRecoilValue(accessTokenAtom);
 
   const [isEditingSticker, setIsEditingSticker] = useState<boolean>(false);
@@ -52,7 +53,7 @@ const DiaryDetail = () => {
   const [stickers, setStickers] = useState<AffixedStickerInfo[]>([]);
   const getAffixedStickers = async () => {
     try {
-      const response = await get(API_URL.stickers(diaryId), "", accessToken);
+      const response = await get(API_URL.stickers(Number(params.diaryId)), "", accessToken);
       setStickers(response.data);
     } catch (err) {
       if (err instanceof Error) alert(err.message);
@@ -69,6 +70,7 @@ const DiaryDetail = () => {
     });
   };
   useEffect(() => {
+    setDiaryId(Number(params.diaryId));
     getAffixedStickers();
   }, []);
 
@@ -116,7 +118,6 @@ const DiaryDetail = () => {
       <BackButton />
       {isEditingSticker && (
         <StickerSaveBtn
-          diaryId={diaryId}
           selectedStickers={selectedStickers}
           handleUpdateStickers={handleUpdateAffixedStickers}
           handleResetSelectedStcks={handleResetSelectedStcks}
@@ -150,7 +151,9 @@ const DiaryDetail = () => {
           )}
           <DiarySection data={data} isDetailPage={true} />
           <StickerButton changeEditState={changeStickerEditState} />
-          <CommentSection diaryId={diaryId} />
+          <Suspense fallback={<div>loading...</div>}>
+            <CommentSection />
+          </Suspense>
           {isDeleteModalVisible && (
             <DeleteModal
               onClose={() => {

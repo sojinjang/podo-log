@@ -3,14 +3,15 @@ import Fade from "react-reveal/Fade";
 
 import { NewCommentProps, NewComment } from "./NewComment";
 
-interface ReplyCommentProps extends NewCommentProps {
+interface NewCommentReplyProps extends NewCommentProps {
   parentNickname: string;
 }
-export const ReplyComment = ({
-  diaryId,
+
+export const NewCommentReply = ({
+  changeReplyState,
   parentNickname,
   parentCommentId = 0,
-}: ReplyCommentProps) => {
+}: NewCommentReplyProps) => {
   return (
     <Fade bottom>
       <>
@@ -18,7 +19,7 @@ export const ReplyComment = ({
           <div className="font-sans font-bold">{parentNickname}</div>
           <div className="font-sans">님에게 답글 남기는중</div>
         </div>
-        <NewComment diaryId={diaryId} parentCommentId={parentCommentId} />
+        <NewComment changeReplyState={changeReplyState} parentCommentId={parentCommentId} />
         <div className="h-[1vh]" />
       </>
     </Fade>

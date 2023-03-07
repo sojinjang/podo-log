@@ -34,10 +34,7 @@ const BookRevision = () => {
   const [isRevised, setIsRevised] = useState(false);
   const [buttonCursorStyle, setButtonCursorStyle] = useState("");
   const { register, handleSubmit } = useForm<BookNameType>({
-    mode: "onChange",
-    defaultValues: {
-      bookName: location.state.name,
-    },
+    defaultValues: { bookName: location.state.name },
   });
   const refreshIsTitleRevised = (currentTitle: string) => {
     setIsTitleRevised(currentTitle !== location.state.name);

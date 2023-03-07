@@ -1,10 +1,11 @@
 import React from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import tw from "tailwind-styled-components";
 import { useForm } from "react-hook-form";
 import Fade from "react-reveal/Fade";
 
 import { accessTokenAtom } from "src/recoil/token";
+import { getComments } from "src/recoil/diary-detail";
 import { API_URL } from "src/constants/API_URL";
 import { patch } from "src/utils/api";
 import { Input, InputContainer } from "../common/Input";
@@ -17,27 +18,26 @@ export interface NewCommentProps {
   parentNickname?: string;
   commentId: number;
   comment: string;
-  setIsBeingEdited: (state: boolean) => void;
+  cancelEdit: () => void;
 }
 
 export const EditComment = ({
   parentNickname,
   commentId,
   comment,
-  setIsBeingEdited,
+  cancelEdit,
 }: NewCommentProps) => {
   const accessToken = useRecoilValue(accessTokenAtom);
+  const reloadComments = useSetRecoilState(getComments);
   const { register, handleSubmit } = useForm<CommentInput>({
-    mode: "onChange",
-    defaultValues: {
-      comment: comment,
-    },
+    defaultValues: { comment: comment },
   });
 
   const onSubmitComment = async ({ comment }: CommentInput) => {
     try {
       await patch(API_URL.comments, String(commentId), { reply: comment }, accessToken);
-      window.location.reload();
+      reloadComments(1);
+      cancelEdit();
     } catch (err) {
       if (err instanceof Error) alert(err.message);
     }
@@ -62,7 +62,7 @@ export const EditComment = ({
               required
               {...register("comment")}
             />
-            <CancelButton onClick={() => setIsBeingEdited(false)}>취소</CancelButton>
+            <CancelButton onClick={cancelEdit}>취소</CancelButton>
             <PostButton>수정</PostButton>
           </InputContainer>
         </form>

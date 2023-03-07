@@ -3,26 +3,27 @@ import tw from "tailwind-styled-components";
 import { useRecoilValue } from "recoil";
 
 import { accessTokenAtom } from "src/recoil/token";
+import { focusedDiaryIdAtom } from "src/recoil/diary-detail/atom";
 import { post } from "src/utils/api";
 import { API_URL } from "src/constants/API_URL";
 import { EditingStickerInfo } from "src/pages/DiaryDetail";
-import { AffixedStickerInfo } from "../common/diary/Sticker";
+import { AffixedStickerInfo } from "src/components/common/diary/Sticker";
 
 interface StickerSaveButtonProps {
-  diaryId: number;
   selectedStickers: EditingStickerInfo[];
   handleUpdateStickers: (newSticker: AffixedStickerInfo) => void;
   handleResetSelectedStcks: () => void;
   changeStickerEditState: () => void;
 }
 const StickerSaveBtn = ({
-  diaryId,
   selectedStickers,
   handleUpdateStickers,
   handleResetSelectedStcks,
   changeStickerEditState,
 }: StickerSaveButtonProps) => {
   const accessToken = useRecoilValue(accessTokenAtom);
+  const diaryId = useRecoilValue(focusedDiaryIdAtom);
+
   const refineStickersData = () => {
     const stickersData = selectedStickers.map((sticker) => {
       const { stickerId, locX, locY } = sticker;

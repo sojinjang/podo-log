@@ -26,9 +26,7 @@ const EditPassword = () => {
     handleSubmit,
     getValues,
     formState: { errors },
-  } = useForm<PasswordInput>({
-    mode: "onChange",
-  });
+  } = useForm<PasswordInput>({ mode: "onChange" });
   const pwConfirmRegister = register("newPwConfirm", {
     validate: (pwconfirm: string | undefined) => {
       const { newPassword } = getValues();
