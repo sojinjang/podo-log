@@ -4,28 +4,28 @@ import tw from "tailwind-styled-components";
 import { useForm } from "react-hook-form";
 
 import { accessTokenAtom } from "src/recoil/token";
+import { focusedDiaryIdAtom } from "src/recoil/diary-detail/atom";
 import { API_URL } from "src/constants/API_URL";
 import { post } from "src/utils/api";
 import { Input, InputContainer } from "../common/Input";
-import { DiaryId } from "../../pages/DiaryDetail";
 
 interface CommentInput {
   readonly comment: string;
 }
 
-export interface NewCommentProps extends DiaryId {
+export interface NewCommentProps {
   getComments: () => void;
   changeReplyState?: () => void;
   parentCommentId?: number;
 }
 
 export const NewComment = ({
-  diaryId,
   getComments,
   changeReplyState,
   parentCommentId = 0,
 }: NewCommentProps) => {
   const accessToken = useRecoilValue(accessTokenAtom);
+  const diaryId = useRecoilValue(focusedDiaryIdAtom);
   const { register, handleSubmit } = useForm<CommentInput>({ mode: "onChange" });
 
   const onSubmitComment = async ({ comment }: CommentInput) => {

@@ -3,9 +3,9 @@ import tw from "tailwind-styled-components";
 import { useRecoilValue } from "recoil";
 
 import { accessTokenAtom } from "src/recoil/token";
+import { focusedDiaryIdAtom } from "src/recoil/diary-detail/atom";
 import { API_URL } from "src/constants/API_URL";
 import { get } from "src/utils/api";
-import { DiaryId } from "../../pages/DiaryDetail";
 import { NewComment } from "./NewComment";
 import { CommentsFamily } from "./CommentsFamily";
 
@@ -34,8 +34,9 @@ const sortCommentByCreatedTime = (data: CommentFamType[]) => {
   return data;
 };
 
-export const CommentSection = ({ diaryId }: DiaryId) => {
+export const CommentSection = () => {
   const accessToken = useRecoilValue(accessTokenAtom);
+  const diaryId = useRecoilValue(focusedDiaryIdAtom);
   const [commentsFamArr, setCommentsFamArr] = useState<CommentFamType[]>([]);
   const reCommentsSum = commentsFamArr.reduce((accumulator, currentObj) => {
     if (currentObj.reComments) return accumulator + currentObj.reComments.length;
@@ -44,6 +45,7 @@ export const CommentSection = ({ diaryId }: DiaryId) => {
 
   const getComments = async () => {
     try {
+      if (!diaryId) return;
       const response = await get(API_URL.diaryComments(diaryId), "", accessToken);
       setCommentsFamArr(sortCommentByCreatedTime(response.data));
     } catch (err) {
@@ -62,7 +64,6 @@ export const CommentSection = ({ diaryId }: DiaryId) => {
       {commentsFamArr.map((commentsFam) => {
         return (
           <CommentsFamily
-            diaryId={diaryId}
             commentsFam={commentsFam}
             getComments={getComments}
             key={commentsFam.parentComment?.commentId}
@@ -70,7 +71,7 @@ export const CommentSection = ({ diaryId }: DiaryId) => {
         );
       })}
       <div className="h-[2vh]" />
-      <NewComment diaryId={diaryId} getComments={getComments} />
+      <NewComment getComments={getComments} />
     </div>
   );
 };

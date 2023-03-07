@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 
-import { DiaryId } from "../../pages/DiaryDetail";
 import { Comment, CommentReply } from "./Comment";
 import { ReplyComment } from "./ReplyComment";
 import { CommentFamType } from "./CommentSection";
 
-interface CommentsFamilyProps extends DiaryId {
+interface CommentsFamilyProps {
   commentsFam: CommentFamType;
   getComments: () => void;
 }
 
-export const CommentsFamily = ({ diaryId, commentsFam, getComments }: CommentsFamilyProps) => {
+export const CommentsFamily = ({ commentsFam, getComments }: CommentsFamilyProps) => {
   const [isReplyWritingEnabled, setIsReplyWritingEnabled] = useState(false);
   const changeReplyState = () => {
     setIsReplyWritingEnabled((prev) => !prev);
@@ -30,7 +29,6 @@ export const CommentsFamily = ({ diaryId, commentsFam, getComments }: CommentsFa
       })}
       {isReplyWritingEnabled && (
         <ReplyComment
-          diaryId={diaryId}
           getComments={getComments}
           changeReplyState={changeReplyState}
           parentNickname={commentsFam.parentComment.nickname}

@@ -7,7 +7,6 @@ interface ReplyCommentProps extends NewCommentProps {
   parentNickname: string;
 }
 export const ReplyComment = ({
-  diaryId,
   getComments,
   changeReplyState,
   parentNickname,
@@ -21,7 +20,6 @@ export const ReplyComment = ({
           <div className="font-sans">님에게 답글 남기는중</div>
         </div>
         <NewComment
-          diaryId={diaryId}
           getComments={getComments}
           changeReplyState={changeReplyState}
           parentCommentId={parentCommentId}
