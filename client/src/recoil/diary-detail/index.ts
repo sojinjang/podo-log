@@ -1,1 +1,1 @@
-export { isDeleteModalVisibleAtom, deleteInfoAtom } from "./atom";
+export { focusedDiaryIdAtom, isDeleteModalVisibleAtom, deleteInfoAtom } from "./atom";

@@ -5,6 +5,11 @@ export interface DeleteInfo {
   target: "diary" | "comment" | undefined;
 }
 
+export const focusedDiaryIdAtom = atom<number>({
+  key: "focusedDiaryIdAtom",
+  default: undefined,
+});
+
 export const isDeleteModalVisibleAtom = atom<boolean>({
   key: "isDeleteModalVisibleAtom",
   default: false,
