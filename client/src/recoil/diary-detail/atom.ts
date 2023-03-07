@@ -14,6 +14,11 @@ export const focusedDiaryIdAtom = atom<number>({
   effects_UNSTABLE: [persistAtom],
 });
 
+export const forceRefreshCommentsAtom = atom<number>({
+  key: "forceReloadCommentsAtom",
+  default: 0,
+});
+
 export const isDeleteModalVisibleAtom = atom<boolean>({
   key: "isDeleteModalVisibleAtom",
   default: false,
