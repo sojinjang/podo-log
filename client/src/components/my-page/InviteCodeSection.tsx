@@ -16,9 +16,7 @@ interface InviteCodeInput {
 export const InviteCodeSection = () => {
   const accessToken = useRecoilValue(accessTokenAtom);
   const navigate = useNavigate();
-  const { register, handleSubmit } = useForm<InviteCodeInput>({
-    mode: "onChange",
-  });
+  const { register, handleSubmit } = useForm<InviteCodeInput>({ mode: "onSubmit" });
   const onSubmitCode = async ({ invttCode }: InviteCodeInput) => {
     try {
       await post(API_URL.inviteCodeInput, { invttCode }, accessToken);

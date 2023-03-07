@@ -19,10 +19,7 @@ const EditNickname = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { register, handleSubmit } = useForm<NicknameInput>({
-    mode: "onChange",
-    defaultValues: {
-      nickname: location.state.myInfo.nickname,
-    },
+    defaultValues: { nickname: location.state.myInfo.nickname },
   });
 
   const onSubmitEdit = async ({ nickname }: NicknameInput) => {

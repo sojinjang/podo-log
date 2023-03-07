@@ -28,7 +28,7 @@ const NewDiaryForm = () => {
   const bookId = String(params.bookId);
   const accessToken = useRecoilValue(accessTokenAtom);
   const diaryImg = useRecoilValue(diaryImgAtom);
-  const { register, handleSubmit } = useForm<DiaryInput>({ mode: "onChange" });
+  const { register, handleSubmit } = useForm<DiaryInput>({ mode: "onSubmit" });
 
   const onSubmitDiaryForm = async ({ title, content }: DiaryInput) => {
     const formData = createDiaryForm(diaryImg, bookId, { title, content });

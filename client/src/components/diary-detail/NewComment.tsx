@@ -23,7 +23,7 @@ export const NewComment = ({ changeReplyState, parentCommentId = 0 }: NewComment
   const accessToken = useRecoilValue(accessTokenAtom);
   const diaryId = useRecoilValue(focusedDiaryIdAtom);
   const reloadComments = useSetRecoilState(getComments);
-  const { register, handleSubmit } = useForm<CommentInput>({ mode: "onChange" });
+  const { register, handleSubmit } = useForm<CommentInput>({ mode: "onSubmit" });
 
   const onSubmitComment = async ({ comment }: CommentInput) => {
     try {
@@ -34,6 +34,7 @@ export const NewComment = ({ changeReplyState, parentCommentId = 0 }: NewComment
       if (err instanceof Error) alert(err.message);
     }
   };
+
   return (
     <form onSubmit={handleSubmit(onSubmitComment)}>
       <InputContainer className="flex-row w-full mt-0 shadow-lg">

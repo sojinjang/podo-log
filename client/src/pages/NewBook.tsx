@@ -25,9 +25,7 @@ const NewBook = () => {
   const navigate = useNavigate();
   const accessToken = useRecoilValue(accessTokenAtom);
   const selectedColor = useRecoilValue(selectedColorAtom);
-  const { register, handleSubmit } = useForm<NewBookName>({
-    mode: "onChange",
-  });
+  const { register, handleSubmit } = useForm<NewBookName>({ mode: "onSubmit" });
 
   const createNewDiary = async ({ bookName }: NewBookName) => {
     try {

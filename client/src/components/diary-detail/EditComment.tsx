@@ -30,10 +30,7 @@ export const EditComment = ({
   const accessToken = useRecoilValue(accessTokenAtom);
   const reloadComments = useSetRecoilState(getComments);
   const { register, handleSubmit } = useForm<CommentInput>({
-    mode: "onChange",
-    defaultValues: {
-      comment: comment,
-    },
+    defaultValues: { comment: comment },
   });
 
   const onSubmitComment = async ({ comment }: CommentInput) => {
