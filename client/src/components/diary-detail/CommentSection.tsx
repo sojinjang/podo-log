@@ -25,15 +25,6 @@ export interface CommentFamType {
   reComments?: CommentType[];
 }
 
-const sortCommentByCreatedTime = (data: CommentFamType[]) => {
-  data.sort(function (a, b) {
-    if (a.parentComment.createdAt > b.parentComment.createdAt) return 1;
-    if (a.parentComment.createdAt < b.parentComment.createdAt) return -1;
-    return 0;
-  });
-  return data;
-};
-
 export const CommentSection = () => {
   const accessToken = useRecoilValue(accessTokenAtom);
   const diaryId = useRecoilValue(focusedDiaryIdAtom);
@@ -47,7 +38,7 @@ export const CommentSection = () => {
     try {
       if (!diaryId) return;
       const response = await get(API_URL.diaryComments(diaryId), "", accessToken);
-      setCommentsFamArr(sortCommentByCreatedTime(response.data));
+      setCommentsFamArr(response.data);
     } catch (err) {
       if (err instanceof Error) alert(err.message);
     }
