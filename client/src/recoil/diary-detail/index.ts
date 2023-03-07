@@ -13,8 +13,8 @@ export const getComments = selector({
     get(forceRefreshCommentsAtom);
     const diaryId = get(focusedDiaryIdAtom);
     const accessToken = get(accessTokenAtom);
-
     try {
+      if (!diaryId) return;
       const response = await api.get(API_URL.diaryComments(diaryId), "", accessToken);
       return response.data;
     } catch (err) {
