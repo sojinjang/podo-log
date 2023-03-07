@@ -6,10 +6,9 @@ import { CommentFamType } from "./CommentSection";
 
 interface CommentsFamilyProps {
   commentsFam: CommentFamType;
-  getComments: () => void;
 }
 
-export const CommentsFamily = ({ commentsFam, getComments }: CommentsFamilyProps) => {
+export const CommentsFamily = ({ commentsFam }: CommentsFamilyProps) => {
   const [isReplyWritingEnabled, setIsReplyWritingEnabled] = useState(false);
   const changeReplyState = () => {
     setIsReplyWritingEnabled((prev) => !prev);
@@ -29,7 +28,6 @@ export const CommentsFamily = ({ commentsFam, getComments }: CommentsFamilyProps
       })}
       {isReplyWritingEnabled && (
         <NewCommentReply
-          getComments={getComments}
           changeReplyState={changeReplyState}
           parentNickname={commentsFam.parentComment.nickname}
           parentCommentId={commentsFam.parentComment.commentId}

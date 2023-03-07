@@ -8,7 +8,6 @@ interface NewCommentReplyProps extends NewCommentProps {
 }
 
 export const NewCommentReply = ({
-  getComments,
   changeReplyState,
   parentNickname,
   parentCommentId = 0,
@@ -20,11 +19,7 @@ export const NewCommentReply = ({
           <div className="font-sans font-bold">{parentNickname}</div>
           <div className="font-sans">님에게 답글 남기는중</div>
         </div>
-        <NewComment
-          getComments={getComments}
-          changeReplyState={changeReplyState}
-          parentCommentId={parentCommentId}
-        />
+        <NewComment changeReplyState={changeReplyState} parentCommentId={parentCommentId} />
         <div className="h-[1vh]" />
       </>
     </Fade>
