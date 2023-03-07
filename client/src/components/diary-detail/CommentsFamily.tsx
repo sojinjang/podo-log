@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { Comment, CommentReply } from "./Comment";
-import { ReplyComment } from "./ReplyComment";
+import { NewCommentReply } from "./NewCommentReply";
 import { CommentFamType } from "./CommentSection";
 
 interface CommentsFamilyProps {
@@ -28,7 +28,7 @@ export const CommentsFamily = ({ commentsFam, getComments }: CommentsFamilyProps
         );
       })}
       {isReplyWritingEnabled && (
-        <ReplyComment
+        <NewCommentReply
           getComments={getComments}
           changeReplyState={changeReplyState}
           parentNickname={commentsFam.parentComment.nickname}

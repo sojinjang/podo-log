@@ -3,15 +3,16 @@ import Fade from "react-reveal/Fade";
 
 import { NewCommentProps, NewComment } from "./NewComment";
 
-interface ReplyCommentProps extends NewCommentProps {
+interface NewCommentReplyProps extends NewCommentProps {
   parentNickname: string;
 }
-export const ReplyComment = ({
+
+export const NewCommentReply = ({
   getComments,
   changeReplyState,
   parentNickname,
   parentCommentId = 0,
-}: ReplyCommentProps) => {
+}: NewCommentReplyProps) => {
   return (
     <Fade bottom>
       <>
