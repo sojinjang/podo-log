@@ -1,10 +1,10 @@
 import React from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import tw from "tailwind-styled-components";
 import Fade from "react-reveal/Fade";
 
 import { accessTokenAtom } from "src/recoil/token";
-import { deleteInfoAtom } from "src/recoil/diary-detail";
+import { deleteInfoAtom, getComments } from "src/recoil/diary-detail";
 import { del } from "src/utils/api";
 import { API_URL } from "src/constants/API_URL";
 import PurpleButton from "../common/PurpleButton";
@@ -16,13 +16,15 @@ interface ModalProps {
 const DeleteModal = ({ onClose }: ModalProps) => {
   const accessToken = useRecoilValue(accessTokenAtom);
   const deleteInfo = useRecoilValue(deleteInfoAtom);
+  const reloadComments = useSetRecoilState(getComments);
 
   const onClickDelete = async () => {
     const apiUrl = deleteInfo.target === "diary" ? API_URL.diary : API_URL.comments;
     try {
       await del(apiUrl, String(deleteInfo.id), accessToken);
       if (deleteInfo.target === "diary") return window.history.back();
-      return window.location.reload();
+      reloadComments(1);
+      onClose();
     } catch (err) {
       if (err instanceof Error) alert(err.message);
     }
