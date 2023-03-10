@@ -19,9 +19,11 @@ export interface DiaryInfo {
   readonly color: string;
 }
 
+export type DiaryArr = DiaryInfo[] | null;
+
 const BookList = () => {
   const accessToken = useRecoilValue(accessTokenAtom);
-  const [userDiaryArr, setUserDiaryArr] = useState<DiaryInfo[] | undefined>([]);
+  const [userDiaryArr, setUserDiaryArr] = useState<DiaryArr>(null);
   const [isEmpty, setIsEmpty] = useState<boolean>(true);
   async function getUserBookArr() {
     try {

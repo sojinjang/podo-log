@@ -1,19 +1,17 @@
 import React from "react";
 import Fade from "react-reveal/Fade";
 
-import { DiaryInfo } from "src/pages/BookList";
+import { DiaryArr, DiaryInfo } from "src/pages/BookList";
 import { HeartDiaryButton } from "src/components/book-list/HeartDiaryButton";
 import { BookButton } from "src/components/book-list/BookButton";
 import { NewBookButton } from "./NewBookButton";
 
 interface DiaryContainerProps {
   isEmpty: boolean;
-  userDiaryArr: DiaryInfo[] | undefined;
+  userDiaryArr: DiaryArr;
 }
 
-const renderDiaryButtons = (
-  userDiaryArr: DiaryInfo[] | undefined
-): JSX.Element[] | undefined => {
+const renderDiaryButtons = (userDiaryArr: DiaryArr): JSX.Element[] | undefined => {
   const diaryButtons = userDiaryArr?.map((diary: DiaryInfo) => {
     return (
       <BookButton
