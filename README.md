@@ -33,7 +33,7 @@
 > 우리들만의 일기장을 만들어 일상을 공유하세요.   
 > 싸***의 공유다이어리 서비스 기억하시나요? 포도로그는 추억을 되살려줄 공유다이어리 웹 서비스입니다!
 <div>
-  <img width="400" alt="grape_8" src="https://user-images.githubusercontent.com/111125577/220630922-a98cc17d-92c8-4f1e-b0b1-55243cade9e9.gif">
+  <img width="400" alt="grape_8" src="https://user-images.githubusercontent.com/111125577/224258656-1a48e966-a0ec-4502-9958-50e5d09ec23d.gif">
   <img width="400" alt="grape_8" src="https://user-images.githubusercontent.com/111125577/220636490-3a8fb743-ae53-4e9d-8d29-2334ebf698df.gif">
 </div>
 
