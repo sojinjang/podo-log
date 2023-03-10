@@ -2,9 +2,9 @@ import React from "react";
 import tw from "tailwind-styled-components";
 import { useNavigate } from "react-router-dom";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
-import { DiaryInfo } from "src/pages/BookList";
+import { BookInfo } from "src/pages/BookList";
 
-export const BookButton = ({ bookId, bookName, numMembers, color }: DiaryInfo) => {
+export const BookButton = ({ bookId, bookName, numMembers, color }: BookInfo) => {
   const navigate = useNavigate();
   const onClickImg = () => {
     navigate(PRIVATE_ROUTE.books.path + "/" + bookId, {

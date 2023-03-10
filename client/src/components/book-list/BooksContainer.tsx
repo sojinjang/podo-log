@@ -1,42 +1,37 @@
 import React from "react";
 import Fade from "react-reveal/Fade";
 
-import { DiaryInfo } from "src/pages/BookList";
+import { BooksArr, BookInfo } from "src/pages/BookList";
 import { HeartDiaryButton } from "src/components/book-list/HeartDiaryButton";
 import { BookButton } from "src/components/book-list/BookButton";
 import { NewBookButton } from "./NewBookButton";
 
-interface DiaryContainerProps {
+interface BookContainerProps {
   isEmpty: boolean;
-  userDiaryArr: DiaryInfo[] | undefined;
+  userBooksArr: BooksArr;
 }
 
-const renderDiaryButtons = (
-  userDiaryArr: DiaryInfo[] | undefined
-): JSX.Element[] | undefined => {
-  const diaryButtons = userDiaryArr?.map((diary: DiaryInfo) => {
+const renderBookButtons = (userBooksArr: BooksArr): JSX.Element[] | undefined => {
+  const bookButtons = userBooksArr?.map((book: BookInfo) => {
     return (
       <BookButton
-        key={diary.bookId}
-        bookId={diary.bookId}
-        bookName={diary.bookName}
-        numMembers={diary.numMembers}
-        color={diary.color}
+        key={book.bookId}
+        bookId={book.bookId}
+        bookName={book.bookName}
+        numMembers={book.numMembers}
+        color={book.color}
       />
     );
   });
-  return diaryButtons;
+  return bookButtons;
 };
 
-export const BooksContainer = ({
-  isEmpty,
-  userDiaryArr,
-}: DiaryContainerProps): JSX.Element => {
+export const BooksContainer = ({ isEmpty, userBooksArr }: BookContainerProps) => {
   if (isEmpty) return <HeartDiaryButton />;
   return (
     <Fade duration={3000}>
       <div className="flex flex-wrap justify-center mt-[3vh]">
-        {renderDiaryButtons(userDiaryArr)}
+        {renderBookButtons(userBooksArr)}
         <NewBookButton />
       </div>
     </Fade>

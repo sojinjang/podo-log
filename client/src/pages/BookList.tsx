@@ -12,16 +12,18 @@ import { PointingFinger } from "src/components/book-list/PointingFinger";
 import { BooksContainer } from "src/components/book-list/BooksContainer";
 import { Navbar } from "src/components/common/NavBar";
 
-export interface DiaryInfo {
+export interface BookInfo {
   readonly bookId: number;
   readonly bookName: string;
   readonly numMembers: number;
   readonly color: string;
 }
 
+export type BooksArr = BookInfo[] | null;
+
 const BookList = () => {
   const accessToken = useRecoilValue(accessTokenAtom);
-  const [userDiaryArr, setUserDiaryArr] = useState<DiaryInfo[] | undefined>([]);
+  const [userBooksArr, setUserBooksArr] = useState<BooksArr>(null);
   const [isEmpty, setIsEmpty] = useState<boolean>(true);
   async function getUserBookArr() {
     try {
@@ -31,23 +33,23 @@ const BookList = () => {
       alert(err);
     }
   }
-  const handleUserDiaryArr = async () => {
+  const handleUserBooksArr = async () => {
     const userDiaries = await getUserBookArr();
-    setUserDiaryArr(userDiaries);
+    setUserBooksArr(userDiaries);
   };
 
   useEffect(() => {
-    handleUserDiaryArr();
+    handleUserBooksArr();
   }, []);
 
-  useEffect(() => setIsEmpty(userDiaryArr?.length === 0 ? true : false), [userDiaryArr]);
+  useEffect(() => setIsEmpty(userBooksArr?.length === 0 ? true : false), [userBooksArr]);
 
   return (
     <PinkPurpleBackground>
       <div className="h-[89vh] overflow-y-scroll">
         <Guidance isEmpty={isEmpty}></Guidance>
         <PointingFinger />
-        <BooksContainer isEmpty={isEmpty} userDiaryArr={userDiaryArr} />
+        <BooksContainer isEmpty={isEmpty} userBooksArr={userBooksArr} />
       </div>
       <Navbar activeMenu="books" />
     </PinkPurpleBackground>
