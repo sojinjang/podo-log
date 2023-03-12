@@ -67,6 +67,5 @@
     "tailwindcss": "^3.2.4",
     "webpack-cli": "^5.0.1"
   },
-  "main": "index.js",
-  "homepage": "www.podolog.store"
+  "main": "index.js"
 }
