@@ -2,7 +2,7 @@ import { Response } from "express";
 import { environment } from "../config";
 import {
   AuthFailureResponse,
-  AccessTokenErrorResponse,
+  ExpiredAccessTokenErrorResponse,
   InternalErrorResponse,
   NotFoundResponse,
   BadRequestResponse,
@@ -31,10 +31,11 @@ export abstract class ApiError extends Error {
     switch (err.type) {
       case ErrorType.BAD_TOKEN:
       case ErrorType.TOKEN_EXPIRED:
+        return new ExpiredAccessTokenErrorResponse(err.message).send(res);
       case ErrorType.UNAUTHORIZED:
         return new AuthFailureResponse(err.message).send(res);
       case ErrorType.ACCESS_TOKEN:
-        return new AccessTokenErrorResponse(err.message).send(res);
+        return new AuthFailureResponse(err.message).send(res);
       case ErrorType.INTERNAL:
         return new InternalErrorResponse(err.message).send(res);
       case ErrorType.NOT_FOUND:
