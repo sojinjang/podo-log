@@ -68,5 +68,5 @@
     "webpack-cli": "^5.0.1"
   },
   "main": "index.js",
-  "homepage": "https://www.podolog.store"
+  "homepage": "www.podolog.store"
 }
