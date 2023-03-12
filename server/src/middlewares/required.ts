@@ -1,5 +1,5 @@
 import passport from "passport";
-import { ForbiddenError } from "../core/api-error";
+import { ForbiddenError, TokenExpiredError, AccessTokenError } from "../core/api-error";
 import { userBookModel } from "../db/models";
 import asyncHandler from "../utils/async-handler";
 import { logger } from "./../utils/pino";
@@ -16,7 +16,8 @@ export const isLoggedIn = asyncHandler(async (req, res, next) => {
       next();
     } else {
       logger.info(info);
-      next(new ForbiddenError(info.message));
+      if (info.name === "TokenExpiredError") next(new TokenExpiredError());
+      else next(new AccessTokenError());
     }
   })(req, res, next);
 });

@@ -5,7 +5,7 @@ enum StatusCode {
   SUCCESS = "10000",
   FAILURE = "10001",
   RETRY = "10002",
-  INVALID_ACCESS_TOKEN = "10003",
+  EXPIRED_ACCESS_TOKEN = "10003",
 }
 
 enum ResponseStatus {
@@ -99,16 +99,13 @@ export class SuccessResponse<T> extends ApiResponse {
   }
 }
 
-export class AccessTokenErrorResponse extends ApiResponse {
-  private instruction = "refresh_token";
-
-  constructor(message = "Access token invalid") {
-    super(StatusCode.INVALID_ACCESS_TOKEN, ResponseStatus.UNAUTHORIZED, message);
+export class ExpiredAccessTokenErrorResponse extends ApiResponse {
+  constructor(message = "Access 토큰 만료") {
+    super(StatusCode.EXPIRED_ACCESS_TOKEN, ResponseStatus.UNAUTHORIZED, message);
   }
 
   send(res: Response, headers: { [key: string]: string } = {}): Response {
-    headers.instruction = this.instruction;
-    return super.prepare<AccessTokenErrorResponse>(res, this, headers);
+    return super.prepare<ExpiredAccessTokenErrorResponse>(res, this, headers);
   }
 }
 
