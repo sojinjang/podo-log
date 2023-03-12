@@ -10,3 +10,8 @@ export interface MessageDTO {
 export interface DicComment {
   [key: number]: Array<RowDataPacket>;
 }
+
+export interface TokenConfig {
+  secretKey: string;
+  time: string;
+}

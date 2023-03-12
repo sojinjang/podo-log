@@ -1,4 +1,5 @@
 import { CookieOptions } from "express";
+import { TokenConfig } from "../types";
 
 export const environment = process.env.NODE_ENV as string;
 export const port = process.env.PORT;
@@ -27,8 +28,15 @@ export const corsOption = {
 export const accessSecretKey = process.env.ACCESS_JWT_SECRET_KEY as string;
 export const refreshSecretKey = process.env.REFRESH_JWT_SECRET_KEY as string;
 
-export const logLevel = process.env.LOG_LEVEL;
+export const accessTokenConfig: TokenConfig = {
+  secretKey: accessSecretKey,
+  time: environment === "local" ? "1m" : "1h",
+};
+export const refreshTokenConfig: TokenConfig = {
+  secretKey: refreshSecretKey,
+  time: "14d",
+};
 
-export const accessTokenTime = environment === "local" ? "1w" : "1h";
+export const logLevel = process.env.LOG_LEVEL;
 
 export const defaultPackageIds = [1];
