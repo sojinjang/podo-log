@@ -1,17 +1,17 @@
 import React from "react";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 
 import { accessTokenAtom } from "src/recoil/token";
-import { post } from "src/utils/api";
+import { api } from "src/utils/axiosApi";
 import { API_URL } from "src/constants/API_URL";
 import ClickableContainer from "src/components/common/ClickableContainer";
 
 const SignOutButton = () => {
-  const [accessToken, setAccessToken] = useRecoilState(accessTokenAtom);
+  const setAccessToken = useSetRecoilState(accessTokenAtom);
 
   const handleSignOut = async () => {
     try {
-      await post(API_URL.signOut, {}, accessToken);
+      await api.post(API_URL.signOut, {});
       setAccessToken(undefined);
     } catch (err) {
       if (err instanceof Error) alert(err.message);

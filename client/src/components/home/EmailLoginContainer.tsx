@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useSetRecoilState } from "recoil";
 
@@ -21,7 +20,6 @@ const EmailLoginContainer = () => {
   const logIn = async ({ email, password }: loginInput) => {
     try {
       const { data } = await api.post(API_URL.emailLogin, { email, password });
-      axios.defaults.headers.common["Authorization"] = `Bearer ${data.data.accessToken}`;
       setAccessToken(data.data.accessToken);
     } catch (err) {
       if (err instanceof Error) alert(err.message);
