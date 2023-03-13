@@ -6,10 +6,8 @@ import DiaryRevisionImgUpload from "./DiaryRevisionImgUpload";
 import { diaryRevisionImgAtom } from "src/recoil/diary-revision/atom";
 import { Img } from "src/recoil/new-diary/atom";
 import { API_URL } from "src/constants/API_URL";
-import { api } from "src/utils/axiosApi";
-import { postFormData } from "src/utils/api";
+import { api, formApi } from "src/utils/axiosApi";
 import { useNavigate, useParams } from "react-router-dom";
-import { accessTokenAtom } from "src/recoil/token";
 import { DiaryForm, TitleInput, inputStyle, ContentInput } from "../diary/DiaryFormElem";
 import { DiaryInput } from "../diary/DiaryInput";
 
@@ -29,7 +27,6 @@ const DiaryRevisionForm = () => {
   const params = useParams();
   const bookId = String(params.bookId);
   const diaryId = String(params.diaryId);
-  const accessToken = useRecoilValue(accessTokenAtom);
   const diaryImg = useRecoilValue(diaryRevisionImgAtom);
   const [isPicChanged, setIsPicChanged] = useState(false);
   const [ogData, setOgData] = useState<DiaryOgInput | null>(null);
@@ -44,7 +41,7 @@ const DiaryRevisionForm = () => {
 
   const onSubmitPicture = async () => {
     if (diaryImg === "") return await api.delete(API_URL.diaryImg(diaryId));
-    await postFormData(API_URL.diaryImg(diaryId), createFormData(diaryImg), accessToken);
+    await formApi.post(API_URL.diaryImg(diaryId), createFormData(diaryImg));
   };
   const onSubmitDiaryForm = async ({ title, content }: DiaryInput) => {
     try {
