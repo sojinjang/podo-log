@@ -11,8 +11,8 @@ import "src/components/common/Backgrounds.css";
 import { Greeting } from "src/components/home/Greeting";
 import { GrapeIcon } from "src/components/home/GrapeIcon";
 import { InputSectionContainer } from "src/components/common/Input";
-import EmailLoginContainer from "../components/home/EmailLoginContainer";
-import SNSLoginContainer from "../components/home/SNSLoginContainer";
+import EmailLoginContainer from "src/components/home/EmailLoginContainer";
+import SNSLoginContainer from "src/components/home/SNSLoginContainer";
 import SignUpButton from "src/components/home/SignUpButton";
 
 const Home = () => {
@@ -39,10 +39,7 @@ const Home = () => {
       {!accessToken && (
         <Fade bottom duration={3000}>
           <InputSectionContainer>
-            <EmailLoginContainer
-              tokenExpireTime={ACCESS_TOKEN_EXPIRY_TIME}
-              refreshTime={REFRESH_TIME}
-            />
+            <EmailLoginContainer />
             <SNSLoginContainer sectionTitle="SNS 계정으로 로그인하기" />
             <SignUpButton />
           </InputSectionContainer>
