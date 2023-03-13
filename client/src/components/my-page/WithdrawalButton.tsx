@@ -1,18 +1,18 @@
 import React from "react";
 import tw from "tailwind-styled-components";
 
-import { patch } from "src/utils/api";
+import { api } from "src/utils/axiosApi";
 import { API_URL } from "src/constants/API_URL";
 import { accessTokenAtom } from "src/recoil/token";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 
 const WithdrawalButton = () => {
-  const [accessToken, setAccessToken] = useRecoilState(accessTokenAtom);
+  const setAccessToken = useSetRecoilState(accessTokenAtom);
 
   const handleWithdrawal = async () => {
     if (!confirm("정말 탈퇴하시겠습니까? 🥺")) return;
     try {
-      await patch(API_URL.withdrawal, "", {}, accessToken);
+      await api.patch(API_URL.withdrawal, {});
       setAccessToken(undefined);
     } catch (err) {
       if (err instanceof Error) alert(err.message);

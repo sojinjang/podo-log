@@ -3,10 +3,8 @@ import tw from "tailwind-styled-components";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-import { post } from "src/utils/api";
+import { api } from "src/utils/axiosApi";
 import { API_URL } from "src/constants/API_URL";
-import { accessTokenAtom } from "src/recoil/token";
-import { useRecoilValue } from "recoil";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 
 interface InviteCodeInput {
@@ -14,12 +12,11 @@ interface InviteCodeInput {
 }
 
 export const InviteCodeSection = () => {
-  const accessToken = useRecoilValue(accessTokenAtom);
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm<InviteCodeInput>({ mode: "onSubmit" });
   const onSubmitCode = async ({ invttCode }: InviteCodeInput) => {
     try {
-      await post(API_URL.inviteCodeInput, { invttCode }, accessToken);
+      await api.post(API_URL.inviteCodeInput, { invttCode });
       navigate(PRIVATE_ROUTE.books.path);
     } catch (err) {
       if (err instanceof Error) alert(err.message);

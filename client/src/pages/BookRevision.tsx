@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useRecoilValue, useRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Bounce from "react-reveal/Bounce";
 
-import { patch } from "src/utils/api";
-import { accessTokenAtom } from "src/recoil/token";
 import { selectedColorAtom } from "../recoil/book-color";
+import { api } from "src/utils/axiosApi";
 import { API_URL } from "src/constants/API_URL";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 
@@ -28,7 +27,6 @@ const BookRevision = () => {
   const location = useLocation();
   const params = useParams();
   const bookId = params.bookId;
-  const accessToken = useRecoilValue(accessTokenAtom);
   const [selectedColor, setSelectedColor] = useRecoilState(selectedColorAtom);
   const [isTitleRevised, setIsTitleRevised] = useState(false);
   const [isRevised, setIsRevised] = useState(false);
@@ -42,7 +40,7 @@ const BookRevision = () => {
   const reviseBookInfo = async ({ bookName }: BookNameType) => {
     try {
       if (!isRevised) return;
-      await patch(API_URL.books, bookId, { color: selectedColor, bookName }, accessToken);
+      await api.patch(API_URL.books + `/${bookId}`, { color: selectedColor, bookName });
       navigate(PRIVATE_ROUTE.books.path);
     } catch (err) {
       if (err instanceof Error) alert(err.message);

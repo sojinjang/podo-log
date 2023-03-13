@@ -4,7 +4,8 @@ import { useRecoilValue } from "recoil";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { accessTokenAtom } from "src/recoil/token";
-import { postFormData, del } from "src/utils/api";
+import { postFormData } from "src/utils/api";
+import { api } from "src/utils/axiosApi";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 import { API_URL } from "src/constants/API_URL";
 
@@ -50,8 +51,8 @@ const EditProfile = () => {
     if (!isPicChanged) return;
     const isPicDeleted = profileImg === "";
     try {
-      if (isPicDeleted) return await del(API_URL.profile, "", accessToken);
-      await postFormData(API_URL.profile, createFormData(), accessToken);
+      if (isPicDeleted) await api.delete(API_URL.profile);
+      else await postFormData(API_URL.profile, createFormData(), accessToken);
       navigate(PRIVATE_ROUTE.myPage.path);
     } catch (err) {
       if (err instanceof Error) alert(err.message);

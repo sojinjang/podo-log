@@ -2,7 +2,8 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 import Bounce from "react-reveal/Bounce";
 
-import { post } from "src/utils/api";
+import { api } from "src/utils/axiosApi";
+import { API_URL } from "src/constants/API_URL";
 import { selectedColorAtom } from "../recoil/book-color";
 import { PinkPurpleBackground } from "src/components/common/Backgrounds";
 import BackButton from "src/components/common/BackButton";
@@ -12,8 +13,6 @@ import ColorSelectContainer from "src/components/new-book/ColorSelectContainer";
 import ContainerTitle from "src/components/new-book/ContainerTitle";
 import BookTitleInputContainer from "src/components/new-book/BookTitleInputContainer";
 import PurpleButton from "src/components/common/PurpleButton";
-import { accessTokenAtom } from "src/recoil/token";
-import { API_URL } from "src/constants/API_URL";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
@@ -23,13 +22,12 @@ interface NewBookName {
 
 const NewBook = () => {
   const navigate = useNavigate();
-  const accessToken = useRecoilValue(accessTokenAtom);
   const selectedColor = useRecoilValue(selectedColorAtom);
   const { register, handleSubmit } = useForm<NewBookName>({ mode: "onSubmit" });
 
   const createNewDiary = async ({ bookName }: NewBookName) => {
     try {
-      await post(API_URL.books, { color: selectedColor, bookName }, accessToken);
+      await api.post(API_URL.books, { color: selectedColor, bookName });
       navigate(-1);
     } catch (err) {
       alert(err);

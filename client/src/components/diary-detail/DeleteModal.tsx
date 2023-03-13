@@ -3,9 +3,8 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import tw from "tailwind-styled-components";
 import Fade from "react-reveal/Fade";
 
-import { accessTokenAtom } from "src/recoil/token";
 import { deleteInfoAtom, getComments } from "src/recoil/diary-detail";
-import { del } from "src/utils/api";
+import { api } from "src/utils/axiosApi";
 import { API_URL } from "src/constants/API_URL";
 import PurpleButton from "../common/PurpleButton";
 
@@ -14,14 +13,13 @@ interface ModalProps {
 }
 
 const DeleteModal = ({ onClose }: ModalProps) => {
-  const accessToken = useRecoilValue(accessTokenAtom);
   const deleteInfo = useRecoilValue(deleteInfoAtom);
   const reloadComments = useSetRecoilState(getComments);
 
   const onClickDelete = async () => {
     const apiUrl = deleteInfo.target === "diary" ? API_URL.diary : API_URL.comments;
     try {
-      await del(apiUrl, String(deleteInfo.id), accessToken);
+      await api.delete(apiUrl + `/${deleteInfo.id}`);
       if (deleteInfo.target === "diary") return window.history.back();
       reloadComments(1);
       onClose();

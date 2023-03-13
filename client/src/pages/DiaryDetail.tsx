@@ -1,16 +1,12 @@
 import React, { useState, useEffect, Suspense } from "react";
 import { useParams, useLocation } from "react-router-dom";
-import {
-  useRecoilState,
-  useRecoilValue,
-  useSetRecoilState,
-  useResetRecoilState,
-} from "recoil";
+import { useRecoilState, useSetRecoilState, useResetRecoilState } from "recoil";
 import { v4 as uuidv4 } from "uuid";
 import Fade from "react-reveal/Fade";
 
-import { focusedDiaryIdAtom, isDeleteModalVisibleAtom } from "../recoil/diary-detail/atom";
-import { accessTokenAtom } from "src/recoil/token";
+import { focusedDiaryIdAtom, isDeleteModalVisibleAtom } from "src/recoil/diary-detail/atom";
+import { api } from "src/utils/axiosApi";
+import { API_URL } from "src/constants/API_URL";
 import { PinkPurpleBackground } from "src/components/common/Backgrounds";
 import BackButton from "../components/common/BackButton";
 import { AffixedSticker, AffixedStickerInfo } from "src/components/common/diary/Sticker";
@@ -22,8 +18,6 @@ import StickerButton from "src/components/diary-detail/StickerButton";
 import { CommentSection } from "src/components/diary-detail/CommentSection";
 import DeleteModal from "src/components/diary-detail//DeleteModal";
 import EditingSticker from "src/components/diary-detail/EditingSticker";
-import { get } from "src/utils/api";
-import { API_URL } from "src/constants/API_URL";
 
 export interface EditingStickerInfo extends StickerInfo {
   uniqueId: string;
@@ -38,7 +32,6 @@ const DiaryDetail = () => {
   const location = useLocation();
   const data = location.state.diaryInfo;
   const setDiaryId = useSetRecoilState(focusedDiaryIdAtom);
-  const accessToken = useRecoilValue(accessTokenAtom);
 
   const [isEditingSticker, setIsEditingSticker] = useState<boolean>(false);
   const changeStickerEditState = () => {
@@ -53,8 +46,8 @@ const DiaryDetail = () => {
   const [stickers, setStickers] = useState<AffixedStickerInfo[]>([]);
   const getAffixedStickers = async () => {
     try {
-      const response = await get(API_URL.stickers(Number(params.diaryId)), "", accessToken);
-      setStickers(response.data);
+      const { data } = await api.get(API_URL.stickers(Number(params.diaryId)));
+      setStickers(data.data);
     } catch (err) {
       if (err instanceof Error) alert(err.message);
     }

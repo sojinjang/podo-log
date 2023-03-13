@@ -1,7 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { useRecoilValue } from "recoil";
 
-import { accessTokenAtom } from "src/recoil/token";
 import { DefaultBackground } from "src/components/common/Backgrounds";
 import { Navbar } from "src/components/common/NavBar";
 import MoveBtn from "src/components/grape/MoveBtn";
@@ -10,7 +8,7 @@ import MyGrapeNum from "src/components/grape/MyGrapeNum";
 import { StickerShopContainer } from "src/components/grape/Sticker";
 import { StickerPackage, StickerPackList } from "src/components/grape/StickerPackList";
 import PackageDetail from "src/components/grape/PackageDetail";
-import { get } from "src/utils/api";
+import { api } from "src/utils/axiosApi";
 import { API_URL } from "src/constants/API_URL";
 
 export interface MyGrape {
@@ -23,7 +21,6 @@ const Grape = () => {
   const stickerShopRef = useRef<HTMLDivElement>(null);
   const [myGrape, setMyGrape] = useState<MyGrape | null>(null);
   const [focusedPack, setFocusedPack] = useState<StickerPackage | null>(null);
-  const accessToken = useRecoilValue(accessTokenAtom);
 
   const updateFocusedPack = (pack: StickerPackage | null) => {
     setFocusedPack(pack);
@@ -42,8 +39,8 @@ const Grape = () => {
 
   const getMyGrapeData = async () => {
     try {
-      const response = await get(API_URL.grape, "", accessToken);
-      const { grain, grape } = response.data;
+      const { data } = await api.get(API_URL.grape);
+      const { grain, grape } = data.data;
       setMyGrape({ grain, grape });
     } catch (err) {
       if (err instanceof Error) alert(err.message);

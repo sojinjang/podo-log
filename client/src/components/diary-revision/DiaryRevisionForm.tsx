@@ -6,7 +6,8 @@ import DiaryRevisionImgUpload from "./DiaryRevisionImgUpload";
 import { diaryRevisionImgAtom } from "src/recoil/diary-revision/atom";
 import { Img } from "src/recoil/new-diary/atom";
 import { API_URL } from "src/constants/API_URL";
-import { postFormData, patch, get, del } from "src/utils/api";
+import { api } from "src/utils/axiosApi";
+import { postFormData } from "src/utils/api";
 import { useNavigate, useParams } from "react-router-dom";
 import { accessTokenAtom } from "src/recoil/token";
 import { DiaryForm, TitleInput, inputStyle, ContentInput } from "../diary/DiaryFormElem";
@@ -34,20 +35,20 @@ const DiaryRevisionForm = () => {
   const [ogData, setOgData] = useState<DiaryOgInput | null>(null);
   const { register, handleSubmit } = useForm<DiaryInput>({
     defaultValues: async () => {
-      const response = await get(API_URL.bookDiary(Number(bookId)), diaryId, accessToken);
-      const { title, picture, content } = response.data;
+      const { data } = await api.get(API_URL.bookDiary(Number(bookId)) + `/${diaryId}`);
+      const { title, picture, content } = data.data;
       setOgData({ title, picture: picture, content });
       return { title, content };
     },
   });
 
   const onSubmitPicture = async () => {
-    if (diaryImg === "") return await del(API_URL.diaryImg(diaryId), "", accessToken);
+    if (diaryImg === "") return await api.delete(API_URL.diaryImg(diaryId));
     await postFormData(API_URL.diaryImg(diaryId), createFormData(diaryImg), accessToken);
   };
   const onSubmitDiaryForm = async ({ title, content }: DiaryInput) => {
     try {
-      await patch(API_URL.diary, diaryId, { title, content }, accessToken);
+      await api.patch(API_URL.diary + `/${diaryId}`, { title, content });
       if (isPicChanged) await onSubmitPicture();
       navigate(-2);
     } catch (err) {

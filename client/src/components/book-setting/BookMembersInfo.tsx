@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useRecoilValue } from "recoil";
 import tw from "tailwind-styled-components";
 
 import { API_URL } from "src/constants/API_URL";
-import { get } from "src/utils/api";
+import { api } from "src/utils/axiosApi";
 import { BookIdType } from "src/pages/BookSetting";
-import { accessTokenAtom } from "src/recoil/token";
 import MemberProfile from "./MemberProfile";
 
 export interface MemberInfo {
@@ -16,13 +14,12 @@ export interface MemberInfo {
 }
 
 export const BookMembersInfo = ({ bookId }: BookIdType) => {
-  const accessToken = useRecoilValue(accessTokenAtom);
   const [members, setMembers] = useState<MemberInfo[]>([]);
 
   const getBookmembers = async () => {
     try {
-      const response = await get(API_URL.members(bookId), "", accessToken);
-      setMembers(response.data);
+      const { data } = await api.get(API_URL.members(bookId));
+      setMembers(data.data);
     } catch (err) {
       if (err instanceof Error) alert(err.message);
     }

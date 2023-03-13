@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
 import tw from "tailwind-styled-components";
 
-import { accessTokenAtom } from "src/recoil/token";
-import { get } from "src/utils/api";
-import changeToKoreanDate from "src/utils/date";
+import { api } from "src/utils/axiosApi";
 import { API_URL } from "src/constants/API_URL";
+import changeToKoreanDate from "src/utils/date";
 import defaultProfileImg from "../../assets/icons/default_profile.png";
 import { UnclickableContainer } from "../common/UnclickableContainer";
 
@@ -18,15 +16,14 @@ interface UserData {
 }
 
 export const MyInfoSection = () => {
-  const accessToken = useRecoilValue(accessTokenAtom);
   const navigate = useNavigate();
   const [userData, setUserData] = useState<UserData | null>(null);
   const [profileImg, setProfileImg] = useState<string>("");
 
   const getUserData = async () => {
     try {
-      const response = await get(API_URL.users, "", accessToken);
-      setUserData(response.data);
+      const { data } = await api.get(API_URL.users);
+      setUserData(data.data);
     } catch (err) {
       if (err instanceof Error) alert(err.message);
     }
