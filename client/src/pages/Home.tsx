@@ -16,17 +16,11 @@ import SNSLoginContainer from "src/components/home/SNSLoginContainer";
 import SignUpButton from "src/components/home/SignUpButton";
 
 const Home = () => {
-  const ACCESS_TOKEN_EXPIRY_TIME = 3600 * 1000;
-  const REFRESH_TIME = 30 * 1000;
   const [accessToken, setAccessToken] = useRecoilState<Token>(accessTokenAtom);
 
   useEffect(() => {
     const isSNSLogin = location.search.includes("snslogin");
-    if (isSNSLogin) {
-      refreshToken(setAccessToken);
-      setInterval(() => refreshToken(setAccessToken), ACCESS_TOKEN_EXPIRY_TIME - REFRESH_TIME);
-    }
-
+    if (isSNSLogin) refreshToken(setAccessToken);
     moveToDiaries(accessToken);
   }, [accessToken]);
 
