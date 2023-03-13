@@ -12,7 +12,7 @@ export const getComments = selector({
     get(forceRefreshCommentsAtom);
     const diaryId = get(focusedDiaryIdAtom);
     try {
-      if (!diaryId) return;
+      if (!diaryId) return [];
       const { data } = await api.get(API_URL.diaryComments(diaryId));
       return data.data;
     } catch (err) {
