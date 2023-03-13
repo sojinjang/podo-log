@@ -1,5 +1,5 @@
 import passport from "passport";
-import { logger, makeRefreshToken, makeAccessToken } from "../../utils";
+import { logger, AccessToken, RefreshToken } from "../../utils";
 import { cookieOption } from "../../config";
 import asyncHandler from "../../utils/async-handler";
 import { AuthFailureError, InternalError } from "./../../core/api-error";
@@ -28,9 +28,10 @@ class LoginController {
             logger.error(loginError);
             throw new InternalError(loginError);
           }
+          const jwtPayload = { userId: user.userId };
+          const accessToken = new AccessToken(jwtPayload).make();
+          const refreshToken = new RefreshToken(jwtPayload).make();
 
-          const refreshToken = makeRefreshToken(user.userId);
-          const accessToken = makeAccessToken(user.userId);
           const messageDTO = { message: "로그인 성공", data: { accessToken } };
           const setCookie = { refreshToken, option: cookieOption(14, "d") };
 
@@ -71,7 +72,8 @@ class LoginController {
           return new FailureLoginRedirect(loginError.message).redirect(res);
         }
 
-        const refreshToken = makeRefreshToken(user.userId);
+        const jwtPayload = { userId: user.userId };
+        const refreshToken = new RefreshToken(jwtPayload).make();
         const setCookie = { refreshToken, option: cookieOption(14, "d") };
         return new SuccessLoginRedirectWithCookie("success", setCookie).redirectWithCookie(
           res
@@ -99,7 +101,8 @@ class LoginController {
           return new FailureLoginRedirect(loginError.message).redirect(res);
         }
 
-        const refreshToken = makeRefreshToken(user.userId);
+        const jwtPayload = { userId: user.userId };
+        const refreshToken = new RefreshToken(jwtPayload).make();
         const setCookie = { refreshToken, option: cookieOption(14, "d") };
 
         return new SuccessLoginRedirectWithCookie("success", setCookie).redirectWithCookie(
@@ -126,7 +129,8 @@ class LoginController {
             throw new AuthFailureError(loginError.message);
           }
 
-          const accessToken = makeAccessToken(user.userId);
+          const jwtPayload = { userId: user.userId };
+          const accessToken = new AccessToken(jwtPayload).make();
           return new SuccessResponse("refresh 성공", { accessToken }).send(res);
         });
       } catch (err) {
