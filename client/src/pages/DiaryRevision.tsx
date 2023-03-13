@@ -1,5 +1,4 @@
 import React from "react";
-import Fade from "react-reveal/Fade";
 
 import { PinkPurpleBackground } from "src/components/common/Backgrounds";
 import BackButton from "src/components/common/BackButton";
@@ -13,9 +12,7 @@ const DiaryRevision = () => {
       <BackButton />
       <PostButton />
       <PageTitle title="일기 수정" />
-      <Fade duration={2000}>
-        <DiaryRevisionForm />
-      </Fade>
+      <DiaryRevisionForm />
     </PinkPurpleBackground>
   );
 };
