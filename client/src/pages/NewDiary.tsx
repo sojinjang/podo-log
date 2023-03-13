@@ -13,7 +13,7 @@ const NewDiary = () => {
       <BackButton />
       <PostButton />
       <PageTitle title="일기 작성" />
-      <Fade right duration={2000}>
+      <Fade bottom>
         <NewDiaryForm />
       </Fade>
     </PinkPurpleBackground>

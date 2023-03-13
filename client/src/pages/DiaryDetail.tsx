@@ -124,7 +124,7 @@ const DiaryDetail = () => {
           changeStickerEditState={changeStickerEditState}
         />
       )}
-      <Fade duration={1000}>
+      <Fade bottom>
         <UnclickableContainer className="my-[8vh]">
           {stickers.map((sticker) => {
             return (
