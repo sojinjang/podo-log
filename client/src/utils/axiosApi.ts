@@ -19,3 +19,19 @@ api.interceptors.request.use(
     Promise.reject(error);
   }
 );
+
+export const formApi = axios.create({
+  baseURL: process.env.REACT_APP_SERVER_URL,
+});
+
+formApi.interceptors.request.use(
+  (config) => {
+    config.headers["Content-Type"] = "multipart/form-data";
+    config.headers["Authorization"] = `Bearer ${getAccessToken()}`;
+    config.withCredentials = true;
+    return config;
+  },
+  (error) => {
+    Promise.reject(error);
+  }
+);
