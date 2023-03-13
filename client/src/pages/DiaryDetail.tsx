@@ -32,6 +32,7 @@ const DiaryDetail = () => {
   const location = useLocation();
   const data = location.state.diaryInfo;
   const setDiaryId = useSetRecoilState(focusedDiaryIdAtom);
+  const resetDiaryId = useResetRecoilState(focusedDiaryIdAtom);
 
   const [isEditingSticker, setIsEditingSticker] = useState<boolean>(false);
   const changeStickerEditState = () => {
@@ -65,6 +66,12 @@ const DiaryDetail = () => {
   useEffect(() => {
     setDiaryId(Number(params.diaryId));
     getAffixedStickers();
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      resetDiaryId();
+    };
   }, []);
 
   const [selectedStickers, setSelectedStickers] = useState<EditingStickerInfo[]>([]);
