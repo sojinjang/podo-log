@@ -27,7 +27,6 @@ const BookList = () => {
       const { data } = await api.get(API_URL.books);
       setUserBooksArr(data.data);
     } catch (err) {
-      console.log(err);
       if (err instanceof Error) alert(err.message);
     }
   };
