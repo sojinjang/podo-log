@@ -1,27 +1,11 @@
-import React, { useEffect } from "react";
-import { useSetRecoilState } from "recoil";
+import React from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
 
-import { accessTokenAtom } from "src/recoil/token";
-import { refreshToken } from "src/utils/token";
 import { PrivateRouter } from "./PrivateRouter";
 import { PUBLIC_ROUTE_ARR, PRIVATE_ROUTE_ARR } from "./ROUTE_INFO";
 import { NotFound } from "../pages";
 
 const Router = () => {
-  const setAccessToken = useSetRecoilState(accessTokenAtom);
-
-  useEffect(() => {
-    const currentLocation = location.href;
-    for (const pages of PRIVATE_ROUTE_ARR) {
-      const isPrivateLocation = currentLocation.includes(pages.path);
-      if (isPrivateLocation) {
-        refreshToken(setAccessToken);
-        break;
-      }
-    }
-  }, []);
-
   return (
     <HashRouter>
       <Routes>
