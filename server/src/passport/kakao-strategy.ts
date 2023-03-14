@@ -7,7 +7,8 @@ import { SNSCreateUserDTO } from "../types/user-type";
 const opts = kakao;
 
 const kakaoVerify: VerifyFunction = async (accessToken, refreshToken, profile, done) => {
-  logger.debug(`카카오 accessToken` + accessToken);
+  logger.debug(`카카오 profile`);
+  logger.debug(profile);
   try {
     const snsId = profile.id;
     const [exUser] = await userModel.get({ snsId, provider: "kakao" }, false);

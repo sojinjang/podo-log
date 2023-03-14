@@ -29,7 +29,7 @@ export const refreshSecretKey = process.env.REFRESH_JWT_SECRET_KEY as string;
 
 export const accessTokenConfig: TokenConfig = {
   secretKey: accessSecretKey,
-  time: environment === "local" ? "1m" : "1h",
+  time: environment === "local" ? "1w" : "1h",
 };
 export const refreshTokenConfig: TokenConfig = {
   secretKey: refreshSecretKey,
