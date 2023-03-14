@@ -8,7 +8,7 @@ import MyGrapeNum from "src/components/grape/MyGrapeNum";
 import { StickerShopContainer } from "src/components/grape/Sticker";
 import { StickerPackage, StickerPackList } from "src/components/grape/StickerPackList";
 import PackageDetail from "src/components/grape/PackageDetail";
-import { api } from "src/utils/axiosApi";
+import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 
 export interface MyGrape {

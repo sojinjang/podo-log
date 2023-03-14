@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import tw from "tailwind-styled-components";
 
-import { api } from "src/utils/axiosApi";
+import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import changeToKoreanDate from "src/utils/date";
 import defaultProfileImg from "../../assets/icons/default_profile.png";

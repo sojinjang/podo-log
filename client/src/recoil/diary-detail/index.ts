@@ -1,6 +1,6 @@
 import { selector } from "recoil";
 
-import { api } from "src/utils/axiosApi";
+import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import { forceRefreshCommentsAtom, focusedDiaryIdAtom } from "src/recoil/diary-detail/atom";
 

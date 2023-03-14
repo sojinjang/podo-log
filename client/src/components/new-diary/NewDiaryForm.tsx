@@ -9,7 +9,7 @@ import { API_URL } from "src/constants/API_URL";
 import { useNavigate, useParams } from "react-router-dom";
 import { DiaryForm, TitleInput, inputStyle, ContentInput } from "../diary/DiaryFormElem";
 import { DiaryInput } from "../diary/DiaryInput";
-import { formApi } from "src/utils/axiosApi";
+import { formApi } from "src/utils/axiosApi/formApi";
 
 const createDiaryForm = (diaryImg: Img, bookId: string, { title, content }: DiaryInput) => {
   const formData = new FormData();

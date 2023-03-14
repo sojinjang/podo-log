@@ -1,7 +1,7 @@
 import React from "react";
 import tw from "tailwind-styled-components";
 
-import { api } from "src/utils/axiosApi";
+import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import { accessTokenAtom } from "src/recoil/token";
 import { useSetRecoilState } from "recoil";

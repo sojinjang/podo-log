@@ -3,7 +3,7 @@ import tw from "tailwind-styled-components";
 import { useRecoilValue } from "recoil";
 
 import { focusedDiaryIdAtom } from "src/recoil/diary-detail/atom";
-import { api } from "src/utils/axiosApi";
+import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import { EditingStickerInfo } from "src/pages/DiaryDetail";
 import { AffixedStickerInfo } from "src/components/common/diary/Sticker";

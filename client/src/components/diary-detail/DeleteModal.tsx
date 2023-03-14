@@ -4,7 +4,7 @@ import tw from "tailwind-styled-components";
 import Fade from "react-reveal/Fade";
 
 import { deleteInfoAtom, getComments } from "src/recoil/diary-detail";
-import { api } from "src/utils/axiosApi";
+import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import PurpleButton from "../common/PurpleButton";
 

@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import Fade from "react-reveal/Fade";
 
 import { focusedDiaryIdAtom, isDeleteModalVisibleAtom } from "src/recoil/diary-detail/atom";
-import { api } from "src/utils/axiosApi";
+import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import { PinkPurpleBackground } from "src/components/common/Backgrounds";
 import BackButton from "../components/common/BackButton";

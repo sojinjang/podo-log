@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
 import _ from "lodash";
 
-import { api } from "src/utils/axiosApi";
+import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import DiaryContainer from "./DiaryContainer";
 

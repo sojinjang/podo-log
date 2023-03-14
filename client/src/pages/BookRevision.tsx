@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import Bounce from "react-reveal/Bounce";
 
 import { selectedColorAtom } from "../recoil/book-color";
-import { api } from "src/utils/axiosApi";
+import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 

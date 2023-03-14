@@ -4,7 +4,7 @@ import tw from "tailwind-styled-components";
 import { useForm } from "react-hook-form";
 import Fade from "react-reveal/Fade";
 
-import { api } from "src/utils/axiosApi";
+import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import { getComments } from "src/recoil/diary-detail";
 import { Input, InputContainer } from "../common/Input";

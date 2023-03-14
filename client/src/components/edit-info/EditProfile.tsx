@@ -2,7 +2,8 @@ import React, { useState, useRef } from "react";
 import tw from "tailwind-styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { api, formApi } from "src/utils/axiosApi";
+import { api } from "src/utils/axiosApi/api";
+import { formApi } from "src/utils/axiosApi/formApi";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 import { API_URL } from "src/constants/API_URL";
 

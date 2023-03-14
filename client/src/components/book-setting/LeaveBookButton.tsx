@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { api } from "src/utils/axiosApi";
+import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 import ClickableContainer from "../common/ClickableContainer";

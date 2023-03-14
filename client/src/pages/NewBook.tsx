@@ -2,7 +2,7 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 import Bounce from "react-reveal/Bounce";
 
-import { api } from "src/utils/axiosApi";
+import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import { selectedColorAtom } from "../recoil/book-color";
 import { PinkPurpleBackground } from "src/components/common/Backgrounds";

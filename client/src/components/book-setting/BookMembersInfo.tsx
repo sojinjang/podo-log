@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import tw from "tailwind-styled-components";
 
 import { API_URL } from "src/constants/API_URL";
-import { api } from "src/utils/axiosApi";
+import { api } from "src/utils/axiosApi/api";
 import { BookIdType } from "src/pages/BookSetting";
 import MemberProfile from "./MemberProfile";
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import tw from "tailwind-styled-components";
 import Fade from "react-reveal/Fade";
 
-import { api } from "src/utils/axiosApi";
+import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import { StickerPackage } from "src/components/grape/StickerPackList";
 import { StickerPreviewContainer } from "./Sticker";

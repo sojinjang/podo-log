@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { API_URL } from "src/constants/API_URL";
-import { api } from "src/utils/axiosApi";
 import tw from "tailwind-styled-components";
 import Fade from "react-reveal/Fade";
 
+import { api } from "src/utils/axiosApi/api";
 import { StickerInfo } from "src/components/diary-detail/StickerSection";
 import { StickerPreviewContainer } from "./Sticker";
 

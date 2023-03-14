@@ -2,7 +2,7 @@ import React from "react";
 import { useSetRecoilState } from "recoil";
 
 import { accessTokenAtom } from "src/recoil/token";
-import { api } from "src/utils/axiosApi";
+import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import ClickableContainer from "src/components/common/ClickableContainer";
 

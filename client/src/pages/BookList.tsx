@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 
-import { api } from "src/utils/axiosApi";
+import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import { PinkPurpleBackground } from "src/components/common/Backgrounds";
 import { Guidance } from "src/components/book-list/Guidance";

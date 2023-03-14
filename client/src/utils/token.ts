@@ -1,5 +1,5 @@
 import { API_URL } from "src/constants/API_URL";
-import { api } from "src/utils/axiosApi";
+import { api } from "src/utils/axiosApi/api";
 import { ACCESS_TOKEN_KEY, Token } from "src/recoil/token/atom";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 

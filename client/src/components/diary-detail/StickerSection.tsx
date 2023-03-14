@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import tw from "tailwind-styled-components";
 
-import { api } from "src/utils/axiosApi";
+import { api } from "src/utils/axiosApi/api";
 import changeToKoreanDate from "src/utils/date";
 import { Values } from "../../constants/Values";
 import { API_URL } from "src/constants/API_URL";

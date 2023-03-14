@@ -11,7 +11,7 @@ import { API_URL } from "src/constants/API_URL";
 import { ProfileImgUpload } from "./ProfileImgUpload";
 import { Input, InputContainer } from "../common/Input";
 import PurpleButton from "../common/PurpleButton";
-import { formApi } from "src/utils/axiosApi";
+import { formApi } from "src/utils/axiosApi/formApi";
 
 interface SignUpInput {
   readonly nickname: string;
