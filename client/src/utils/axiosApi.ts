@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getAccessToken } from "src/utils/token";
+import { getAccessToken, refreshToken } from "src/utils/token";
 
 export const api = axios.create({
   baseURL: process.env.REACT_APP_SERVER_URL,
@@ -20,6 +20,25 @@ api.interceptors.request.use(
   }
 );
 
+api.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    const {
+      config,
+      response: { status },
+    } = error;
+    if (status === 401 && error.response.data.statusCode === "10003") {
+      const originalRequest = config;
+      await refreshToken();
+      originalRequest.headers.authorization = `Bearer ${getAccessToken()}`;
+      return axios(originalRequest);
+    }
+    return Promise.reject(error);
+  }
+);
+
 export const formApi = axios.create({
   baseURL: process.env.REACT_APP_SERVER_URL,
 });
@@ -33,5 +52,24 @@ formApi.interceptors.request.use(
   },
   (error) => {
     Promise.reject(error);
+  }
+);
+
+formApi.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    const {
+      config,
+      response: { status },
+    } = error;
+    if (status === 401 && error.response.data.statusCode === "10003") {
+      const originalRequest = config;
+      await refreshToken();
+      originalRequest.headers.authorization = `Bearer ${getAccessToken()}`;
+      return axios(originalRequest);
+    }
+    return Promise.reject(error);
   }
 );
