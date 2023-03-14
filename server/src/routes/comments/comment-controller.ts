@@ -9,10 +9,15 @@ class CommentController {
   create = asyncHandler(async (req: LoggedRequest, res) => {
     const { userId } = req.user;
     const diaryId = parseInt(req.body.diaryId);
-    const parentCommentId = parseInt(req.body.parentCommentId) || 0;
+    const parentCommentId = parseInt(req.body.parentCommentId);
     const { reply } = req.body;
 
-    const createDiaryDTO = { userId, diaryId, parentCommentId, reply } as CreateCommentDTO;
+    const createDiaryDTO = {
+      userId,
+      diaryId,
+      ...(parentCommentId && { parentCommentId }),
+      reply,
+    } as CreateCommentDTO;
 
     const messageDTO = await this.commentService.create(createDiaryDTO);
     return new SuccessResponse(messageDTO.message, messageDTO.data).send(res);
