@@ -97,14 +97,15 @@ CREATE TABLE IF NOT EXISTS `comment` (
     `commentId` bigint NOT NULL auto_increment,
     `userId` bigint NOT NULL,
     `diaryId` bigint NOT NULL,
-    `parentCommentId` int NOT NULL DEFAULT 0,
+    `parentCommentId` bigint NULL,
     `reply` varchar(200) NULL,
     `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `deletedAt` DATETIME,
     PRIMARY KEY (`commentId`),
     FOREIGN KEY (`diaryId`) REFERENCES `diary` (`diaryId`) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (`parentCommentId`) REFERENCES `comment` (`commentId`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS `sticked_sticker` (
