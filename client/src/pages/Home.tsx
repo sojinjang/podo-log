@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import Fade from "react-reveal/Fade";
 
 import { accessTokenAtom } from "src/recoil/token";
@@ -16,11 +16,11 @@ import SNSLoginContainer from "src/components/home/SNSLoginContainer";
 import SignUpButton from "src/components/home/SignUpButton";
 
 const Home = () => {
-  const [accessToken, setAccessToken] = useRecoilState<Token>(accessTokenAtom);
+  const accessToken = useRecoilValue<Token>(accessTokenAtom);
 
   useEffect(() => {
     const isSNSLogin = location.search.includes("snslogin");
-    if (isSNSLogin) refreshToken(setAccessToken);
+    if (isSNSLogin) refreshToken();
     moveToDiaries(accessToken);
   }, [accessToken]);
 
