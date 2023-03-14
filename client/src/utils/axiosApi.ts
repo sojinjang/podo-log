@@ -1,6 +1,19 @@
 import axios from "axios";
 import { getAccessToken, refreshToken } from "src/utils/token";
 
+let isTokenRefreshing = false;
+let failedTaskQueue: Callback[] = [];
+type Callback = () => void;
+
+const onTokenRefreshed = () => {
+  failedTaskQueue.map((callback) => callback());
+  failedTaskQueue = [];
+};
+
+const addRefreshSubscriber = (callback: Callback) => {
+  failedTaskQueue.push(callback);
+};
+
 export const api = axios.create({
   baseURL: process.env.REACT_APP_SERVER_URL,
 });
@@ -29,11 +42,25 @@ api.interceptors.response.use(
       config,
       response: { status },
     } = error;
+    const originalRequest = config;
     if (status === 401 && error.response.data.statusCode === "10003") {
-      const originalRequest = config;
-      await refreshToken();
-      originalRequest.headers.authorization = `Bearer ${getAccessToken()}`;
-      return axios(originalRequest);
+      if (!isTokenRefreshing) {
+        isTokenRefreshing = true;
+        await refreshToken();
+        originalRequest.headers.authorization = `Bearer ${getAccessToken()}`;
+        isTokenRefreshing = false;
+        axios(originalRequest);
+        onTokenRefreshed();
+      }
+      const retryOriginalRequest = new Promise((resolve) => {
+        if (isTokenRefreshing) {
+          addRefreshSubscriber(() => {
+            originalRequest.headers.Authorization = `Bearer ${getAccessToken()}`;
+            resolve(axios(originalRequest));
+          });
+        }
+      });
+      return retryOriginalRequest;
     }
     return Promise.reject(error);
   }
