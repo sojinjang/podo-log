@@ -17,10 +17,11 @@ export const setToken = (accessToken: Token) => {
   );
 };
 
-export const refreshToken = async () => {
+export const refreshToken = async (setTokenState?: (token: string) => void) => {
   try {
     const { data } = await api.post(API_URL.refreshToken);
     setToken(data.data.accessToken);
+    if (setTokenState) setTokenState(data.data.accessToken);
   } catch {
     setToken(undefined);
     alert("로그인이 필요합니다 🪪");
