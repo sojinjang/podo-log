@@ -62,7 +62,7 @@ api.interceptors.response.use(
       });
       return retryOriginalRequest;
     }
-    return Promise.reject(error);
+    throw new Error(error.response.data.message);
   }
 );
 
