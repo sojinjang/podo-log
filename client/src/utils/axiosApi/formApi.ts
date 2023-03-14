@@ -14,16 +14,13 @@ const addRefreshSubscriber = (callback: Callback) => {
   failedTaskQueue.push(callback);
 };
 
-export const api = axios.create({
+export const formApi = axios.create({
   baseURL: process.env.REACT_APP_SERVER_URL,
 });
 
-api.interceptors.request.use(
+formApi.interceptors.request.use(
   (config) => {
-    config.headers["Content-Type"] = "application/json";
-    config.headers["Accept"] = "application/json";
-    config.headers["Access-Control-Allow-Origin"] = "*";
-    config.headers["Access-Control-Allow-Headers"] = "Content-Type";
+    config.headers["Content-Type"] = "multipart/form-data";
     config.headers["Authorization"] = `Bearer ${getAccessToken()}`;
     config.withCredentials = true;
     return config;
@@ -33,7 +30,7 @@ api.interceptors.request.use(
   }
 );
 
-api.interceptors.response.use(
+formApi.interceptors.response.use(
   (response) => {
     return response;
   },
@@ -63,40 +60,5 @@ api.interceptors.response.use(
       return retryOriginalRequest;
     }
     throw new Error(error.response.data.message);
-  }
-);
-
-export const formApi = axios.create({
-  baseURL: process.env.REACT_APP_SERVER_URL,
-});
-
-formApi.interceptors.request.use(
-  (config) => {
-    config.headers["Content-Type"] = "multipart/form-data";
-    config.headers["Authorization"] = `Bearer ${getAccessToken()}`;
-    config.withCredentials = true;
-    return config;
-  },
-  (error) => {
-    Promise.reject(error);
-  }
-);
-
-formApi.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  async (error) => {
-    const {
-      config,
-      response: { status },
-    } = error;
-    if (status === 401 && error.response.data.statusCode === "10003") {
-      const originalRequest = config;
-      await refreshToken();
-      originalRequest.headers.authorization = `Bearer ${getAccessToken()}`;
-      return axios(originalRequest);
-    }
-    return Promise.reject(error);
   }
 );
