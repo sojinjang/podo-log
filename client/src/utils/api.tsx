@@ -26,7 +26,6 @@ async function post(endpointInput: string, data = {}, token: Token = undefined) 
   const bodyData = JSON.stringify(data);
   const res = await fetch(apiUrl, {
     method: "POST",
-    credentials: "include",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -52,7 +51,6 @@ async function postFormData(
   const apiUrl = endpoint;
   const res = await fetch(apiUrl, {
     method: "POST",
-    credentials: "include",
     headers: {
       Authorization: `Bearer ${token}`,
     },
