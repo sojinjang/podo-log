@@ -7,11 +7,12 @@ export const getAccessToken = () => {
   const recoilPersist = localStorage.getItem("recoil-persist");
   if (recoilPersist) return JSON.parse(recoilPersist)[ACCESS_TOKEN_KEY];
 };
-export const setToken = (access_token: Token) => {
+export const setToken = (accessToken: Token) => {
+  if (!accessToken) return localStorage.setItem("recoil-persist", "{}");
   localStorage.setItem(
     "recoil-persist",
     `{
-    "${ACCESS_TOKEN_KEY}": "${access_token}"
+    "${ACCESS_TOKEN_KEY}": "${accessToken}"
   }`
   );
 };
@@ -21,8 +22,9 @@ export const refreshToken = async () => {
     const { data } = await api.post(API_URL.refreshToken);
     setToken(data.data.accessToken);
   } catch {
-    alert("로그인이 필요합니다 🪪");
     setToken(undefined);
+    alert("로그인이 필요합니다 🪪");
+    window.location.reload();
   }
 };
 
