@@ -27,7 +27,7 @@ class CommentService {
     if (comments.length > 0) {
       const imgedComments = buildImgLocation(comments, "profile") as typeof comments;
       const dicComment = imgedComments.reduce((dic, comment) => {
-        const parentKey = comment.parentCommentId;
+        const parentKey = comment.parentCommentId || 0;
         dic[parentKey] ? dic[parentKey].push(comment) : (dic[parentKey] = [comment]);
         return dic;
       }, {} as DicComment);
