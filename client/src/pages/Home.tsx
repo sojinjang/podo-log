@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import Fade from "react-reveal/Fade";
 
 import { accessTokenAtom } from "src/recoil/token";
@@ -11,22 +11,16 @@ import "src/components/common/Backgrounds.css";
 import { Greeting } from "src/components/home/Greeting";
 import { GrapeIcon } from "src/components/home/GrapeIcon";
 import { InputSectionContainer } from "src/components/common/Input";
-import EmailLoginContainer from "../components/home/EmailLoginContainer";
-import SNSLoginContainer from "../components/home/SNSLoginContainer";
+import EmailLoginContainer from "src/components/home/EmailLoginContainer";
+import SNSLoginContainer from "src/components/home/SNSLoginContainer";
 import SignUpButton from "src/components/home/SignUpButton";
 
 const Home = () => {
-  const ACCESS_TOKEN_EXPIRY_TIME = 3600 * 1000;
-  const REFRESH_TIME = 30 * 1000;
-  const [accessToken, setAccessToken] = useRecoilState<Token>(accessTokenAtom);
+  const accessToken = useRecoilValue<Token>(accessTokenAtom);
 
   useEffect(() => {
     const isSNSLogin = location.search.includes("snslogin");
-    if (isSNSLogin) {
-      refreshToken(setAccessToken);
-      setInterval(() => refreshToken(setAccessToken), ACCESS_TOKEN_EXPIRY_TIME - REFRESH_TIME);
-    }
-
+    if (isSNSLogin) refreshToken();
     moveToDiaries(accessToken);
   }, [accessToken]);
 
@@ -39,10 +33,7 @@ const Home = () => {
       {!accessToken && (
         <Fade bottom duration={3000}>
           <InputSectionContainer>
-            <EmailLoginContainer
-              tokenExpireTime={ACCESS_TOKEN_EXPIRY_TIME}
-              refreshTime={REFRESH_TIME}
-            />
+            <EmailLoginContainer />
             <SNSLoginContainer sectionTitle="SNS 계정으로 로그인하기" />
             <SignUpButton />
           </InputSectionContainer>

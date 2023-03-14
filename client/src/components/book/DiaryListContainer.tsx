@@ -3,11 +3,9 @@ import { useParams } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
 import _ from "lodash";
 
-import { get } from "src/utils/api";
+import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import DiaryContainer from "./DiaryContainer";
-import { useRecoilValue } from "recoil";
-import { accessTokenAtom } from "src/recoil/token";
 
 export interface Diary {
   bookId: number;
@@ -29,7 +27,6 @@ export const DiaryListContainer = () => {
   const params = useParams();
   const bookId = Number(params.bookId);
 
-  const accessToken = useRecoilValue(accessTokenAtom);
   const [ref, inView] = useInView();
   const [diaries, setDiaries] = useState<Diary[]>([]);
   const [startIdx, setStartIdx] = useState<number>(1);
@@ -39,8 +36,8 @@ export const DiaryListContainer = () => {
   const getDiaryList = useCallback(async () => {
     try {
       setIsLoading(true);
-      const response = await get(API_URL.diaryList(bookId, LIMIT, startIdx), "", accessToken);
-      const diaryList = response.data;
+      const { data } = await api.get(API_URL.diaryList(bookId, LIMIT, startIdx));
+      const diaryList = data.data;
       if (startIdx === 1) {
         const uniqueDiaries = _.uniqBy([...diaries, ...diaryList], "diaryId");
         setDiaries(uniqueDiaries);

@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { API_URL } from "src/constants/API_URL";
-import { get } from "src/utils/api";
 import tw from "tailwind-styled-components";
-import { useRecoilValue } from "recoil";
 import Fade from "react-reveal/Fade";
 
-import { accessTokenAtom } from "src/recoil/token";
+import { api } from "src/utils/axiosApi/api";
 import { StickerInfo } from "src/components/diary-detail/StickerSection";
 import { StickerPreviewContainer } from "./Sticker";
 
@@ -21,13 +19,12 @@ interface PackListProps {
 }
 
 export const StickerPackList = ({ updateFocusedPack }: PackListProps) => {
-  const accessToken = useRecoilValue(accessTokenAtom);
   const [stickerPacks, setStickerPacks] = useState<StickerPackage[]>([]);
 
   const getStickerPacks = async () => {
     try {
-      const response = await get(API_URL.shop, "", accessToken);
-      const stickerPackArr = response.data;
+      const { data } = await api.get(API_URL.shop);
+      const stickerPackArr = data.data;
       setStickerPacks(stickerPackArr);
     } catch (err) {
       if (err instanceof Error) alert(err.message);

@@ -1,12 +1,10 @@
 import React from "react";
 import tw from "tailwind-styled-components";
-import { useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-import { accessTokenAtom } from "src/recoil/token";
+import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
-import { patch } from "src/utils/api";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 import { Input, InputContainer } from "src/components/common/Input";
 import PurpleButton from "src/components/common/PurpleButton";
@@ -18,7 +16,6 @@ interface PasswordInput {
 }
 
 const EditPassword = () => {
-  const accessToken = useRecoilValue(accessTokenAtom);
   const navigate = useNavigate();
 
   const {
@@ -36,7 +33,7 @@ const EditPassword = () => {
 
   const onSubmitEdit = async ({ password, newPassword }: PasswordInput) => {
     try {
-      await patch(API_URL.users, "", { password, newPassword }, accessToken);
+      await api.patch(API_URL.users, { password, newPassword });
       navigate(PRIVATE_ROUTE.myPage.path);
     } catch (err) {
       if (err instanceof Error) alert(err.message);

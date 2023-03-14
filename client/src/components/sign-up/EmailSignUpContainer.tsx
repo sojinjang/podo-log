@@ -6,12 +6,12 @@ import { useRecoilValue } from "recoil";
 
 import { profileImgAtom } from "src/recoil/sign-up";
 import { Img } from "src/recoil/sign-up/atom";
-import { postFormData } from "src/utils/api";
 import { PUBLIC_ROUTE } from "src/router/ROUTE_INFO";
 import { API_URL } from "src/constants/API_URL";
 import { ProfileImgUpload } from "./ProfileImgUpload";
 import { Input, InputContainer } from "../common/Input";
 import PurpleButton from "../common/PurpleButton";
+import { formApi } from "src/utils/axiosApi/formApi";
 
 interface SignUpInput {
   readonly nickname: string;
@@ -50,7 +50,7 @@ const EmailSignUpContainer = () => {
   const onSubmitSignUp = async ({ nickname, email, password }: SignUpInput) => {
     const formData = createSignUpForm(profileImg, { nickname, email, password });
     try {
-      await postFormData(API_URL.users, formData);
+      await formApi.post(API_URL.users, formData);
       confirm("Welcome to PODOLOG! 🍇");
       navigate(PUBLIC_ROUTE.home.path);
     } catch (err) {

@@ -1,13 +1,12 @@
 import React from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import tw from "tailwind-styled-components";
 import { useForm } from "react-hook-form";
 import Fade from "react-reveal/Fade";
 
-import { accessTokenAtom } from "src/recoil/token";
-import { getComments } from "src/recoil/diary-detail";
+import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
-import { patch } from "src/utils/api";
+import { getComments } from "src/recoil/diary-detail";
 import { Input, InputContainer } from "../common/Input";
 
 interface CommentInput {
@@ -27,7 +26,6 @@ export const EditComment = ({
   comment,
   cancelEdit,
 }: NewCommentProps) => {
-  const accessToken = useRecoilValue(accessTokenAtom);
   const reloadComments = useSetRecoilState(getComments);
   const { register, handleSubmit } = useForm<CommentInput>({
     defaultValues: { comment: comment },
@@ -35,7 +33,7 @@ export const EditComment = ({
 
   const onSubmitComment = async ({ comment }: CommentInput) => {
     try {
-      await patch(API_URL.comments, String(commentId), { reply: comment }, accessToken);
+      await api.patch(API_URL.comments + `/${commentId}`, { reply: comment });
       reloadComments(1);
       cancelEdit();
     } catch (err) {

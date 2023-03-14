@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useRecoilValue } from "recoil";
 import tw from "tailwind-styled-components";
 
-import { accessTokenAtom } from "src/recoil/token";
-import { get } from "src/utils/api";
+import { api } from "src/utils/axiosApi/api";
 import changeToKoreanDate from "src/utils/date";
 import { Values } from "../../constants/Values";
 import { API_URL } from "src/constants/API_URL";
@@ -40,11 +38,10 @@ export const StickerSection = ({
   const [myStickerPack, setMyStickerPack] = useState<StickerPack[]>([]);
   const [stickers, setStickers] = useState<StickersPreview | null>(null);
   const [targetPackId, setTargetPackId] = useState<number>(1);
-  const accessToken = useRecoilValue(accessTokenAtom);
   const getMyStickerPack = async () => {
     try {
-      const response = await get(API_URL.myPackages, "", accessToken);
-      const myStickerPackArr = response.data;
+      const { data } = await api.get(API_URL.myPackages);
+      const myStickerPackArr = data.data;
       setMyStickerPack(myStickerPackArr);
       setStickers(pairPackIdWithStickers(myStickerPackArr));
     } catch (err) {

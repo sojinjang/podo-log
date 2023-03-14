@@ -1,10 +1,9 @@
 import React, { useState, useRef } from "react";
 import tw from "tailwind-styled-components";
-import { useRecoilValue } from "recoil";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { accessTokenAtom } from "src/recoil/token";
-import { postFormData, del } from "src/utils/api";
+import { api } from "src/utils/axiosApi/api";
+import { formApi } from "src/utils/axiosApi/formApi";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 import { API_URL } from "src/constants/API_URL";
 
@@ -13,7 +12,6 @@ import NewProfile from "./NewProfile";
 import OriginalProfile from "./OriginalProfile";
 
 const EditProfile = () => {
-  const accessToken = useRecoilValue(accessTokenAtom);
   const imgRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   const location = useLocation();
@@ -50,8 +48,8 @@ const EditProfile = () => {
     if (!isPicChanged) return;
     const isPicDeleted = profileImg === "";
     try {
-      if (isPicDeleted) return await del(API_URL.profile, "", accessToken);
-      await postFormData(API_URL.profile, createFormData(), accessToken);
+      if (isPicDeleted) await api.delete(API_URL.profile);
+      else await formApi.post(API_URL.profile, createFormData());
       navigate(PRIVATE_ROUTE.myPage.path);
     } catch (err) {
       if (err instanceof Error) alert(err.message);

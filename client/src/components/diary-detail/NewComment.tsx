@@ -3,10 +3,9 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import tw from "tailwind-styled-components";
 import { useForm } from "react-hook-form";
 
-import { accessTokenAtom } from "src/recoil/token";
 import { focusedDiaryIdAtom } from "src/recoil/diary-detail/atom";
+import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
-import { post } from "src/utils/api";
 import { Input, InputContainer } from "../common/Input";
 import { getComments } from "src/recoil/diary-detail";
 
@@ -20,14 +19,13 @@ export interface NewCommentProps {
 }
 
 export const NewComment = ({ changeReplyState, parentCommentId = 0 }: NewCommentProps) => {
-  const accessToken = useRecoilValue(accessTokenAtom);
   const diaryId = useRecoilValue(focusedDiaryIdAtom);
   const reloadComments = useSetRecoilState(getComments);
   const { register, handleSubmit, setValue } = useForm<CommentInput>({ mode: "onSubmit" });
 
   const onSubmitComment = async ({ comment }: CommentInput) => {
     try {
-      await post(API_URL.comments, { diaryId, parentCommentId, reply: comment }, accessToken);
+      await api.post(API_URL.comments, { diaryId, parentCommentId, reply: comment });
       reloadComments(1);
       setValue("comment", "");
       if (changeReplyState) changeReplyState();

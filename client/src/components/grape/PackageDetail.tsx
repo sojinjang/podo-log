@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import tw from "tailwind-styled-components";
-import { useRecoilValue } from "recoil";
 import Fade from "react-reveal/Fade";
 
-import { accessTokenAtom } from "src/recoil/token";
-import { post } from "src/utils/api";
+import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import { StickerPackage } from "src/components/grape/StickerPackList";
 import { StickerPreviewContainer } from "./Sticker";
@@ -23,11 +21,10 @@ const PackageDetail = ({
   numGrape,
   deductGrape,
 }: PackageDetailProps) => {
-  const accessToken = useRecoilValue(accessTokenAtom);
   const [isPurchasable, setIsPurchasable] = useState(false);
   const purchasePackage = async () => {
     try {
-      await post(API_URL.package(Number(focusedPack?.packageId)), {}, accessToken);
+      await api.post(API_URL.package(Number(focusedPack?.packageId)));
       deductGrape();
       resetFocusedPack();
     } catch (err) {

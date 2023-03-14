@@ -6,11 +6,10 @@ import DiaryImgUpload from "./DiaryImgUpload";
 import { diaryImgAtom } from "src/recoil/new-diary/atom";
 import { Img } from "src/recoil/new-diary/atom";
 import { API_URL } from "src/constants/API_URL";
-import { postFormData } from "src/utils/api";
 import { useNavigate, useParams } from "react-router-dom";
-import { accessTokenAtom } from "src/recoil/token";
 import { DiaryForm, TitleInput, inputStyle, ContentInput } from "../diary/DiaryFormElem";
 import { DiaryInput } from "../diary/DiaryInput";
+import { formApi } from "src/utils/axiosApi/formApi";
 
 const createDiaryForm = (diaryImg: Img, bookId: string, { title, content }: DiaryInput) => {
   const formData = new FormData();
@@ -26,14 +25,13 @@ const NewDiaryForm = () => {
   const navigate = useNavigate();
   const params = useParams();
   const bookId = String(params.bookId);
-  const accessToken = useRecoilValue(accessTokenAtom);
   const diaryImg = useRecoilValue(diaryImgAtom);
   const { register, handleSubmit } = useForm<DiaryInput>({ mode: "onSubmit" });
 
   const onSubmitDiaryForm = async ({ title, content }: DiaryInput) => {
     const formData = createDiaryForm(diaryImg, bookId, { title, content });
     try {
-      await postFormData(API_URL.diary, formData, accessToken);
+      await formApi.post(API_URL.diary, formData);
       navigate(-1);
     } catch (err) {
       if (err instanceof Error) alert(err.message);

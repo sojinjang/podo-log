@@ -6,9 +6,9 @@ import DiaryRevisionImgUpload from "./DiaryRevisionImgUpload";
 import { diaryRevisionImgAtom } from "src/recoil/diary-revision/atom";
 import { Img } from "src/recoil/new-diary/atom";
 import { API_URL } from "src/constants/API_URL";
-import { postFormData, patch, get, del } from "src/utils/api";
+import { api } from "src/utils/axiosApi/api";
+import { formApi } from "src/utils/axiosApi/formApi";
 import { useNavigate, useParams } from "react-router-dom";
-import { accessTokenAtom } from "src/recoil/token";
 import { DiaryForm, TitleInput, inputStyle, ContentInput } from "../diary/DiaryFormElem";
 import { DiaryInput } from "../diary/DiaryInput";
 
@@ -28,26 +28,25 @@ const DiaryRevisionForm = () => {
   const params = useParams();
   const bookId = String(params.bookId);
   const diaryId = String(params.diaryId);
-  const accessToken = useRecoilValue(accessTokenAtom);
   const diaryImg = useRecoilValue(diaryRevisionImgAtom);
   const [isPicChanged, setIsPicChanged] = useState(false);
   const [ogData, setOgData] = useState<DiaryOgInput | null>(null);
   const { register, handleSubmit } = useForm<DiaryInput>({
     defaultValues: async () => {
-      const response = await get(API_URL.bookDiary(Number(bookId)), diaryId, accessToken);
-      const { title, picture, content } = response.data;
+      const { data } = await api.get(API_URL.bookDiary(Number(bookId)) + `/${diaryId}`);
+      const { title, picture, content } = data.data;
       setOgData({ title, picture: picture, content });
       return { title, content };
     },
   });
 
   const onSubmitPicture = async () => {
-    if (diaryImg === "") return await del(API_URL.diaryImg(diaryId), "", accessToken);
-    await postFormData(API_URL.diaryImg(diaryId), createFormData(diaryImg), accessToken);
+    if (diaryImg === "") return await api.delete(API_URL.diaryImg(diaryId));
+    await formApi.post(API_URL.diaryImg(diaryId), createFormData(diaryImg));
   };
   const onSubmitDiaryForm = async ({ title, content }: DiaryInput) => {
     try {
-      await patch(API_URL.diary, diaryId, { title, content }, accessToken);
+      await api.patch(API_URL.diary + `/${diaryId}`, { title, content });
       if (isPicChanged) await onSubmitPicture();
       navigate(-2);
     } catch (err) {

@@ -1,11 +1,8 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
 
-import { accessTokenAtom } from "src/recoil/token";
-import { get } from "src/utils/api";
+import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
-
 import { PinkPurpleBackground } from "src/components/common/Backgrounds";
 import { Guidance } from "src/components/book-list/Guidance";
 import { PointingFinger } from "src/components/book-list/PointingFinger";
@@ -22,20 +19,16 @@ export interface BookInfo {
 export type BooksArr = BookInfo[] | null;
 
 const BookList = () => {
-  const accessToken = useRecoilValue(accessTokenAtom);
   const [userBooksArr, setUserBooksArr] = useState<BooksArr>(null);
   const [isEmpty, setIsEmpty] = useState<boolean>(true);
-  async function getUserBookArr() {
-    try {
-      const response = await get(API_URL.books, "", accessToken);
-      return response.data;
-    } catch (err) {
-      alert(err);
-    }
-  }
+
   const handleUserBooksArr = async () => {
-    const userDiaries = await getUserBookArr();
-    setUserBooksArr(userDiaries);
+    try {
+      const { data } = await api.get(API_URL.books);
+      setUserBooksArr(data.data);
+    } catch (err) {
+      if (err instanceof Error) alert(err.message);
+    }
   };
 
   useEffect(() => {

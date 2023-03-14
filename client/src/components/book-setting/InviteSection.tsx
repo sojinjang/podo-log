@@ -1,22 +1,19 @@
 import React, { useState, useEffect } from "react";
 import tw from "tailwind-styled-components";
-import { useRecoilValue } from "recoil";
 import Fade from "react-reveal/Fade";
 
-import { BookIdType } from "src/pages/BookSetting";
-import { accessTokenAtom } from "src/recoil/token";
-import { get, patch } from "src/utils/api";
+import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
+import { BookIdType } from "src/pages/BookSetting";
 
 const InviteSection = ({ bookId }: BookIdType) => {
-  const accessToken = useRecoilValue(accessTokenAtom);
   const [inviteCode, setInviteCode] = useState<string>("");
   const [isCopied, setIscopied] = useState<boolean>(false);
 
   const getInviteCode = async () => {
     try {
-      const response = await get(API_URL.inviteCode(bookId), "", accessToken);
-      setInviteCode(response.data.invttCode);
+      const { data } = await api.get(API_URL.inviteCode(bookId));
+      setInviteCode(data.data.invttCode);
     } catch (err) {
       if (err instanceof Error) alert(err.message);
     }
@@ -24,8 +21,8 @@ const InviteSection = ({ bookId }: BookIdType) => {
 
   const renewInviteCode = async () => {
     try {
-      const response = await patch(API_URL.inviteCode(bookId), "", {}, accessToken);
-      setInviteCode(response.data.invttCode);
+      const { data } = await api.patch(API_URL.inviteCode(bookId), {});
+      setInviteCode(data.data.invttCode);
     } catch (err) {
       if (err instanceof Error) alert(err.message);
     }

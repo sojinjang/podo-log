@@ -2,9 +2,8 @@ import React from "react";
 import tw from "tailwind-styled-components";
 import { useRecoilValue } from "recoil";
 
-import { accessTokenAtom } from "src/recoil/token";
 import { focusedDiaryIdAtom } from "src/recoil/diary-detail/atom";
-import { post } from "src/utils/api";
+import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import { EditingStickerInfo } from "src/pages/DiaryDetail";
 import { AffixedStickerInfo } from "src/components/common/diary/Sticker";
@@ -21,7 +20,6 @@ const StickerSaveBtn = ({
   handleResetSelectedStcks,
   changeStickerEditState,
 }: StickerSaveButtonProps) => {
-  const accessToken = useRecoilValue(accessTokenAtom);
   const diaryId = useRecoilValue(focusedDiaryIdAtom);
 
   const refineStickersData = () => {
@@ -34,8 +32,8 @@ const StickerSaveBtn = ({
   const handleOnClickSave = async () => {
     try {
       const stickers = refineStickersData();
-      const response = await post(API_URL.stickers(diaryId), stickers, accessToken);
-      const newAffixedStickers = response.data;
+      const { data } = await api.post(API_URL.stickers(diaryId), stickers);
+      const newAffixedStickers = data.data;
       newAffixedStickers.forEach((sticker: AffixedStickerInfo) => {
         handleUpdateStickers(sticker);
       });
