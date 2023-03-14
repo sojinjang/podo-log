@@ -1,22 +1,10 @@
 import axios from "axios";
-import { getAccessToken, refreshToken } from "src/utils/token";
+import { getAccessToken } from "src/utils/token";
+import { defaultApi } from "./defaultApi";
 
-let isTokenRefreshing = false;
-let failedTaskQueue: Callback[] = [];
-type Callback = () => void;
+export const api = axios.create({ ...defaultApi.defaults });
 
-const onTokenRefreshed = () => {
-  failedTaskQueue.map((callback) => callback());
-  failedTaskQueue = [];
-};
-
-const addRefreshSubscriber = (callback: Callback) => {
-  failedTaskQueue.push(callback);
-};
-
-export const api = axios.create({
-  baseURL: process.env.REACT_APP_SERVER_URL,
-});
+api.interceptors.response = defaultApi.interceptors.response;
 
 api.interceptors.request.use(
   (config) => {
@@ -30,38 +18,5 @@ api.interceptors.request.use(
   },
   (error) => {
     Promise.reject(error);
-  }
-);
-
-api.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  async (error) => {
-    const {
-      config,
-      response: { status },
-    } = error;
-    const originalRequest = config;
-    if (status === 401 && error.response.data.statusCode === "10003") {
-      if (!isTokenRefreshing) {
-        isTokenRefreshing = true;
-        await refreshToken();
-        originalRequest.headers.authorization = `Bearer ${getAccessToken()}`;
-        isTokenRefreshing = false;
-        axios(originalRequest);
-        onTokenRefreshed();
-      }
-      const retryOriginalRequest = new Promise((resolve) => {
-        if (isTokenRefreshing) {
-          addRefreshSubscriber(() => {
-            originalRequest.headers.Authorization = `Bearer ${getAccessToken()}`;
-            resolve(axios(originalRequest));
-          });
-        }
-      });
-      return retryOriginalRequest;
-    }
-    throw new Error(error.response.data.message);
   }
 );

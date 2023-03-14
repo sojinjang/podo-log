@@ -14,11 +14,9 @@ const addRefreshSubscriber = (callback: Callback) => {
   failedTaskQueue.push(callback);
 };
 
-export const defaultApi = axios.create({
-  baseURL: process.env.REACT_APP_SERVER_URL,
-});
+export const defaultApi = axios.create({ baseURL: process.env.REACT_APP_SERVER_URL });
 
-axios.interceptors.response.use(
+defaultApi.interceptors.response.use(
   (response) => {
     return response;
   },
