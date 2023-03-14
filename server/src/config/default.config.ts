@@ -4,7 +4,6 @@ import { TokenConfig } from "../types";
 export const environment = process.env.NODE_ENV as string;
 export const port = process.env.PORT;
 export const podologURL = process.env.PODOLOG_URL || (`http://localhost:3000` as string);
-export const podologOriginURL = process.env.PODOLOG_ORIGIN_URL || podologURL;
 export const S3AccessURL = process.env.S3_ACCESS_URL as string;
 
 function setCookieTime(time: number, unit: "d" | "h" | "m") {
@@ -16,11 +15,11 @@ function setCookieTime(time: number, unit: "d" | "h" | "m") {
 
 export const cookieOption = (time: number, unit: "d" | "h" | "m"): CookieOptions => {
   const expires = setCookieTime(time, unit);
-  return { httpOnly: true, path: "/", sameSite: "none", expires, secure: true };
+  return { httpOnly: true, path: "/", sameSite: "strict", expires, secure: true };
 };
 
 export const corsOption = {
-  origin: podologOriginURL,
+  origin: podologURL,
   optionsSuccessStatus: 200,
   credentials: true,
 };
