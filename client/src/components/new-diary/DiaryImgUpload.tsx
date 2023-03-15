@@ -1,7 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useRecoilState, useResetRecoilState } from "recoil";
-import { diaryImgAtom } from "src/recoil/new-diary";
 
+import { diaryImgAtom } from "src/recoil/new-diary";
+import { convertHEICToJPG, isHEICFile } from "src/utils/handleHEIC";
 import imgUploadIcon from "../../assets/icons/image.png";
 import trashCanIcon from "../../assets/icons/trash-can-white.png";
 import {
@@ -18,9 +19,10 @@ const DiaryImgUpload = () => {
   const resetDiaryImg = useResetRecoilState(diaryImgAtom);
   const [imgPreview, setImgPreview] = useState<string | ArrayBuffer | null>("");
 
-  const saveImgFile = () => {
+  const saveImgFile = async () => {
     if (imgRef?.current?.files) {
-      const file = imgRef.current.files[0];
+      let file = imgRef.current.files[0];
+      if (isHEICFile(file)) file = await convertHEICToJPG(file);
       setDiaryImg(file);
       reader.readAsDataURL(file);
       reader.onloadend = () => {
@@ -53,8 +55,7 @@ const DiaryImgUpload = () => {
           <input
             className="hidden"
             type="file"
-            accept="image/*"
-            id="profileImg"
+            accept="image/bmp,image/jpeg, image/jpg, image/png, image/heic, image/gif"
             onChange={saveImgFile}
             ref={imgRef}
           />

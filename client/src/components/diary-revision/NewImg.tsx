@@ -31,7 +31,7 @@ const NewImg = ({ diaryImg, imgPreview, deleteImgFile, saveImgFile, imgRef }: Ne
           <input
             className="hidden"
             type="file"
-            accept="image/*"
+            accept="image/bmp,image/jpeg, image/jpg, image/png, image/heic, image/gif"
             id="profileImg"
             onChange={saveImgFile}
             ref={imgRef}
