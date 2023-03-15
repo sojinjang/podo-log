@@ -41,8 +41,7 @@ const ExistingImg = ({
           <input
             className="hidden"
             type="file"
-            accept="image/*"
-            id="profileImg"
+            accept="image/bmp,image/jpeg, image/jpg, image/png, image/heic, image/gif"
             onChange={() => {
               saveImgFile();
               handlePicChanged();

@@ -6,6 +6,7 @@ import { api } from "src/utils/axiosApi/api";
 import { formApi } from "src/utils/axiosApi/formApi";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 import { API_URL } from "src/constants/API_URL";
+import { isHEICFile, convertHEICToJPG } from "src/utils/handleHEIC";
 
 import PurpleButton from "src/components/common/PurpleButton";
 import NewProfile from "./NewProfile";
@@ -20,10 +21,11 @@ const EditProfile = () => {
   const [imgPreview, setImgPreview] = useState<string | ArrayBuffer | null>(null);
   const [isPicChanged, setIsPicChanged] = useState(false);
 
-  const saveImgFile = () => {
+  const saveImgFile = async () => {
     if (!isPicChanged) setIsPicChanged(true);
     if (imgRef?.current?.files) {
-      const file = imgRef.current.files[0];
+      let file = imgRef.current.files[0];
+      if (isHEICFile(file)) file = await convertHEICToJPG(file);
       if (!file) return;
       setProfileImg(file);
       reader.readAsDataURL(file);
@@ -73,7 +75,7 @@ const EditProfile = () => {
       <input
         className="hidden"
         type="file"
-        accept="image/*"
+        accept="image/bmp,image/jpeg, image/jpg, image/png, image/heic"
         id="profileImg"
         onChange={saveImgFile}
         ref={imgRef}

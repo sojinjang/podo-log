@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useRecoilState, useResetRecoilState } from "recoil";
 
 import { profileImgAtom } from "src/recoil/sign-up";
+import { isHEICFile, convertHEICToJPG } from "src/utils/handleHEIC";
 import DefaultProfileImg from "../../assets/icons/default_profile.png";
 import { ProfileImg, ProfileImgDescription } from "../common/Profile";
 
@@ -12,9 +13,10 @@ export const ProfileImgUpload = () => {
   const imgRef = useRef<HTMLInputElement>(null);
   const reader = new FileReader();
 
-  const saveImgFile = () => {
+  const saveImgFile = async () => {
     if (imgRef?.current?.files) {
-      const file = imgRef.current.files[0];
+      let file = imgRef.current.files[0];
+      if (isHEICFile(file)) file = await convertHEICToJPG(file);
       setProfileImg(file);
       reader.readAsDataURL(file);
       reader.onloadend = () => {
@@ -41,15 +43,14 @@ export const ProfileImgUpload = () => {
         <ProfileImgDescription htmlFor="profileImg">프로필 이미지 추가</ProfileImgDescription>
       )}
       {profileImg && (
-        <ProfileImgDescription onClick={() => deleteImgFile()}>
+        <ProfileImgDescription onClick={deleteImgFile}>
           프로필 이미지 삭제
         </ProfileImgDescription>
       )}
       <input
         className="hidden"
         type="file"
-        accept="image/*"
-        id="profileImg"
+        accept="image/bmp,image/jpeg, image/jpg, image/png, image/heic"
         onChange={saveImgFile}
         ref={imgRef}
       />
