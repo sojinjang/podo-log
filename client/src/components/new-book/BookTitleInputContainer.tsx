@@ -5,11 +5,17 @@ import { Input, InputContainer } from "../common/Input";
 
 interface TitleContainerProps {
   register: object;
+  existingNameLen?: number;
   refreshIsTitleRevised?: (currentTitle: string) => void;
 }
 
-const BookTitleInputContainer = ({ register, refreshIsTitleRevised }: TitleContainerProps) => {
-  const [letterCount, setLetterCount] = useState(0);
+const BookTitleInputContainer = ({
+  register,
+  existingNameLen,
+  refreshIsTitleRevised,
+}: TitleContainerProps) => {
+  const initialLetterCnt = existingNameLen ? existingNameLen : 0;
+  const [letterCount, setLetterCount] = useState<number>(initialLetterCnt);
 
   return (
     <InputContainer className="flex-row w-[75%]">

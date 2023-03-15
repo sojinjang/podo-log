@@ -71,6 +71,7 @@ const BookRevision = () => {
           <ContainerTitle>일기장 제목</ContainerTitle>
           <BookTitleInputContainer
             register={register("bookName")}
+            existingNameLen={location.state.name.length}
             refreshIsTitleRevised={refreshIsTitleRevised}
           />
           <PurpleButton
