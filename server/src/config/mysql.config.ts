@@ -1,6 +1,7 @@
 export default function (user: string) {
   switch (user) {
-    case "dev" || "production":
+    case "prod":
+    case "dev": 
       return {
         user: process.env.RDS_MYSQL_USER,
         password: process.env.RDS_MYSQL_PASSWORD,
