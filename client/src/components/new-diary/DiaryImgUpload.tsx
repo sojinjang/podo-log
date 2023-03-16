@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { useRecoilState, useResetRecoilState } from "recoil";
 
 import { diaryImgAtom } from "src/recoil/new-diary";
+import { compressImg } from "src/utils/compressImg";
 import { convertHEICToJPG, isHEICFile } from "src/utils/handleHEIC";
 import imgUploadIcon from "../../assets/icons/image.png";
 import trashCanIcon from "../../assets/icons/trash-can-white.png";
@@ -23,6 +24,8 @@ const DiaryImgUpload = () => {
     if (imgRef?.current?.files) {
       let file = imgRef.current.files[0];
       if (isHEICFile(file)) file = await convertHEICToJPG(file);
+      const compressedImg = await compressImg(file);
+      if (compressedImg) file = compressedImg;
       setDiaryImg(file);
       reader.readAsDataURL(file);
       reader.onloadend = () => {

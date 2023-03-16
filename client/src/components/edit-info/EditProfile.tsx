@@ -11,6 +11,7 @@ import { isHEICFile, convertHEICToJPG } from "src/utils/handleHEIC";
 import PurpleButton from "src/components/common/PurpleButton";
 import NewProfile from "./NewProfile";
 import OriginalProfile from "./OriginalProfile";
+import { compressImg } from "src/utils/compressImg";
 
 const EditProfile = () => {
   const imgRef = useRef<HTMLInputElement>(null);
@@ -25,8 +26,10 @@ const EditProfile = () => {
     if (!isPicChanged) setIsPicChanged(true);
     if (imgRef?.current?.files) {
       let file = imgRef.current.files[0];
-      if (isHEICFile(file)) file = await convertHEICToJPG(file);
       if (!file) return;
+      if (isHEICFile(file)) file = await convertHEICToJPG(file);
+      const compressedImg = await compressImg(file);
+      if (compressedImg) file = compressedImg;
       setProfileImg(file);
       reader.readAsDataURL(file);
       reader.onloadend = () => {

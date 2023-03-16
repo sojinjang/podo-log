@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useRecoilState, useResetRecoilState } from "recoil";
 
 import { profileImgAtom } from "src/recoil/sign-up";
+import { compressImg } from "src/utils/compressImg";
 import { isHEICFile, convertHEICToJPG } from "src/utils/handleHEIC";
 import DefaultProfileImg from "../../assets/icons/default_profile.png";
 import { ProfileImg, ProfileImgDescription } from "../common/Profile";
@@ -17,6 +18,8 @@ export const ProfileImgUpload = () => {
     if (imgRef?.current?.files) {
       let file = imgRef.current.files[0];
       if (isHEICFile(file)) file = await convertHEICToJPG(file);
+      const compressedImg = await compressImg(file);
+      if (compressedImg) file = compressedImg;
       setProfileImg(file);
       reader.readAsDataURL(file);
       reader.onloadend = () => {

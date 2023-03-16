@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { useRecoilState, useResetRecoilState } from "recoil";
 
 import { diaryRevisionImgAtom } from "src/recoil/diary-revision/atom";
+import { compressImg } from "src/utils/compressImg";
 import { convertHEICToJPG, isHEICFile } from "src/utils/handleHEIC";
 import ExistingImg from "./ExistingImg";
 import NewImg from "./NewImg";
@@ -26,6 +27,8 @@ const DiaryRevisionImgUpload = ({
     if (imgRef?.current?.files) {
       let file = imgRef.current.files[0];
       if (isHEICFile(file)) file = await convertHEICToJPG(file);
+      const compressedImg = await compressImg(file);
+      if (compressedImg) file = compressedImg;
       setDiaryImg(file);
       reader.readAsDataURL(file);
       reader.onloadend = () => {
