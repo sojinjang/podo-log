@@ -75,7 +75,7 @@ text-[2.5vh] mx-auto
 
 const PackageDetailContainer = tw.div`
 flex flex-col bg-white/60 rounded-lg shadow-lg 
-w-[45vh] h-[75vh] mt-[2vh] mx-auto px-[1.5vh] py-[1vh]
+w-[45vh] h-[74.5vh] mt-[2vh] mx-auto px-[1.5vh] py-[1vh]
 `;
 
 const CancelButton = tw.p`
