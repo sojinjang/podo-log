@@ -67,7 +67,7 @@ export const StickerSection = ({
         <CloseButton onClick={changeEditState}>X</CloseButton>
       </div>
       <DivisionLine />
-      <div className="flex">
+      <div className="flex overflow-x-scroll scrollbar-hide">
         {myStickerPack.map((pack) => {
           return (
             <StickerPackName
@@ -129,7 +129,7 @@ hover:opacity-50 drop-shadow-xl hover:drop-shadow-none ease-in duration-300
 `;
 
 const StickerPreviewContainer = tw.div`
-flex flex-wrap justify-start
+flex flex-wrap justify-start overflow-y-scroll scrollbar-hide
 `;
 
 const StickerPreview = tw.img`

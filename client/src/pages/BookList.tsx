@@ -39,7 +39,7 @@ const BookList = () => {
 
   return (
     <PinkPurpleBackground>
-      <div className="h-[89vh] overflow-y-scroll">
+      <div className="h-[89vh] overflow-y-scroll scrollbar-hide">
         <Guidance isEmpty={isEmpty}></Guidance>
         <PointingFinger />
         <BooksContainer isEmpty={isEmpty} userBooksArr={userBooksArr} />
