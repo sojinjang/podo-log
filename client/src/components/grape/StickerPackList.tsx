@@ -62,11 +62,11 @@ export const StickerPackList = ({ updateFocusedPack }: PackListProps) => {
 };
 
 const PackageListContainer = tw.div`
-flex flex-wrap justify-center h-[74vh] overflow-y-auto my-[1.5vh]
+flex flex-wrap justify-center max-h-[74.5vh] overflow-y-auto scrollbar-hide my-[1.5vh]
 `;
 
 const PackageContainer = tw.div`
-w-[22vh] flex flex-col px-[1.5vh] py-[1vh]
+w-[22vh] h-[23.3vh] flex flex-col px-[1.5vh] py-[1vh]
 m-[1.5vh] bg-white/60 rounded-lg text-[1.7vh] cursor-pointer
 shadow-lg hover:shadow-none ease-in duration-300
 `;
