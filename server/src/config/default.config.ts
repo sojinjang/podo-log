@@ -21,6 +21,7 @@ export const cookieOption = (time: number, unit: "d" | "h" | "m"): CookieOptions
 export const corsOption = {
   origin: podologURL,
   optionsSuccessStatus: 200,
+  maxAge: 2000,
   credentials: true,
 };
 
@@ -29,7 +30,7 @@ export const refreshSecretKey = process.env.REFRESH_JWT_SECRET_KEY as string;
 
 export const accessTokenConfig: TokenConfig = {
   secretKey: accessSecretKey,
-  time: environment === "local" ? "1w" : "1h",
+  time: environment === "local" ? "1w" : "30m",
 };
 export const refreshTokenConfig: TokenConfig = {
   secretKey: refreshSecretKey,
