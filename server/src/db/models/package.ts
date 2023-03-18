@@ -114,7 +114,13 @@ class PackageModel {
     logger.debug(result);
     return result;
   }
-
+  //   SELECT p.packageId, p.packageName, p.podoPrice,
+  //        (SELECT JSON_ARRAYAGG(JSON_OBJECT('stickerId', s.stickerId, 'stickerName', s.stickerName, 'stickerImg', s.stickerImg))
+  //         FROM sticker s
+  //         WHERE s.packageId = p.packageId) as stickers
+  // FROM package p
+  // WHERE p.packageId IN (1,2,3)
+  // GROUP BY p.packageId
   async getPackageJoinStickersByPakcageIdArr(
     packageIdArr: number[],
     isIn: boolean = true,
@@ -128,13 +134,14 @@ class PackageModel {
       inQuery = `package.packageId ${isIn ? "in" : "not in"} (${packageIdArr.join(",")})`;
     }
 
-    const joinQuery = `JOIN (select packageId ,JSON_ARRAYAGG(JSON_OBJECT('stickerId', stickerId, 'stickerName', stickerName ,'stickerImg',stickerImg)) as stickers from sticker group by packageId ) as st on st.packageId = package.packageId`;
-
+    const stikers = `(SELECT JSON_ARRAYAGG(JSON_OBJECT('stickerId', s.stickerId, 'stickerName', s.stickerName, 'stickerImg', s.stickerImg)) FROM sticker s WHERE s.packageId = package.packageId) as stickers `;
+    columnArr = [`package.packageId`, `package.packageName`, `package.podoPrice`, stikers];
+    const groupQuery = `GROUP BY package.packageId`;
     const { query, values } = packageBuildQuery.makeSelectQuery(
       undefined,
+      columnArr,
       undefined,
-      joinQuery,
-      undefined,
+      groupQuery,
       inQuery
     );
     logger.info(query);
