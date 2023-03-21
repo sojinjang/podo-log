@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import tw from "tailwind-styled-components";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import { getComments } from "src/recoil/diary-detail";
 import { NewComment } from "./NewComment";
@@ -24,10 +24,15 @@ export interface CommentFamType {
 
 export const CommentSection = () => {
   const comments = useRecoilValue<CommentFamType[]>(getComments);
+  const reloadComments = useSetRecoilState(getComments);
   const reCommentsSum = comments.reduce((accumulator, currentObj) => {
     if (currentObj.reComments) return accumulator + currentObj.reComments.length;
     return accumulator;
   }, 0);
+
+  useEffect(() => {
+    reloadComments(1);
+  }, []);
 
   return (
     <div className="pb-6 md:pb-8">
