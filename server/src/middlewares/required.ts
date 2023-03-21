@@ -15,7 +15,7 @@ export const isLoggedIn = asyncHandler(async (req, res, next) => {
       req.user = user;
       next();
     } else {
-      logger.info(info);
+      logger.error(info);
       if (info.name === "TokenExpiredError") next(new TokenExpiredError());
       else next(new AccessTokenError());
     }
