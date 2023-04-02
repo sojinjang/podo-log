@@ -2,12 +2,11 @@ name: Server CI-CD
 
 on:
   push:
-    paths:
-      - "./server/*"
     branches:
       - test
 
 env:
+  working-directory: ./server
   S3_BUCKET_NAME: podolog-server-code
   AWS_REGION: ap-northeast-2
   CODE_DEPLOY_APPLICATION_NAME: podolog-server
@@ -34,22 +33,24 @@ jobs:
       - name: create env file
         env:
           SERVER_ENV_BASE64: ${{ secrets.SERVER_ENV_BASE64 }}
-        working-directory: ./server
+        working-directory: ${{ env.working-directory }}
         run: |
           pwd
           touch .env
           echo $SERVER_ENV_BASE64 | base64 --decode > .env
           cat .env
 
+      - name: install dependencies
+        working-directory: ${{ env.working-directory }}
+        run: npm i
+
       - name: build server files
-        working-directory: ./server
-        run: |
-          npm i
-          npm run build
+        working-directory: ${{ env.working-directory }}
+        run: npm run build
 
       - name: zip file
-        working-directory: ./server
-        run: zip -r ./$GITHUB_SHA.zip ./dist ./scripts ./appspec.yml ./.env ./package.json
+        working-directory: ${{ env.working-directory }}
+        run: zip -rq ./$GITHUB_SHA.zip ./dist ./scripts ./appspec.yml ./.env ./package.json
 
       - name: AWS configure credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -59,10 +60,11 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
 
       - name: upload to S3
-        working-directory: ./server
-        run: aws s3 cp --region $env.AWS_REGION ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip
+        working-directory: ${{ env.working-directory }}
+        run: aws s3 cp --region ${{ env.AWS_REGION }} ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip
 
       - name: deploy with AWS codeDeploy
+        working-directory: ${{ env.working-directory }}
         run: aws deploy create-deployment
           --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }}
           --deployment-config-name CodeDeployDefault.OneAtATime
