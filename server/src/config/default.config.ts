@@ -38,7 +38,5 @@ export const refreshTokenConfig: TokenConfig = {
 };
 
 export const logLevel = process.env.LOG_LEVEL;
-const test = 12;
-console.log(test);
 
 export const defaultPackageIds = [1];
