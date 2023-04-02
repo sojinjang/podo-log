@@ -1,6 +1,8 @@
 name: Deployment
 on:
   push:
+    paths:
+      - "./client/*"
     branches:
       - dev
 jobs:
