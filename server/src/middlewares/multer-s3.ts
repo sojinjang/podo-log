@@ -17,7 +17,7 @@ const uploaderKeySwitch = (req: Request, file: Express.Multer.File, callback: Ca
   const isPackage = file.fieldname === "package";
   const uploadDirectory = file.fieldname ?? "default";
   const extension = path.extname(file.originalname).toLowerCase();
-  const filename = file.originalname.replace(/([^\w\.]*)/g, "");
+  const filename = file.originalname.replace(/([^\w\.])/g, "");
   if (!allowedExtensions.includes(extension)) {
     return callback(new BadRequestError("사용 가능한 이미지 파일이 아닙니다."));
   }
