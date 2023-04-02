@@ -1,0 +1,70 @@
+name: Server CI-CD
+
+on:
+  push:
+    paths:
+      - "./server/*"
+    branches:
+      - test
+
+env:
+  S3_BUCKET_NAME: podolog-server-code
+  AWS_REGION: ap-northeast-2
+  CODE_DEPLOY_APPLICATION_NAME: podolog-server
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: podolog-server
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+    steps:
+      - name: Checkout source code.
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Check Npm -v
+        run: npm -v
+
+      - name: create env file
+        env:
+          SERVER_ENV_BASE64: ${{ secrets.SERVER_ENV_BASE64 }}
+        working-directory: ./server
+        run: |
+          pwd
+          touch .env
+          echo $SERVER_ENV_BASE64 | base64 --decode > .env
+          cat .env
+
+      - name: build server files
+        working-directory: ./server
+        run: |
+          npm i
+          npm run build
+
+      - name: zip file
+        working-directory: ./server
+        run: zip -r ./$GITHUB_SHA.zip ./dist ./scripts ./appspec.yml ./.env ./package.json
+
+      - name: AWS configure credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: upload to S3
+        working-directory: ./server
+        run: aws s3 cp --region $env.AWS_REGION ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip
+
+      - name: deploy with AWS codeDeploy
+        run: aws deploy create-deployment
+          --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }}
+          --deployment-config-name CodeDeployDefault.OneAtATime
+          --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }}
+          --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=$GITHUB_SHA.zip
