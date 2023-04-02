@@ -3,7 +3,7 @@ name: Server CI-CD
 on:
   push:
     branches:
-      - test
+      - feat/be/#220-action
 
 env:
   working-directory: ./server
