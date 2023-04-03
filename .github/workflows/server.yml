@@ -9,8 +9,8 @@ env:
   working-directory: ./server
   S3_BUCKET_NAME: podolog-server-code
   AWS_REGION: ap-northeast-2
-  CODE_DEPLOY_APPLICATION_NAME: podolog-server
-  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: podolog-server
+  CODE_DEPLOY_APPLICATION_NAME: podolog-server-deploy
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: podolog-server-deploy-group
 
 jobs:
   build:
