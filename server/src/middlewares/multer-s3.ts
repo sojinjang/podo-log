@@ -7,7 +7,7 @@ import { DeleteObjectCommand, DeleteObjectsCommand } from "@aws-sdk/client-s3";
 import { Request } from "express";
 import { BadRequestError } from "../core/api-error";
 
-const allowedExtensions = [".png", ".jpg", ".jpeg", ".bmp", ".gif"];
+const allowedExtensions = [".png", ".jpg", ".jpeg", ".bmp", ".gif", ".webp"];
 
 interface Callback {
   (error: any, key?: string | undefined): void;
