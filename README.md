@@ -59,7 +59,7 @@
   PWD: 1111
  ```
 
-## 📝 WIKI
+## 📝 Docs
 <table>
 <tbody>
   <tr>
