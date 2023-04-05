@@ -27,7 +27,7 @@ const ExistingImg = ({
     <>
       {ogPic ? (
         <div className="relative overflow-auto">
-          {ogPic && <UploadedImg src={ogPic}></UploadedImg>}
+          {ogPic && <UploadedImg alt="picture" src={ogPic}></UploadedImg>}
           <TrashCanIcon
             onClick={() => {
               handlePicChanged();
@@ -37,7 +37,7 @@ const ExistingImg = ({
         </div>
       ) : (
         <ImgUploadContainer onClick={() => imgRef?.current?.click()}>
-          <ImgUploadIcon src={imgUploadIcon} />
+          <ImgUploadIcon alt="upload" src={imgUploadIcon} />
           <input
             className="hidden"
             type="file"

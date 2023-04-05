@@ -46,7 +46,7 @@ export const MyInfoSection = () => {
       {userData && (
         <UnclickableContainer className="mt-[2vh] p-[2vh]">
           <div className="flex">
-            <ProfileImg src={profileImg} />
+            <ProfileImg alt="profile" src={profileImg} />
             <InfoContainer>
               <InfoLine>
                 <InfoTitle>닉네임</InfoTitle>

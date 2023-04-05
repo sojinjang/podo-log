@@ -8,7 +8,7 @@ export interface MyGrapeNumProps {
 const MyGrapeNum = ({ grape }: MyGrapeNumProps) => {
   return (
     <Container>
-      <GrapeIcon src={require("../../assets/icons/colored_grape_353866.png")} />
+      <GrapeIcon alt="grape" src={require("../../assets/icons/colored_grape_353866.png")} />
       <GrapeNumDesc>{grape}송이</GrapeNumDesc>
     </Container>
   );

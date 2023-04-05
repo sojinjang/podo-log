@@ -22,12 +22,12 @@ const NewImg = ({ diaryImg, imgPreview, deleteImgFile, saveImgFile, imgRef }: Ne
     <>
       {diaryImg ? (
         <div className="relative overflow-auto">
-          <UploadedImg src={imgPreview ? imgPreview : imgUploadIcon}></UploadedImg>
+          <UploadedImg src={imgPreview ? imgPreview : imgUploadIcon} />
           <TrashCanIcon onClick={deleteImgFile} src={trashCanIcon} />
         </div>
       ) : (
         <ImgUploadContainer onClick={() => imgRef?.current?.click()}>
-          <ImgUploadIcon src={imgUploadIcon} />
+          <ImgUploadIcon alt="upload" src={imgUploadIcon} />
           <input
             className="hidden"
             type="file"

@@ -92,6 +92,7 @@ export const StickerSection = ({
                 }}
                 key={sticker.stickerId}
                 src={sticker.stickerImg}
+                alt="sticker"
               />
             );
           })}

@@ -24,7 +24,7 @@ const NewDiaryButton = () => {
   return (
     <Link to={PRIVATE_ROUTE.newDiary.path.split("/").reverse()[0]}>
       <ButtonContainer>
-        <PencilIcon src={pencilImg} />
+        <PencilIcon alt="write" src={pencilImg} />
         <ButtonDescription>일기 쓰기</ButtonDescription>
       </ButtonContainer>
     </Link>

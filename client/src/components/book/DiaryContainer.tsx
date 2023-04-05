@@ -54,7 +54,7 @@ const DiaryContainer = ({ viewRef, data }: DiaryContainerProps) => {
         })}
         <DiarySection data={data} isDetailPage={false} />
         <CommentContainer>
-          <CommentIcon src={commentImg} />
+          <CommentIcon alt="comment" src={commentImg} />
           <NumComments>{data.numComments}</NumComments>
         </CommentContainer>
       </UnclickableContainer>

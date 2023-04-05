@@ -37,7 +37,7 @@ export const DiarySection = ({ data, isDetailPage = true }: DiaryContainerProps)
           <DropdownMenu deleteInfo={{ id: data.diaryId, target: "diary" }} />
         )}
       </div>
-      {hasPicture && <Photo src={String(data.picture)} />}
+      {hasPicture && <Photo alt="picture" src={String(data.picture)} />}
       <DiaryTitle>{data.title}</DiaryTitle>
       <DiaryContent>{data.content}</DiaryContent>
     </>

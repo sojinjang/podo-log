@@ -23,7 +23,7 @@ const SettingButton = () => {
 
   return (
     <div onClick={onClickSetting} className="relative">
-      <SettingButtonImg src={settingIcon} />
+      <SettingButtonImg alt="setting" src={settingIcon} />
     </div>
   );
 };

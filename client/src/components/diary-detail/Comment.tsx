@@ -36,7 +36,7 @@ export const Comment = ({
       {!isBeingEdited && (
         <>
           <CommentUpperSection>
-            <CommentWriterImg src={profileImgSrc} />
+            <CommentWriterImg alt="profile" src={profileImgSrc} />
             <div className="my-auto">
               <CommentWriter>{data.nickname}</CommentWriter>
               <div className="flex">

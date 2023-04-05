@@ -50,7 +50,13 @@ export const StickerPackList = ({ updateFocusedPack }: PackListProps) => {
                 <p className="mx-auto">{pack.packageName}</p>
                 <StickerPreviewContainer>
                   {pack.stickers.slice(0, 4).map((sticker) => {
-                    return <StickerImg key={sticker.stickerId} src={sticker.stickerImg} />;
+                    return (
+                      <StickerImg
+                        key={sticker.stickerId}
+                        alt="sticker"
+                        src={sticker.stickerImg}
+                      />
+                    );
                   })}
                 </StickerPreviewContainer>
               </PackageContainer>
