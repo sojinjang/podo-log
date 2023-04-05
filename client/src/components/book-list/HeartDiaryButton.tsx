@@ -12,7 +12,7 @@ export const HeartDiaryButton = () => {
   return (
     <img
       src={heartDiaryImg}
-      alt="diary"
+      alt="book"
       onClick={onClickImg}
       className="m-auto mt-[6vh] w-[20vh] h-[20vh] cursor-pointer max-w-xs 
       hover:scale-105 transition duration-500 ease-in-out"

@@ -42,12 +42,14 @@ const PackageDetail = ({
         <CancelButton onClick={resetFocusedPack}>X</CancelButton>
         <PackageName>{focusedPack?.packageName}</PackageName>
         <PodoPriceContainer>
-          <PodoPriceImg src={require("../../assets/icons/grape.png")} />
+          <PodoPriceImg alt="grape" src={require("../../assets/icons/grape.png")} />
           <PodoPrice>{focusedPack?.podoPrice}</PodoPrice>
         </PodoPriceContainer>
         <StickerPreviewContainer>
           {focusedPack?.stickers.map((sticker) => {
-            return <StickerImg key={sticker.stickerId} src={sticker.stickerImg} />;
+            return (
+              <StickerImg key={sticker.stickerId} alt="sticker" src={sticker.stickerImg} />
+            );
           })}
         </StickerPreviewContainer>
         <ButtonContainer>

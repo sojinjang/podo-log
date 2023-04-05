@@ -8,7 +8,7 @@ import { selectedColorAtom } from "../recoil/book-color";
 import { PinkPurpleBackground } from "src/components/common/Backgrounds";
 import BackButton from "src/components/common/BackButton";
 import PageTitle from "src/components/common/PageTitle";
-import DiaryIcon from "src/components/new-book/DiaryIcon";
+import DiaryIcon from "src/components/new-book/BookIcon";
 import ColorSelectContainer from "src/components/new-book/ColorSelectContainer";
 import ContainerTitle from "src/components/new-book/ContainerTitle";
 import BookTitleInputContainer from "src/components/new-book/BookTitleInputContainer";

@@ -18,7 +18,7 @@ const NotFound = () => {
       <Fade duration={1500}>
         <div className="mt-[15vh] mx-auto text-center">
           <PodoLog>PODO LOG</PodoLog>
-          <NotFoundIcon src={require("../assets/icons/404-error.png")} />
+          <NotFoundIcon alt="not found" src={require("../assets/icons/404-error.png")} />
           <p className="text-[3vh]">페이지를 찾을 수 없습니다.</p>
           <p className="text-[1.7vh]">입력하신 주소가 정확한지 확인해주세요.</p>
           <ButtonContainer onClick={onClickHome}>

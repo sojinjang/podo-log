@@ -22,7 +22,7 @@ const ButtonContainer = ({ activeMenu, menu }: Menu): JSX.Element => {
   return (
     <NavLink className="w-[23%] my-auto" to={PRIVATE_ROUTE[menu].path}>
       <Container>
-        <IconImg src={menuIcon}></IconImg>
+        <IconImg alt={menuInfoObj.description} src={menuIcon}></IconImg>
         <Description className={menuColor}>{menuInfoObj.description}</Description>
       </Container>
     </NavLink>

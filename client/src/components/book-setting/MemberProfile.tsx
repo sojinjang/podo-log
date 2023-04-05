@@ -7,7 +7,7 @@ const MemberProfile = ({ profile, nickname, isMe }: MemberInfo) => {
   const profileImg = profile === "없음" ? defaultProfileImg : profile;
   return (
     <ProfileContainer>
-      <ProfileImg src={profileImg}></ProfileImg>
+      <ProfileImg alt="profile" src={profileImg}></ProfileImg>
       <Nickname>{nickname}</Nickname>
       {isMe && <Nickname>(me!)</Nickname>}
     </ProfileContainer>

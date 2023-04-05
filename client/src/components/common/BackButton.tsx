@@ -10,6 +10,7 @@ const BackButton = () => {
   const navigate = useNavigate();
   return (
     <BackButtonImg
+      alt="back"
       src={require("../../assets/icons/arrow_back.png")}
       onClick={() => navigate(-1)}
     />

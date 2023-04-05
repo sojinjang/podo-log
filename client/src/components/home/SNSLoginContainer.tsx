@@ -16,16 +16,14 @@ const SNSLoginContainer = ({ sectionTitle }: SNSContainerProps) => {
       <Divider />
       <SectionDescription>{sectionTitle}</SectionDescription>
       <IconContainer>
-        <SNSLoginButtonBg>
-          <SNSLoginButtonBg className="bg-[#03C75A]">
-            <Link to={process.env.REACT_APP_SERVER_URL + API_URL.naverLogin}>
-              <img src={naverLogo} />
-            </Link>
-          </SNSLoginButtonBg>
+        <SNSLoginButtonBg className="bg-[#03C75A]">
+          <Link to={process.env.REACT_APP_SERVER_URL + API_URL.naverLogin}>
+            <img alt="naver" src={naverLogo} />
+          </Link>
         </SNSLoginButtonBg>
         <SNSLoginButtonBg className="bg-[#FEE500]">
           <Link to={process.env.REACT_APP_SERVER_URL + API_URL.kakaoLogin}>
-            <img src={kakaoLogo} />
+            <img alt="kakao" src={kakaoLogo} />
           </Link>
         </SNSLoginButtonBg>
       </IconContainer>

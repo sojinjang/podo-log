@@ -54,7 +54,7 @@ const DiaryImgUpload = () => {
         </div>
       ) : (
         <ImgUploadContainer onClick={() => imgRef?.current?.click()}>
-          <ImgUploadIcon src={imgUploadIcon} />
+          <ImgUploadIcon alt="upload" src={imgUploadIcon} />
           <input
             className="hidden"
             type="file"

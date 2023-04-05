@@ -61,6 +61,7 @@ const EditingSticker = ({
             handleDeleteStickers(sticker);
           }}
           src={require("../../assets/icons/x.png")}
+          alt="cancel"
         />
       </MoveableStickerContainer>
     </>

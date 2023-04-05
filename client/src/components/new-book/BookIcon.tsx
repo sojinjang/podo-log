@@ -4,13 +4,13 @@ import { useRecoilValue } from "recoil";
 
 import { selectedColorAtom } from "../../recoil/book-color";
 
-const DiaryImg = tw.img`
+const BookImg = tw.img`
     mx-auto pt-[9vh] h-[27vh] md:h-[25vh]
 `;
 
-const DiaryIcon = () => {
+const BookIcon = () => {
   const selectedColor = useRecoilValue(selectedColorAtom);
-  return <DiaryImg src={require(`../../assets/icons/diary/${selectedColor}.png`)} />;
+  return <BookImg alt="book" src={require(`../../assets/icons/diary/${selectedColor}.png`)} />;
 };
 
-export default DiaryIcon;
+export default BookIcon;

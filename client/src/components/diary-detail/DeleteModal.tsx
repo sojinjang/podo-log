@@ -38,7 +38,7 @@ const DeleteModal = ({ onClose }: ModalProps) => {
           </CloseButton>
           <Content>
             <ConfirmMsg>정말 삭제하시겠습니까?</ConfirmMsg>
-            <GrapeImg src={require("../../assets/grape/grape_8.png")} />
+            <GrapeImg alt="grape" src={require("../../assets/grape/grape_8.png")} />
             <WarningMsg>⚠️주의하세요!⚠️</WarningMsg>
             <DisadvantageDesc>
               삭제한 정보는 복구할 수 없으며

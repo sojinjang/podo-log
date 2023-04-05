@@ -66,7 +66,7 @@ export const AffixedSticker = ({ sticker, handleUpdateStickers }: AffixedSticker
         onDragEnd={handleDragEnd}
       />
       <MoveableStickerContainer className={`target-${sticker.stickedStickerId}`}>
-        <StickerImg src={sticker.stickerImg} />
+        <StickerImg alt="sticker" src={sticker.stickerImg} />
       </MoveableStickerContainer>
     </>
   );
