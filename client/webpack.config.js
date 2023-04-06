@@ -18,4 +18,9 @@ module.exports = {
     ],
   },
   plugins: [new BundleAnalyzerPlugin()],
+  resolve: {
+    alias: {
+      lodash: "lodash-es",
+    },
+  },
 };
