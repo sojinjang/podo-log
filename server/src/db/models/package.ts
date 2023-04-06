@@ -114,13 +114,7 @@ class PackageModel {
     logger.debug(result);
     return result;
   }
-  //   SELECT p.packageId, p.packageName, p.podoPrice,
-  //        (SELECT JSON_ARRAYAGG(JSON_OBJECT('stickerId', s.stickerId, 'stickerName', s.stickerName, 'stickerImg', s.stickerImg))
-  //         FROM sticker s
-  //         WHERE s.packageId = p.packageId) as stickers
-  // FROM package p
-  // WHERE p.packageId IN (1,2,3)
-  // GROUP BY p.packageId
+
   async getPackageJoinStickersByPakcageIdArr(
     packageIdArr: number[],
     isIn: boolean = true,
