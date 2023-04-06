@@ -1,4 +1,5 @@
 import path from "path";
+import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 
 module.exports = {
   module: {
@@ -16,4 +17,5 @@ module.exports = {
       },
     ],
   },
+  plugins: [new BundleAnalyzerPlugin()],
 };
