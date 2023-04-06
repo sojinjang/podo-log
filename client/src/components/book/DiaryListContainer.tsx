@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
-import _ from "lodash";
+import uniqBy from "lodash/uniqBy";
 
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
@@ -39,7 +39,7 @@ export const DiaryListContainer = () => {
       const { data } = await api.get(API_URL.diaryList(bookId, LIMIT, startIdx));
       const diaryList = data.data;
       if (startIdx === 1) {
-        const uniqueDiaries = _.uniqBy([...diaries, ...diaryList], "diaryId");
+        const uniqueDiaries = uniqBy([...diaries, ...diaryList], "diaryId");
         setDiaries(uniqueDiaries);
       } else {
         setDiaries((prevDiaries) => [...prevDiaries, ...diaryList]);
