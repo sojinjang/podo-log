@@ -55,6 +55,7 @@ export const Comment = ({
             <CommentContent>{data.reply}</CommentContent>
             {!isReply && (
               <CommentReplyIcon
+                alt="reply"
                 onClick={changeReplyState}
                 src={require("../../assets/icons/reply.png")}
               />
