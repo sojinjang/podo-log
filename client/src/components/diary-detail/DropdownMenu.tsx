@@ -5,10 +5,12 @@ import tw from "tailwind-styled-components";
 import { Menu, Transition } from "@headlessui/react";
 
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
-import MenuImg from "../../assets/icons/menu.png";
-import DropdownImg from "../../assets/icons/dropdown_menu.png";
 import { isDeleteModalVisibleAtom } from "src/recoil/diary-detail";
-import { DeleteInfo, deleteInfoAtom } from "../../recoil/diary-detail/atom";
+import { DeleteInfo, deleteInfoAtom } from "src/recoil/diary-detail/atom";
+import menuImg from "../../assets/icons/menu.png";
+import dropdownImg from "../../assets/icons/dropdown_menu.png";
+import pencilImg from "../../assets/icons/pencil.png";
+import trashCanImg from "../../assets/icons/trash-can.png";
 
 interface DropdownMenuProps {
   setCommentIsBeingEdited?: (state: boolean) => void;
@@ -35,7 +37,7 @@ export const DropdownMenu = ({ setCommentIsBeingEdited, deleteInfo }: DropdownMe
     setIsDropdownActivatied((prev) => !prev);
   };
 
-  const dropdownMenuImgSrc = isDropdownActivatied ? DropdownImg : MenuImg;
+  const dropdownMenuImgSrc = isDropdownActivatied ? dropdownImg : menuImg;
 
   return (
     <Menu as="div" className="relative my-auto ml-auto">
@@ -59,7 +61,7 @@ export const DropdownMenu = ({ setCommentIsBeingEdited, deleteInfo }: DropdownMe
                 navigate(PRIVATE_ROUTE.diaryRevision.path.split("/").reverse()[0]);
               }}
             >
-              <ButtonIconImg src={require("../../assets/icons/pencil.png")} />
+              <ButtonIconImg src={pencilImg} />
               <ButtonDesc>수정</ButtonDesc>
             </ButtonContainer>
           </Menu.Item>
@@ -70,7 +72,7 @@ export const DropdownMenu = ({ setCommentIsBeingEdited, deleteInfo }: DropdownMe
                 setIsDeleteModalVisible(true);
               }}
             >
-              <ButtonIconImg src={require("../../assets/icons/trash-can.png")} />
+              <ButtonIconImg src={trashCanImg} />
               <ButtonDesc>삭제</ButtonDesc>
             </ButtonContainer>
           </Menu.Item>
