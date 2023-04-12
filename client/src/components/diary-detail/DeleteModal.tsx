@@ -42,7 +42,6 @@ const DeleteModal = ({ onClose }: ModalProps) => {
             <ConfirmMsg>정말 삭제하시겠습니까?</ConfirmMsg>
             <picture>
               <source srcSet={grapeImgWebP} type="image/webp" />
-              <source srcSet={grapeImgPng} type="image/png" />
               <GrapeImg alt="grape" src={grapeImgPng} />
             </picture>
             <WarningMsg>⚠️주의하세요!⚠️</WarningMsg>

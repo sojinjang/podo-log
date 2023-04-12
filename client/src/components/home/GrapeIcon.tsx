@@ -6,7 +6,6 @@ export const GrapeIcon = () => {
   return (
     <picture>
       <source srcSet={grapeImgWebP} type="image/webp" />
-      <source srcSet={grapeImgPng} type="image/png" />
       <img
         src={grapeImgPng}
         alt="grape"

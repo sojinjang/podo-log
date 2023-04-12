@@ -33,10 +33,6 @@ const GrapeInfo = React.forwardRef(function GrapeInfo(
               srcSet={`${process.env.PUBLIC_URL}/assets/grape/grape_${data.grain}.webp`}
               type="image/webp"
             />
-            <source
-              srcSet={`${process.env.PUBLIC_URL}/assets/grape/grape_${data.grain}.png`}
-              type="image/png"
-            />
             <GrapeImg
               src={`${process.env.PUBLIC_URL}/assets/grape/grape_${data.grain}.png`}
               alt="내 포도알 이미지"
