@@ -19,7 +19,7 @@ export const BookButton = ({ bookId, bookName, numMembers, color }: BookInfo) =>
   return (
     <div className="w-[34%] cursor-pointer hover:scale-105 transition duration-500 ease-in-out">
       <img
-        src={require(`../../assets/icons/diary/${color}.png`)}
+        src={require(`../../assets/diary/${color}.png`)}
         alt="book"
         onClick={onClickImg}
         className="w-[15vh] h-[15vh] m-auto max-w-xs "
