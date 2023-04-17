@@ -14,7 +14,7 @@ export interface BookIdType {
   bookId: number;
 }
 
-export const BookSetting = () => {
+const BookSetting = () => {
   const params = useParams();
   const bookId = Number(params.bookId);
   return (
@@ -30,3 +30,5 @@ export const BookSetting = () => {
     </PinkPurpleBackground>
   );
 };
+
+export default BookSetting;
