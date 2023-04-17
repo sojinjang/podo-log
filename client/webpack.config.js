@@ -1,4 +1,5 @@
 import path from "path";
+import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 
 module.exports = {
   module: {
@@ -15,5 +16,14 @@ module.exports = {
         use: ["style-loader", "css-loader", "postcss-loader"],
       },
     ],
+  },
+  plugins: [new BundleAnalyzerPlugin()],
+  output: {
+    chunkFilename: "[name].[contenthash].js",
+  },
+  optimization: {
+    splitChunks: {
+      chunks: "all",
+    },
   },
 };

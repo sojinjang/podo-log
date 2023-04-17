@@ -7,6 +7,8 @@ import { deleteInfoAtom, getComments } from "src/recoil/diary-detail";
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import PurpleButton from "../common/PurpleButton";
+import grapeImgPng from "../../assets/icons/grape_8.png";
+import grapeImgWebP from "../../assets/icons/grape_8.webp";
 
 interface ModalProps {
   onClose: () => void;
@@ -38,7 +40,10 @@ const DeleteModal = ({ onClose }: ModalProps) => {
           </CloseButton>
           <Content>
             <ConfirmMsg>정말 삭제하시겠습니까?</ConfirmMsg>
-            <GrapeImg alt="grape" src={require("../../assets/grape/grape_8.png")} />
+            <picture>
+              <source srcSet={grapeImgWebP} type="image/webp" />
+              <GrapeImg alt="grape" src={grapeImgPng} />
+            </picture>
             <WarningMsg>⚠️주의하세요!⚠️</WarningMsg>
             <DisadvantageDesc>
               삭제한 정보는 복구할 수 없으며

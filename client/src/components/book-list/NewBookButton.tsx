@@ -2,6 +2,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 
+import plusImg from "../../assets/icons/plus.png";
+
 export const NewBookButton = () => {
   const navigate = useNavigate();
   const onClickImg = () => {
@@ -11,7 +13,7 @@ export const NewBookButton = () => {
   return (
     <div className="w-[34%] cursor-pointer hover:scale-105 transition duration-500 ease-in-out">
       <img
-        src={require("../../assets/icons/plus.png")}
+        src={plusImg}
         alt="new-book"
         onClick={onClickImg}
         className="w-[15vh] h-[15vh] m-auto max-w-xs"

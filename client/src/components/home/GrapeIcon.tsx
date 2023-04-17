@@ -1,12 +1,16 @@
 import React from "react";
-import grapeImg from "../../assets/grape/grape_8.png";
+import grapeImgPng from "../../assets/icons/grape_8.png";
+import grapeImgWebP from "../../assets/icons/grape_8.webp";
 
 export const GrapeIcon = () => {
   return (
-    <img
-      src={grapeImg}
-      alt="grape"
-      className="m-auto mt-[4vh] sm:mt-[6vh] w-[23vh] h-[23vh] opacity-95"
-    />
+    <picture>
+      <source srcSet={grapeImgWebP} type="image/webp" />
+      <img
+        src={grapeImgPng}
+        alt="grape"
+        className="m-auto mt-[4vh] sm:mt-[6vh] w-[23vh] h-[23vh] opacity-95"
+      />
+    </picture>
   );
 };

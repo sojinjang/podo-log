@@ -6,10 +6,11 @@ import changeToKoreanTime from "src/utils/time";
 import { accessTokenAtom } from "src/recoil/token";
 
 import { CommentType } from "./CommentSection";
-import DefaultProfileImg from "../../assets/icons/default_profile.png";
 import { getUserId } from "../../utils/getUserId";
 import { DropdownMenu } from "./DropdownMenu";
 import { EditComment } from "./EditComment";
+import DefaultProfileImg from "../../assets/icons/default_profile.png";
+import replyImg from "../../assets/icons/reply.png";
 
 interface CommentProps {
   data: CommentType;
@@ -54,10 +55,7 @@ export const Comment = ({
           <CommentLowerSection>
             <CommentContent>{data.reply}</CommentContent>
             {!isReply && (
-              <CommentReplyIcon
-                onClick={changeReplyState}
-                src={require("../../assets/icons/reply.png")}
-              />
+              <CommentReplyIcon alt="reply" onClick={changeReplyState} src={replyImg} />
             )}
           </CommentLowerSection>
         </>

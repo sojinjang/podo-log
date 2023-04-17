@@ -6,6 +6,7 @@ import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import { StickerPackage } from "src/components/grape/StickerPackList";
 import { StickerPreviewContainer } from "./Sticker";
+import grapeImg from "../../assets/icons/grape.png";
 import "./purchaseButton.css";
 
 export interface PackageDetailProps {
@@ -42,7 +43,7 @@ const PackageDetail = ({
         <CancelButton onClick={resetFocusedPack}>X</CancelButton>
         <PackageName>{focusedPack?.packageName}</PackageName>
         <PodoPriceContainer>
-          <PodoPriceImg alt="grape" src={require("../../assets/icons/grape.png")} />
+          <PodoPriceImg alt="grape" src={grapeImg} />
           <PodoPrice>{focusedPack?.podoPrice}</PodoPrice>
         </PodoPriceContainer>
         <StickerPreviewContainer>

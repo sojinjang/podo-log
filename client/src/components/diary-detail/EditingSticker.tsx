@@ -5,6 +5,7 @@ import Moveable, { OnDragStart, OnDrag, OnDragEnd } from "react-moveable";
 import { convertToRelativeCoord, convertToAbsCoord } from "src/utils/convertCoord";
 import { EditingStickerInfo } from "src/pages/DiaryDetail";
 import { MoveableStickerContainer, StickerImg } from "../common/diary/Sticker";
+import cancelImg from "../../assets/icons/x.png";
 
 interface DraggableStickerProps {
   sticker: EditingStickerInfo;
@@ -60,7 +61,7 @@ const EditingSticker = ({
           onClick={() => {
             handleDeleteStickers(sticker);
           }}
-          src={require("../../assets/icons/x.png")}
+          src={cancelImg}
           alt="cancel"
         />
       </MoveableStickerContainer>

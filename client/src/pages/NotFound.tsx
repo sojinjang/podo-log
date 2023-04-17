@@ -6,6 +6,7 @@ import { PinkPurpleBackground } from "src/components/common/Backgrounds";
 import BackButton from "../components/common/BackButton";
 import PurpleButton from "src/components/common/PurpleButton";
 import Fade from "react-reveal/Fade";
+import notFoundImg from "../assets/icons/404-error.png";
 
 const NotFound = () => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const NotFound = () => {
       <Fade duration={1500}>
         <div className="mt-[15vh] mx-auto text-center">
           <PodoLog>PODO LOG</PodoLog>
-          <NotFoundIcon alt="not found" src={require("../assets/icons/404-error.png")} />
+          <NotFoundIcon alt="not found" src={notFoundImg} />
           <p className="text-[3vh]">페이지를 찾을 수 없습니다.</p>
           <p className="text-[1.7vh]">입력하신 주소가 정확한지 확인해주세요.</p>
           <ButtonContainer onClick={onClickHome}>

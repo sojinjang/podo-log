@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
-import heartDiaryImg from "../../assets/icons/diary/notebook_love.png";
+import heartDiaryImg from "../../assets/icons/notebook_love.png";
 
 export const HeartDiaryButton = () => {
   const navigate = useNavigate();
