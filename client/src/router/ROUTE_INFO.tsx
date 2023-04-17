@@ -1,20 +1,20 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
+import { DefaultBackground, PinkPurpleBackground } from "src/components/common/Backgrounds";
+import "src/components/common/Backgrounds.css";
 
-import {
-  Home,
-  BookList,
-  Book,
-  BookSetting,
-  BookRevision,
-  SignUp,
-  NewBook,
-  NewDiary,
-  DiaryDetail,
-  DiaryRevision,
-  Grape,
-  MyPage,
-  EditInfo,
-} from "../pages";
+const Home = lazy(() => import("../pages/Home"));
+const BookList = lazy(() => import("../pages/BookList"));
+const Book = lazy(() => import("../pages/Book"));
+const BookSetting = lazy(() => import("../pages/BookSetting"));
+const BookRevision = lazy(() => import("../pages/BookRevision"));
+const SignUp = lazy(() => import("../pages/SignUp"));
+const NewBook = lazy(() => import("../pages/NewBook"));
+const NewDiary = lazy(() => import("../pages/NewDiary"));
+const DiaryDetail = lazy(() => import("../pages/DiaryDetail"));
+const DiaryRevision = lazy(() => import("../pages/DiaryRevision"));
+const Grape = lazy(() => import("../pages/Grape"));
+const MyPage = lazy(() => import("../pages/MyPage"));
+const EditInfo = lazy(() => import("../pages/EditInfo"));
 
 interface RouteInfoObj {
   readonly [key: string]: PathElemPair;
@@ -28,58 +28,110 @@ interface PathElemPair {
 export const PUBLIC_ROUTE: RouteInfoObj = {
   home: {
     path: "/",
-    element: <Home />,
+    element: (
+      <Suspense fallback={<DefaultBackground className="animated-gradient" />}>
+        <Home />
+      </Suspense>
+    ),
   },
   signUp: {
     path: "/sign-up",
-    element: <SignUp />,
+    element: (
+      <Suspense fallback={<DefaultBackground className="animated-gradient" />}>
+        <SignUp />
+      </Suspense>
+    ),
   },
 };
 
 export const PRIVATE_ROUTE: RouteInfoObj = {
   books: {
     path: "/books",
-    element: <BookList />,
+    element: (
+      <Suspense fallback={<PinkPurpleBackground />}>
+        <BookList />
+      </Suspense>
+    ),
   },
   book: {
     path: "/books/:bookId",
-    element: <Book />,
+    element: (
+      <Suspense fallback={<PinkPurpleBackground />}>
+        <Book />
+      </Suspense>
+    ),
   },
   bookSetting: {
     path: "/books/:bookId/setting",
-    element: <BookSetting />,
+    element: (
+      <Suspense fallback={<PinkPurpleBackground />}>
+        <BookSetting />
+      </Suspense>
+    ),
   },
   bookRevision: {
     path: "/books/:bookId/revision",
-    element: <BookRevision />,
+    element: (
+      <Suspense fallback={<PinkPurpleBackground />}>
+        <BookRevision />
+      </Suspense>
+    ),
   },
   newBook: {
     path: "/new-book",
-    element: <NewBook />,
+    element: (
+      <Suspense fallback={<PinkPurpleBackground />}>
+        <NewBook />
+      </Suspense>
+    ),
   },
   newDiary: {
     path: "/books/:bookId/new-diary",
-    element: <NewDiary />,
+    element: (
+      <Suspense fallback={<PinkPurpleBackground />}>
+        <NewDiary />
+      </Suspense>
+    ),
   },
   diaryDetail: {
     path: "/books/:bookId/:diaryId",
-    element: <DiaryDetail />,
+    element: (
+      <Suspense fallback={<PinkPurpleBackground />}>
+        <DiaryDetail />
+      </Suspense>
+    ),
   },
   diaryRevision: {
     path: "/books/:bookId/:diaryId/revision",
-    element: <DiaryRevision />,
+    element: (
+      <Suspense fallback={<PinkPurpleBackground />}>
+        <DiaryRevision />
+      </Suspense>
+    ),
   },
   grape: {
     path: "/grape",
-    element: <Grape />,
+    element: (
+      <Suspense fallback={<DefaultBackground className="h-[200vh] animated-grad-grape" />}>
+        <Grape />
+      </Suspense>
+    ),
   },
   myPage: {
     path: "/my-page",
-    element: <MyPage />,
+    element: (
+      <Suspense fallback={<PinkPurpleBackground />}>
+        <MyPage />
+      </Suspense>
+    ),
   },
   myInfoEdit: {
     path: "/my-page/edit",
-    element: <EditInfo />,
+    element: (
+      <Suspense fallback={<PinkPurpleBackground />}>
+        <EditInfo />
+      </Suspense>
+    ),
   },
 };
 
