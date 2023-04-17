@@ -41,7 +41,7 @@ export const ProfileImgUpload = () => {
 
   return (
     <div className="m-auto text-center">
-      <ProfileImg src={profileImg ? imgPreview : DefaultProfileImg} />
+      <ProfileImg alt="profile" src={profileImg ? imgPreview : DefaultProfileImg} />
       {!profileImg && (
         <ProfileImgDescription htmlFor="profileImg">프로필 이미지 추가</ProfileImgDescription>
       )}
