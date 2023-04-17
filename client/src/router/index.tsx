@@ -1,9 +1,10 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
 
 import { PrivateRouter } from "./PrivateRouter";
 import { PUBLIC_ROUTE_ARR, PRIVATE_ROUTE_ARR } from "./ROUTE_INFO";
-import { NotFound } from "../pages";
+import { PinkPurpleBackground } from "src/components/common/Backgrounds";
+const NotFound = lazy(() => import("../pages/NotFound"));
 
 const Router = () => {
   return (
@@ -21,7 +22,14 @@ const Router = () => {
             />
           );
         })}
-        <Route path="*" element={<NotFound />} />
+        <Route
+          path="*"
+          element={
+            <Suspense fallback={<PinkPurpleBackground />}>
+              <NotFound />
+            </Suspense>
+          }
+        />
       </Routes>
     </HashRouter>
   );
