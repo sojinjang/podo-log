@@ -18,4 +18,12 @@ module.exports = {
     ],
   },
   plugins: [new BundleAnalyzerPlugin()],
+  output: {
+    chunkFilename: "[name].[contenthash].js",
+  },
+  optimization: {
+    splitChunks: {
+      chunks: "all",
+    },
+  },
 };
