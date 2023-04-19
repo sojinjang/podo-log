@@ -1,9 +1,12 @@
 import { CookieOptions } from "express";
 import { TokenConfig } from "../types";
 
-export const environment = process.env.NODE_ENV as string;
-export const port = process.env.PORT;
-export const podologURL = process.env.PODOLOG_URL || (`http://localhost:3000` as string);
+export const environment = process.env.NODE_ENV || ("local" as string);
+const defaultFlag = environment === "local";
+export const port = defaultFlag ? 4000 : process.env.PORT;
+export const podologURL = defaultFlag
+  ? `http://localhost:3000`
+  : (process.env.PODOLOG_URL as string);
 export const S3AccessURL = process.env.S3_ACCESS_URL as string;
 
 function setCookieTime(time: number, unit: "d" | "h" | "m") {
@@ -15,7 +18,14 @@ function setCookieTime(time: number, unit: "d" | "h" | "m") {
 
 export const cookieOption = (time: number, unit: "d" | "h" | "m"): CookieOptions => {
   const expires = setCookieTime(time, unit);
-  return { httpOnly: true, path: "/", sameSite: "strict", expires, secure: true };
+  return {
+    httpOnly: true,
+    domain: "podolog.store",
+    path: "/",
+    sameSite: "strict",
+    expires,
+    secure: true,
+  };
 };
 
 export const corsOption = {
@@ -30,7 +40,7 @@ export const refreshSecretKey = process.env.REFRESH_JWT_SECRET_KEY as string;
 
 export const accessTokenConfig: TokenConfig = {
   secretKey: accessSecretKey,
-  time: environment === "local" ? "1w" : "30m",
+  time: defaultFlag ? "1w" : "30m",
 };
 export const refreshTokenConfig: TokenConfig = {
   secretKey: refreshSecretKey,
