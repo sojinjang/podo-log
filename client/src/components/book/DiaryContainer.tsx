@@ -5,7 +5,8 @@ import Fade from "react-reveal/Fade";
 
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 import { Diary } from "./DiaryListContainer";
-import commentImg from "../../assets/icons/comment.png";
+import commentWebP from "../../assets/icons/comment.webp";
+import commentPng from "../../assets/icons/comment.png";
 import { AffixedSticker, AffixedStickerInfo } from "../common/diary/Sticker";
 import { UnclickableContainer } from "../common/UnclickableContainer";
 import { DiarySection } from "../common/diary/DiarySection";
@@ -54,7 +55,10 @@ const DiaryContainer = ({ viewRef, data }: DiaryContainerProps) => {
         })}
         <DiarySection data={data} isDetailPage={false} />
         <CommentContainer>
-          <CommentIcon alt="comment" src={commentImg} />
+          <CommentIcon>
+            <source srcSet={commentWebP} type="image/webp" />
+            <img alt="comment" src={commentPng} />
+          </CommentIcon>
           <NumComments>{data.numComments}</NumComments>
         </CommentContainer>
       </UnclickableContainer>
@@ -73,7 +77,7 @@ const CommentContainer = tw.div`
 flex justify-end 
 `;
 
-const CommentIcon = tw.img`
+const CommentIcon = tw.picture`
 w-[2.5vh] h-[2.5vh] my-auto
 `;
 
