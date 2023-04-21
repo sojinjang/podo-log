@@ -1,7 +1,8 @@
 import React from "react";
 import tw from "tailwind-styled-components";
 
-import stickerImg from "../../assets/icons/sticker.png";
+import stickerWebP from "../../assets/icons/sticker.webp";
+import stickerPng from "../../assets/icons/sticker.png";
 
 interface StickerButtonProps {
   changeEditState: () => void;
@@ -11,7 +12,10 @@ const StickerButton = ({ changeEditState }: StickerButtonProps) => {
   return (
     <div className="flex justify-end">
       <ButtonContainer onClick={changeEditState}>
-        <StickerIcon src={stickerImg} />
+        <picture>
+          <source srcSet={stickerWebP} type="image/webp" />
+          <StickerIcon src={stickerPng} />
+        </picture>
         <ButtonDesc>스티커</ButtonDesc>
       </ButtonContainer>
     </div>

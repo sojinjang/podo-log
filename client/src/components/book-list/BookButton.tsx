@@ -18,12 +18,15 @@ export const BookButton = ({ bookId, bookName, numMembers, color }: BookInfo) =>
 
   return (
     <div className="w-[34%] cursor-pointer hover:scale-105 transition duration-500 ease-in-out">
-      <img
-        src={require(`../../assets/diary/${color}.png`)}
-        alt="book"
-        onClick={onClickImg}
-        className="w-[15vh] h-[15vh] m-auto max-w-xs "
-      />
+      <picture>
+        <source srcSet={require(`../../assets/book/${color}.webp`)} type="image/webp" />
+        <img
+          src={require(`../../assets/book/${color}.png`)}
+          alt="book"
+          onClick={onClickImg}
+          className="w-[15vh] h-[15vh] m-auto max-w-xs"
+        />
+      </picture>
       <DiaryDescription>
         <div className="font-[jua]">{bookName}</div>
         <div className="font-[jua] text-gray-1000 ml-2">{numMembers}</div>

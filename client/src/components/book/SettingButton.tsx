@@ -2,7 +2,8 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import tw from "tailwind-styled-components";
 
-import settingIcon from "../../assets/icons/setting.png";
+import settingWebP from "../../assets/icons/setting.webp";
+import settingPng from "../../assets/icons/setting.png";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 
 const SettingButtonImg = tw.img`
@@ -23,7 +24,10 @@ const SettingButton = () => {
 
   return (
     <div onClick={onClickSetting} className="relative">
-      <SettingButtonImg alt="setting" src={settingIcon} />
+      <picture>
+        <source srcSet={settingWebP} type="image/webp" />
+        <SettingButtonImg alt="setting" src={settingPng} />
+      </picture>
     </div>
   );
 };
