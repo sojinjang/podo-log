@@ -22,7 +22,11 @@ export interface CommentFamType {
   reComments?: CommentType[];
 }
 
-export const CommentSection = () => {
+interface CommentSectionProps {
+  updateNumComments: (newNumComments: number) => void;
+}
+
+export const CommentSection = ({ updateNumComments }: CommentSectionProps) => {
   const comments = useRecoilValue<CommentFamType[]>(getComments);
   const reloadComments = useSetRecoilState(getComments);
   const reCommentsSum = comments.reduce((accumulator, currentObj) => {
@@ -33,6 +37,9 @@ export const CommentSection = () => {
   useEffect(() => {
     reloadComments(1);
   }, []);
+  useEffect(() => {
+    if (comments.length) updateNumComments(comments.length + reCommentsSum);
+  }, [comments]);
 
   return (
     <div className="pb-6 md:pb-8">
@@ -52,10 +59,10 @@ export const CommentSection = () => {
   );
 };
 
-const Divider = tw.hr`
+export const Divider = tw.hr`
 h-[2px] bg-[#C7C7C7] mx-auto
 `;
 
-const NumCommentsWrapper = tw.div`
+export const NumCommentsWrapper = tw.div`
 mt-2 md:mt-3 mb-1 md:mb-2 mx-auto text-[1.8vh]
 `;
