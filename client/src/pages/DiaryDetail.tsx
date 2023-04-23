@@ -18,6 +18,7 @@ import StickerButton from "src/components/diary-detail/StickerButton";
 import { CommentSection } from "src/components/diary-detail/CommentSection";
 import DeleteModal from "src/components/diary-detail//DeleteModal";
 import EditingSticker from "src/components/diary-detail/EditingSticker";
+import CommentsSkeleton from "src/components/diary-detail/CommentsSkeleton";
 
 export interface EditingStickerInfo extends StickerInfo {
   uniqueId: string;
@@ -34,6 +35,10 @@ const DiaryDetail = () => {
   const setDiaryId = useSetRecoilState(focusedDiaryIdAtom);
   const resetDiaryId = useResetRecoilState(focusedDiaryIdAtom);
 
+  const [numComments, setNumComments] = useState<number>(data.numComments);
+  const updateNumComments = (newNumComments: number) => {
+    setNumComments(newNumComments);
+  };
   const [isEditingSticker, setIsEditingSticker] = useState<boolean>(false);
   const changeStickerEditState = () => {
     setIsEditingSticker((prev) => !prev);
@@ -151,8 +156,8 @@ const DiaryDetail = () => {
           )}
           <DiarySection data={data} isDetailPage={true} />
           <StickerButton changeEditState={changeStickerEditState} />
-          <Suspense fallback={<div>loading...</div>}>
-            <CommentSection />
+          <Suspense fallback={<CommentsSkeleton numComments={numComments} />}>
+            <CommentSection updateNumComments={updateNumComments} />
           </Suspense>
           {isDeleteModalVisible && (
             <DeleteModal
