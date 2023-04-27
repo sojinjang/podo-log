@@ -20,7 +20,7 @@ export const cookieOption = (time: number, unit: "d" | "h" | "m"): CookieOptions
   const expires = setCookieTime(time, unit);
   return {
     httpOnly: true,
-    domain: "podolog.store",
+    domain: ".podolog.store",
     path: "/",
     sameSite: "strict",
     expires,
