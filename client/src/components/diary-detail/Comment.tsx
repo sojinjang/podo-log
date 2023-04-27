@@ -86,11 +86,11 @@ const SingleCommentContainer = tw.div`
 mb-2 md:mb-3
 `;
 
-const CommentUpperSection = tw.div`
+export const CommentUpperSection = tw.div`
 flex
 `;
 
-const CommentLowerSection = tw.div`
+export const CommentLowerSection = tw.div`
 flex mt-1 md:mt-2
 `;
 

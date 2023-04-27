@@ -10,7 +10,12 @@ const BookImg = tw.img`
 
 const BookIcon = () => {
   const selectedColor = useRecoilValue(selectedColorAtom);
-  return <BookImg alt="book" src={require(`../../assets/diary/${selectedColor}.png`)} />;
+  return (
+    <picture>
+      <source srcSet={require(`../../assets/book/${selectedColor}.webp`)} type="image/webp" />
+      <BookImg alt="book" src={require(`../../assets/book/${selectedColor}.png`)} />
+    </picture>
+  );
 };
 
 export default BookIcon;

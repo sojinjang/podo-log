@@ -21,7 +21,7 @@ flex md:mt-4 mt-2 md:mb-2 mb-1
 `;
 
 const ProfileImg = tw.img`
-w-[5vh] h-[5vh]
+w-[4.7vh] h-[4.7vh]
 rounded-full object-cover shadow-lg mr-2 md:mr-3
 `;
 

@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useRecoilValue } from "recoil";
 import tw from "tailwind-styled-components";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 import { accessTokenAtom } from "src/recoil/token";
 import { getUserId } from "src/utils/getUserId";
@@ -21,6 +23,7 @@ export const DiarySection = ({ data, isDetailPage = true }: DiaryContainerProps)
   const profileImgSrc = data.profile === "없음" ? DefaultProfileImg : data.profile;
   const hasPicture = data.picture !== "없음";
   const isRevised = data.createdAt !== data.updatedAt;
+  const [isLoading, setIsLoading] = useState(true);
 
   return (
     <>
@@ -37,7 +40,21 @@ export const DiarySection = ({ data, isDetailPage = true }: DiaryContainerProps)
           <DropdownMenu deleteInfo={{ id: data.diaryId, target: "diary" }} />
         )}
       </div>
-      {hasPicture && <Photo alt="picture" src={String(data.picture)} />}
+      {hasPicture && (
+        <>
+          {isLoading && (
+            <div className="w-[39vh]">
+              <PhotoSkeleton />
+            </div>
+          )}
+          <Photo
+            alt="picture"
+            src={String(data.picture)}
+            onLoad={() => setIsLoading(false)}
+            style={{ display: isLoading ? "none" : "block" }}
+          />
+        </>
+      )}
       <DiaryTitle>{data.title}</DiaryTitle>
       <DiaryContent>{data.content}</DiaryContent>
     </>
@@ -46,6 +63,10 @@ export const DiarySection = ({ data, isDetailPage = true }: DiaryContainerProps)
 
 const Photo = tw.img`
 max-w-[90%] mt-3
+`;
+
+const PhotoSkeleton = tw(Skeleton)`
+h-[52vh] mt-3
 `;
 
 const DiaryTitle = tw.p`

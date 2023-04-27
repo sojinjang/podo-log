@@ -1,7 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
-import heartDiaryImg from "../../assets/icons/notebook_love.png";
+import heartDiaryWebP from "../../assets/icons/notebook_love.webp";
+import heartDiaryPng from "../../assets/icons/notebook_love.png";
 
 export const HeartDiaryButton = () => {
   const navigate = useNavigate();
@@ -10,12 +11,15 @@ export const HeartDiaryButton = () => {
   };
 
   return (
-    <img
-      src={heartDiaryImg}
-      alt="book"
-      onClick={onClickImg}
-      className="m-auto mt-[6vh] w-[20vh] h-[20vh] cursor-pointer max-w-xs 
-      hover:scale-105 transition duration-500 ease-in-out"
-    />
+    <picture>
+      <source srcSet={heartDiaryWebP} type="image/webp" />
+      <img
+        src={heartDiaryPng}
+        alt="book"
+        onClick={onClickImg}
+        className="m-auto mt-[6vh] w-[20vh] h-[20vh] cursor-pointer max-w-xs 
+        hover:scale-105 transition duration-500 ease-in-out"
+      />
+    </picture>
   );
 };
