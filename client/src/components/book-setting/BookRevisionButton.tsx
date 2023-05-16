@@ -2,10 +2,10 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 
+import { BookInfo } from "src/@types/response";
 import ClickableContainer from "../common/ClickableContainer";
-import { BookIdType } from "src/pages/BookSetting";
 
-const BookRevisionButton = ({ bookId }: BookIdType) => {
+const BookRevisionButton = ({ bookId }: Pick<BookInfo, "bookId">) => {
   const navigate = useNavigate();
   const location = useLocation();
   const onClickRevisionButton = () => {

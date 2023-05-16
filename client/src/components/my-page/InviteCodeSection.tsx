@@ -10,6 +10,7 @@ import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 interface InviteCodeInput {
   readonly invttCode: string;
 }
+// TODO: input type 분리
 
 export const InviteCodeSection = () => {
   const navigate = useNavigate();

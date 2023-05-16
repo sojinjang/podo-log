@@ -2,24 +2,10 @@ import React, { useState, useCallback, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
 
+import { Diary } from "src/@types/response";
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import DiaryContainer from "./DiaryContainer";
-
-export interface Diary {
-  bookId: number;
-  diaryId: number;
-  userId: number;
-  nickname: string;
-  title: string;
-  content: string;
-  profile: null | string;
-  picture: null | string;
-  stickers: null | [];
-  createdAt: Date;
-  updatedAt: Date;
-  numComments: number;
-}
 
 export const DiaryListContainer = () => {
   const LIMIT = 5;

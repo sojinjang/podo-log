@@ -2,17 +2,17 @@ import React, { useState, useEffect } from "react";
 import tw from "tailwind-styled-components";
 import Fade from "react-reveal/Fade";
 
+import { MyGrape, StickerPack } from "src/@types/response";
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
-import { StickerPackage } from "src/components/grape/StickerPackList";
 import { StickerPreviewContainer } from "./Sticker";
 import grapeImg from "../../assets/icons/grape.png";
 import "./purchaseButton.css";
 
 export interface PackageDetailProps {
-  focusedPack: StickerPackage | null;
+  focusedPack: StickerPack | null;
   resetFocusedPack: () => void;
-  numGrape: number;
+  numGrape: MyGrape["grape"];
   deductGrape: () => void;
 }
 

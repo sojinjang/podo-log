@@ -5,7 +5,7 @@ import tw from "tailwind-styled-components";
 import changeToKoreanTime from "src/utils/time";
 import { accessTokenAtom } from "src/recoil/token";
 
-import { CommentType } from "./CommentSection";
+import { CommentType } from "src/@types/response";
 import { getUserId } from "../../utils/getUserId";
 import { DropdownMenu } from "./DropdownMenu";
 import { EditComment } from "./EditComment";

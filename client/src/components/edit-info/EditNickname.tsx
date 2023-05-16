@@ -11,6 +11,7 @@ import { Input, InputContainer } from "src/components/common/Input";
 interface NicknameInput {
   readonly nickname: string;
 }
+// TODO: input type 모으기?
 
 const EditNickname = () => {
   const navigate = useNavigate();

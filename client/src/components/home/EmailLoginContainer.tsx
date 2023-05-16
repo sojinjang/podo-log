@@ -12,7 +12,7 @@ interface loginInput {
   readonly email: string;
   readonly password: string;
 }
-
+// TODO: input type 분리
 const EmailLoginContainer = () => {
   const { register, handleSubmit } = useForm<loginInput>({ mode: "onSubmit" });
   const setAccessToken = useSetRecoilState(accessTokenAtom);

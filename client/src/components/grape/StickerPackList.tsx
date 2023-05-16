@@ -3,23 +3,16 @@ import { API_URL } from "src/constants/API_URL";
 import tw from "tailwind-styled-components";
 import Fade from "react-reveal/Fade";
 
+import { StickerPack } from "src/@types/response";
 import { api } from "src/utils/axiosApi/api";
-import { StickerInfo } from "src/components/diary-detail/StickerSection";
 import { StickerPreviewContainer } from "./Sticker";
 
-export interface StickerPackage {
-  packageId: number;
-  packageName: string;
-  podoPrice: number;
-  stickers: StickerInfo[];
-}
-
 interface PackListProps {
-  updateFocusedPack: (arg: StickerPackage | null) => void;
+  updateFocusedPack: (arg: StickerPack | null) => void;
 }
 
 export const StickerPackList = ({ updateFocusedPack }: PackListProps) => {
-  const [stickerPacks, setStickerPacks] = useState<StickerPackage[]>([]);
+  const [stickerPacks, setStickerPacks] = useState<StickerPack[]>([]);
 
   const getStickerPacks = async () => {
     try {

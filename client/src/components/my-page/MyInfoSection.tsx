@@ -2,18 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import tw from "tailwind-styled-components";
 
+import { UserData } from "src/@types/response";
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import changeToKoreanDate from "src/utils/date";
 import defaultProfileImg from "../../assets/icons/default_profile.png";
 import { UnclickableContainer } from "../common/UnclickableContainer";
-
-interface UserData {
-  nickname: string;
-  profile: string;
-  provider: "podo" | "kakao" | "naver";
-  createdAt: Date;
-}
 
 export const MyInfoSection = () => {
   const navigate = useNavigate();

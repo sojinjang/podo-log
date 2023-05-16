@@ -1,7 +1,7 @@
 import React from "react";
 import tw from "tailwind-styled-components";
 import Tada from "react-reveal/Tada";
-import { MyGrape } from "../../pages/Grape";
+import { MyGrape } from "src/@types/response";
 
 interface GrapeInfo {
   data: MyGrape | null;

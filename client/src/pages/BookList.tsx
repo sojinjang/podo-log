@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 
+import { BooksArr } from "src/@types/response";
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import { PinkPurpleBackground } from "src/components/common/Backgrounds";
@@ -8,15 +9,6 @@ import { Guidance } from "src/components/book-list/Guidance";
 import { PointingFinger } from "src/components/book-list/PointingFinger";
 import { BooksContainer } from "src/components/book-list/BooksContainer";
 import { Navbar } from "src/components/common/NavBar";
-
-export interface BookInfo {
-  readonly bookId: number;
-  readonly bookName: string;
-  readonly numMembers: number;
-  readonly color: string;
-}
-
-export type BooksArr = BookInfo[] | null;
 
 const BookList = () => {
   const [userBooksArr, setUserBooksArr] = useState<BooksArr>(null);

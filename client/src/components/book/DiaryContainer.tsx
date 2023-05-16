@@ -3,8 +3,8 @@ import tw from "tailwind-styled-components";
 import { useNavigate } from "react-router-dom";
 import Fade from "react-reveal/Fade";
 
+import { Diary } from "src/@types/response";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
-import { Diary } from "./DiaryListContainer";
 import commentWebP from "../../assets/icons/comment.webp";
 import commentPng from "../../assets/icons/comment.png";
 import { AffixedSticker, AffixedStickerInfo } from "../common/diary/Sticker";

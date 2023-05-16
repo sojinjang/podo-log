@@ -1,8 +1,9 @@
 import React from "react";
 import tw from "tailwind-styled-components";
 import { useNavigate } from "react-router-dom";
+
+import { BookInfo } from "src/@types/response";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
-import { BookInfo } from "src/pages/BookList";
 
 export const BookButton = ({ bookId, bookName, numMembers, color }: BookInfo) => {
   const navigate = useNavigate();

@@ -2,25 +2,10 @@ import React, { useEffect } from "react";
 import tw from "tailwind-styled-components";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
+import { CommentFamType } from "src/@types/response";
 import { getComments } from "src/recoil/diary-detail";
 import { NewComment } from "./NewComment";
 import { CommentsFamily } from "./CommentsFamily";
-
-export interface CommentType {
-  commentId: number;
-  userId: number;
-  nickname: string;
-  profile: string;
-  parentCommentId: number;
-  reply: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export interface CommentFamType {
-  parentComment: CommentType;
-  reComments?: CommentType[];
-}
 
 interface CommentSectionProps {
   updateNumComments: (newNumComments: number) => void;

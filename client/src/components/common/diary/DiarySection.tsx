@@ -4,13 +4,13 @@ import tw from "tailwind-styled-components";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
+import { Diary } from "src/@types/response";
 import { accessTokenAtom } from "src/recoil/token";
 import { getUserId } from "src/utils/getUserId";
 import changeToKoreanTime from "src/utils/time";
 import DefaultProfileImg from "src/assets/icons/default_profile.png";
 import { ProfileImg, Nickname, Date } from "./WriterInfo";
 import { DropdownMenu } from "../../diary-detail/DropdownMenu";
-import { Diary } from "src/components/book/DiaryListContainer";
 
 export interface DiaryContainerProps {
   data: Diary;

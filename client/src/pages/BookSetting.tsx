@@ -10,10 +10,6 @@ import { BookMembersInfo } from "src/components/book-setting/BookMembersInfo";
 import LeaveBookButton from "src/components/book-setting/LeaveBookButton";
 import BookRevisionButton from "src/components/book-setting/BookRevisionButton";
 
-export interface BookIdType {
-  bookId: number;
-}
-
 const BookSetting = () => {
   const params = useParams();
   const bookId = Number(params.bookId);

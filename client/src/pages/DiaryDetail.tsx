@@ -4,6 +4,7 @@ import { useRecoilState, useSetRecoilState, useResetRecoilState } from "recoil";
 import { v4 as uuidv4 } from "uuid";
 import Fade from "react-reveal/Fade";
 
+import { StickerInfo } from "src/@types/response";
 import { focusedDiaryIdAtom, isDeleteModalVisibleAtom } from "src/recoil/diary-detail/atom";
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
@@ -13,7 +14,7 @@ import { AffixedSticker, AffixedStickerInfo } from "src/components/common/diary/
 import { DiarySection } from "src/components/common/diary/DiarySection";
 import { UnclickableContainer } from "src/components/common/UnclickableContainer";
 import StickerSaveBtn from "src/components/diary-detail/StickerSaveBtn";
-import { StickerInfo, StickerSection } from "src/components/diary-detail/StickerSection";
+import { StickerSection } from "src/components/diary-detail/StickerSection";
 import StickerButton from "src/components/diary-detail/StickerButton";
 import { CommentSection } from "src/components/diary-detail/CommentSection";
 import DeleteModal from "src/components/diary-detail//DeleteModal";
@@ -25,6 +26,7 @@ export interface EditingStickerInfo extends StickerInfo {
   locX: number;
   locY: number;
 }
+// TODO: diary 공통 type 분리
 
 const DiaryDetail = () => {
   const DEFAULT_STKR_POS_X = 10;
@@ -87,6 +89,7 @@ const DiaryDetail = () => {
         {
           stickerId: newSticker.stickerId,
           uniqueId: uuidv4(),
+          // TODO: stickedStickerId로 변경
           stickerImg: newSticker.stickerImg,
           locX: DEFAULT_STKR_POS_X,
           locY: DEFAULT_STKR_POS_Y,

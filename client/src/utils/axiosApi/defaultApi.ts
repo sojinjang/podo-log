@@ -38,7 +38,7 @@ defaultApi.interceptors.response.use(
       const retryOriginalRequest = new Promise((resolve) => {
         if (isTokenRefreshing) {
           addRefreshSubscriber(() => {
-            originalRequest.headers.Authorization = `Bearer ${getAccessToken()}`;
+            originalRequest.headers.Authorization = `Bearer ${getAccessToken()}`; // 해야하나?
             resolve(axios(originalRequest));
           });
         }

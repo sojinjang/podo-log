@@ -20,6 +20,8 @@ interface SignUpInput {
   readonly pwConfirm?: string | undefined;
 }
 
+// TODO: input type 분리
+
 const createSignUpForm = (profileImg: Img, { nickname, email, password }: SignUpInput) => {
   const formData = new FormData();
   if (profileImg) formData.append("profile", profileImg);

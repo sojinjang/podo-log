@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import tw from "tailwind-styled-components";
 import Fade from "react-reveal/Fade";
 
+import { BookInfo } from "src/@types/response";
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
-import { BookIdType } from "src/pages/BookSetting";
 import refreshIcon from "../../assets/icons/refresh.png";
 
-const InviteSection = ({ bookId }: BookIdType) => {
+const InviteSection = ({ bookId }: Pick<BookInfo, "bookId">) => {
   const [inviteCode, setInviteCode] = useState<string>("");
   const [isCopied, setIscopied] = useState<boolean>(false);
 

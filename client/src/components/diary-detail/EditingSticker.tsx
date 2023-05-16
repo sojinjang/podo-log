@@ -19,7 +19,6 @@ const EditingSticker = ({
   handleDeleteStickers,
 }: DraggableStickerProps) => {
   const [targetElem, setTargetElem] = useState<HTMLElement | SVGElement | null>(null);
-
   useEffect(() => {
     const targetElem = document.querySelector(`.target-${sticker.uniqueId}`) as HTMLElement;
     targetElem.style.transform = `translate(${sticker.locX}vh, ${sticker.locY}vh`;

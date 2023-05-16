@@ -10,6 +10,7 @@ export interface AffixedStickerInfo {
   locX: number;
   locY: number;
 }
+// TODO: response 유틸리티 타입으로 분리
 
 interface AffixedStickerProps {
   sticker: AffixedStickerInfo;

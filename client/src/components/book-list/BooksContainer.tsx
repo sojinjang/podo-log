@@ -1,7 +1,7 @@
 import React from "react";
 import Fade from "react-reveal/Fade";
 
-import { BooksArr, BookInfo } from "src/pages/BookList";
+import { BooksArr } from "src/@types/response";
 import { HeartDiaryButton } from "src/components/book-list/HeartDiaryButton";
 import { BookButton } from "src/components/book-list/BookButton";
 import { NewBookButton } from "./NewBookButton";
@@ -12,7 +12,7 @@ interface BookContainerProps {
 }
 
 const renderBookButtons = (userBooksArr: BooksArr): JSX.Element[] | undefined => {
-  const bookButtons = userBooksArr?.map((book: BookInfo) => {
+  const bookButtons = userBooksArr?.map((book) => {
     return (
       <BookButton
         key={book.bookId}

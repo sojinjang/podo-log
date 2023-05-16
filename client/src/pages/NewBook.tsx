@@ -19,6 +19,7 @@ import { useForm } from "react-hook-form";
 interface NewBookName {
   bookName: string;
 }
+// TODO: input type 분리
 
 const NewBook = () => {
   const navigate = useNavigate();

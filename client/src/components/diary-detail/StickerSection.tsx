@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import tw from "tailwind-styled-components";
 
+import { StickerInfo, MyStickerPack } from "src/@types/response";
 import { api } from "src/utils/axiosApi/api";
 import changeToKoreanDate from "src/utils/date";
 import { Values } from "../../constants/Values";
@@ -10,24 +11,12 @@ interface StickerSectionProps {
   changeEditState: () => void;
   handleAddNewSticker: (newSticker: StickerInfo) => void;
 }
-export interface StickerInfo {
-  stickerId: number;
-  stickerImg: string;
-}
-interface StickerPack {
-  packageId: number;
-  packageName: string;
-  expiration: Date;
-  stickers: StickerInfo[];
-}
+
 interface StickersPreview {
   [packageId: number]: StickersWithExpiry;
 }
-interface StickersInfoArrObj {
-  stickers: StickerInfo[];
-}
 
-interface StickersWithExpiry extends StickersInfoArrObj {
+interface StickersWithExpiry extends Pick<MyStickerPack, "stickers"> {
   expiration: Date | string;
 }
 
@@ -35,7 +24,7 @@ export const StickerSection = ({
   changeEditState,
   handleAddNewSticker,
 }: StickerSectionProps) => {
-  const [myStickerPack, setMyStickerPack] = useState<StickerPack[]>([]);
+  const [myStickerPack, setMyStickerPack] = useState<MyStickerPack[]>([]);
   const [stickers, setStickers] = useState<StickersPreview | null>(null);
   const [targetPackId, setTargetPackId] = useState<number>(1);
   const getMyStickerPack = async () => {
@@ -48,9 +37,9 @@ export const StickerSection = ({
       if (err instanceof Error) alert(err.message);
     }
   };
-  const pairPackIdWithStickers = (myStickerPackArr: StickerPack[]) => {
+  const pairPackIdWithStickers = (myStickerPackArr: MyStickerPack[]) => {
     const stickersObj: StickersPreview = {};
-    myStickerPackArr.forEach((pack: StickerPack) => {
+    myStickerPackArr.forEach((pack: MyStickerPack) => {
       stickersObj[pack.packageId] = { expiration: pack.expiration, stickers: pack.stickers };
     });
     return stickersObj;

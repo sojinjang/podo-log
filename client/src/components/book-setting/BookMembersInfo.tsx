@@ -1,19 +1,12 @@
 import React, { useState, useEffect } from "react";
 import tw from "tailwind-styled-components";
 
+import { BookInfo, MemberInfo } from "src/@types/response";
 import { API_URL } from "src/constants/API_URL";
 import { api } from "src/utils/axiosApi/api";
-import { BookIdType } from "src/pages/BookSetting";
 import MemberProfile from "./MemberProfile";
 
-export interface MemberInfo {
-  userId?: number;
-  nickname: string;
-  profile: string;
-  isMe: boolean;
-}
-
-export const BookMembersInfo = ({ bookId }: BookIdType) => {
+export const BookMembersInfo = ({ bookId }: Pick<BookInfo, "bookId">) => {
   const [members, setMembers] = useState<MemberInfo[]>([]);
 
   const getBookmembers = async () => {

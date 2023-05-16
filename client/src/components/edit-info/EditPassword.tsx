@@ -15,6 +15,8 @@ interface PasswordInput {
   readonly newPwConfirm?: string | undefined;
 }
 
+// TODO: input type 모으기?
+
 const EditPassword = () => {
   const navigate = useNavigate();
 

@@ -1,13 +1,10 @@
 import React from "react";
 import tw from "tailwind-styled-components";
 
+import { MyGrape } from "src/@types/response";
 import grapeImg from "../../assets/icons/colored_grape_353866.png";
 
-export interface MyGrapeNumProps {
-  grape: number;
-}
-
-const MyGrapeNum = ({ grape }: MyGrapeNumProps) => {
+const MyGrapeNum = ({ grape }: Pick<MyGrape, "grape">) => {
   return (
     <Container>
       <GrapeIcon alt="grape" src={grapeImg} />

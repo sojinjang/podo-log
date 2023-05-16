@@ -21,7 +21,7 @@ import BookTitleInputContainer from "src/components/new-book/BookTitleInputConta
 interface BookNameType {
   bookName: string;
 }
-
+// TODO: input type 분리
 const BookRevision = () => {
   const navigate = useNavigate();
   const location = useLocation();
