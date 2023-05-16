@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import Fade from "react-reveal/Fade";
 
+import { Token } from "src/@types/response";
 import { accessTokenAtom } from "src/recoil/token";
-import { Token } from "src/recoil/token/atom";
 import { refreshToken, moveToDiaries } from "../utils/token";
 
 import { DefaultBackground } from "src/components/common/Backgrounds";
