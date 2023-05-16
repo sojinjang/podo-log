@@ -3,19 +3,12 @@ import tw from "tailwind-styled-components";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
+import { PasswordInput } from "src/@types/input";
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 import { Input, InputContainer } from "src/components/common/Input";
 import PurpleButton from "src/components/common/PurpleButton";
-
-interface PasswordInput {
-  readonly password: string;
-  readonly newPassword: string;
-  readonly newPwConfirm?: string | undefined;
-}
-
-// TODO: input type 모으기?
 
 const EditPassword = () => {
   const navigate = useNavigate();

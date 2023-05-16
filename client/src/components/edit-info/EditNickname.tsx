@@ -7,11 +7,7 @@ import { api } from "src/utils/axiosApi/api";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 import PurpleButton from "src/components/common/PurpleButton";
 import { Input, InputContainer } from "src/components/common/Input";
-
-interface NicknameInput {
-  readonly nickname: string;
-}
-// TODO: input type 모으기?
+import { NicknameInput } from "src/@types/input";
 
 const EditNickname = () => {
   const navigate = useNavigate();

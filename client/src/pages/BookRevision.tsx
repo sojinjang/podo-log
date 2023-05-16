@@ -9,6 +9,7 @@ import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 
+import { BookNameInput } from "src/@types/input";
 import { PinkPurpleBackground } from "src/components/common/Backgrounds";
 import BackButton from "src/components/common/BackButton";
 import PageTitle from "src/components/common/PageTitle";
@@ -18,10 +19,6 @@ import ColorSelectContainer from "src/components/new-book/ColorSelectContainer";
 import ContainerTitle from "src/components/new-book/ContainerTitle";
 import BookTitleInputContainer from "src/components/new-book/BookTitleInputContainer";
 
-interface BookNameType {
-  bookName: string;
-}
-// TODO: input type 분리
 const BookRevision = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -31,13 +28,13 @@ const BookRevision = () => {
   const [isTitleRevised, setIsTitleRevised] = useState(false);
   const [isRevised, setIsRevised] = useState(false);
   const [buttonCursorStyle, setButtonCursorStyle] = useState("");
-  const { register, handleSubmit } = useForm<BookNameType>({
+  const { register, handleSubmit } = useForm<BookNameInput>({
     defaultValues: { bookName: location.state.name },
   });
   const refreshIsTitleRevised = (currentTitle: string) => {
     setIsTitleRevised(currentTitle !== location.state.name);
   };
-  const reviseBookInfo = async ({ bookName }: BookNameType) => {
+  const reviseBookInfo = async ({ bookName }: BookNameInput) => {
     try {
       if (!isRevised) return;
       await api.patch(API_URL.books + `/${bookId}`, { color: selectedColor, bookName });

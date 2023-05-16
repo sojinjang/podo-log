@@ -3,14 +3,10 @@ import tw from "tailwind-styled-components";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
+import { InviteCodeInput } from "src/@types/input";
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
-
-interface InviteCodeInput {
-  readonly invttCode: string;
-}
-// TODO: input type 분리
 
 export const InviteCodeSection = () => {
   const navigate = useNavigate();

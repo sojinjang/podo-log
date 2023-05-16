@@ -1,3 +1,5 @@
+export type Token = string | undefined;
+
 export interface BookInfo {
   readonly bookId: number;
   readonly bookName: string;

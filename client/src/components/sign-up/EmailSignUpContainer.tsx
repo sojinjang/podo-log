@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 
+import { SignUpInput } from "src/@types/input";
 import { profileImgAtom } from "src/recoil/sign-up";
 import { Img } from "src/recoil/sign-up/atom";
 import { PUBLIC_ROUTE } from "src/router/ROUTE_INFO";
@@ -12,15 +13,6 @@ import { ProfileImgUpload } from "./ProfileImgUpload";
 import { Input, InputContainer } from "../common/Input";
 import PurpleButton from "../common/PurpleButton";
 import { formApi } from "src/utils/axiosApi/formApi";
-
-interface SignUpInput {
-  readonly nickname: string;
-  readonly email: string;
-  readonly password: string;
-  readonly pwConfirm?: string | undefined;
-}
-
-// TODO: input type 분리
 
 const createSignUpForm = (profileImg: Img, { nickname, email, password }: SignUpInput) => {
   const formData = new FormData();

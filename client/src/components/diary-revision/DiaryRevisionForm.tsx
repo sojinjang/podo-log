@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { useForm } from "react-hook-form";
 
+import { DiaryInput, DiaryOgInput } from "src/@types/input";
 import DiaryRevisionImgUpload from "./DiaryRevisionImgUpload";
 import { diaryRevisionImgAtom } from "src/recoil/diary-revision/atom";
 import { Img } from "src/recoil/new-diary/atom";
@@ -10,11 +11,6 @@ import { api } from "src/utils/axiosApi/api";
 import { formApi } from "src/utils/axiosApi/formApi";
 import { useNavigate, useParams } from "react-router-dom";
 import { DiaryForm, TitleInput, inputStyle, ContentInput } from "../diary/DiaryFormElem";
-import { DiaryInput } from "../diary/DiaryInput";
-
-interface DiaryOgInput extends DiaryInput {
-  picture: string;
-}
 
 const createFormData = (diaryImg: Img) => {
   const formData = new FormData();

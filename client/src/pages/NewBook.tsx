@@ -2,6 +2,7 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 import Bounce from "react-reveal/Bounce";
 
+import { BookNameInput } from "src/@types/input";
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import { selectedColorAtom } from "../recoil/book-color";
@@ -16,17 +17,12 @@ import PurpleButton from "src/components/common/PurpleButton";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-interface NewBookName {
-  bookName: string;
-}
-// TODO: input type 분리
-
 const NewBook = () => {
   const navigate = useNavigate();
   const selectedColor = useRecoilValue(selectedColorAtom);
-  const { register, handleSubmit } = useForm<NewBookName>({ mode: "onSubmit" });
+  const { register, handleSubmit } = useForm<BookNameInput>({ mode: "onSubmit" });
 
-  const createNewDiary = async ({ bookName }: NewBookName) => {
+  const createNewDiary = async ({ bookName }: BookNameInput) => {
     try {
       await api.post(API_URL.books, { color: selectedColor, bookName });
       navigate(-1);

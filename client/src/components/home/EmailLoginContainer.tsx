@@ -2,22 +2,18 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useSetRecoilState } from "recoil";
 
+import { LoginInput } from "src/@types/input";
 import { accessTokenAtom } from "src/recoil/token";
 import { API_URL } from "src/constants/API_URL";
 import { Input, InputContainer } from "../common/Input";
 import PurpleButton from "../common/PurpleButton";
 import { api } from "src/utils/axiosApi/api";
 
-interface loginInput {
-  readonly email: string;
-  readonly password: string;
-}
-// TODO: input type 분리
 const EmailLoginContainer = () => {
-  const { register, handleSubmit } = useForm<loginInput>({ mode: "onSubmit" });
+  const { register, handleSubmit } = useForm<LoginInput>({ mode: "onSubmit" });
   const setAccessToken = useSetRecoilState(accessTokenAtom);
 
-  const logIn = async ({ email, password }: loginInput) => {
+  const logIn = async ({ email, password }: LoginInput) => {
     try {
       const { data } = await api.post(API_URL.emailLogin, { email, password });
       setAccessToken(data.data.accessToken);
