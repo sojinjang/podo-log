@@ -29,7 +29,9 @@
     "passport-naver-v2": "^2.0.8",
     "pino": "^8.8.0",
     "pino-pretty": "^9.1.1",
-    "sharp": "^0.31.3"
+    "reflect-metadata": "^0.1.13",
+    "sharp": "^0.31.3",
+    "typedi": "^0.10.0"
   },
   "devDependencies": {
     "@types/aws-sdk": "^2.7.0",
