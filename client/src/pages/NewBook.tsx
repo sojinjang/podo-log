@@ -11,7 +11,7 @@ import BackButton from "src/components/common/BackButton";
 import PageTitle from "src/components/common/PageTitle";
 import DiaryIcon from "src/components/new-book/BookIcon";
 import ColorSelectContainer from "src/components/new-book/ColorSelectContainer";
-import ContainerTitle from "src/components/new-book/ContainerTitle";
+import ContainerTitle from "src/components/common/book/ContainerTitle";
 import BookTitleInputContainer from "src/components/new-book/BookTitleInputContainer";
 import PurpleButton from "src/components/common/PurpleButton";
 import { useNavigate } from "react-router-dom";

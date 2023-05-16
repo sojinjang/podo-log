@@ -16,7 +16,7 @@ import PageTitle from "src/components/common/PageTitle";
 import PurpleButton from "src/components/common/PurpleButton";
 import DiaryIcon from "src/components/new-book/BookIcon";
 import ColorSelectContainer from "src/components/new-book/ColorSelectContainer";
-import ContainerTitle from "src/components/new-book/ContainerTitle";
+import ContainerTitle from "src/components/common/book/ContainerTitle";
 import BookTitleInputContainer from "src/components/new-book/BookTitleInputContainer";
 
 const BookRevision = () => {
