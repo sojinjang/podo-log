@@ -1,10 +1,12 @@
-import { invttCodeService } from "./invtt-code-service";
+import { InvttCodeService } from "./invtt-code-service";
 import { LoggedRequest, UserBookDTO, UserIdDTO } from "../../types";
 import asyncHandler from "../../utils/async-handler";
 import { SuccessMsgResponse, SuccessResponse } from "../../core/api-response";
+import { Service } from "typedi";
 
-class InvttCodeController {
-  private invttCodeService = invttCodeService;
+@Service()
+export class InvttCodeController {
+  constructor(private invttCodeService: InvttCodeService) {}
 
   joinBook = asyncHandler(async (req: LoggedRequest, res) => {
     const userIdDTO: UserIdDTO = { userId: req.user.userId };
@@ -33,5 +35,3 @@ class InvttCodeController {
     return new SuccessResponse(messageDTO.message, messageDTO.data).send(res);
   });
 }
-
-export const invttCodeController = new InvttCodeController();

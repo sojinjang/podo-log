@@ -1,11 +1,11 @@
-import { ForbiddenError } from "../../core/api-error";
-import { bookModel, userBookModel } from "../../db/models";
+import { Service } from "typedi";
+import { BookModel, UserBookModel } from "../../db/models";
 import { BookIdDTO, UpdateBookDTO, CreateBookDTO, UserBookDTO, UserIdDTO } from "../../types";
 import { buildImgLocation, checkResult, createInvttCode } from "../../utils";
 
-class BookService {
-  private bookModel = bookModel;
-  private userBookModel = userBookModel;
+@Service()
+export class BookService {
+  constructor(private bookModel: BookModel, private userBookModel: UserBookModel) {}
 
   async create(bookDTO: CreateBookDTO, userIdDTO: UserIdDTO) {
     const invttCodeDTO = { invttCode: createInvttCode() };
@@ -47,5 +47,3 @@ class BookService {
     return messageDTO;
   }
 }
-
-export const bookService = new BookService();

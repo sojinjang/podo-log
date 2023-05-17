@@ -1,12 +1,12 @@
-import { invttCodeModel, userBookModel } from "../../db/models";
+import { InvttCodeModel, UserBookModel } from "../../db/models";
 import { InvttCodeDTO, UserBookDTO, UserIdDTO } from "../../types";
 import { checkResult, createInvttCode } from "../../utils";
 import { NoDataError, ForbiddenError } from "./../../core/api-error";
+import { Service } from "typedi";
 
-class InvttCodeService {
-  private invttCodeModel = invttCodeModel;
-  private userBookModel = userBookModel;
-
+@Service()
+export class InvttCodeService {
+  constructor(private invttCodeModel: InvttCodeModel, private userBookModel: UserBookModel) {}
   async joinBook(userIdDTO: UserIdDTO, invttCodeDTO: InvttCodeDTO) {
     const [invttCodeObj] = await this.invttCodeModel.get(invttCodeDTO);
     if (!invttCodeObj) throw new NoDataError("일치하는 초대코드가 없습니다.");
@@ -47,5 +47,3 @@ class InvttCodeService {
     return messageDTO;
   }
 }
-
-export const invttCodeService = new InvttCodeService();

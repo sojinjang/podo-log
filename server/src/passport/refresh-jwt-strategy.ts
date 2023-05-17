@@ -3,10 +3,13 @@ import {
   Strategy as RefreshJwtStrategy,
   VerifyCallback,
 } from "passport-jwt";
-import { userModel } from "../db/models";
+import { UserModel } from "../db/models";
 import { GetUserDTO } from "../types/user-type";
 import { refreshSecretKey } from "../config";
 import { parseCookies } from "../utils";
+import { Container } from "typedi";
+
+const userModel: UserModel = Container.get(UserModel);
 
 const cookieExtractor: JwtFromRequestFunction = function (req) {
   let cookies = null;

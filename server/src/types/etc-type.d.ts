@@ -15,3 +15,6 @@ export interface TokenConfig {
   secretKey: string;
   time: string;
 }
+
+export type checkExpirationReturn = [Array<number>, DataObj];
+export type checkExpirationReducer = [Array<number>, Array<number>, DataObj];

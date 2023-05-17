@@ -1,9 +1,11 @@
 import { Router } from "express";
-import { invttCodeController } from "./invtt-code-controller";
+import { InvttCodeController } from "./invtt-code-controller";
 import validator, { ValidationSource } from "../../utils/validator";
 import schema from "./schema";
+import { Container } from "typedi";
 
 const router = Router();
+const invttCodeController: InvttCodeController = Container.get(InvttCodeController);
 
 router.post("/invtt-code", validator(schema.joinBook), invttCodeController.joinBook);
 router.patch(

@@ -2,10 +2,12 @@ import { pool } from "../index";
 import { logger, BuildQuery } from "../../utils";
 import { GetInvttCodeDTO, InvttCodeDTO } from "../../types";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
+import { Service } from "typedi";
 
 const invttCodeBuildQuery = new BuildQuery("invtt_code");
 
-class InvttCodeModel {
+@Service()
+export class InvttCodeModel {
   async patch(whereDTO: GetInvttCodeDTO, invttCodeDTO: InvttCodeDTO) {
     const { query, values } = invttCodeBuildQuery.makeUpdateQuery(
       { ...whereDTO },
@@ -30,5 +32,3 @@ class InvttCodeModel {
     return result;
   }
 }
-
-export const invttCodeModel = new InvttCodeModel();

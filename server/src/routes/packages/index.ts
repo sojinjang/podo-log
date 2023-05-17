@@ -1,10 +1,12 @@
 import { Router } from "express";
-import { packageController } from "./package-controller";
+import { PackageController } from "./package-controller";
 import validator, { ValidationSource } from "../../utils/validator";
 import schema from "./schema";
 import { imageUploader, isAdmin } from "../../middlewares";
+import { Container } from "typedi";
 
 const router = Router();
+const packageController: PackageController = Container.get(PackageController);
 
 router.post(
   "/",

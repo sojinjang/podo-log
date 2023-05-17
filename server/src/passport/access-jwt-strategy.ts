@@ -1,13 +1,14 @@
 import { ExtractJwt, Strategy as AccessJwtStrategy, VerifyCallback } from "passport-jwt";
-import { userModel } from "../db/models";
+import { UserModel } from "../db/models";
 import { GetUserDTO } from "../types/user-type";
 import { accessSecretKey } from "../config";
+import { Container } from "typedi";
 
 const opts = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: accessSecretKey,
 };
-
+const userModel: UserModel = Container.get(UserModel);
 const accessJwtVerify: VerifyCallback = async (jwtPayload, done) => {
   try {
     const [user] = await userModel.get({ userId: jwtPayload.userId } as GetUserDTO);

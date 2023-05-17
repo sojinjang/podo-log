@@ -1,12 +1,13 @@
 import { Router } from "express";
-import { userController } from "./user-controller";
+import { UserController } from "./user-controller";
 import validator from "../../utils/validator";
 import schema from "./schema";
 import { isLoggedIn, imageUploader } from "../../middlewares";
+import { Container } from "typedi";
 
 const router = Router();
 const loginedRouter = Router();
-
+const userController: UserController = Container.get(UserController);
 router.post(
   "/",
   imageUploader().single("profile"),

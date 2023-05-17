@@ -7,13 +7,15 @@ import {
   UserPackageDTO,
 } from "../../types";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
+import { Service } from "typedi";
 
 const packageBuildQuery = new BuildQuery("package");
 const stickerBuildQuery = new BuildQuery("sticker");
 const userBuildQuery = new BuildQuery("user");
 const userPackageBuildQuery = new BuildQuery("user_package");
 
-class PackageModel {
+@Service()
+export class PackageModel {
   async create(createPackageServiceDTO: CreatePackageServiceDTO) {
     const conn = await pool.getConnection();
     try {
@@ -173,5 +175,3 @@ class PackageModel {
     return result;
   }
 }
-
-export const packageModel = new PackageModel();
