@@ -20,10 +20,7 @@ interface StickersWithExpiry extends Pick<MyStickerPack, "stickers"> {
   expiration: Date | string;
 }
 
-export const StickerSection = ({
-  changeEditState,
-  handleAddNewSticker,
-}: StickerSectionProps) => {
+const StickerSection = ({ changeEditState, handleAddNewSticker }: StickerSectionProps) => {
   const [myStickerPack, setMyStickerPack] = useState<MyStickerPack[]>([]);
   const [stickers, setStickers] = useState<StickersPreview | null>(null);
   const [targetPackId, setTargetPackId] = useState<number>(1);
@@ -94,3 +91,5 @@ export const StickerSection = ({
     </S.Container>
   );
 };
+
+export default StickerSection;

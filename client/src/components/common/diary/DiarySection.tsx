@@ -6,7 +6,7 @@ import { accessTokenAtom } from "src/recoil/token";
 import { getUserId } from "src/utils/getUserId";
 import changeToKoreanTime from "src/utils/time";
 import DefaultProfileImg from "src/assets/icons/default_profile.png";
-import { DropdownMenu } from "../../diary-detail/DropdownMenu";
+import DropdownMenu from "src/components/diary-detail/DropdownMenu";
 import * as G from "src/styles/Diary";
 import * as S from "src/styles/Diary";
 
@@ -15,7 +15,7 @@ export interface DiaryContainerProps {
   isDetailPage: boolean;
 }
 
-export const DiarySection = ({ data, isDetailPage = true }: DiaryContainerProps) => {
+const DiarySection = ({ data, isDetailPage = true }: DiaryContainerProps) => {
   const accessToken = useRecoilValue(accessTokenAtom);
   const isDiaryWriter = getUserId(accessToken) === data.userId;
   const profileImgSrc = data.profile === "없음" ? DefaultProfileImg : data.profile;
@@ -58,3 +58,5 @@ export const DiarySection = ({ data, isDetailPage = true }: DiaryContainerProps)
     </>
   );
 };
+
+export default DiarySection;

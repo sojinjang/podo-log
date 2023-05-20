@@ -1,10 +1,9 @@
 import Fade from "react-reveal/Fade";
 
-import "src/styles/Backgrounds.css";
-import { Greeting } from "src/components/home/Greeting";
-import EmailSignUpContainer from "src/components/sign-up/EmailSignUpContainer";
-import SNSLoginContainer from "../components/home/SNSLoginContainer";
+import { Greeting, SNSLoginContainer } from "../components/home";
+import { EmailSignUpContainer } from "src/components/sign-up/";
 import * as G from "src/styles/Common";
+import "src/styles/Backgrounds.css";
 
 const SignUp = () => {
   return (

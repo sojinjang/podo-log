@@ -4,7 +4,7 @@ import "src/styles/Backgrounds.css";
 
 const Home = lazy(() => import("../pages/Home"));
 const BookList = lazy(() => import("../pages/BookList"));
-const Book = lazy(() => import("../pages/Book"));
+const DiaryList = lazy(() => import("../pages/DiaryList"));
 const BookSetting = lazy(() => import("../pages/BookSetting"));
 const BookRevision = lazy(() => import("../pages/BookRevision"));
 const SignUp = lazy(() => import("../pages/SignUp"));
@@ -57,7 +57,7 @@ export const PRIVATE_ROUTE: RouteInfoObj = {
     path: "/books/:bookId",
     element: (
       <Suspense fallback={<PinkPurpleBackground />}>
-        <Book />
+        <DiaryList />
       </Suspense>
     ),
   },

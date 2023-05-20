@@ -4,7 +4,7 @@ import { BookInfo } from "src/@types/response";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 import * as S from "../../styles/BookList";
 
-export const BookButton = ({ bookId, bookName, numMembers, color }: BookInfo) => {
+const BookButton = ({ bookId, bookName, numMembers, color }: BookInfo) => {
   const navigate = useNavigate();
   const onClickImg = () => {
     navigate(PRIVATE_ROUTE.books.path + "/" + bookId, {
@@ -34,3 +34,5 @@ export const BookButton = ({ bookId, bookName, numMembers, color }: BookInfo) =>
     </S.BookButtonContainer>
   );
 };
+
+export default BookButton;

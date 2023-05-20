@@ -1,8 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import { PinkPurpleBackground } from "src/styles/Common";
-import BackButton from "src/components/common/BackButton";
-import PurpleButton from "src/components/common/PurpleButton";
+import { BackButton, PurpleButton } from "src/components/common";
 import Fade from "react-reveal/Fade";
 import notFoundImg from "../assets/icons/404-error.png";
 import * as S from "src/styles/NotFound";

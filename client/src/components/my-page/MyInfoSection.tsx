@@ -9,7 +9,7 @@ import defaultProfileImg from "../../assets/icons/default_profile.png";
 import * as G from "src/styles/Common";
 import * as S from "../../styles/MyPage";
 
-export const MyInfoSection = () => {
+const MyInfoSection = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState<UserData | null>(null);
   const [profileImg, setProfileImg] = useState<string>("");
@@ -64,3 +64,5 @@ export const MyInfoSection = () => {
     </>
   );
 };
+
+export default MyInfoSection;

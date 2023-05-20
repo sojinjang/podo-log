@@ -11,13 +11,13 @@ import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 
 import { BookNameInput } from "src/@types/input";
 import { PinkPurpleBackground } from "src/styles/Common";
-import BackButton from "src/components/common/BackButton";
-import PageTitle from "src/components/common/PageTitle";
-import PurpleButton from "src/components/common/PurpleButton";
-import DiaryIcon from "src/components/new-book/BookIcon";
-import ColorSelectContainer from "src/components/new-book/ColorSelectContainer";
-import ContainerTitle from "src/components/common/book/ContainerTitle";
-import BookTitleInputContainer from "src/components/new-book/BookTitleInputContainer";
+import { BackButton, PageTitle, PurpleButton } from "src/components/common";
+import {
+  ContainerTitle,
+  BookIcon,
+  ColorSelectContainer,
+  BookTitleInputContainer,
+} from "src/components/common/book";
 
 const BookRevision = () => {
   const navigate = useNavigate();
@@ -62,7 +62,7 @@ const BookRevision = () => {
       <PageTitle title="일기장 수정" />
       <Bounce duration={1500}>
         <form onSubmit={handleSubmit(reviseBookInfo)}>
-          <DiaryIcon />
+          <BookIcon />
           <ContainerTitle>표지 색상 선택</ContainerTitle>
           <ColorSelectContainer />
           <ContainerTitle>일기장 제목</ContainerTitle>

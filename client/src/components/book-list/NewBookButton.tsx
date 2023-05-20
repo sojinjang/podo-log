@@ -1,11 +1,10 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 import plusImg from "../../assets/icons/plus.png";
 import * as S from "../../styles/BookList";
 
-export const NewBookButton = () => {
+const NewBookButton = () => {
   const navigate = useNavigate();
   const onClickImg = () => {
     navigate(PRIVATE_ROUTE.newBook.path);
@@ -18,3 +17,5 @@ export const NewBookButton = () => {
     </S.BookButtonContainer>
   );
 };
+
+export default NewBookButton;

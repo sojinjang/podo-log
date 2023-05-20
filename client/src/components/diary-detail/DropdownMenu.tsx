@@ -17,7 +17,7 @@ interface DropdownMenuProps {
   deleteInfo: DeleteInfo;
 }
 
-export const DropdownMenu = ({ setCommentIsBeingEdited, deleteInfo }: DropdownMenuProps) => {
+const DropdownMenu = ({ setCommentIsBeingEdited, deleteInfo }: DropdownMenuProps) => {
   const navigate = useNavigate();
   const setIsDeleteModalVisible = useSetRecoilState(isDeleteModalVisibleAtom);
   const setDeleteInfo = useSetRecoilState(deleteInfoAtom);
@@ -81,3 +81,5 @@ export const DropdownMenu = ({ setCommentIsBeingEdited, deleteInfo }: DropdownMe
     </Menu>
   );
 };
+
+export default DropdownMenu;

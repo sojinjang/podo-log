@@ -1,15 +1,17 @@
 import { useRef, useState, useEffect } from "react";
 
 import { MyGrape, StickerPack } from "src/@types/response";
-import { DefaultBackground } from "src/styles/Common";
-import { Navbar } from "src/components/common/NavBar";
-import MoveBtn from "src/components/grape/MoveBtn";
-import GrapeInfo from "src/components/grape/GrapeInfo";
-import MyGrapeNum from "src/components/grape/MyGrapeNum";
-import { StickerPackList } from "src/components/grape/StickerPackList";
-import PackageDetail from "src/components/grape/PackageDetail";
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
+import { Navbar } from "src/components/common";
+import {
+  MoveBtn,
+  GrapeInfo,
+  MyGrapeNum,
+  StickerPackList,
+  PackageDetail,
+} from "src/components/grape/";
+import { DefaultBackground } from "src/styles/Common";
 import * as S from "../styles/Grape";
 
 const Grape = () => {

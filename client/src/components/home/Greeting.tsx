@@ -1,6 +1,6 @@
 import * as S from "src/styles/Home";
 
-export const Greeting = () => {
+const Greeting = () => {
   return (
     <S.Phrase>
       Welcome to
@@ -9,3 +9,5 @@ export const Greeting = () => {
     </S.Phrase>
   );
 };
+
+export default Greeting;

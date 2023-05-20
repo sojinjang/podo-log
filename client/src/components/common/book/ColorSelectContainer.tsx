@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useRecoilState, useResetRecoilState } from "recoil";
 
-import { selectedColorAtom } from "../../recoil/book-color";
+import { selectedColorAtom } from "src/recoil/book-color";
 import { DIARY_COLOR } from "src/constants/DIARY_COLOR";
-import * as S from "../../styles/NewBook";
+import * as S from "src/styles/Book";
 
 const renderColorSelectButtons = () => {
   const [selectedColor, setSelectedColor] = useRecoilState(selectedColorAtom);

@@ -5,13 +5,14 @@ import Fade from "react-reveal/Fade";
 import { Token } from "src/@types/response";
 import { accessTokenAtom } from "src/recoil/token";
 import { refreshToken, moveToDiaries } from "../utils/token";
-
+import {
+  Greeting,
+  GrapeIcon,
+  EmailLoginContainer,
+  SNSLoginContainer,
+  SignUpButton,
+} from "src/components/home";
 import "src/styles/Backgrounds.css";
-import { Greeting } from "src/components/home/Greeting";
-import { GrapeIcon } from "src/components/home/GrapeIcon";
-import EmailLoginContainer from "src/components/home/EmailLoginContainer";
-import SNSLoginContainer from "src/components/home/SNSLoginContainer";
-import SignUpButton from "src/components/home/SignUpButton";
 import * as G from "src/styles/Common";
 
 const Home = () => {

@@ -7,7 +7,7 @@ import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import DiaryContainer from "./DiaryContainer";
 
-export const DiaryListContainer = () => {
+const DiaryListContainer = () => {
   const LIMIT = 5;
   const params = useParams();
   const bookId = Number(params.bookId);
@@ -67,3 +67,5 @@ export const DiaryListContainer = () => {
     </div>
   );
 };
+
+export default DiaryListContainer;

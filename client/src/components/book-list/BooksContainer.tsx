@@ -1,10 +1,9 @@
-import React from "react";
 import Fade from "react-reveal/Fade";
 
 import { BooksArr } from "src/@types/response";
-import { HeartDiaryButton } from "src/components/book-list/HeartDiaryButton";
-import { BookButton } from "src/components/book-list/BookButton";
-import { NewBookButton } from "./NewBookButton";
+import HeartDiaryButton from "src/components/book-list/HeartDiaryButton";
+import BookButton from "src/components/book-list/BookButton";
+import NewBookButton from "./NewBookButton";
 
 interface BookContainerProps {
   isEmpty: boolean;
@@ -26,7 +25,7 @@ const renderBookButtons = (userBooksArr: BooksArr): JSX.Element[] | undefined =>
   return bookButtons;
 };
 
-export const BooksContainer = ({ isEmpty, userBooksArr }: BookContainerProps) => {
+const BooksContainer = ({ isEmpty, userBooksArr }: BookContainerProps) => {
   if (isEmpty) return <HeartDiaryButton />;
   return (
     <Fade duration={3000}>
@@ -37,3 +36,5 @@ export const BooksContainer = ({ isEmpty, userBooksArr }: BookContainerProps) =>
     </Fade>
   );
 };
+
+export default BooksContainer;

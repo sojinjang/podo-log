@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import * as G from "src/styles/Common";
-import * as S from "../../styles/NewBook";
+import * as S from "src/styles/Book";
 
 interface TitleContainerProps {
   register: object;

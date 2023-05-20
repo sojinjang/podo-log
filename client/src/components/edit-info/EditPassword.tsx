@@ -5,7 +5,7 @@ import { PasswordInput } from "src/@types/input";
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
-import PurpleButton from "src/components/common/PurpleButton";
+import { PurpleButton } from "src/components/common";
 import * as G from "src/styles/Common";
 import * as S from "../../styles/Home";
 

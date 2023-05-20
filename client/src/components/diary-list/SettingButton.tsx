@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import settingWebP from "../../assets/icons/setting.webp";
 import settingPng from "../../assets/icons/setting.png";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
-import * as S from "../../styles/Book";
+import * as S from "../../styles/DiaryList";
 
 const SettingButton = () => {
   const navigate = useNavigate();

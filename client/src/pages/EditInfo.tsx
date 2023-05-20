@@ -1,11 +1,8 @@
 import { useLocation } from "react-router-dom";
 import Fade from "react-reveal/Fade";
 
-import BackButton from "src/components/common/BackButton";
-import PageTitle from "src/components/common/PageTitle";
-import EditNickname from "src/components/edit-info/EditNickname";
-import EditPassword from "src/components/edit-info/EditPassword";
-import EditProfile from "src/components/edit-info/EditProfile";
+import { BackButton, PageTitle } from "src/components/common";
+import { EditNickname, EditPassword, EditProfile } from "src/components/edit-info";
 import * as G from "src/styles/Common";
 
 const EditInfo = () => {

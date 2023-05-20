@@ -8,16 +8,19 @@ import { StickerInfo } from "src/@types/response";
 import { focusedDiaryIdAtom, isDeleteModalVisibleAtom } from "src/recoil/diary-detail/atom";
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
-import BackButton from "../components/common/BackButton";
-import { AffixedSticker, AffixedStickerInfo } from "src/components/common/diary/Sticker";
-import { DiarySection } from "src/components/common/diary/DiarySection";
-import StickerSaveBtn from "src/components/diary-detail/StickerSaveBtn";
-import { StickerSection } from "src/components/diary-detail/StickerSection";
-import StickerButton from "src/components/diary-detail/StickerButton";
-import { CommentSection } from "src/components/diary-detail/CommentSection";
-import DeleteModal from "src/components/diary-detail//DeleteModal";
-import EditingSticker from "src/components/diary-detail/EditingSticker";
-import CommentsSkeleton from "src/components/diary-detail/CommentsSkeleton";
+import BackButton from "src/components/common/BackButton";
+import { AffixedSticker, DiarySection } from "src/components/common/diary";
+import { AffixedStickerInfo } from "src/components/common/diary/AffixedSticker";
+import {
+  StickerSaveBtn,
+  StickerSection,
+  StickerButton,
+  CommentSection,
+  CommentsSkeleton,
+  DeleteModal,
+  EditingSticker,
+} from "src/components/diary-detail";
+
 import * as G from "src/styles/Common";
 
 export interface EditingStickerInfo extends StickerInfo {

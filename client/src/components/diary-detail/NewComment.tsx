@@ -14,7 +14,7 @@ export interface NewCommentProps {
   parentCommentId?: number;
 }
 
-export const NewComment = ({ changeReplyState, parentCommentId = 0 }: NewCommentProps) => {
+const NewComment = ({ changeReplyState, parentCommentId = 0 }: NewCommentProps) => {
   const diaryId = useRecoilValue(focusedDiaryIdAtom);
   const reloadComments = useSetRecoilState(getComments);
   const { register, handleSubmit, setValue } = useForm<CommentInput>({ mode: "onSubmit" });
@@ -46,3 +46,5 @@ export const NewComment = ({ changeReplyState, parentCommentId = 0 }: NewComment
     </form>
   );
 };
+
+export default NewComment;

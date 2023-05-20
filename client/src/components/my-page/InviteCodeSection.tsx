@@ -7,7 +7,7 @@ import { API_URL } from "src/constants/API_URL";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 import * as S from "../../styles/MyPage";
 
-export const InviteCodeSection = () => {
+const InviteCodeSection = () => {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm<InviteCodeInput>({ mode: "onSubmit" });
   const onSubmitCode = async ({ invttCode }: InviteCodeInput) => {
@@ -36,3 +36,5 @@ export const InviteCodeSection = () => {
     </form>
   );
 };
+
+export default InviteCodeSection;

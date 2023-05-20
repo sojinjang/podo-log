@@ -1,9 +1,8 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 import pencilImg from "../../assets/icons/pencil.png";
-import * as S from "../../styles/Book";
+import * as S from "../../styles/DiaryList";
 
 const NewDiaryButton = () => {
   return (

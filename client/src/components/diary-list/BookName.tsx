@@ -1,8 +1,7 @@
-import React from "react";
 import { useLocation } from "react-router-dom";
 
 import PageTitle from "../common/PageTitle";
-import * as S from "../../styles/Book";
+import * as S from "../../styles/DiaryList";
 
 const BookName = () => {
   const location = useLocation();

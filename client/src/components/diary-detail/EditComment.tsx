@@ -16,12 +16,7 @@ export interface NewCommentProps {
   cancelEdit: () => void;
 }
 
-export const EditComment = ({
-  parentNickname,
-  commentId,
-  comment,
-  cancelEdit,
-}: NewCommentProps) => {
+const EditComment = ({ parentNickname, commentId, comment, cancelEdit }: NewCommentProps) => {
   const reloadComments = useSetRecoilState(getComments);
   const { register, handleSubmit } = useForm<CommentInput>({
     defaultValues: { comment: comment },
@@ -64,3 +59,5 @@ export const EditComment = ({
     </Fade>
   );
 };
+
+export default EditComment;

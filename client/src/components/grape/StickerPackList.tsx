@@ -10,7 +10,7 @@ interface PackListProps {
   updateFocusedPack: (arg: StickerPack | null) => void;
 }
 
-export const StickerPackList = ({ updateFocusedPack }: PackListProps) => {
+const StickerPackList = ({ updateFocusedPack }: PackListProps) => {
   const [stickerPacks, setStickerPacks] = useState<StickerPack[]>([]);
 
   const getStickerPacks = async () => {
@@ -59,3 +59,5 @@ export const StickerPackList = ({ updateFocusedPack }: PackListProps) => {
     </Fade>
   );
 };
+
+export default StickerPackList;

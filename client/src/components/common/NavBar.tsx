@@ -28,7 +28,7 @@ const ButtonContainer = ({ activeMenu, menu }: Menu): JSX.Element => {
   );
 };
 
-export const Navbar = ({ activeMenu }: NavBarProps) => {
+const Navbar = ({ activeMenu }: NavBarProps) => {
   return (
     <G.BarContainer>
       <ButtonContainer activeMenu={activeMenu} menu="books"></ButtonContainer>
@@ -37,3 +37,5 @@ export const Navbar = ({ activeMenu }: NavBarProps) => {
     </G.BarContainer>
   );
 };
+
+export default Navbar;

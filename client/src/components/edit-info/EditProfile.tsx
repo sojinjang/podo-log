@@ -6,11 +6,11 @@ import { formApi } from "src/utils/axiosApi/formApi";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 import { API_URL } from "src/constants/API_URL";
 import { isHEICFile, convertHEICToJPG } from "src/utils/handleHEIC";
+import { compressImg } from "src/utils/compressImg";
 
-import PurpleButton from "src/components/common/PurpleButton";
+import { PurpleButton } from "src/components/common";
 import NewProfile from "./NewProfile";
 import OriginalProfile from "./OriginalProfile";
-import { compressImg } from "src/utils/compressImg";
 
 const EditProfile = () => {
   const imgRef = useRef<HTMLInputElement>(null);

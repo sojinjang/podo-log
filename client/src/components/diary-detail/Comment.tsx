@@ -6,8 +6,8 @@ import { accessTokenAtom } from "src/recoil/token";
 
 import { CommentType } from "src/@types/response";
 import { getUserId } from "../../utils/getUserId";
-import { DropdownMenu } from "./DropdownMenu";
-import { EditComment } from "./EditComment";
+import DropdownMenu from "./DropdownMenu";
+import EditComment from "./EditComment";
 import DefaultProfileImg from "../../assets/icons/default_profile.png";
 import replyImg from "../../assets/icons/reply.png";
 import * as S from "src/styles/DiaryDetail";

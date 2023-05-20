@@ -17,7 +17,7 @@ interface AffixedStickerProps {
   handleUpdateStickers: (newSticker: AffixedStickerInfo) => void;
 }
 
-export const AffixedSticker = ({ sticker, handleUpdateStickers }: AffixedStickerProps) => {
+const AffixedSticker = ({ sticker, handleUpdateStickers }: AffixedStickerProps) => {
   const [targetElem, setTargetElem] = useState<HTMLElement | SVGElement | null>(null);
   useEffect(() => {
     const targetElem = document.querySelector(
@@ -72,3 +72,5 @@ export const AffixedSticker = ({ sticker, handleUpdateStickers }: AffixedSticker
     </>
   );
 };
+
+export default AffixedSticker;

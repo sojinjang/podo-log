@@ -1,11 +1,10 @@
-import React from "react";
 import * as S from "../../styles/BookList";
 
 interface GuidanceProps {
   readonly isEmpty: boolean;
 }
 
-export const Guidance = ({ isEmpty }: GuidanceProps) => {
+const Guidance = ({ isEmpty }: GuidanceProps) => {
   if (isEmpty)
     return (
       <S.Phrase>
@@ -24,3 +23,5 @@ export const Guidance = ({ isEmpty }: GuidanceProps) => {
     </S.Phrase>
   );
 };
+
+export default Guidance;

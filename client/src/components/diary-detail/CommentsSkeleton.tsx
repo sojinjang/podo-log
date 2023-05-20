@@ -1,7 +1,7 @@
 import React from "react";
 import "react-loading-skeleton/dist/skeleton.css";
 
-import { NewComment } from "./NewComment";
+import NewComment from "./NewComment";
 import * as S from "src/styles/DiaryDetail";
 
 interface CommentsSkeletonProps {

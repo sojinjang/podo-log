@@ -1,6 +1,7 @@
 import Fade from "react-reveal/Fade";
 
-import { NewCommentProps, NewComment } from "./NewComment";
+import { NewCommentProps } from "./NewComment";
+import NewComment from "./NewComment";
 
 interface NewCommentReplyProps extends NewCommentProps {
   parentNickname: string;

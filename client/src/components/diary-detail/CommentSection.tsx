@@ -3,15 +3,15 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import { CommentFamType } from "src/@types/response";
 import { getComments } from "src/recoil/diary-detail";
-import { NewComment } from "./NewComment";
-import { CommentsFamily } from "./CommentsFamily";
+import NewComment from "./NewComment";
+import CommentsFamily from "./CommentsFamily";
 import * as S from "src/styles/DiaryDetail";
 
 interface CommentSectionProps {
   updateNumComments: (newNumComments: number) => void;
 }
 
-export const CommentSection = ({ updateNumComments }: CommentSectionProps) => {
+const CommentSection = ({ updateNumComments }: CommentSectionProps) => {
   const comments = useRecoilValue<CommentFamType[]>(getComments);
   const reloadComments = useSetRecoilState(getComments);
   const reCommentsSum = comments.reduce((accumulator, currentObj) => {
@@ -43,3 +43,5 @@ export const CommentSection = ({ updateNumComments }: CommentSectionProps) => {
     </div>
   );
 };
+
+export default CommentSection;

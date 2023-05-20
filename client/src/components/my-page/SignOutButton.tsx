@@ -1,4 +1,3 @@
-import React from "react";
 import { useSetRecoilState } from "recoil";
 
 import { accessTokenAtom } from "src/recoil/token";

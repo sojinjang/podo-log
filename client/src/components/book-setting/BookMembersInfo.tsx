@@ -6,7 +6,7 @@ import { api } from "src/utils/axiosApi/api";
 import MemberProfile from "./MemberProfile";
 import * as S from "../../styles/BookSetting";
 
-export const BookMembersInfo = ({ bookId }: Pick<BookInfo, "bookId">) => {
+const BookMembersInfo = ({ bookId }: Pick<BookInfo, "bookId">) => {
   const [members, setMembers] = useState<MemberInfo[]>([]);
 
   const getBookmembers = async () => {
@@ -39,3 +39,5 @@ export const BookMembersInfo = ({ bookId }: Pick<BookInfo, "bookId">) => {
     </S.BookMembersContainer>
   );
 };
+
+export default BookMembersInfo;
