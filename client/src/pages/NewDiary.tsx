@@ -1,7 +1,6 @@
-import React from "react";
 import Fade from "react-reveal/Fade";
 
-import { PinkPurpleBackground } from "src/components/common/Backgrounds";
+import { PinkPurpleBackground } from "src/styles/Common";
 import BackButton from "src/components/common/BackButton";
 import PostButton from "src/components/diary/PostButton";
 import PageTitle from "src/components/common/PageTitle";

@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
-import tw from "tailwind-styled-components";
+import { useEffect } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import { CommentFamType } from "src/@types/response";
 import { getComments } from "src/recoil/diary-detail";
 import { NewComment } from "./NewComment";
 import { CommentsFamily } from "./CommentsFamily";
+import * as S from "src/styles/DiaryDetail";
 
 interface CommentSectionProps {
   updateNumComments: (newNumComments: number) => void;
@@ -28,8 +28,8 @@ export const CommentSection = ({ updateNumComments }: CommentSectionProps) => {
 
   return (
     <div className="pb-6 md:pb-8">
-      <Divider />
-      <NumCommentsWrapper>댓글 {comments.length + reCommentsSum}</NumCommentsWrapper>
+      <S.Divider />
+      <S.NumCommentsWrapper>댓글 {comments.length + reCommentsSum}</S.NumCommentsWrapper>
       {comments.map((commentsFam) => {
         return (
           <CommentsFamily
@@ -43,11 +43,3 @@ export const CommentSection = ({ updateNumComments }: CommentSectionProps) => {
     </div>
   );
 };
-
-export const Divider = tw.hr`
-h-[2px] bg-[#C7C7C7] mx-auto
-`;
-
-export const NumCommentsWrapper = tw.div`
-mt-2 md:mt-3 mb-1 md:mb-2 mx-auto text-[1.8vh]
-`;

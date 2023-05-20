@@ -1,11 +1,10 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import { BookInfo } from "src/@types/response";
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
-import ClickableContainer from "../common/ClickableContainer";
+import * as G from "src/styles/Common";
 
 const LeaveBookButton = ({ bookId }: Pick<BookInfo, "bookId">) => {
   const navigate = useNavigate();
@@ -18,13 +17,13 @@ const LeaveBookButton = ({ bookId }: Pick<BookInfo, "bookId">) => {
     }
   };
   return (
-    <ClickableContainer
+    <G.ClickableContainer
       onClick={() => {
         if (confirm("정말 일기장을 나가시겠습니까? 🥺")) leaveBook();
       }}
     >
       일기장 나가기
-    </ClickableContainer>
+    </G.ClickableContainer>
   );
 };
 

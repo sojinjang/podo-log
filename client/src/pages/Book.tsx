@@ -1,6 +1,4 @@
-import React from "react";
-
-import { PinkPurpleBackground } from "src/components/common/Backgrounds";
+import { PinkPurpleBackground } from "src/styles/Common";
 import BackButton from "../components/common/BackButton";
 import BookName from "../components/book/BookName";
 import NewDiaryButton from "src/components/book/NewDiaryButton";

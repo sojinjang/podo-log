@@ -1,4 +1,3 @@
-import React from "react";
 import { useRecoilValue } from "recoil";
 import { useForm } from "react-hook-form";
 
@@ -8,8 +7,8 @@ import { diaryImgAtom } from "src/recoil/new-diary/atom";
 import { Img } from "src/recoil/new-diary/atom";
 import { API_URL } from "src/constants/API_URL";
 import { useNavigate, useParams } from "react-router-dom";
-import { DiaryForm, TitleInput, inputStyle, ContentInput } from "../diary/DiaryFormElem";
 import { formApi } from "src/utils/axiosApi/formApi";
+import * as S from "../../styles/Diary";
 
 const createDiaryForm = (diaryImg: Img, bookId: string, { title, content }: DiaryInput) => {
   const formData = new FormData();
@@ -39,9 +38,9 @@ const NewDiaryForm = () => {
   };
 
   return (
-    <DiaryForm id="diary" onSubmit={handleSubmit(onSubmitDiaryForm)}>
-      <TitleInput
-        className={`${inputStyle}`}
+    <S.DiaryForm id="diary" onSubmit={handleSubmit(onSubmitDiaryForm)}>
+      <S.TitleInput
+        className={`${S.inputStyle}`}
         placeholder="제목을 입력해주세요."
         minLength={2}
         maxLength={30}
@@ -49,15 +48,15 @@ const NewDiaryForm = () => {
         {...register("title")}
       />
       <DiaryImgUpload />
-      <ContentInput
-        className={`${inputStyle}`}
+      <S.ContentInput
+        className={`${S.inputStyle}`}
         placeholder="내용을 입력해주세요."
         minLength={2}
         maxLength={400}
         required
         {...register("content")}
       />
-    </DiaryForm>
+    </S.DiaryForm>
   );
 };
 

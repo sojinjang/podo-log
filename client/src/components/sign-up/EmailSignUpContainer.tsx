@@ -1,5 +1,3 @@
-import React from "react";
-import tw from "tailwind-styled-components";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
@@ -10,9 +8,10 @@ import { Img } from "src/recoil/sign-up/atom";
 import { PUBLIC_ROUTE } from "src/router/ROUTE_INFO";
 import { API_URL } from "src/constants/API_URL";
 import { ProfileImgUpload } from "./ProfileImgUpload";
-import { Input, InputContainer } from "../common/Input";
 import PurpleButton from "../common/PurpleButton";
 import { formApi } from "src/utils/axiosApi/formApi";
+import * as G from "src/styles/Common";
+import * as S from "src/styles/Home";
 
 const createSignUpForm = (profileImg: Img, { nickname, email, password }: SignUpInput) => {
   const formData = new FormData();
@@ -55,32 +54,32 @@ const EmailSignUpContainer = () => {
   return (
     <form onSubmit={handleSubmit(onSubmitSignUp)} encType="multipart/form-data">
       <ProfileImgUpload />
-      <InputContainer>
-        <Input placeholder="nickname" minLength={2} required {...register("nickname")} />
-      </InputContainer>
-      <InputContainer>
-        <Input placeholder="email" type="email" required {...register("email")} />
-      </InputContainer>
-      <InputContainer>
-        <Input
+      <G.InputContainer>
+        <G.Input placeholder="nickname" minLength={2} required {...register("nickname")} />
+      </G.InputContainer>
+      <G.InputContainer>
+        <G.Input placeholder="email" type="email" required {...register("email")} />
+      </G.InputContainer>
+      <G.InputContainer>
+        <G.Input
           placeholder="password"
           type="password"
           minLength={4}
           required
           {...register("password")}
         />
-      </InputContainer>
+      </G.InputContainer>
       <div className="w-[65%] mx-auto">
-        <InputContainer className="w-full">
-          <Input
+        <G.InputContainer className="w-full">
+          <G.Input
             placeholder="confirm password"
             type="password"
             minLength={4}
             required
             {...pwConfirmRegister}
           />
-        </InputContainer>
-        {errors.pwConfirm && <PwConfirmMsg>{errors.pwConfirm.message}</PwConfirmMsg>}
+        </G.InputContainer>
+        {errors.pwConfirm && <S.PwConfirmMsg>{errors.pwConfirm.message}</S.PwConfirmMsg>}
       </div>
       <PurpleButton
         description="Sign Up"
@@ -92,7 +91,3 @@ const EmailSignUpContainer = () => {
 };
 
 export default EmailSignUpContainer;
-
-const PwConfirmMsg = tw.p`
-font-sans text-red-600 text-xs sm:text-base mt-1 ml-[5px]
-`;

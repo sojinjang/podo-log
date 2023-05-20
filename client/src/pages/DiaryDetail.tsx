@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { useRecoilState, useSetRecoilState, useResetRecoilState } from "recoil";
 import { v4 as uuidv4 } from "uuid";
@@ -8,11 +8,9 @@ import { StickerInfo } from "src/@types/response";
 import { focusedDiaryIdAtom, isDeleteModalVisibleAtom } from "src/recoil/diary-detail/atom";
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
-import { PinkPurpleBackground } from "src/components/common/Backgrounds";
 import BackButton from "../components/common/BackButton";
 import { AffixedSticker, AffixedStickerInfo } from "src/components/common/diary/Sticker";
 import { DiarySection } from "src/components/common/diary/DiarySection";
-import { UnclickableContainer } from "src/components/common/UnclickableContainer";
 import StickerSaveBtn from "src/components/diary-detail/StickerSaveBtn";
 import { StickerSection } from "src/components/diary-detail/StickerSection";
 import StickerButton from "src/components/diary-detail/StickerButton";
@@ -20,6 +18,7 @@ import { CommentSection } from "src/components/diary-detail/CommentSection";
 import DeleteModal from "src/components/diary-detail//DeleteModal";
 import EditingSticker from "src/components/diary-detail/EditingSticker";
 import CommentsSkeleton from "src/components/diary-detail/CommentsSkeleton";
+import * as G from "src/styles/Common";
 
 export interface EditingStickerInfo extends StickerInfo {
   uniqueId: string;
@@ -122,7 +121,7 @@ const DiaryDetail = () => {
   }, []);
 
   return (
-    <PinkPurpleBackground className="overflow-auto">
+    <G.PinkPurpleBackground className="overflow-auto">
       <BackButton />
       {isEditingSticker && (
         <StickerSaveBtn
@@ -133,7 +132,7 @@ const DiaryDetail = () => {
         />
       )}
       <Fade bottom>
-        <UnclickableContainer className="my-[8vh]">
+        <G.UnclickableContainer className="my-[8vh]">
           {stickers.map((sticker) => {
             return (
               <AffixedSticker
@@ -169,7 +168,7 @@ const DiaryDetail = () => {
               }}
             />
           )}
-        </UnclickableContainer>
+        </G.UnclickableContainer>
       </Fade>
       {isEditingSticker && (
         <>
@@ -180,7 +179,7 @@ const DiaryDetail = () => {
           <div className="h-[23vh]" />
         </>
       )}
-    </PinkPurpleBackground>
+    </G.PinkPurpleBackground>
   );
 };
 

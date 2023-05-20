@@ -1,29 +1,26 @@
 import React from "react";
-import tw from "tailwind-styled-components";
+import * as S from "../../styles/BookList";
 
 interface GuidanceProps {
   readonly isEmpty: boolean;
 }
 
-const Phrase = tw.p`
-  font-[jua] text-purple-1000 text-center text-[2.7vh] mt-[6vh]`;
-
 export const Guidance = ({ isEmpty }: GuidanceProps) => {
   if (isEmpty)
     return (
-      <Phrase>
+      <S.Phrase>
         일기장을 클릭해
         <br />
         가까운 사람들과
         <br />
         일기를 공유해보세요
-      </Phrase>
+      </S.Phrase>
     );
   return (
-    <Phrase>
+    <S.Phrase>
       일기장을
       <br />
       선택해보세요
-    </Phrase>
+    </S.Phrase>
   );
 };

@@ -1,5 +1,3 @@
-import React from "react";
-import tw from "tailwind-styled-components";
 import { useRecoilValue } from "recoil";
 
 import { focusedDiaryIdAtom } from "src/recoil/diary-detail/atom";
@@ -7,6 +5,7 @@ import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import { EditingStickerInfo } from "src/pages/DiaryDetail";
 import { AffixedStickerInfo } from "src/components/common/diary/Sticker";
+import * as S from "src/styles/DiaryDetail";
 
 interface StickerSaveButtonProps {
   selectedStickers: EditingStickerInfo[];
@@ -46,15 +45,9 @@ const StickerSaveBtn = ({
 
   return (
     <div onClick={handleOnClickSave} className="relative leading-[70px] align-middle">
-      <Button>저장</Button>
+      <S.SaveButton>저장</S.SaveButton>
     </div>
   );
 };
 
 export default StickerSaveBtn;
-
-const Button = tw.button`
-  h-[70px] absolute md:right-[2vh] right-[1.8vh] m-auto md:pt-[0.8vh]
-  font-sans text-[2.3vh] md:text-[1.8vh] cursor-pointer hover:opacity-50
-  drop-shadow-xl hover:drop-shadow-none ease-in duration-300
-`;

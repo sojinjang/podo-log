@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRecoilState, useResetRecoilState } from "recoil";
 
 import { profileImgAtom } from "src/recoil/sign-up";
 import { compressImg } from "src/utils/compressImg";
 import { isHEICFile, convertHEICToJPG } from "src/utils/handleHEIC";
-import DefaultProfileImg from "../../assets/icons/default_profile.png";
-import { ProfileImg, ProfileImgDescription } from "../common/Profile";
+import DefaultProfileImg from "src/assets/icons/default_profile.png";
+import * as G from "src/styles/Common";
 
 export const ProfileImgUpload = () => {
   const [profileImg, setProfileImg] = useRecoilState(profileImgAtom);
@@ -41,14 +41,16 @@ export const ProfileImgUpload = () => {
 
   return (
     <div className="m-auto text-center">
-      <ProfileImg alt="profile" src={profileImg ? imgPreview : DefaultProfileImg} />
+      <G.ProfileImg alt="profile" src={profileImg ? imgPreview : DefaultProfileImg} />
       {!profileImg && (
-        <ProfileImgDescription htmlFor="profileImg">프로필 이미지 추가</ProfileImgDescription>
+        <G.ProfileImgDescription htmlFor="profileImg">
+          프로필 이미지 추가
+        </G.ProfileImgDescription>
       )}
       {profileImg && (
-        <ProfileImgDescription onClick={deleteImgFile}>
+        <G.ProfileImgDescription onClick={deleteImgFile}>
           프로필 이미지 삭제
-        </ProfileImgDescription>
+        </G.ProfileImgDescription>
       )}
       <input
         className="hidden"

@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
-import tw from "tailwind-styled-components";
+import { useState, useEffect } from "react";
 import Fade from "react-reveal/Fade";
 
 import { MyGrape, StickerPack } from "src/@types/response";
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
-import { StickerPreviewContainer } from "./Sticker";
-import grapeImg from "../../assets/icons/grape.png";
-import "./purchaseButton.css";
+import grapeImg from "src/assets/icons/grape.png";
+import "src/styles/PurchaseButton.css";
+import * as S from "src/styles/Grape";
 
 export interface PackageDetailProps {
   focusedPack: StickerPack | null;
@@ -39,77 +38,35 @@ const PackageDetail = ({
 
   return (
     <Fade bottom>
-      <PackageDetailContainer>
-        <CancelButton onClick={resetFocusedPack}>X</CancelButton>
-        <PackageName>{focusedPack?.packageName}</PackageName>
-        <PodoPriceContainer>
-          <PodoPriceImg alt="grape" src={grapeImg} />
-          <PodoPrice>{focusedPack?.podoPrice}</PodoPrice>
-        </PodoPriceContainer>
-        <StickerPreviewContainer>
+      <S.PackageDetailContainer>
+        <S.CancelButton onClick={resetFocusedPack}>X</S.CancelButton>
+        <S.PackageName>{focusedPack?.packageName}</S.PackageName>
+        <S.PodoPriceContainer>
+          <S.PodoPriceImg alt="grape" src={grapeImg} />
+          <S.PodoPrice>{focusedPack?.podoPrice}</S.PodoPrice>
+        </S.PodoPriceContainer>
+        <S.StickerPreviewContainer>
           {focusedPack?.stickers.map((sticker) => {
             return (
-              <StickerImg key={sticker.stickerId} alt="sticker" src={sticker.stickerImg} />
+              <S.StickerImg key={sticker.stickerId} alt="sticker" src={sticker.stickerImg} />
             );
           })}
-        </StickerPreviewContainer>
-        <ButtonContainer>
-          <Announcement>
+        </S.StickerPreviewContainer>
+        <S.ButtonContainer>
+          <S.Announcement>
             구매 즉시 포도송이가 차감되며, 구매한 스티커 팩은 일주일 간 사용 가능합니다.
-          </Announcement>
+          </S.Announcement>
           <button
             disabled={!isPurchasable}
             onClick={purchasePackage}
             className="purchase-btn cursor-not-allowed"
           >
-            <BtnDesc>구매하기</BtnDesc>
+            <S.PurchaseBtnDesc>구매하기</S.PurchaseBtnDesc>
           </button>
-        </ButtonContainer>
-      </PackageDetailContainer>
+        </S.ButtonContainer>
+      </S.PackageDetailContainer>
     </Fade>
   );
 };
 
 export default PackageDetail;
-
-const PackageName = tw.p`
-text-[2.5vh] mx-auto
-`;
-
-const PackageDetailContainer = tw.div`
-flex flex-col bg-white/60 rounded-lg shadow-lg 
-w-[45vh] h-[74.5vh] mt-[2vh] mx-auto px-[1.5vh] py-[1vh]
-`;
-
-const CancelButton = tw.p`
-text-[2vh] p-1 font-sans ml-auto cursor-pointer
-drop-shadow-lg hover:drop-shadow-none hover:opacity-50 ease-in duration-300 
-`;
-
-const PodoPriceContainer = tw.div`
-flex mx-auto
-`;
-
-const PodoPriceImg = tw.img`
-h-[1.5vh] my-auto mr-1.5
-`;
-
-const PodoPrice = tw.p`
-text-[1.6vh]
-`;
-
-const StickerImg = tw.img`
-h-[6.3vh] w-[6.3vh] mx-[3vh] my-[2vh]
-`;
-
-const ButtonContainer = tw.div`
-flex flex-col mt-auto mb-[2.2vh]
-`;
-
-const Announcement = tw.p`
-font-sans text-[1.2vh] mx-auto
-`;
-
-const BtnDesc = tw.span`
-font-sans text-[1.5vh]
-`;

@@ -1,7 +1,5 @@
-import React from "react";
-
 import DefaultProfileImg from "src/assets/icons/default_profile.png";
-import { ProfileImg, ProfileImgDescription } from "src/components/common/Profile";
+import * as G from "src/styles/Common";
 
 interface OriginalProfileProps {
   ogPicInfo: string;
@@ -14,13 +12,15 @@ const OriginalProfile = ({ ogPicInfo, deleteImgFile }: OriginalProfileProps) => 
 
   return (
     <>
-      <ProfileImg src={originalPic} />
+      <G.ProfileImg src={originalPic} />
       {hasNoOgPic ? (
-        <ProfileImgDescription htmlFor="profileImg">프로필 이미지 추가</ProfileImgDescription>
+        <G.ProfileImgDescription htmlFor="profileImg">
+          프로필 이미지 추가
+        </G.ProfileImgDescription>
       ) : (
-        <ProfileImgDescription onClick={deleteImgFile}>
+        <G.ProfileImgDescription onClick={deleteImgFile}>
           프로필 이미지 삭제
-        </ProfileImgDescription>
+        </G.ProfileImgDescription>
       )}
     </>
   );

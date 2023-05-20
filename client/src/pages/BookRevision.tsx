@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Bounce from "react-reveal/Bounce";
 
-import { selectedColorAtom } from "../recoil/book-color";
+import { selectedColorAtom } from "src/recoil/book-color";
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 
 import { BookNameInput } from "src/@types/input";
-import { PinkPurpleBackground } from "src/components/common/Backgrounds";
+import { PinkPurpleBackground } from "src/styles/Common";
 import BackButton from "src/components/common/BackButton";
 import PageTitle from "src/components/common/PageTitle";
 import PurpleButton from "src/components/common/PurpleButton";

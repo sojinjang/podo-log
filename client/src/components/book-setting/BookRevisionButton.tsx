@@ -1,9 +1,8 @@
-import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 
+import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 import { BookInfo } from "src/@types/response";
-import ClickableContainer from "../common/ClickableContainer";
+import * as G from "src/styles/Common";
 
 const BookRevisionButton = ({ bookId }: Pick<BookInfo, "bookId">) => {
   const navigate = useNavigate();
@@ -23,7 +22,9 @@ const BookRevisionButton = ({ bookId }: Pick<BookInfo, "bookId">) => {
     );
   };
 
-  return <ClickableContainer onClick={onClickRevisionButton}>일기장 수정</ClickableContainer>;
+  return (
+    <G.ClickableContainer onClick={onClickRevisionButton}>일기장 수정</G.ClickableContainer>
+  );
 };
 
 export default BookRevisionButton;

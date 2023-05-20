@@ -1,4 +1,3 @@
-import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
@@ -6,8 +5,8 @@ import { API_URL } from "src/constants/API_URL";
 import { api } from "src/utils/axiosApi/api";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 import PurpleButton from "src/components/common/PurpleButton";
-import { Input, InputContainer } from "src/components/common/Input";
 import { NicknameInput } from "src/@types/input";
+import * as G from "src/styles/Common";
 
 const EditNickname = () => {
   const navigate = useNavigate();
@@ -27,9 +26,9 @@ const EditNickname = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmitEdit)}>
-      <InputContainer>
-        <Input placeholder="nickname" minLength={2} required {...register("nickname")} />
-      </InputContainer>
+      <G.InputContainer>
+        <G.Input placeholder="nickname" minLength={2} required {...register("nickname")} />
+      </G.InputContainer>
       <PurpleButton
         description="수정하기"
         wrapperStyle="mt-[1.5vh] w-full"

@@ -1,10 +1,8 @@
-import React from "react";
-import tw from "tailwind-styled-components";
-
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import { accessTokenAtom } from "src/recoil/token";
 import { useSetRecoilState } from "recoil";
+import * as S from "../../styles/MyPage";
 
 const WithdrawalButton = () => {
   const setAccessToken = useSetRecoilState(accessTokenAtom);
@@ -19,12 +17,11 @@ const WithdrawalButton = () => {
     }
   };
 
-  return <Button onClick={handleWithdrawal}>탈퇴하기</Button>;
+  return (
+    <S.Button className="text-[1.7vh] mx-auto" onClick={handleWithdrawal}>
+      탈퇴하기
+    </S.Button>
+  );
 };
 
 export default WithdrawalButton;
-
-const Button = tw.p`
-font-sans text-[#959595] text-[1.7vh] mx-auto cursor-pointer
-drop-shadow-lg hover:drop-shadow-none transition ease-in duration-300
-`;

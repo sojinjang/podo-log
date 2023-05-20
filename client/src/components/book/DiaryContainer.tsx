@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import tw from "tailwind-styled-components";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Fade from "react-reveal/Fade";
 
@@ -8,8 +7,9 @@ import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 import commentWebP from "../../assets/icons/comment.webp";
 import commentPng from "../../assets/icons/comment.png";
 import { AffixedSticker, AffixedStickerInfo } from "../common/diary/Sticker";
-import { UnclickableContainer } from "../common/UnclickableContainer";
 import { DiarySection } from "../common/diary/DiarySection";
+import * as G from "src/styles/Common";
+import * as S from "../../styles/Book";
 
 interface DiaryContainerProps {
   viewRef?: () => void;
@@ -43,7 +43,11 @@ const DiaryContainer = ({ viewRef, data }: DiaryContainerProps) => {
 
   return (
     <Fade bottom duration={1000}>
-      <UnclickableContainer className={ContainerStyle} onClick={onClickDiary} ref={viewRef}>
+      <G.UnclickableContainer
+        className={S.ContainerStyle}
+        onClick={onClickDiary}
+        ref={viewRef}
+      >
         {stickers.map((sticker) => {
           return (
             <AffixedSticker
@@ -54,33 +58,16 @@ const DiaryContainer = ({ viewRef, data }: DiaryContainerProps) => {
           );
         })}
         <DiarySection data={data} isDetailPage={false} />
-        <CommentContainer>
-          <CommentIcon>
+        <S.CommentContainer>
+          <S.CommentIcon>
             <source srcSet={commentWebP} type="image/webp" />
             <img alt="comment" src={commentPng} />
-          </CommentIcon>
-          <NumComments>{data.numComments}</NumComments>
-        </CommentContainer>
-      </UnclickableContainer>
+          </S.CommentIcon>
+          <S.NumComments>{data.numComments}</S.NumComments>
+        </S.CommentContainer>
+      </G.UnclickableContainer>
     </Fade>
   );
 };
 
 export default DiaryContainer;
-
-const ContainerStyle = `
-cursor-pointer mb-[2vh]
-hover:shadow-none ease-in duration-200
-`;
-
-const CommentContainer = tw.div`
-flex justify-end 
-`;
-
-const CommentIcon = tw.picture`
-w-[2.5vh] h-[2.5vh] my-auto
-`;
-
-const NumComments = tw.p`
-text-[2.2vh] md:text-[2vh] ml-1 my-auto
-`;

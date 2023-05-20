@@ -1,6 +1,6 @@
-import React, { lazy, Suspense } from "react";
-import { DefaultBackground, PinkPurpleBackground } from "src/components/common/Backgrounds";
-import "src/components/common/Backgrounds.css";
+import { lazy, Suspense } from "react";
+import { DefaultBackground, PinkPurpleBackground } from "src/styles/Common";
+import "src/styles/Backgrounds.css";
 
 const Home = lazy(() => import("../pages/Home"));
 const BookList = lazy(() => import("../pages/BookList"));

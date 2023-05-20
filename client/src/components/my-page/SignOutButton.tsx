@@ -4,7 +4,7 @@ import { useSetRecoilState } from "recoil";
 import { accessTokenAtom } from "src/recoil/token";
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
-import ClickableContainer from "src/components/common/ClickableContainer";
+import * as G from "src/styles/Common";
 
 const SignOutButton = () => {
   const setAccessToken = useSetRecoilState(accessTokenAtom);
@@ -18,7 +18,7 @@ const SignOutButton = () => {
     }
   };
 
-  return <ClickableContainer onClick={handleSignOut}>로그아웃</ClickableContainer>;
+  return <G.ClickableContainer onClick={handleSignOut}>로그아웃</G.ClickableContainer>;
 };
 
 export default SignOutButton;

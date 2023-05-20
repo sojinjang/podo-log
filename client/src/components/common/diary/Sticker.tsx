@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useState } from "react";
-import tw from "tailwind-styled-components";
+import { useCallback, useEffect, useState } from "react";
 import Moveable, { OnDragStart, OnDrag, OnDragEnd } from "react-moveable";
 
 import { convertToAbsCoord, convertToRelativeCoord } from "src/utils/convertCoord";
+import * as S from "src/styles/Diary";
 
 export interface AffixedStickerInfo {
   stickedStickerId: number;
@@ -66,17 +66,9 @@ export const AffixedSticker = ({ sticker, handleUpdateStickers }: AffixedSticker
         onDrag={handleOnDrag}
         onDragEnd={handleDragEnd}
       />
-      <MoveableStickerContainer className={`target-${sticker.stickedStickerId}`}>
-        <StickerImg alt="sticker" src={sticker.stickerImg} />
-      </MoveableStickerContainer>
+      <S.MoveableStickerContainer className={`target-${sticker.stickedStickerId}`}>
+        <S.StickerImg alt="sticker" src={sticker.stickerImg} />
+      </S.MoveableStickerContainer>
     </>
   );
 };
-
-export const MoveableStickerContainer = tw.div`
-z-10 flex absolute cursor-pointer
-`;
-
-export const StickerImg = tw.img`
-h-[7vh]
-`;

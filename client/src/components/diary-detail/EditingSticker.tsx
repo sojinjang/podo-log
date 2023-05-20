@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import tw from "tailwind-styled-components";
+import { useState, useEffect } from "react";
 import Moveable, { OnDragStart, OnDrag, OnDragEnd } from "react-moveable";
 
 import { convertToRelativeCoord, convertToAbsCoord } from "src/utils/convertCoord";
 import { EditingStickerInfo } from "src/pages/DiaryDetail";
-import { MoveableStickerContainer, StickerImg } from "../common/diary/Sticker";
 import cancelImg from "../../assets/icons/x.png";
+import * as G from "src/styles/Diary";
+import * as S from "src/styles/DiaryDetail";
 
 interface DraggableStickerProps {
   sticker: EditingStickerInfo;
@@ -54,23 +54,18 @@ const EditingSticker = ({
         onDrag={handleOnDrag}
         onDragEnd={handleDragEnd}
       />
-      <MoveableStickerContainer className={`target-${sticker.uniqueId}`}>
-        <StickerImg src={sticker.stickerImg} />
-        <CancelImg
+      <G.MoveableStickerContainer className={`target-${sticker.uniqueId}`}>
+        <G.StickerImg src={sticker.stickerImg} />
+        <S.CancelImg
           onClick={() => {
             handleDeleteStickers(sticker);
           }}
           src={cancelImg}
           alt="cancel"
         />
-      </MoveableStickerContainer>
+      </G.MoveableStickerContainer>
     </>
   );
 };
 
 export default EditingSticker;
-
-const CancelImg = tw.img`
-h-[2vh] absolute right-0 
-drop-shadow-lg hover:drop-shadow-none transition duration-300 ease-in-out
-`;

@@ -1,8 +1,7 @@
-import React from "react";
 import { useParams } from "react-router-dom";
 import Fade from "react-reveal/Fade";
 
-import { PinkPurpleBackground } from "src/components/common/Backgrounds";
+import { PinkPurpleBackground } from "src/styles/Common";
 import BackButton from "../components/common/BackButton";
 import PageTitle from "src/components/common/PageTitle";
 import InviteSection from "src/components/book-setting/InviteSection";

@@ -1,7 +1,5 @@
-import React from "react";
-
 import DefaultProfileImg from "src/assets/icons/default_profile.png";
-import { ProfileImg, ProfileImgDescription } from "src/components/common/Profile";
+import * as G from "src/styles/Common";
 
 interface NewProfileProps {
   profileImg: string | Blob;
@@ -12,14 +10,16 @@ interface NewProfileProps {
 const NewProfile = ({ profileImg, imgPreview, deleteImgFile }: NewProfileProps) => {
   return (
     <>
-      <ProfileImg src={profileImg ? imgPreview : DefaultProfileImg} />
+      <G.ProfileImg src={profileImg ? imgPreview : DefaultProfileImg} />
       {profileImg && (
-        <ProfileImgDescription onClick={deleteImgFile}>
+        <G.ProfileImgDescription onClick={deleteImgFile}>
           프로필 이미지 삭제
-        </ProfileImgDescription>
+        </G.ProfileImgDescription>
       )}
       {!profileImg && (
-        <ProfileImgDescription htmlFor="profileImg">프로필 이미지 추가</ProfileImgDescription>
+        <G.ProfileImgDescription htmlFor="profileImg">
+          프로필 이미지 추가
+        </G.ProfileImgDescription>
       )}
     </>
   );

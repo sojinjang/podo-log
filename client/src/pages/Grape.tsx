@@ -1,16 +1,16 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 
 import { MyGrape, StickerPack } from "src/@types/response";
-import { DefaultBackground } from "src/components/common/Backgrounds";
+import { DefaultBackground } from "src/styles/Common";
 import { Navbar } from "src/components/common/NavBar";
 import MoveBtn from "src/components/grape/MoveBtn";
-import GrapeInfo from "../components/grape/GrapeInfo";
+import GrapeInfo from "src/components/grape/GrapeInfo";
 import MyGrapeNum from "src/components/grape/MyGrapeNum";
-import { StickerShopContainer } from "src/components/grape/Sticker";
 import { StickerPackList } from "src/components/grape/StickerPackList";
 import PackageDetail from "src/components/grape/PackageDetail";
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
+import * as S from "../styles/Grape";
 
 const Grape = () => {
   const grapeRef = useRef<HTMLDivElement>(null);
@@ -55,7 +55,7 @@ const Grape = () => {
           <MoveBtn stickerShopRef={stickerShopRef} isMoveDown={true} />
           <div className="h-[17vh] w-screen" />
         </div>
-        <StickerShopContainer ref={stickerShopRef}>
+        <S.StickerShopContainer ref={stickerShopRef}>
           <MoveBtn grapeRef={grapeRef} isMoveDown={false} />
           {myGrape && <MyGrapeNum grape={myGrape.grape} />}
           {focusedPack && myGrape ? (
@@ -68,7 +68,7 @@ const Grape = () => {
           ) : (
             <StickerPackList updateFocusedPack={updateFocusedPack} />
           )}
-        </StickerShopContainer>
+        </S.StickerShopContainer>
       </DefaultBackground>
       <Navbar activeMenu="grape" />
     </div>
