@@ -9,12 +9,14 @@ import {
 } from "../../types";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
 import { defaultPackageIds } from "../../config";
+import { Service } from "typedi";
 
 const userBuildQuery = new BuildQuery("user");
 const grainBuildQuery = new BuildQuery("user_grain");
 const userPackageQuery = new BuildQuery("user_package");
 
-class UserModel {
+@Service()
+export class UserModel {
   async create(userDTO: CreateUserDTO | SNSCreateUserDTO) {
     const conn = await pool.getConnection();
     try {
@@ -112,5 +114,3 @@ class UserModel {
     return result;
   }
 }
-
-export const userModel = new UserModel();

@@ -1,11 +1,13 @@
-import { packageService } from "./package-service";
+import { PackageService } from "./package-service";
 import { FileRequest, LoggedRequest } from "../../types";
 import asyncHandler from "../../utils/async-handler";
 import { SuccessMsgResponse, SuccessResponse } from "../../core/api-response";
 import { BadRequestError } from "../../core/api-error";
+import { Service } from "typedi";
 
-class PackageController {
-  private packageService = packageService;
+@Service()
+export class PackageController {
+  constructor(private packageService: PackageService) {}
 
   create = asyncHandler(async (req: FileRequest, res) => {
     const { packageName } = req.body;
@@ -55,5 +57,3 @@ class PackageController {
     return new SuccessMsgResponse(messageDTO.message).send(res);
   });
 }
-
-export const packageController = new PackageController();

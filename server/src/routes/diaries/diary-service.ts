@@ -1,5 +1,5 @@
 import { ForbiddenError, NoDataError } from "../../core/api-error";
-import { diaryModel, userBookModel } from "../../db/models";
+import { DiaryModel } from "../../db/models";
 import { imageDeleter } from "../../middlewares";
 import {
   CreateDiaryDTO,
@@ -12,9 +12,11 @@ import {
   UserIdDTO,
 } from "../../types";
 import { checkResult, buildImgLocation } from "../../utils";
+import { Service } from "typedi";
 
-class DiaryService {
-  private diaryModel = diaryModel;
+@Service()
+export class DiaryService {
+  constructor(private diaryModel: DiaryModel) {}
 
   async create(diaryDTO: CreateDiaryDTO) {
     const result = await this.diaryModel.create(diaryDTO);
@@ -133,5 +135,3 @@ class DiaryService {
     return messageDTO;
   }
 }
-
-export const diaryService = new DiaryService();

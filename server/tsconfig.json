@@ -13,7 +13,9 @@
     "strict": true,                                      
     "strictFunctionTypes": false,
     "skipLibCheck": true,
-    "typeRoots":["./node_modules/@types","./src/types"]
+    "typeRoots":["./node_modules/@types","./src/types"],
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
   },
   "include": ["**/*.ts"],
   "exclude": ["node_modules","dist"]

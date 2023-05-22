@@ -1,10 +1,12 @@
 import { Profile, Strategy as NaverStrategy } from "passport-naver-v2";
 import { naver } from "../config";
 import { logger } from "../utils";
-import { userModel } from "../db/models/user";
+import { UserModel } from "../db/models/user";
 import { SNSCreateUserDTO } from "../types/user-type";
+import { Container } from "typedi";
 
 const opts = naver;
+const userModel: UserModel = Container.get(UserModel);
 
 interface NaverVerifyFunction {
   (

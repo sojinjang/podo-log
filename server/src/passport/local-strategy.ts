@@ -1,13 +1,14 @@
 import { Strategy as LocalStrategy, VerifyFunction } from "passport-local";
 import bcrypt from "bcrypt";
-import { userModel } from "../db/models";
+import { UserModel } from "../db/models";
 import { logger } from "../utils";
+import { Container } from "typedi";
 
 const opts = {
   usernameField: "email",
   passwordField: "password",
 };
-
+const userModel: UserModel = Container.get(UserModel);
 const localVerify: VerifyFunction = async (email, password, done) => {
   try {
     const [exUser] = await userModel.get({ email });

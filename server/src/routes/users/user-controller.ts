@@ -1,11 +1,13 @@
-import { userService } from "./user-service";
+import { UserService } from "./user-service";
 import { CreateUserDTO, FileRequest, LoggedRequest, UpdateUserDTO } from "../../types";
 import asyncHandler from "../../utils/async-handler";
 import { SuccessMsgResponse, SuccessResponse } from "../../core/api-response";
 import { BadRequestError } from "../../core/api-error";
+import { Service } from "typedi";
 
-class UserController {
-  private userService = userService;
+@Service()
+export class UserController {
+  constructor(private userService: UserService) {}
 
   localJoin = asyncHandler(async (req: FileRequest, res) => {
     const { email, nickname, password } = req.body;
@@ -73,5 +75,3 @@ class UserController {
     return new SuccessMsgResponse(messageDTO.message).send(res);
   });
 }
-
-export const userController = new UserController();

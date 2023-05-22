@@ -1,10 +1,12 @@
 import { Router } from "express";
-import { diaryController } from "./diary-controller";
+import { DiaryController } from "./diary-controller";
 import validator, { ValidationSource } from "../../utils/validator";
 import schema from "./schema";
 import { imageUploader, isBookMember } from "../../middlewares";
+import { Container } from "typedi";
 
 const router = Router();
+const diaryController: DiaryController = Container.get(DiaryController);
 router.post(
   "/",
   imageUploader().single("picture"),

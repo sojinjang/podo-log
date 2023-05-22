@@ -8,12 +8,14 @@ import {
   UserIdDTO,
 } from "../../types";
 import { ResultSetHeader } from "mysql2";
+import { Service } from "typedi";
 
 const bookBuildQuery = new BuildQuery("book");
 const userBookBuildQuery = new BuildQuery("user_book");
 const invttCodeBuildQuery = new BuildQuery("invtt_code");
 
-class BookModel {
+@Service()
+export class BookModel {
   async create(bookDTO: CreateBookDTO, userIdDTO: UserIdDTO, invttCodeDTO: InvttCodeDTO) {
     const conn = await pool.getConnection();
     try {
@@ -72,5 +74,3 @@ class BookModel {
     return result;
   }
 }
-
-export const bookModel = new BookModel();

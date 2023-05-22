@@ -1,12 +1,16 @@
 import { Router } from "express";
 import invttCodeRouter from "../invtt-code";
-import { bookController } from "./book-controller";
+import { BookController } from "./book-controller";
 import validator, { ValidationSource } from "../../utils/validator";
 import schema from "./schema";
-import { diaryController } from "../diaries/diary-controller";
+import { DiaryController } from "../diaries/diary-controller";
 import { isBookMember } from "../../middlewares";
+import { Container } from "typedi";
 
 const router = Router();
+const bookController: BookController = Container.get(BookController);
+const diaryController: DiaryController = Container.get(DiaryController);
+
 router.post("/", validator(schema.createBook), bookController.create);
 router.get("/", bookController.getByUserId);
 router.get(

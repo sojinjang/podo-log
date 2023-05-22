@@ -1,5 +1,5 @@
 import { RowDataPacket } from "mysql2";
-import { commentModel } from "../../db/models";
+import { CommentModel } from "../../db/models";
 import {
   CommentIdDTO,
   CreateCommentDTO,
@@ -11,9 +11,11 @@ import {
 } from "../../types";
 import { buildImgLocation, checkResult } from "../../utils";
 import { ForbiddenError, NoDataError } from "./../../core/api-error";
+import { Service } from "typedi";
 
-class CommentService {
-  private commentModel = commentModel;
+@Service()
+export class CommentService {
+  constructor(private commentModel: CommentModel) {}
   async create(commentDTO: CreateCommentDTO) {
     const result = await this.commentModel.create(commentDTO);
     const messageDTO = checkResult(result, "댓글 생성에 성공하였습니다.");
@@ -77,5 +79,3 @@ class CommentService {
     return messageDTO;
   }
 }
-
-export const commentService = new CommentService();

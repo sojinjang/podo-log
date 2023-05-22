@@ -1,9 +1,12 @@
 import passport from "passport";
 import { ForbiddenError, TokenExpiredError, AccessTokenError } from "../core/api-error";
-import { userBookModel } from "../db/models";
+import { UserBookModel } from "../db/models";
 import asyncHandler from "../utils/async-handler";
 import { logger } from "./../utils/pino";
 import { LoggedRequest } from "./../types";
+import { Container } from "typedi";
+
+const userBookModel: UserBookModel = Container.get(UserBookModel);
 
 export const isLoggedIn = asyncHandler(async (req, res, next) => {
   passport.authenticate("accessJwt", { session: false }, (err, user, info) => {

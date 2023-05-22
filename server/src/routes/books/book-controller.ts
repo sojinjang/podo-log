@@ -1,4 +1,4 @@
-import { bookService } from "./book-service";
+import { Service } from "typedi";
 import {
   CreateBookDTO,
   LoggedRequest,
@@ -8,9 +8,11 @@ import {
 } from "../../types";
 import asyncHandler from "../../utils/async-handler";
 import { SuccessMsgResponse, SuccessResponse } from "../../core/api-response";
+import { BookService } from "./book-service";
 
-class BookController {
-  private bookService = bookService;
+@Service()
+export class BookController {
+  constructor(private bookService: BookService) {}
 
   create = asyncHandler(async (req: LoggedRequest, res) => {
     const { bookName, color } = req.body;
@@ -56,5 +58,3 @@ class BookController {
     return new SuccessMsgResponse(messageDTO.message).send(res);
   });
 }
-
-export const bookController = new BookController();
