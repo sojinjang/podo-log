@@ -3,10 +3,12 @@ import { logger, BuildQuery } from "../../utils";
 import { UserBookDTO, UserIdDTO } from "../../types";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
 import { BookIdDTO } from "./../../types/book-type.d";
+import { Service } from "typedi";
 
 const userBookBuildQuery = new BuildQuery("user_book");
 
-class UserBookModel {
+@Service()
+export class UserBookModel {
   async joinBook(userBookDTO: UserBookDTO) {
     const { query, values } = userBookBuildQuery.makeInsertQuery({ ...userBookDTO });
     logger.info(query);
@@ -67,5 +69,3 @@ class UserBookModel {
     return result;
   }
 }
-
-export const userBookModel = new UserBookModel();

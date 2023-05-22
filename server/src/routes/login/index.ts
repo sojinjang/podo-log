@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { loginController } from "./login-controller";
+import { LoginController } from "./login-controller";
 import validator, { ValidationSource } from "../../utils/validator";
 import schema from "./schema";
 
 const router = Router();
-
+const loginController: LoginController = new LoginController();
 router.post("/local", validator(schema.local), loginController.local);
 router.post(
   "/logout",

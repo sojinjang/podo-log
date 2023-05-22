@@ -1,9 +1,11 @@
 import { Router } from "express";
-import { commentController } from "./comment-controller";
+import { CommentController } from "./comment-controller";
 import validator, { ValidationSource } from "../../utils/validator";
 import schema from "./schema";
+import { Container } from "typedi";
 
 const router = Router();
+const commentController: CommentController = Container.get(CommentController);
 router.post("/", validator(schema.createComment), commentController.create);
 router.get(
   "/",

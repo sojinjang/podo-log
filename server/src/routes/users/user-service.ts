@@ -1,4 +1,4 @@
-import { userModel } from "../../db/models";
+import { UserModel } from "../../db/models";
 import bcrypt from "bcrypt";
 import {
   CreateUserDTO,
@@ -10,9 +10,12 @@ import {
 import { imageDeleter } from "../../middlewares";
 import { checkResult, buildImgLocation } from "../../utils";
 import { AuthFailureError, BadRequestError } from "../../core/api-error";
+import { Service } from "typedi";
 
-class UserService {
-  private userModel = userModel;
+@Service()
+export class UserService {
+  constructor(private userModel: UserModel) {}
+
   async localJoin(userDTO: CreateUserDTO) {
     const { email, nickname, password } = userDTO;
     const exUser = await this.userModel.get({ email }, false);
@@ -120,5 +123,3 @@ class UserService {
     return messageDTO;
   }
 }
-
-export const userService = new UserService();

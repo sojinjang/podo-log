@@ -1,21 +1,20 @@
 import { ForbiddenError, NoDataError } from "../../core/api-error";
-import { packageModel } from "../../db/models";
+import { PackageModel } from "../../db/models";
 import { imageObjDeleter } from "../../middlewares";
 import {
   CreatePackageControllerDTO,
   PackageIdDTO,
   UserEntity,
   UserPackageDTO,
+  checkExpirationReducer,
+  checkExpirationReturn,
 } from "../../types";
-import {
-  buildImgLocation,
-  checkExpiration,
-  checkResult,
-  compressImageUploadByKey,
-} from "../../utils";
+import { buildImgLocation, checkResult, compressImageUploadByKey } from "../../utils";
+import { Service } from "typedi";
 
-class PackageService {
-  private packageModel = packageModel;
+@Service()
+export class PackageService {
+  constructor(private packageModel: PackageModel) {}
 
   async create(createPackageDTO: CreatePackageControllerDTO) {
     const { packageArr, packageName, podoPrice } = createPackageDTO;
@@ -56,7 +55,7 @@ class PackageService {
   }
 
   async getByUserId(userIdDTO: UserPackageDTO) {
-    const [myPackageIds, myPackagesTimeDic] = await checkExpiration(userIdDTO);
+    const [myPackageIds, myPackagesTimeDic] = await this.checkExpiration(userIdDTO);
 
     if (myPackageIds.length === 0)
       return { message: "패키지 조회에 성공하였습니다.", data: [] };
@@ -77,7 +76,7 @@ class PackageService {
   }
 
   async getPackageInshop(userIdDTO: UserPackageDTO) {
-    const [myPackageIds] = await checkExpiration(userIdDTO);
+    const [myPackageIds] = await this.checkExpiration(userIdDTO);
 
     const shopPackages = await this.packageModel.getPackageJoinStickersByPakcageIdArr(
       myPackageIds,
@@ -110,6 +109,32 @@ class PackageService {
 
     return messageDTO;
   }
-}
 
-export const packageService = new PackageService();
+  async checkExpiration(userIdDTO: UserPackageDTO): Promise<checkExpirationReturn> {
+    const myPackagesInquiry = await this.packageModel.getOnlyUserPackage(userIdDTO);
+
+    const [expireIds, myPackageIds, myPackagesTimeDic] = myPackagesInquiry.reduce(
+      ([expireIds, ids, timeDic], cur) => {
+        const packageId: number = cur.packageId;
+        //cur.expiration 가 없으면 기본 스티커
+        if (!cur.expiration) {
+          timeDic[packageId] = "free";
+          ids.push(packageId);
+        } else {
+          const diffdays = cur.expiration.getTime() - Date.now();
+          if (diffdays < 0) expireIds.push(packageId);
+          else {
+            timeDic[packageId] = cur.expiration;
+            ids.push(packageId);
+          }
+        }
+        return [expireIds, ids, timeDic];
+      },
+      [[], [], {}] as checkExpirationReducer
+    );
+
+    if (expireIds.length > 0) this.packageModel.deleteUserPackageByPackageIdArr(expireIds); //기다릴 필요 없을듯
+
+    return [myPackageIds, myPackagesTimeDic];
+  }
+}

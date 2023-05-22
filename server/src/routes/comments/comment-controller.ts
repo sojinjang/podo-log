@@ -1,10 +1,12 @@
-import { commentService } from "./comment-service";
+import { CommentService } from "./comment-service";
 import { CreateCommentDTO, DiaryIdDTO, LoggedRequest, UpdateCommentDTO } from "../../types";
 import asyncHandler from "../../utils/async-handler";
 import { SuccessMsgResponse, SuccessResponse } from "../../core/api-response";
+import { Service } from "typedi";
 
-class CommentController {
-  private commentService = commentService;
+@Service()
+export class CommentController {
+  constructor(private commentService: CommentService) {}
 
   create = asyncHandler(async (req: LoggedRequest, res) => {
     const { userId } = req.user;
@@ -55,5 +57,3 @@ class CommentController {
     return new SuccessMsgResponse(messageDTO.message).send(res);
   });
 }
-
-export const commentController = new CommentController();

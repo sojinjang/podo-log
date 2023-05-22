@@ -1,10 +1,12 @@
 import { Strategy as KakaoStrategy, VerifyFunction } from "passport-kakao";
 import { kakao } from "../config";
 import { logger } from "../utils";
-import { userModel } from "../db/models/user";
+import { UserModel } from "../db/models/user";
 import { SNSCreateUserDTO } from "../types/user-type";
+import { Container } from "typedi";
 
 const opts = kakao;
+const userModel: UserModel = Container.get(UserModel);
 
 const kakaoVerify: VerifyFunction = async (accessToken, refreshToken, profile, done) => {
   logger.debug(`카카오 profile`);

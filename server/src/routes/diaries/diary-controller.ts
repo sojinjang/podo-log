@@ -1,4 +1,4 @@
-import { diaryService } from "./diary-service";
+import { DiaryService } from "./diary-service";
 import {
   CreateDiaryDTO,
   GetDiaryDTO,
@@ -10,9 +10,11 @@ import {
 import asyncHandler from "../../utils/async-handler";
 import { SuccessMsgResponse, SuccessResponse } from "../../core/api-response";
 import { BadRequestError } from "../../core/api-error";
+import { Service } from "typedi";
 
-class DiaryController {
-  private diaryService = diaryService;
+@Service()
+export class DiaryController {
+  constructor(private diaryService: DiaryService) {}
 
   create = asyncHandler(async (req: FileRequest, res) => {
     const { userId } = req.user;
@@ -104,5 +106,3 @@ class DiaryController {
     return new SuccessMsgResponse(messageDTO.message).send(res);
   });
 }
-
-export const diaryController = new DiaryController();

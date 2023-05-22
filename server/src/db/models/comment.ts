@@ -2,10 +2,12 @@ import { pool } from "../index";
 import { logger, BuildQuery } from "../../utils";
 import { CommentIdDTO, CreateCommentDTO, GetCommentDTO, UpdateCommentDTO } from "../../types";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
+import { Service } from "typedi";
 
 const commentBuildQuery = new BuildQuery("comment");
 
-class CommentModel {
+@Service()
+export class CommentModel {
   async create(commentDTO: CreateCommentDTO) {
     const { query, values } = commentBuildQuery.makeInsertQuery({ ...commentDTO });
     logger.info(query);
@@ -63,5 +65,3 @@ class CommentModel {
     return result;
   }
 }
-
-export const commentModel = new CommentModel();

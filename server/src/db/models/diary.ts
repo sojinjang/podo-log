@@ -9,11 +9,13 @@ import {
   UpdateDiaryDTO,
 } from "../../types";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
+import { Service } from "typedi";
 
 const diaryBuildQuery = new BuildQuery("diary");
 const stickedStickerBuildQuery = new BuildQuery("sticked_sticker");
 
-class DiaryModel {
+@Service()
+export class DiaryModel {
   async create(diaryDTO: CreateDiaryDTO) {
     const { query, values } = diaryBuildQuery.makeInsertQuery({ ...diaryDTO });
     logger.info(query);
@@ -131,5 +133,3 @@ class DiaryModel {
     return result;
   }
 }
-
-export const diaryModel = new DiaryModel();

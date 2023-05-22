@@ -11,7 +11,7 @@ import {
   SuccessResponse,
 } from "../../core/api-response";
 
-class LoginController {
+export class LoginController {
   local = asyncHandler(async (req, res, next) => {
     passport.authenticate("local", (authError, user, info) => {
       try {
@@ -139,5 +139,3 @@ class LoginController {
     })(req, res, next);
   });
 }
-
-export const loginController = new LoginController();
