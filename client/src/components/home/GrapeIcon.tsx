@@ -1,8 +1,7 @@
-import React from "react";
 import grapeImgPng from "../../assets/icons/grape_8.png";
 import grapeImgWebP from "../../assets/icons/grape_8.webp";
 
-export const GrapeIcon = () => {
+const GrapeIcon = () => {
   return (
     <picture>
       <source srcSet={grapeImgWebP} type="image/webp" />
@@ -14,3 +13,5 @@ export const GrapeIcon = () => {
     </picture>
   );
 };
+
+export default GrapeIcon;

@@ -1,19 +1,12 @@
-import React, { useState, useEffect } from "react";
-import tw from "tailwind-styled-components";
+import { useState, useEffect } from "react";
 
+import { BookInfo, MemberInfo } from "src/@types/response";
 import { API_URL } from "src/constants/API_URL";
 import { api } from "src/utils/axiosApi/api";
-import { BookIdType } from "src/pages/BookSetting";
 import MemberProfile from "./MemberProfile";
+import * as S from "../../styles/BookSetting";
 
-export interface MemberInfo {
-  userId?: number;
-  nickname: string;
-  profile: string;
-  isMe: boolean;
-}
-
-export const BookMembersInfo = ({ bookId }: BookIdType) => {
+const BookMembersInfo = ({ bookId }: Pick<BookInfo, "bookId">) => {
   const [members, setMembers] = useState<MemberInfo[]>([]);
 
   const getBookmembers = async () => {
@@ -30,9 +23,9 @@ export const BookMembersInfo = ({ bookId }: BookIdType) => {
   }, []);
 
   return (
-    <Container>
+    <S.BookMembersContainer>
       일기장 공유 멤버
-      <Divider />
+      <S.Divider />
       {members.map((member) => {
         return (
           <MemberProfile
@@ -43,15 +36,8 @@ export const BookMembersInfo = ({ bookId }: BookIdType) => {
           />
         );
       })}
-    </Container>
+    </S.BookMembersContainer>
   );
 };
 
-const Container = tw.div`
-font-sans text-[1.7vh] bg-white/60 rounded-lg drop-shadow-lg
-mx-auto mb-[1.5vh] w-[90%] md:p-5 p-3
-`;
-
-const Divider = tw.hr`
-w-full h-[2px] mx-auto mt-1 mb-2 bg-[#C7C7C7]
-`;
+export default BookMembersInfo;

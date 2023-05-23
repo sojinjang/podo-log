@@ -1,13 +1,6 @@
-import React from "react";
-
 import imgUploadIcon from "../../assets/icons/image.png";
 import trashCanIcon from "../../assets/icons/trash-can-white.png";
-import {
-  UploadedImg,
-  TrashCanIcon,
-  ImgUploadContainer,
-  ImgUploadIcon,
-} from "../diary/DairyImgUploadElem";
+import * as S from "../../styles/Diary";
 
 interface ExistingImgProps {
   imgRef: React.RefObject<HTMLInputElement>;
@@ -27,8 +20,8 @@ const ExistingImg = ({
     <>
       {ogPic ? (
         <div className="relative overflow-auto">
-          {ogPic && <UploadedImg alt="picture" src={ogPic}></UploadedImg>}
-          <TrashCanIcon
+          {ogPic && <S.UploadedImg alt="picture" src={ogPic}></S.UploadedImg>}
+          <S.TrashCanIcon
             onClick={() => {
               handlePicChanged();
             }}
@@ -36,8 +29,8 @@ const ExistingImg = ({
           />
         </div>
       ) : (
-        <ImgUploadContainer onClick={() => imgRef?.current?.click()}>
-          <ImgUploadIcon alt="upload" src={imgUploadIcon} />
+        <S.ImgUploadContainer onClick={() => imgRef?.current?.click()}>
+          <S.ImgUploadIcon alt="upload" src={imgUploadIcon} />
           <input
             className="hidden"
             type="file"
@@ -48,7 +41,7 @@ const ExistingImg = ({
             }}
             ref={imgRef}
           />
-        </ImgUploadContainer>
+        </S.ImgUploadContainer>
       )}
     </>
   );

@@ -1,11 +1,10 @@
-import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
+import { BookInfo } from "src/@types/response";
+import * as G from "src/styles/Common";
 
-import ClickableContainer from "../common/ClickableContainer";
-import { BookIdType } from "src/pages/BookSetting";
-
-const BookRevisionButton = ({ bookId }: BookIdType) => {
+const BookRevisionButton = ({ bookId }: Pick<BookInfo, "bookId">) => {
   const navigate = useNavigate();
   const location = useLocation();
   const onClickRevisionButton = () => {
@@ -23,7 +22,9 @@ const BookRevisionButton = ({ bookId }: BookIdType) => {
     );
   };
 
-  return <ClickableContainer onClick={onClickRevisionButton}>일기장 수정</ClickableContainer>;
+  return (
+    <G.ClickableContainer onClick={onClickRevisionButton}>일기장 수정</G.ClickableContainer>
+  );
 };
 
 export default BookRevisionButton;

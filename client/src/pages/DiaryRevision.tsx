@@ -1,10 +1,7 @@
-import React from "react";
-
-import { PinkPurpleBackground } from "src/components/common/Backgrounds";
-import BackButton from "src/components/common/BackButton";
-import PageTitle from "src/components/common/PageTitle";
-import PostButton from "src/components/diary/PostButton";
-import DiaryRevisionForm from "src/components/diary-revision/DiaryRevisionForm";
+import { PinkPurpleBackground } from "src/styles/Common";
+import { BackButton, PageTitle } from "src/components/common";
+import PostButton from "src/components/diary";
+import DiaryRevisionForm from "src/components/diary-revision";
 
 const DiaryRevision = () => {
   return (

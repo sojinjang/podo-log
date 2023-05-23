@@ -1,6 +1,7 @@
 import { API_URL } from "src/constants/API_URL";
+import { Token } from "src/@types/response";
 import { api } from "src/utils/axiosApi/api";
-import { ACCESS_TOKEN_KEY, Token } from "src/recoil/token/atom";
+import { ACCESS_TOKEN_KEY } from "src/recoil/token/atom";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 
 export const getAccessToken = () => {
@@ -17,7 +18,7 @@ export const setToken = (accessToken: Token) => {
   );
 };
 
-export const refreshToken = async (setTokenState?: (token: string) => void) => {
+export const refreshToken = async (setTokenState?: (token: Token) => void) => {
   try {
     const { data } = await api.post(API_URL.refreshToken);
     setToken(data.data.accessToken);

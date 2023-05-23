@@ -1,26 +1,23 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Bounce from "react-reveal/Bounce";
 
-import { selectedColorAtom } from "../recoil/book-color";
+import { selectedColorAtom } from "src/recoil/book-color";
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 
-import { PinkPurpleBackground } from "src/components/common/Backgrounds";
-import BackButton from "src/components/common/BackButton";
-import PageTitle from "src/components/common/PageTitle";
-import PurpleButton from "src/components/common/PurpleButton";
-import DiaryIcon from "src/components/new-book/BookIcon";
-import ColorSelectContainer from "src/components/new-book/ColorSelectContainer";
-import ContainerTitle from "src/components/new-book/ContainerTitle";
-import BookTitleInputContainer from "src/components/new-book/BookTitleInputContainer";
-
-interface BookNameType {
-  bookName: string;
-}
+import { BookNameInput } from "src/@types/input";
+import { PinkPurpleBackground } from "src/styles/Common";
+import { BackButton, PageTitle, PurpleButton } from "src/components/common";
+import {
+  ContainerTitle,
+  BookIcon,
+  ColorSelectContainer,
+  BookTitleInputContainer,
+} from "src/components/common/book";
 
 const BookRevision = () => {
   const navigate = useNavigate();
@@ -31,13 +28,13 @@ const BookRevision = () => {
   const [isTitleRevised, setIsTitleRevised] = useState(false);
   const [isRevised, setIsRevised] = useState(false);
   const [buttonCursorStyle, setButtonCursorStyle] = useState("");
-  const { register, handleSubmit } = useForm<BookNameType>({
+  const { register, handleSubmit } = useForm<BookNameInput>({
     defaultValues: { bookName: location.state.name },
   });
   const refreshIsTitleRevised = (currentTitle: string) => {
     setIsTitleRevised(currentTitle !== location.state.name);
   };
-  const reviseBookInfo = async ({ bookName }: BookNameType) => {
+  const reviseBookInfo = async ({ bookName }: BookNameInput) => {
     try {
       if (!isRevised) return;
       await api.patch(API_URL.books + `/${bookId}`, { color: selectedColor, bookName });
@@ -65,7 +62,7 @@ const BookRevision = () => {
       <PageTitle title="일기장 수정" />
       <Bounce duration={1500}>
         <form onSubmit={handleSubmit(reviseBookInfo)}>
-          <DiaryIcon />
+          <BookIcon />
           <ContainerTitle>표지 색상 선택</ContainerTitle>
           <ColorSelectContainer />
           <ContainerTitle>일기장 제목</ContainerTitle>

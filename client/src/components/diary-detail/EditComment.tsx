@@ -1,17 +1,13 @@
-import React from "react";
 import { useSetRecoilState } from "recoil";
-import tw from "tailwind-styled-components";
 import { useForm } from "react-hook-form";
 import Fade from "react-reveal/Fade";
 
+import { CommentInput } from "src/@types/diary";
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import { getComments } from "src/recoil/diary-detail";
-import { Input, InputContainer } from "../common/Input";
-
-interface CommentInput {
-  readonly comment: string;
-}
+import * as G from "src/styles/Common";
+import * as S from "src/styles/DiaryDetail";
 
 export interface NewCommentProps {
   parentNickname?: string;
@@ -20,12 +16,7 @@ export interface NewCommentProps {
   cancelEdit: () => void;
 }
 
-export const EditComment = ({
-  parentNickname,
-  commentId,
-  comment,
-  cancelEdit,
-}: NewCommentProps) => {
+const EditComment = ({ parentNickname, commentId, comment, cancelEdit }: NewCommentProps) => {
   const reloadComments = useSetRecoilState(getComments);
   const { register, handleSubmit } = useForm<CommentInput>({
     defaultValues: { comment: comment },
@@ -51,8 +42,8 @@ export const EditComment = ({
           </div>
         )}
         <form onSubmit={handleSubmit(onSubmitComment)}>
-          <InputContainer className="flex-row w-full mt-0 shadow-lg">
-            <Input
+          <G.InputContainer className="flex-row w-full mt-0 shadow-lg">
+            <G.Input
               className="font-sans w-[90%]"
               placeholder="댓글을 입력해주세요. (최대 150자)"
               minLength={1}
@@ -60,21 +51,13 @@ export const EditComment = ({
               required
               {...register("comment")}
             />
-            <CancelButton onClick={cancelEdit}>취소</CancelButton>
-            <PostButton>수정</PostButton>
-          </InputContainer>
+            <S.CancelButton onClick={cancelEdit}>취소</S.CancelButton>
+            <S.PostButton>수정</S.PostButton>
+          </G.InputContainer>
         </form>
       </>
     </Fade>
   );
 };
 
-const CancelButton = tw.p` 
-font-sans w-[10%] ml-auto cursor-pointer text-center
-text-sm sm:text-lg text-grat-1000 hover:opacity-50 ease-in duration-300
-`;
-
-const PostButton = tw.button` 
-font-sans w-[10%] ml-auto cursor-pointer text-center
-text-sm sm:text-lg text-purple-1000 hover:opacity-50 ease-in duration-300
-`;
+export default EditComment;

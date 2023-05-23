@@ -1,5 +1,4 @@
-import React, { useState, useRef } from "react";
-import tw from "tailwind-styled-components";
+import { useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { api } from "src/utils/axiosApi/api";
@@ -7,11 +6,11 @@ import { formApi } from "src/utils/axiosApi/formApi";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 import { API_URL } from "src/constants/API_URL";
 import { isHEICFile, convertHEICToJPG } from "src/utils/handleHEIC";
+import { compressImg } from "src/utils/compressImg";
 
-import PurpleButton from "src/components/common/PurpleButton";
+import { PurpleButton } from "src/components/common";
 import NewProfile from "./NewProfile";
 import OriginalProfile from "./OriginalProfile";
-import { compressImg } from "src/utils/compressImg";
 
 const EditProfile = () => {
   const imgRef = useRef<HTMLInputElement>(null);
@@ -83,19 +82,15 @@ const EditProfile = () => {
         onChange={saveImgFile}
         ref={imgRef}
       />
-      <ButtonContainer onClick={onClickEdit}>
+      <div className="inline-block w-auto mt-[1vh] mb-[1.5vh]" onClick={onClickEdit}>
         <PurpleButton
           description="이미지 수정하기"
           wrapperStyle="w-full"
           buttonStyle="w-[65%]"
         />
-      </ButtonContainer>
+      </div>
     </div>
   );
 };
 
 export default EditProfile;
-
-const ButtonContainer = tw.div`
-inline-block w-auto mt-[1vh] mb-[1.5vh]
-`;

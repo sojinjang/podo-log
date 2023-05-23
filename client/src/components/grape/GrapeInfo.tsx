@@ -1,31 +1,30 @@
 import React from "react";
-import tw from "tailwind-styled-components";
 import Tada from "react-reveal/Tada";
-import { MyGrape } from "../../pages/Grape";
 
-interface GrapeInfo {
+import { MyGrape } from "src/@types/response";
+import * as S from "src/styles/Grape";
+
+interface GrapeInfoProps {
   data: MyGrape | null;
+  grapeRef: React.Ref<HTMLDivElement>;
 }
 
-const GrapeInfo = React.forwardRef(function GrapeInfo(
-  { data }: GrapeInfo,
-  ref: React.Ref<HTMLDivElement>
-) {
+const GrapeInfo = ({ data, grapeRef }: GrapeInfoProps) => {
   return (
-    <GrapeInfoContainer ref={ref}>
-      <DescContainer>
-        <DescGrape className="mr-[1vh]">내가 모은 포도송이</DescGrape>
+    <S.GrapeInfoContainer ref={grapeRef}>
+      <S.DescContainer>
+        <S.DescGrape className="mr-[1vh]">내가 모은 포도송이</S.DescGrape>
         <Tada duration={2000}>
-          <DescGrape className="text-[#BB86FC]">{data?.grape}</DescGrape>
+          <S.DescGrape className="text-[#BB86FC]">{data?.grape}</S.DescGrape>
         </Tada>
-        <DescGrape>개</DescGrape>
-      </DescContainer>
-      <DescContainer>
-        <NumGrapeAndGrain>{data?.grape}</NumGrapeAndGrain>
-        <DescGrapeAndGrain className="mr-[1vh]">포도송이,</DescGrapeAndGrain>
-        <NumGrapeAndGrain>{data?.grain}</NumGrapeAndGrain>
-        <DescGrapeAndGrain>포도알</DescGrapeAndGrain>
-      </DescContainer>
+        <S.DescGrape>개</S.DescGrape>
+      </S.DescContainer>
+      <S.DescContainer>
+        <S.NumGrapeAndGrain>{data?.grape}</S.NumGrapeAndGrain>
+        <S.DescGrape className="mr-[1vh] text-[2.5vh]">포도송이,</S.DescGrape>
+        <S.NumGrapeAndGrain>{data?.grain}</S.NumGrapeAndGrain>
+        <S.DescGrape className="text-[2.5vh]">포도알</S.DescGrape>
+      </S.DescContainer>
       {typeof data?.grain == "number" && (
         <Tada duration={2000}>
           <picture>
@@ -33,39 +32,15 @@ const GrapeInfo = React.forwardRef(function GrapeInfo(
               srcSet={`${process.env.PUBLIC_URL}/assets/grape/grape_${data.grain}.webp`}
               type="image/webp"
             />
-            <GrapeImg
+            <S.GrapeImg
               src={`${process.env.PUBLIC_URL}/assets/grape/grape_${data.grain}.png`}
               alt="내 포도알 이미지"
             />
           </picture>
         </Tada>
       )}
-    </GrapeInfoContainer>
+    </S.GrapeInfoContainer>
   );
-});
+};
 
 export default GrapeInfo;
-
-const GrapeInfoContainer = tw.div`
-flex flex-col pt-[8vh] h-[80vh]
-`;
-
-const DescContainer = tw.div`
-flex justify-center
-`;
-
-const DescGrape = tw.p`
-font-[jua] text-[3vh] text-[#353866]
-`;
-
-const DescGrapeAndGrain = tw.p`
-font-[jua] text-[2.5vh] text-[#353866]
-`;
-
-const NumGrapeAndGrain = tw.p`
-font-[jua] text-[2.5vh] text-[#8687bd] mr-[1vh]
-`;
-
-const GrapeImg = tw.img`
-mx-auto drop-shadow-2xl mt-[15vh] w-[25vh] h-[25vh]
-`;

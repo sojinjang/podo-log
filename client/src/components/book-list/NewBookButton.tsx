@@ -1,26 +1,21 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
+
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
-
 import plusImg from "../../assets/icons/plus.png";
+import * as S from "../../styles/BookList";
 
-export const NewBookButton = () => {
+const NewBookButton = () => {
   const navigate = useNavigate();
   const onClickImg = () => {
     navigate(PRIVATE_ROUTE.newBook.path);
   };
 
   return (
-    <div className="w-[34%] cursor-pointer hover:scale-105 transition duration-500 ease-in-out">
-      <img
-        src={plusImg}
-        alt="new-book"
-        onClick={onClickImg}
-        className="w-[15vh] h-[15vh] m-auto max-w-xs"
-      />
-      <div className="font-[jua] text-gray-1000 flex justify-center mb-5 text-[1.7vh]">
-        새 일기장 만들기
-      </div>
-    </div>
+    <S.BookButtonContainer>
+      <S.PlusImg src={plusImg} alt="new-book" onClick={onClickImg} />
+      <S.BookDescription className="text-gray-1000">새 일기장 만들기</S.BookDescription>
+    </S.BookButtonContainer>
   );
 };
+
+export default NewBookButton;

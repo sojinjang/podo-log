@@ -1,10 +1,10 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 import heartDiaryWebP from "../../assets/icons/notebook_love.webp";
 import heartDiaryPng from "../../assets/icons/notebook_love.png";
+import * as S from "../../styles/BookList";
 
-export const HeartDiaryButton = () => {
+const HeartDiaryButton = () => {
   const navigate = useNavigate();
   const onClickImg = () => {
     navigate(PRIVATE_ROUTE.newBook.path);
@@ -13,13 +13,9 @@ export const HeartDiaryButton = () => {
   return (
     <picture>
       <source srcSet={heartDiaryWebP} type="image/webp" />
-      <img
-        src={heartDiaryPng}
-        alt="book"
-        onClick={onClickImg}
-        className="m-auto mt-[6vh] w-[20vh] h-[20vh] cursor-pointer max-w-xs 
-        hover:scale-105 transition duration-500 ease-in-out"
-      />
+      <S.HeartDiaryImg src={heartDiaryPng} alt="book" onClick={onClickImg} />
     </picture>
   );
 };
+
+export default HeartDiaryButton;

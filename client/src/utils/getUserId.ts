@@ -1,5 +1,5 @@
 import jwt_decode from "jwt-decode";
-import { Token } from "src/recoil/token/atom";
+import { Token } from "src/@types/response";
 
 interface DecodedToken {
   userId: number;

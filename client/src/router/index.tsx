@@ -1,9 +1,9 @@
-import React, { lazy, Suspense } from "react";
+import { lazy, Suspense } from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
 
 import { PrivateRouter } from "./PrivateRouter";
 import { PUBLIC_ROUTE_ARR, PRIVATE_ROUTE_ARR } from "./ROUTE_INFO";
-import { PinkPurpleBackground } from "src/components/common/Backgrounds";
+import { PinkPurpleBackground } from "src/styles/Common";
 const NotFound = lazy(() => import("../pages/NotFound"));
 
 const Router = () => {

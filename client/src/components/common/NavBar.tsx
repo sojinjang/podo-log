@@ -1,9 +1,8 @@
-import React from "react";
-import tw from "tailwind-styled-components";
 import { NavLink } from "react-router-dom";
 
 import { ICON_DESC_PAIR_OBJ } from "src/constants/ICON_DESC_PAIR_OBJ";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
+import * as G from "../../styles/Common";
 
 interface NavBarProps {
   readonly activeMenu: string;
@@ -21,37 +20,22 @@ const ButtonContainer = ({ activeMenu, menu }: Menu): JSX.Element => {
 
   return (
     <NavLink className="w-[23%] my-auto" to={PRIVATE_ROUTE[menu].path}>
-      <Container>
-        <IconImg alt={menuInfoObj.description} src={menuIcon}></IconImg>
-        <Description className={menuColor}>{menuInfoObj.description}</Description>
-      </Container>
+      <G.Container>
+        <G.IconImg alt={menuInfoObj.description} src={menuIcon}></G.IconImg>
+        <G.Description className={menuColor}>{menuInfoObj.description}</G.Description>
+      </G.Container>
     </NavLink>
   );
 };
 
-export const Navbar = ({ activeMenu }: NavBarProps) => {
+const Navbar = ({ activeMenu }: NavBarProps) => {
   return (
-    <BarContainer>
+    <G.BarContainer>
       <ButtonContainer activeMenu={activeMenu} menu="books"></ButtonContainer>
       <ButtonContainer activeMenu={activeMenu} menu="grape"></ButtonContainer>
       <ButtonContainer activeMenu={activeMenu} menu="myPage"></ButtonContainer>
-    </BarContainer>
+    </G.BarContainer>
   );
 };
 
-const BarContainer = tw.div`
-  flex justify-around px-12 mx-auto w-[46.8vh] h-[7vh] bg-white/60 rounded-2xl 
-  fixed left-1/2 -translate-x-1/2 bottom-[3.5vh] shadow-lg
-`;
-
-const Container = tw.div`
-  cursor-pointer drop-shadow-xl hover:drop-shadow-none transition ease-in duration-300
-`;
-
-const IconImg = tw.img`
-  m-auto w-[3.5vh] h-[3.5vh]
-`;
-
-const Description = tw.div`
-  text-center font-[jua] text-[1vh]
-`;
+export default Navbar;

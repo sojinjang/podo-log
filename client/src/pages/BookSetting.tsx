@@ -1,18 +1,14 @@
-import React from "react";
 import { useParams } from "react-router-dom";
 import Fade from "react-reveal/Fade";
 
-import { PinkPurpleBackground } from "src/components/common/Backgrounds";
-import BackButton from "../components/common/BackButton";
-import PageTitle from "src/components/common/PageTitle";
-import InviteSection from "src/components/book-setting/InviteSection";
-import { BookMembersInfo } from "src/components/book-setting/BookMembersInfo";
-import LeaveBookButton from "src/components/book-setting/LeaveBookButton";
-import BookRevisionButton from "src/components/book-setting/BookRevisionButton";
-
-export interface BookIdType {
-  bookId: number;
-}
+import { PinkPurpleBackground } from "src/styles/Common";
+import { BackButton, PageTitle } from "src/components/common";
+import {
+  InviteSection,
+  BookMembersInfo,
+  LeaveBookButton,
+  BookRevisionButton,
+} from "src/components/book-setting";
 
 const BookSetting = () => {
   const params = useParams();
