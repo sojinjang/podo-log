@@ -2,18 +2,16 @@ import React from "react";
 import Tada from "react-reveal/Tada";
 
 import { MyGrape } from "src/@types/response";
-import * as S from "../../styles/Grape";
+import * as S from "src/styles/Grape";
 
-interface GrapeInfo {
+interface GrapeInfoProps {
   data: MyGrape | null;
+  grapeRef: React.Ref<HTMLDivElement>;
 }
 
-const GrapeInfo = React.forwardRef(function GrapeInfo(
-  { data }: GrapeInfo,
-  ref: React.Ref<HTMLDivElement>
-) {
+const GrapeInfo = ({ data, grapeRef }: GrapeInfoProps) => {
   return (
-    <S.GrapeInfoContainer ref={ref}>
+    <S.GrapeInfoContainer ref={grapeRef}>
       <S.DescContainer>
         <S.DescGrape className="mr-[1vh]">내가 모은 포도송이</S.DescGrape>
         <Tada duration={2000}>
@@ -43,6 +41,6 @@ const GrapeInfo = React.forwardRef(function GrapeInfo(
       )}
     </S.GrapeInfoContainer>
   );
-});
+};
 
 export default GrapeInfo;
