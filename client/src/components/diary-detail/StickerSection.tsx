@@ -1,23 +1,16 @@
 import { useState, useEffect } from "react";
 
 import { StickerInfo, MyStickerPack } from "src/@types/response";
+import { StickersPreview } from "src/@types/diary";
 import { api } from "src/utils/axiosApi/api";
 import changeToKoreanDate from "src/utils/date";
-import { Values } from "../../constants/Values";
+import { Values } from "src/constants/Values";
 import { API_URL } from "src/constants/API_URL";
 import * as S from "src/styles/DiaryDetail";
 
 interface StickerSectionProps {
   changeEditState: () => void;
   handleAddNewSticker: (newSticker: StickerInfo) => void;
-}
-
-interface StickersPreview {
-  [packageId: number]: StickersWithExpiry;
-}
-
-interface StickersWithExpiry extends Pick<MyStickerPack, "stickers"> {
-  expiration: Date | string;
 }
 
 const StickerSection = ({ changeEditState, handleAddNewSticker }: StickerSectionProps) => {

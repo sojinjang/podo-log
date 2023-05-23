@@ -1,16 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import Moveable, { OnDragStart, OnDrag, OnDragEnd } from "react-moveable";
 
+import { AffixedStickerInfo } from "src/@types/response";
 import { convertToAbsCoord, convertToRelativeCoord } from "src/utils/convertCoord";
 import * as S from "src/styles/Diary";
-
-export interface AffixedStickerInfo {
-  stickedStickerId: number;
-  stickerImg: string;
-  locX: number;
-  locY: number;
-}
-// TODO: response 유틸리티 타입으로 분리
 
 interface AffixedStickerProps {
   sticker: AffixedStickerInfo;

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import Moveable, { OnDragStart, OnDrag, OnDragEnd } from "react-moveable";
 
+import { EditingStickerInfo } from "src/@types/diary";
 import { convertToRelativeCoord, convertToAbsCoord } from "src/utils/convertCoord";
-import { EditingStickerInfo } from "src/pages/DiaryDetail";
 import cancelImg from "../../assets/icons/x.png";
 import * as G from "src/styles/Diary";
 import * as S from "src/styles/DiaryDetail";
@@ -20,7 +20,9 @@ const EditingSticker = ({
 }: DraggableStickerProps) => {
   const [targetElem, setTargetElem] = useState<HTMLElement | SVGElement | null>(null);
   useEffect(() => {
-    const targetElem = document.querySelector(`.target-${sticker.uniqueId}`) as HTMLElement;
+    const targetElem = document.querySelector(
+      `.target-${sticker.stickedStickerId}`
+    ) as HTMLElement;
     targetElem.style.transform = `translate(${sticker.locX}vh, ${sticker.locY}vh`;
     setTargetElem(targetElem);
   }, []);
@@ -54,7 +56,7 @@ const EditingSticker = ({
         onDrag={handleOnDrag}
         onDragEnd={handleDragEnd}
       />
-      <G.MoveableStickerContainer className={`target-${sticker.uniqueId}`}>
+      <G.MoveableStickerContainer className={`target-${sticker.stickedStickerId}`}>
         <G.StickerImg src={sticker.stickerImg} />
         <S.CancelImg
           onClick={() => {

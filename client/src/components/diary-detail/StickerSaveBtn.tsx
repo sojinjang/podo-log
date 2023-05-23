@@ -1,10 +1,10 @@
 import { useRecoilValue } from "recoil";
 
+import { AffixedStickerInfo } from "src/@types/response";
+import { EditingStickerInfo } from "src/@types/diary";
 import { focusedDiaryIdAtom } from "src/recoil/diary-detail/atom";
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
-import { EditingStickerInfo } from "src/pages/DiaryDetail";
-import { AffixedStickerInfo } from "src/components/common/diary/AffixedSticker";
 import * as S from "src/styles/DiaryDetail";
 
 interface StickerSaveButtonProps {

@@ -2,12 +2,11 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Fade from "react-reveal/Fade";
 
-import { Diary } from "src/@types/response";
+import { AffixedStickerInfo, Diary } from "src/@types/response";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
 import commentWebP from "src/assets/icons/comment.webp";
 import commentPng from "src/assets/icons/comment.png";
 import { AffixedSticker, DiarySection } from "src/components/common/diary";
-import { AffixedStickerInfo } from "src/components/common/diary/AffixedSticker";
 import * as G from "src/styles/Common";
 import * as S from "src/styles/DiaryList";
 
