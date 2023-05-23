@@ -52,6 +52,13 @@ export interface StickerInfo {
   readonly stickerImg: string;
 }
 
+export interface AffixedStickerInfo {
+  stickedStickerId: number;
+  stickerImg: string;
+  locX: number;
+  locY: number;
+}
+
 export interface MyStickerPack {
   readonly packageId: number;
   readonly packageName: string;
