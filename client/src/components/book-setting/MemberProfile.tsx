@@ -6,8 +6,7 @@ const MemberProfile = ({ profile, nickname, isMe }: Omit<MemberInfo, "userId">) 
   const profileImg = profile === "없음" ? defaultProfileImg : profile;
   return (
     <S.ProfileContainer>
-      {/* TODO: common의 ProfileImg로 대체      */}
-      <S.ProfileImg alt="profile" src={profileImg}></S.ProfileImg>
+      <S.MemberProfileImg alt="profile" src={profileImg}></S.MemberProfileImg>
       <S.Nickname>{nickname}</S.Nickname>
       {isMe && <S.Nickname>(me!)</S.Nickname>}
     </S.ProfileContainer>

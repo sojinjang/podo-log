@@ -27,8 +27,7 @@ export const ProfileContainer = tw.div`
 flex md:mt-4 mt-2 md:mb-2 mb-1
 `;
 
-// TODO: 삭제
-export const ProfileImg = tw.img`
+export const MemberProfileImg = tw.img`
 w-[4.7vh] h-[4.7vh]
 rounded-full object-cover shadow-lg mr-2 md:mr-3
 `;
