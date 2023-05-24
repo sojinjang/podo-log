@@ -35,9 +35,9 @@ const DiaryDetail = () => {
   const updateNumComments = (newNumComments: number) => {
     setNumComments(newNumComments);
   };
-  const [isEditingSticker, setIsEditingSticker] = useState<boolean>(false);
+  const [isStickerEditing, setIsStickerEditing] = useState<boolean>(false);
   const changeStickerEditState = () => {
-    setIsEditingSticker((prev) => !prev);
+    setIsStickerEditing((prev) => !prev);
   };
 
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useRecoilState(
@@ -114,14 +114,14 @@ const DiaryDetail = () => {
   useEffect(() => {
     return () => {
       resetIsDeleteModalVisible();
-      setIsEditingSticker(false);
+      setIsStickerEditing(false);
     };
   }, []);
 
   return (
     <G.PinkPurpleBackground className="overflow-auto">
       <BackButton />
-      {isEditingSticker && (
+      {isStickerEditing && (
         <StickerSaveBtn
           selectedStickers={selectedStickers}
           handleUpdateStickers={handleUpdateAffixedStickers}
@@ -140,7 +140,7 @@ const DiaryDetail = () => {
               />
             );
           })}
-          {isEditingSticker && (
+          {isStickerEditing && (
             <>
               {selectedStickers.map((sticker) => {
                 return (
@@ -168,7 +168,7 @@ const DiaryDetail = () => {
           )}
         </G.UnclickableContainer>
       </Fade>
-      {isEditingSticker && (
+      {isStickerEditing && (
         <>
           <StickerSection
             changeEditState={changeStickerEditState}
