@@ -10,7 +10,7 @@ import { focusedDiaryIdAtom, isDeleteModalVisibleAtom } from "src/recoil/diary-d
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import BackButton from "src/components/common/BackButton";
-import { AffixedSticker, DiarySection } from "src/components/common/diary";
+import { MoveableSticker, DiarySection } from "src/components/common/diary";
 import {
   StickerSaveBtn,
   StickerSection,
@@ -18,7 +18,6 @@ import {
   CommentSection,
   CommentsSkeleton,
   DeleteModal,
-  EditingSticker,
 } from "src/components/diary-detail";
 import * as G from "src/styles/Common";
 
@@ -133,7 +132,7 @@ const DiaryDetail = () => {
         <G.UnclickableContainer className="my-[8vh]">
           {stickers.map((sticker) => {
             return (
-              <AffixedSticker
+              <MoveableSticker
                 key={sticker.stickedStickerId}
                 sticker={sticker}
                 handleUpdateStickers={handleUpdateAffixedStickers}
@@ -144,7 +143,7 @@ const DiaryDetail = () => {
             <>
               {selectedStickers.map((sticker) => {
                 return (
-                  <EditingSticker
+                  <MoveableSticker
                     key={sticker.stickedStickerId}
                     sticker={sticker}
                     handleUpdateStickers={handleUpdateStickers}

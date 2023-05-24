@@ -4,7 +4,6 @@ import StickerButton from "./StickerButton";
 import CommentSection from "./CommentSection";
 import CommentsSkeleton from "./CommentsSkeleton";
 import DeleteModal from "./DeleteModal";
-import EditingSticker from "./EditingSticker";
 
 export {
   StickerSaveBtn,
@@ -13,5 +12,4 @@ export {
   CommentSection,
   CommentsSkeleton,
   DeleteModal,
-  EditingSticker,
 };

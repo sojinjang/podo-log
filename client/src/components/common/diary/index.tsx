@@ -1,4 +1,4 @@
-import AffixedSticker from "./AffixedSticker";
+import MoveableSticker from "./MoveableSticker";
 import DiarySection from "./DiarySection";
 
-export { AffixedSticker, DiarySection };
+export { MoveableSticker, DiarySection };
