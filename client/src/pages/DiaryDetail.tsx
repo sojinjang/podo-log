@@ -1,6 +1,6 @@
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useLocation } from "react-router-dom";
-import { useRecoilState, useSetRecoilState, useResetRecoilState } from "recoil";
+import { useSetRecoilState, useResetRecoilState } from "recoil";
 import Fade from "react-reveal/Fade";
 
 import { AffixedStickerInfo } from "src/@types/response";
@@ -8,15 +8,7 @@ import { focusedDiaryIdAtom, isDeleteModalVisibleAtom } from "src/recoil/diary-d
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import BackButton from "src/components/common/BackButton";
-import { MoveableSticker, DiarySection } from "src/components/common/diary";
-import {
-  StickerSaveBtn,
-  StickerSection,
-  StickerButton,
-  CommentSection,
-  CommentsSkeleton,
-  DeleteModal,
-} from "src/components/diary-detail";
+import { StickerSaveBtn, StickerSection, DiaryContainer } from "src/components/diary-detail";
 import * as G from "src/styles/Common";
 import useNewSticker from "src/hooks/useNewSticker";
 
@@ -26,11 +18,7 @@ const DiaryDetail = () => {
   const data = location.state.diaryInfo;
   const setDiaryId = useSetRecoilState(focusedDiaryIdAtom);
   const resetDiaryId = useResetRecoilState(focusedDiaryIdAtom);
-
-  const [numComments, setNumComments] = useState<number>(data.numComments);
-  const updateNumComments = (newNumComments: number) => {
-    setNumComments(newNumComments);
-  };
+  const resetIsDeleteModalVisible = useResetRecoilState(isDeleteModalVisibleAtom);
   const {
     selectedStickers,
     handleAddNewSticker,
@@ -42,12 +30,6 @@ const DiaryDetail = () => {
   const changeStickerEditState = () => {
     setIsStickerEditing((prev) => !prev);
   };
-
-  const [isDeleteModalVisible, setIsDeleteModalVisible] = useRecoilState(
-    isDeleteModalVisibleAtom
-  );
-  const resetIsDeleteModalVisible = useResetRecoilState(isDeleteModalVisibleAtom);
-
   const [stickers, setStickers] = useState<AffixedStickerInfo[]>([]);
   const getAffixedStickers = async () => {
     try {
@@ -67,6 +49,7 @@ const DiaryDetail = () => {
       ];
     });
   };
+
   useEffect(() => {
     setDiaryId(Number(params.diaryId));
     getAffixedStickers();
@@ -75,11 +58,6 @@ const DiaryDetail = () => {
   useEffect(() => {
     return () => {
       resetDiaryId();
-    };
-  }, []);
-
-  useEffect(() => {
-    return () => {
       resetIsDeleteModalVisible();
       setIsStickerEditing(false);
     };
@@ -97,43 +75,16 @@ const DiaryDetail = () => {
         />
       )}
       <Fade bottom>
-        <G.UnclickableContainer className="my-[8vh]">
-          {stickers.map((sticker) => {
-            return (
-              <MoveableSticker
-                key={sticker.stickedStickerId}
-                sticker={sticker}
-                handleUpdateStickers={handleUpdateAffixedStickers}
-              />
-            );
-          })}
-          {isStickerEditing && (
-            <>
-              {selectedStickers.map((sticker) => {
-                return (
-                  <MoveableSticker
-                    key={sticker.stickedStickerId}
-                    sticker={sticker}
-                    handleUpdateStickers={handleUpdateStickers}
-                    handleDeleteStickers={handleDeleteStickers}
-                  />
-                );
-              })}
-            </>
-          )}
-          <DiarySection data={data} isDetailPage={true} />
-          <StickerButton changeEditState={changeStickerEditState} />
-          <Suspense fallback={<CommentsSkeleton numComments={numComments} />}>
-            <CommentSection updateNumComments={updateNumComments} />
-          </Suspense>
-          {isDeleteModalVisible && (
-            <DeleteModal
-              onClose={() => {
-                setIsDeleteModalVisible(false);
-              }}
-            />
-          )}
-        </G.UnclickableContainer>
+        <DiaryContainer
+          isStickerEditing={isStickerEditing}
+          stickers={stickers}
+          handleUpdateAffixedStickers={handleUpdateAffixedStickers}
+          handleUpdateStickers={handleUpdateStickers}
+          handleDeleteStickers={handleDeleteStickers}
+          changeStickerEditState={changeStickerEditState}
+          selectedStickers={selectedStickers}
+          data={data}
+        />
       </Fade>
       {isStickerEditing && (
         <>
