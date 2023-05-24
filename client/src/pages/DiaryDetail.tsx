@@ -1,11 +1,9 @@
 import { useState, useEffect, Suspense } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { useRecoilState, useSetRecoilState, useResetRecoilState } from "recoil";
-import { v4 as uuidv4 } from "uuid";
 import Fade from "react-reveal/Fade";
 
-import { AffixedStickerInfo, StickerInfo } from "src/@types/response";
-import { EditingStickerInfo } from "src/@types/diary";
+import { AffixedStickerInfo } from "src/@types/response";
 import { focusedDiaryIdAtom, isDeleteModalVisibleAtom } from "src/recoil/diary-detail/atom";
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
@@ -20,10 +18,9 @@ import {
   DeleteModal,
 } from "src/components/diary-detail";
 import * as G from "src/styles/Common";
+import useNewSticker from "src/hooks/useNewSticker";
 
 const DiaryDetail = () => {
-  const DEFAULT_STKR_POS_X = 10;
-  const DEFAULT_STKR_POS_Y = 10;
   const params = useParams();
   const location = useLocation();
   const data = location.state.diaryInfo;
@@ -34,6 +31,13 @@ const DiaryDetail = () => {
   const updateNumComments = (newNumComments: number) => {
     setNumComments(newNumComments);
   };
+  const {
+    selectedStickers,
+    handleAddNewSticker,
+    handleUpdateStickers,
+    handleDeleteStickers,
+    handleResetSelectedStcks,
+  } = useNewSticker();
   const [isStickerEditing, setIsStickerEditing] = useState<boolean>(false);
   const changeStickerEditState = () => {
     setIsStickerEditing((prev) => !prev);
@@ -73,42 +77,6 @@ const DiaryDetail = () => {
       resetDiaryId();
     };
   }, []);
-
-  const [selectedStickers, setSelectedStickers] = useState<EditingStickerInfo[]>([]);
-  const handleAddNewSticker = (newSticker: StickerInfo) => {
-    setSelectedStickers((curStickers) => {
-      return [
-        ...curStickers,
-        {
-          stickerId: newSticker.stickerId,
-          stickedStickerId: uuidv4(),
-          stickerImg: newSticker.stickerImg,
-          locX: DEFAULT_STKR_POS_X,
-          locY: DEFAULT_STKR_POS_Y,
-        },
-      ];
-    });
-  };
-  const handleUpdateStickers = (newSticker: EditingStickerInfo) => {
-    setSelectedStickers((curStickers) => {
-      return [
-        ...curStickers.filter(
-          (sticker) => sticker.stickedStickerId !== newSticker.stickedStickerId
-        ),
-        newSticker,
-      ];
-    });
-  };
-  const handleDeleteStickers = (stickerBeDeleted: EditingStickerInfo) => {
-    setSelectedStickers((curStickers) => {
-      return curStickers.filter(
-        (sticker) => sticker.stickedStickerId !== stickerBeDeleted.stickedStickerId
-      );
-    });
-  };
-  const handleResetSelectedStcks = () => {
-    setSelectedStickers([]);
-  };
 
   useEffect(() => {
     return () => {
