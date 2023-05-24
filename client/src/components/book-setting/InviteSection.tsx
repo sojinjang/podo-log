@@ -4,8 +4,8 @@ import Fade from "react-reveal/Fade";
 import { BookInfo } from "src/@types/response";
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
-import refreshIcon from "../../assets/icons/refresh.png";
-import * as S from "../../styles/BookSetting";
+import refreshIcon from "src/assets/icons/refresh.png";
+import * as S from "src/styles/BookSetting";
 
 const InviteSection = ({ bookId }: Pick<BookInfo, "bookId">) => {
   const [inviteCode, setInviteCode] = useState<string>("");
