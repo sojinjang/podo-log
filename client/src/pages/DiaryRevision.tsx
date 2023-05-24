@@ -1,6 +1,6 @@
 import { PinkPurpleBackground } from "src/styles/Common";
 import { BackButton, PageTitle } from "src/components/common";
-import PostButton from "src/components/diary";
+import { PostButton } from "src/components/common/diary";
 import DiaryRevisionForm from "src/components/diary-revision";
 
 const DiaryRevision = () => {
