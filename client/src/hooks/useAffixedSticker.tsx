@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { AffixedStickerInfo } from "src/@types/response";
 import { API_URL } from "src/constants/API_URL";
@@ -15,6 +15,10 @@ const useAffixedSticker = (diaryId: number) => {
       if (err instanceof Error) alert(err.message);
     }
   };
+
+  useEffect(() => {
+    getAffixedStickers();
+  }, []);
 
   const handleUpdateAffixedStickers = (newSticker: AffixedStickerInfo) => {
     setStickers((curStickers) => {

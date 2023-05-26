@@ -24,9 +24,7 @@ const DiaryDetail = () => {
     handleDeleteStickers,
     handleResetSelectedStcks,
   } = useNewSticker();
-  const { stickers, getAffixedStickers, handleUpdateAffixedStickers } = useAffixedSticker(
-    Number(params.diaryId)
-  );
+  const { stickers, handleUpdateAffixedStickers } = useAffixedSticker(Number(params.diaryId));
   const [isStickerEditing, setIsStickerEditing] = useState<boolean>(false);
   const changeStickerEditState = () => {
     setIsStickerEditing((prev) => !prev);
@@ -34,7 +32,6 @@ const DiaryDetail = () => {
 
   useEffect(() => {
     setDiaryId(Number(params.diaryId));
-    getAffixedStickers();
   }, []);
 
   useEffect(() => {
