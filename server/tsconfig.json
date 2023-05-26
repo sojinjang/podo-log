@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es6",                                  
     "outDir": "./dist",                                  
+    "types": ["node"],                                 
     "lib": ["ES6"],
     "module": "commonjs",                                
     "moduleResolution": "node",                       
