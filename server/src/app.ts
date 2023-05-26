@@ -3,9 +3,9 @@ import express from "express";
 import cors from "cors";
 import { corsOption } from "./config";
 import passport from "passport";
-import passportConfig from "./passport";
-import { errorLogger, errorHandler } from "./middlewares";
-import routes from "./routes";
+import passportConfig from "./services/passport";
+import { errorLogger, errorHandler } from "./api/middlewares";
+import routes from "./api/routes";
 import "./db";
 import { NotFoundError } from "./core/api-error";
 

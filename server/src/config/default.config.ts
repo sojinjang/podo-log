@@ -20,11 +20,11 @@ export const cookieOption = (time: number, unit: "d" | "h" | "m"): CookieOptions
   const expires = setCookieTime(time, unit);
   return {
     httpOnly: true,
-    domain: ".podolog.store",
+    domain: defaultFlag ? undefined : (process.env.PODOLOG_DOMAIN as string),
     path: "/",
-    sameSite: "strict",
+    sameSite: defaultFlag ? undefined : "strict",
     expires,
-    secure: true,
+    secure: defaultFlag ? undefined : true,
   };
 };
 

@@ -17,6 +17,6 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true
   },
-  "include": ["**/*.ts"],
+  "include": ["**/*.ts", "src/api/routes/invtt-code/invtt-code.validation.ts"],
   "exclude": ["node_modules","dist"]
 }
