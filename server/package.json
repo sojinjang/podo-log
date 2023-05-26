@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node dist/index.js",
     "build": "tsc -p .",
-    "test": "jest",
+    "test": "ts-jest",
     "server": "nodemon --watch \"src/**/*.ts\" --exec \"ts-node\" index.ts"
   },
   "keywords": [],
