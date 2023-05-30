@@ -1,4 +1,4 @@
-import { pool } from "../db/index";
+import { pool } from "./../loaders/mysql";
 import { logger, BuildQuery } from "../utils";
 import { UserBookDTO, UserIdDTO } from "../types";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
