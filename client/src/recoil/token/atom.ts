@@ -1,9 +1,9 @@
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
+import { Token } from "src/@types/response";
 
 const { persistAtom } = recoilPersist();
 
-export type Token = string | undefined;
 export const ACCESS_TOKEN_KEY = "accessTokenAtom";
 
 export const accessTokenAtom = atom<Token>({

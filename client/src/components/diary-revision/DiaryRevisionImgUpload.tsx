@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useRecoilState, useResetRecoilState } from "recoil";
 
 import { diaryRevisionImgAtom } from "src/recoil/diary-revision/atom";

@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useRecoilValue } from "recoil";
-import tw from "tailwind-styled-components";
 
 import changeToKoreanTime from "src/utils/time";
 import { accessTokenAtom } from "src/recoil/token";
 
-import { CommentType } from "./CommentSection";
+import { CommentType } from "src/@types/response";
 import { getUserId } from "../../utils/getUserId";
-import { DropdownMenu } from "./DropdownMenu";
-import { EditComment } from "./EditComment";
+import DropdownMenu from "./DropdownMenu";
+import EditComment from "./EditComment";
 import DefaultProfileImg from "../../assets/icons/default_profile.png";
 import replyImg from "../../assets/icons/reply.png";
+import * as S from "src/styles/DiaryDetail";
 
 interface CommentProps {
   data: CommentType;
@@ -33,16 +33,16 @@ export const Comment = ({
   const isRevised = data.createdAt !== data.updatedAt;
 
   return (
-    <SingleCommentContainer className={commentWidth}>
+    <S.SingleCommentContainer className={commentWidth}>
       {!isBeingEdited && (
         <>
-          <CommentUpperSection>
-            <CommentWriterImg alt="profile" src={profileImgSrc} />
+          <S.CommentUpperSection>
+            <S.CommentWriterImg alt="profile" src={profileImgSrc} />
             <div className="my-auto">
-              <CommentWriter>{data.nickname}</CommentWriter>
+              <S.CommentWriter>{data.nickname}</S.CommentWriter>
               <div className="flex">
-                <CommentDate>{changeToKoreanTime(data.updatedAt)}</CommentDate>
-                {isRevised && <CommentDate className="ml-1">(수정됨)</CommentDate>}
+                <S.CommentDate>{changeToKoreanTime(data.updatedAt)}</S.CommentDate>
+                {isRevised && <S.CommentDate className="ml-1">(수정됨)</S.CommentDate>}
               </div>
             </div>
             {isCommentWriter && (
@@ -51,13 +51,13 @@ export const Comment = ({
                 setCommentIsBeingEdited={setIsBeingEdited}
               />
             )}
-          </CommentUpperSection>
-          <CommentLowerSection>
-            <CommentContent>{data.reply}</CommentContent>
+          </S.CommentUpperSection>
+          <S.CommentLowerSection>
+            <S.CommentContent>{data.reply}</S.CommentContent>
             {!isReply && (
-              <CommentReplyIcon alt="reply" onClick={changeReplyState} src={replyImg} />
+              <S.CommentReplyIcon alt="reply" onClick={changeReplyState} src={replyImg} />
             )}
-          </CommentLowerSection>
+          </S.CommentLowerSection>
         </>
       )}
       {isBeingEdited && (
@@ -70,7 +70,7 @@ export const Comment = ({
           }}
         ></EditComment>
       )}
-    </SingleCommentContainer>
+    </S.SingleCommentContainer>
   );
 };
 
@@ -81,38 +81,3 @@ export const CommentReply = ({ data, parentNickname }: CommentProps) => {
     </div>
   );
 };
-
-const SingleCommentContainer = tw.div`
-mb-2 md:mb-3
-`;
-
-export const CommentUpperSection = tw.div`
-flex
-`;
-
-export const CommentLowerSection = tw.div`
-flex mt-1 md:mt-2
-`;
-
-const CommentWriterImg = tw.img`
-w-[30px] h-[30px] min-[390px]:w-[38px] min-[390px]:h-[38px] md:w-[48px] md:h-[48px] 
-rounded-full object-cover shadow-lg my-auto mr-2 md:mr-3
-`;
-
-const CommentWriter = tw.p`
-text-[1.6vh] min-[390px]:text-[1.4vh]
-`;
-
-const CommentDate = tw.p`
-text-gray-1000 text-[0.5vh] min-[390px]:text-[0.9vh]  md:text-[1vh]
-`;
-
-const CommentContent = tw.p`
-text-[1.6vh] min-[390px]:text-[1.4vh] 
-whitespace-pre-line break-all
-`;
-
-const CommentReplyIcon = tw.img`
-h-[1.6vh] min-[390px]:h-[1.4vh] ml-2 my-auto cursor-pointer
-hover:opacity-50 ease-in duration-300
-`;

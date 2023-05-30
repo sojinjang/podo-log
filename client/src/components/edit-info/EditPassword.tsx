@@ -1,19 +1,13 @@
-import React from "react";
-import tw from "tailwind-styled-components";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
+import { PasswordInput } from "src/@types/input";
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
 import { PRIVATE_ROUTE } from "src/router/ROUTE_INFO";
-import { Input, InputContainer } from "src/components/common/Input";
-import PurpleButton from "src/components/common/PurpleButton";
-
-interface PasswordInput {
-  readonly password: string;
-  readonly newPassword: string;
-  readonly newPwConfirm?: string | undefined;
-}
+import { PurpleButton } from "src/components/common";
+import * as G from "src/styles/Common";
+import * as S from "../../styles/Home";
 
 const EditPassword = () => {
   const navigate = useNavigate();
@@ -42,35 +36,35 @@ const EditPassword = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmitEdit)}>
-      <InputContainer>
-        <Input
+      <G.InputContainer>
+        <G.Input
           placeholder="old password"
           type="password"
           minLength={4}
           required
           {...register("password")}
         />
-      </InputContainer>
-      <InputContainer>
-        <Input
+      </G.InputContainer>
+      <G.InputContainer>
+        <G.Input
           placeholder="new password"
           type="password"
           minLength={4}
           required
           {...register("newPassword")}
         />
-      </InputContainer>
+      </G.InputContainer>
       <div className="w-[65%] mx-auto">
-        <InputContainer className="w-full">
-          <Input
+        <G.InputContainer className="w-full">
+          <G.Input
             placeholder="confirm new password"
             type="password"
             minLength={4}
             required
             {...pwConfirmRegister}
           />
-        </InputContainer>
-        {errors.newPwConfirm && <PwConfirmMsg>{errors.newPwConfirm.message}</PwConfirmMsg>}
+        </G.InputContainer>
+        {errors.newPwConfirm && <S.PwConfirmMsg>{errors.newPwConfirm.message}</S.PwConfirmMsg>}
       </div>
       <PurpleButton
         description="수정하기"
@@ -82,7 +76,3 @@ const EditPassword = () => {
 };
 
 export default EditPassword;
-
-const PwConfirmMsg = tw.p`
-font-sans text-red-600 text-xs sm:text-base mt-1 ml-[5px]
-`;

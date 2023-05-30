@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import tw from "tailwind-styled-components";
+import { useState, useEffect } from "react";
 import Moveable, { OnDragStart, OnDrag, OnDragEnd } from "react-moveable";
 
+import { EditingStickerInfo } from "src/@types/diary";
 import { convertToRelativeCoord, convertToAbsCoord } from "src/utils/convertCoord";
-import { EditingStickerInfo } from "src/pages/DiaryDetail";
-import { MoveableStickerContainer, StickerImg } from "../common/diary/Sticker";
 import cancelImg from "../../assets/icons/x.png";
+import * as G from "src/styles/Diary";
+import * as S from "src/styles/DiaryDetail";
 
 interface DraggableStickerProps {
   sticker: EditingStickerInfo;
@@ -19,9 +19,10 @@ const EditingSticker = ({
   handleDeleteStickers,
 }: DraggableStickerProps) => {
   const [targetElem, setTargetElem] = useState<HTMLElement | SVGElement | null>(null);
-
   useEffect(() => {
-    const targetElem = document.querySelector(`.target-${sticker.uniqueId}`) as HTMLElement;
+    const targetElem = document.querySelector(
+      `.target-${sticker.stickedStickerId}`
+    ) as HTMLElement;
     targetElem.style.transform = `translate(${sticker.locX}vh, ${sticker.locY}vh`;
     setTargetElem(targetElem);
   }, []);
@@ -55,23 +56,18 @@ const EditingSticker = ({
         onDrag={handleOnDrag}
         onDragEnd={handleDragEnd}
       />
-      <MoveableStickerContainer className={`target-${sticker.uniqueId}`}>
-        <StickerImg src={sticker.stickerImg} />
-        <CancelImg
+      <G.MoveableStickerContainer className={`target-${sticker.stickedStickerId}`}>
+        <G.StickerImg src={sticker.stickerImg} />
+        <S.CancelImg
           onClick={() => {
             handleDeleteStickers(sticker);
           }}
           src={cancelImg}
           alt="cancel"
         />
-      </MoveableStickerContainer>
+      </G.MoveableStickerContainer>
     </>
   );
 };
 
 export default EditingSticker;
-
-const CancelImg = tw.img`
-h-[2vh] absolute right-0 
-drop-shadow-lg hover:drop-shadow-none transition duration-300 ease-in-out
-`;

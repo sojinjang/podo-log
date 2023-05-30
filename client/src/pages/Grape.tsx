@@ -1,28 +1,26 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 
-import { DefaultBackground } from "src/components/common/Backgrounds";
-import { Navbar } from "src/components/common/NavBar";
-import MoveBtn from "src/components/grape/MoveBtn";
-import GrapeInfo from "../components/grape/GrapeInfo";
-import MyGrapeNum from "src/components/grape/MyGrapeNum";
-import { StickerShopContainer } from "src/components/grape/Sticker";
-import { StickerPackage, StickerPackList } from "src/components/grape/StickerPackList";
-import PackageDetail from "src/components/grape/PackageDetail";
+import { MyGrape, StickerPack } from "src/@types/response";
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
-
-export interface MyGrape {
-  grain: number;
-  grape: number;
-}
+import { Navbar } from "src/components/common";
+import {
+  MoveBtn,
+  GrapeInfo,
+  MyGrapeNum,
+  StickerPackList,
+  PackageDetail,
+} from "src/components/grape/";
+import { DefaultBackground } from "src/styles/Common";
+import * as S from "../styles/Grape";
 
 const Grape = () => {
   const grapeRef = useRef<HTMLDivElement>(null);
   const stickerShopRef = useRef<HTMLDivElement>(null);
   const [myGrape, setMyGrape] = useState<MyGrape | null>(null);
-  const [focusedPack, setFocusedPack] = useState<StickerPackage | null>(null);
+  const [focusedPack, setFocusedPack] = useState<StickerPack | null>(null);
 
-  const updateFocusedPack = (pack: StickerPackage | null) => {
+  const updateFocusedPack = (pack: StickerPack | null) => {
     setFocusedPack(pack);
   };
 
@@ -55,11 +53,11 @@ const Grape = () => {
     <div className="relative">
       <DefaultBackground className="h-[200vh] animated-grad-grape">
         <div className="h-screen">
-          <GrapeInfo data={myGrape} ref={grapeRef} />
+          <GrapeInfo data={myGrape} grapeRef={grapeRef} />
           <MoveBtn stickerShopRef={stickerShopRef} isMoveDown={true} />
           <div className="h-[17vh] w-screen" />
         </div>
-        <StickerShopContainer ref={stickerShopRef}>
+        <S.StickerShopContainer ref={stickerShopRef}>
           <MoveBtn grapeRef={grapeRef} isMoveDown={false} />
           {myGrape && <MyGrapeNum grape={myGrape.grape} />}
           {focusedPack && myGrape ? (
@@ -72,7 +70,7 @@ const Grape = () => {
           ) : (
             <StickerPackList updateFocusedPack={updateFocusedPack} />
           )}
-        </StickerShopContainer>
+        </S.StickerShopContainer>
       </DefaultBackground>
       <Navbar activeMenu="grape" />
     </div>

@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import tw from "tailwind-styled-components";
+import { useState, useEffect } from "react";
 import Fade from "react-reveal/Fade";
 
+import { BookInfo } from "src/@types/response";
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
-import { BookIdType } from "src/pages/BookSetting";
 import refreshIcon from "../../assets/icons/refresh.png";
+import * as S from "../../styles/BookSetting";
 
-const InviteSection = ({ bookId }: BookIdType) => {
+const InviteSection = ({ bookId }: Pick<BookInfo, "bookId">) => {
   const [inviteCode, setInviteCode] = useState<string>("");
   const [isCopied, setIscopied] = useState<boolean>(false);
 
@@ -46,46 +46,32 @@ const InviteSection = ({ bookId }: BookIdType) => {
   }, []);
 
   return (
-    <InviteContainer>
+    <S.InviteContainer>
       <div className="m-auto">
         <p className="text-center text-[2.5vh]">일기장을 공유하고 싶은 분을 초대해보세요!</p>
         <div className="flex h-[2vh] mt-[1.5vh]">
-          <InviteCodeButton onClick={renewInviteCode}>
+          <S.InviteCodeButton onClick={renewInviteCode}>
             <img className="w-[2vh]" src={refreshIcon} />
             <p className="ml-1 text-[1.5vh]">초대코드 갱신</p>
-          </InviteCodeButton>
+          </S.InviteCodeButton>
         </div>
         <div className="flex">
-          <InviteCodeButton
+          <S.InviteCodeButton
             onClick={() => {
               handleCopyClipBoard(inviteCode);
             }}
           >
             <p className="mt-1 text-[2.5vh]">📎{inviteCode}</p>
-          </InviteCodeButton>
+          </S.InviteCodeButton>
         </div>
         {isCopied && (
           <Fade bottom duration={1300}>
-            <CopySuccessMessage>클립보드 복사 완료 🧚</CopySuccessMessage>
+            <S.CopySuccessMessage>클립보드 복사 완료 🧚</S.CopySuccessMessage>
           </Fade>
         )}
       </div>
-    </InviteContainer>
+    </S.InviteContainer>
   );
 };
 
 export default InviteSection;
-
-const InviteContainer = tw.div`
-flex bg-white/60 rounded-lg shadow-lg 
-mx-auto my-[2vh] w-[90%] py-[3vh] 
-`;
-
-const InviteCodeButton = tw.div`
-flex mx-auto text-center cursor-pointer hover:opacity-50
-drop-shadow-lg hover:drop-shadow-none ease-in duration-300
-`;
-
-const CopySuccessMessage = tw.p`
-mx-auto text-center mt-1 text-[1.2vh]
-`;

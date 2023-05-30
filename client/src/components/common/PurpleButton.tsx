@@ -1,5 +1,4 @@
-import React from "react";
-import "./PurpleButton.css";
+import "src/styles/PurpleButton.css";
 
 interface ButtonProps {
   readonly description: string;

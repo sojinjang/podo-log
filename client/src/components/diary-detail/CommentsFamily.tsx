@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 
+import { CommentFamType } from "src/@types/response";
 import { Comment, CommentReply } from "./Comment";
 import { NewCommentReply } from "./NewCommentReply";
-import { CommentFamType } from "./CommentSection";
 
 interface CommentsFamilyProps {
   commentsFam: CommentFamType;
 }
 
-export const CommentsFamily = ({ commentsFam }: CommentsFamilyProps) => {
+const CommentsFamily = ({ commentsFam }: CommentsFamilyProps) => {
   const [isReplyWritingEnabled, setIsReplyWritingEnabled] = useState(false);
   const changeReplyState = () => {
     setIsReplyWritingEnabled((prev) => !prev);
@@ -36,3 +36,5 @@ export const CommentsFamily = ({ commentsFam }: CommentsFamilyProps) => {
     </React.Fragment>
   );
 };
+
+export default CommentsFamily;

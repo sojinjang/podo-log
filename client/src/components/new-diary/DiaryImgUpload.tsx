@@ -6,12 +6,7 @@ import { compressImg } from "src/utils/compressImg";
 import { convertHEICToJPG, isHEICFile } from "src/utils/handleHEIC";
 import imgUploadIcon from "../../assets/icons/image.png";
 import trashCanIcon from "../../assets/icons/trash-can-white.png";
-import {
-  UploadedImg,
-  TrashCanIcon,
-  ImgUploadContainer,
-  ImgUploadIcon,
-} from "../diary/DairyImgUploadElem";
+import * as S from "../../styles/Diary";
 
 const DiaryImgUpload = () => {
   const reader = new FileReader();
@@ -49,12 +44,12 @@ const DiaryImgUpload = () => {
     <React.Fragment>
       {diaryImg ? (
         <div className="relative overflow-auto">
-          <UploadedImg src={imgPreview ? imgPreview : imgUploadIcon}></UploadedImg>
-          <TrashCanIcon onClick={() => deleteImgFile()} src={trashCanIcon} />
+          <S.UploadedImg src={imgPreview ? imgPreview : imgUploadIcon}></S.UploadedImg>
+          <S.TrashCanIcon onClick={() => deleteImgFile()} src={trashCanIcon} />
         </div>
       ) : (
-        <ImgUploadContainer onClick={() => imgRef?.current?.click()}>
-          <ImgUploadIcon alt="upload" src={imgUploadIcon} />
+        <S.ImgUploadContainer onClick={() => imgRef?.current?.click()}>
+          <S.ImgUploadIcon alt="upload" src={imgUploadIcon} />
           <input
             className="hidden"
             type="file"
@@ -62,7 +57,7 @@ const DiaryImgUpload = () => {
             onChange={saveImgFile}
             ref={imgRef}
           />
-        </ImgUploadContainer>
+        </S.ImgUploadContainer>
       )}
     </React.Fragment>
   );

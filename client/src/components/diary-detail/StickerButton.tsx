@@ -1,8 +1,6 @@
-import React from "react";
-import tw from "tailwind-styled-components";
-
 import stickerWebP from "../../assets/icons/sticker.webp";
 import stickerPng from "../../assets/icons/sticker.png";
+import * as S from "src/styles/DiaryDetail";
 
 interface StickerButtonProps {
   changeEditState: () => void;
@@ -11,29 +9,15 @@ interface StickerButtonProps {
 const StickerButton = ({ changeEditState }: StickerButtonProps) => {
   return (
     <div className="flex justify-end">
-      <ButtonContainer onClick={changeEditState}>
+      <S.StckButtonContainer onClick={changeEditState}>
         <picture>
           <source srcSet={stickerWebP} type="image/webp" />
-          <StickerIcon src={stickerPng} />
+          <S.StickerIcon src={stickerPng} />
         </picture>
-        <ButtonDesc>스티커</ButtonDesc>
-      </ButtonContainer>
+        <S.StckButtonDesc>스티커</S.StckButtonDesc>
+      </S.StckButtonContainer>
     </div>
   );
 };
 
 export default StickerButton;
-
-const ButtonContainer = tw.div`
-mb-2 md:mb-4 cursor-pointer hover:opacity-50
-drop-shadow-xl hover:drop-shadow-none ease-in duration-300
-`;
-
-const StickerIcon = tw.img`
-w-[3vh] h-[3vh]
-m-auto
-`;
-
-const ButtonDesc = tw.p`
-text-[1.5vh] md:text-[1.3vh] text-center m-auto
-`;

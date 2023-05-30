@@ -1,24 +1,20 @@
-import React from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import tw from "tailwind-styled-components";
 import { useForm } from "react-hook-form";
 
+import { CommentInput } from "src/@types/diary";
 import { focusedDiaryIdAtom } from "src/recoil/diary-detail/atom";
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
-import { Input, InputContainer } from "../common/Input";
 import { getComments } from "src/recoil/diary-detail";
-
-interface CommentInput {
-  readonly comment: string;
-}
+import * as G from "src/styles/Common";
+import * as S from "src/styles/DiaryDetail";
 
 export interface NewCommentProps {
   changeReplyState?: () => void;
   parentCommentId?: number;
 }
 
-export const NewComment = ({ changeReplyState, parentCommentId = 0 }: NewCommentProps) => {
+const NewComment = ({ changeReplyState, parentCommentId = 0 }: NewCommentProps) => {
   const diaryId = useRecoilValue(focusedDiaryIdAtom);
   const reloadComments = useSetRecoilState(getComments);
   const { register, handleSubmit, setValue } = useForm<CommentInput>({ mode: "onSubmit" });
@@ -36,8 +32,8 @@ export const NewComment = ({ changeReplyState, parentCommentId = 0 }: NewComment
 
   return (
     <form onSubmit={handleSubmit(onSubmitComment)}>
-      <InputContainer className="flex-row w-full mt-0 shadow-lg">
-        <Input
+      <G.InputContainer className="flex-row w-full mt-0 shadow-lg">
+        <G.Input
           className="font-sans w-[90%]"
           placeholder="댓글을 입력해주세요. (최대 150자)"
           minLength={1}
@@ -45,13 +41,10 @@ export const NewComment = ({ changeReplyState, parentCommentId = 0 }: NewComment
           required
           {...register("comment")}
         />
-        <PostButton>등록</PostButton>
-      </InputContainer>
+        <S.PostButton>등록</S.PostButton>
+      </G.InputContainer>
     </form>
   );
 };
 
-const PostButton = tw.button` 
-font-sans w-[10%] ml-auto cursor-pointer text-center
-text-sm sm:text-lg text-purple-1000 hover:opacity-50 ease-in duration-300
-`;
+export default NewComment;

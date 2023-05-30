@@ -1,31 +1,27 @@
-import React from "react";
 import { useRecoilValue } from "recoil";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import Bounce from "react-reveal/Bounce";
 
+import { BookNameInput } from "src/@types/input";
 import { api } from "src/utils/axiosApi/api";
 import { API_URL } from "src/constants/API_URL";
-import { selectedColorAtom } from "../recoil/book-color";
-import { PinkPurpleBackground } from "src/components/common/Backgrounds";
-import BackButton from "src/components/common/BackButton";
-import PageTitle from "src/components/common/PageTitle";
-import DiaryIcon from "src/components/new-book/BookIcon";
-import ColorSelectContainer from "src/components/new-book/ColorSelectContainer";
-import ContainerTitle from "src/components/new-book/ContainerTitle";
-import BookTitleInputContainer from "src/components/new-book/BookTitleInputContainer";
-import PurpleButton from "src/components/common/PurpleButton";
-import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-
-interface NewBookName {
-  bookName: string;
-}
+import { selectedColorAtom } from "src/recoil/book-color";
+import { PinkPurpleBackground } from "src/styles/Common";
+import { BackButton, PageTitle, PurpleButton } from "src/components/common";
+import {
+  ContainerTitle,
+  BookIcon,
+  BookTitleInputContainer,
+  ColorSelectContainer,
+} from "src/components/common/book";
 
 const NewBook = () => {
   const navigate = useNavigate();
   const selectedColor = useRecoilValue(selectedColorAtom);
-  const { register, handleSubmit } = useForm<NewBookName>({ mode: "onSubmit" });
+  const { register, handleSubmit } = useForm<BookNameInput>({ mode: "onSubmit" });
 
-  const createNewDiary = async ({ bookName }: NewBookName) => {
+  const createNewDiary = async ({ bookName }: BookNameInput) => {
     try {
       await api.post(API_URL.books, { color: selectedColor, bookName });
       navigate(-1);
@@ -39,7 +35,7 @@ const NewBook = () => {
       <PageTitle title="일기장 만들기" />
       <Bounce duration={1500}>
         <form onSubmit={handleSubmit(createNewDiary)}>
-          <DiaryIcon />
+          <BookIcon />
           <ContainerTitle>표지 색상 선택</ContainerTitle>
           <ColorSelectContainer />
           <ContainerTitle>일기장 제목</ContainerTitle>
