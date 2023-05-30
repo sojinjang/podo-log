@@ -47,6 +47,6 @@ export const refreshTokenConfig: TokenConfig = {
   time: "14d",
 };
 
-export const logLevel = process.env.LOG_LEVEL;
+export const logLevel = defaultFlag ? "info" : (process.env.LOG_LEVEL as string);
 
 export const defaultPackageIds = [1];
