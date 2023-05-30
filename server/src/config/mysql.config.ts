@@ -1,7 +1,7 @@
 export default function (user: string) {
   switch (user) {
     case "prod":
-    case "dev": 
+    case "dev":
       return {
         user: process.env.RDS_MYSQL_USER,
         password: process.env.RDS_MYSQL_PASSWORD,
@@ -10,6 +10,18 @@ export default function (user: string) {
         waitForConnections: true,
         connectionLimit: 60,
         queueLimit: 0,
+      };
+    case "test":
+      return {
+        user: "root",
+        password: process.env.LOCAL_MYSQL_PASSWORD,
+        database: "podolog_test",
+        host: "127.0.0.1",
+        port: 6000,
+        waitForConnections: true,
+        connectionLimit: 60,
+        queueLimit: 0,
+        timezone: "+00:00",
       };
     default:
       return {

@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es6",                                  
     "outDir": "./dist",                                  
+    "types": ["node"],                                 
     "lib": ["ES6"],
     "module": "commonjs",                                
     "moduleResolution": "node",                       
@@ -16,6 +17,6 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true
   },
-  "include": ["**/*.ts"],
+  "include": ["**/*.ts", "src/api/routes/invtt-code/invtt-code.validation.ts"],
   "exclude": ["node_modules","dist"]
 }
