@@ -31,25 +31,34 @@ const useMovableSticker = <T extends EditingStickerInfo | AffixedStickerInfo>(
     hideMovableBoxStyle();
   }, [targetElem]);
 
-  const handleDragStart = (e: OnDragStart) => {
-    e.set([convertToAbsCoord(sticker.locX), convertToAbsCoord(sticker.locY)]);
-  };
-  const handleOnDrag = (e: OnDrag) => {
-    const positionX = convertToRelativeCoord(e.beforeTranslate[0]);
-    const positionY = convertToRelativeCoord(e.beforeTranslate[1]);
-    e.target.style.transform = `translate(${positionX}vh, ${positionY}vh)`;
-  };
-  const handleDragEnd = (e: OnDragEnd) => {
-    if (e.lastEvent) {
-      const positionX = convertToRelativeCoord(e.lastEvent.beforeTranslate[0]);
-      const positionY = convertToRelativeCoord(e.lastEvent.beforeTranslate[1]);
-      handleUpdateStickers({
-        ...sticker,
-        locX: positionX,
-        locY: positionY,
-      });
-    }
-  };
+  const handleDragStart = useCallback(
+    (e: OnDragStart) => {
+      e.set([convertToAbsCoord(sticker.locX), convertToAbsCoord(sticker.locY)]);
+    },
+    [sticker]
+  );
+  const handleOnDrag = useCallback(
+    (e: OnDrag) => {
+      const positionX = convertToRelativeCoord(e.beforeTranslate[0]);
+      const positionY = convertToRelativeCoord(e.beforeTranslate[1]);
+      e.target.style.transform = `translate(${positionX}vh, ${positionY}vh)`;
+    },
+    [sticker]
+  );
+  const handleDragEnd = useCallback(
+    (e: OnDragEnd) => {
+      if (e.lastEvent) {
+        const positionX = convertToRelativeCoord(e.lastEvent.beforeTranslate[0]);
+        const positionY = convertToRelativeCoord(e.lastEvent.beforeTranslate[1]);
+        handleUpdateStickers({
+          ...sticker,
+          locX: positionX,
+          locY: positionY,
+        });
+      }
+    },
+    [sticker]
+  );
 
   return { targetElem, handleDragStart, handleOnDrag, handleDragEnd };
 };

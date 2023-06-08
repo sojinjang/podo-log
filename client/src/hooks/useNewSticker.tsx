@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import { EditingStickerInfo } from "src/@types/diary";
@@ -9,7 +9,7 @@ const useNewSticker = () => {
   const DEFAULT_STKR_POS_Y = 10;
   const [selectedStickers, setSelectedStickers] = useState<EditingStickerInfo[]>([]);
 
-  const handleAddNewSticker = (newSticker: StickerInfo) => {
+  const handleAddNewSticker = useCallback((newSticker: StickerInfo) => {
     setSelectedStickers((curStickers) => {
       return [
         ...curStickers,
@@ -22,8 +22,9 @@ const useNewSticker = () => {
         },
       ];
     });
-  };
-  const handleUpdateStickers = (newSticker: EditingStickerInfo) => {
+  }, []);
+
+  const handleUpdateStickers = useCallback((newSticker: EditingStickerInfo) => {
     setSelectedStickers((curStickers) => {
       return [
         ...curStickers.filter(
@@ -32,17 +33,19 @@ const useNewSticker = () => {
         newSticker,
       ];
     });
-  };
-  const handleDeleteStickers = (stickerBeDeleted: EditingStickerInfo) => {
+  }, []);
+
+  const handleDeleteStickers = useCallback((stickerBeDeleted: EditingStickerInfo) => {
     setSelectedStickers((curStickers) => {
       return curStickers.filter(
         (sticker) => sticker.stickedStickerId !== stickerBeDeleted.stickedStickerId
       );
     });
-  };
-  const handleResetSelectedStcks = () => {
+  }, []);
+
+  const handleResetSelectedStcks = useCallback(() => {
     setSelectedStickers([]);
-  };
+  }, []);
 
   return {
     selectedStickers,
