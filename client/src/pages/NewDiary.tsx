@@ -2,7 +2,7 @@ import Fade from "react-reveal/Fade";
 
 import { PinkPurpleBackground } from "src/styles/Common";
 import { BackButton, PageTitle } from "src/components/common";
-import PostButton from "src/components/diary";
+import { PostButton } from "src/components/common/diary";
 import NewDiaryForm from "src/components/new-diary";
 
 const NewDiary = () => {

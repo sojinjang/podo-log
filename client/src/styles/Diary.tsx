@@ -68,6 +68,11 @@ export const StickerImg = tw.img`
 h-[7vh]
 `;
 
+export const CancelImg = tw.img`
+h-[2vh] absolute right-0 
+drop-shadow-lg hover:drop-shadow-none transition duration-300 ease-in-out
+`;
+
 export const ProfileImg = tw.img`
 w-[40px] h-[40px] min-[390px]:w-[55px] min-[390px]:h-[55px] md:w-[58px] md:h-[58px] 
 rounded-full object-cover shadow-lg 

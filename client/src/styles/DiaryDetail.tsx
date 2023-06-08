@@ -119,11 +119,6 @@ font-sans w-[10%] ml-auto cursor-pointer text-center
 text-sm sm:text-lg text-purple-1000 hover:opacity-50 ease-in duration-300
 `;
 
-export const CancelImg = tw.img`
-h-[2vh] absolute right-0 
-drop-shadow-lg hover:drop-shadow-none transition duration-300 ease-in-out
-`;
-
 export const StckButtonContainer = tw.div`
 mb-2 md:mb-4 cursor-pointer hover:opacity-50
 drop-shadow-xl hover:drop-shadow-none ease-in duration-300

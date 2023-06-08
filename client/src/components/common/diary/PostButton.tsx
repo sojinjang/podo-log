@@ -1,4 +1,4 @@
-import * as S from "../../styles/Diary";
+import * as S from "../../../styles/Diary";
 
 const PostButton = () => {
   return (
