@@ -55,7 +55,7 @@ const Grape = () => {
         <div className="h-screen">
           <GrapeInfo data={myGrape} grapeRef={grapeRef} />
           <MoveBtn stickerShopRef={stickerShopRef} isMoveDown={true} />
-          <div className="h-[17vh] w-screen" />
+          <div className="h-[17vh]" />
         </div>
         <S.StickerShopContainer ref={stickerShopRef}>
           <MoveBtn grapeRef={grapeRef} isMoveDown={false} />
